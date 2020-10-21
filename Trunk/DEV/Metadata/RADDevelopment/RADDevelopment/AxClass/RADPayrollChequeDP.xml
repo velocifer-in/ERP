@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>RADPayrollChequeDP</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[SrsReportParameterAttribute(classstr(RADPayChequeContract))]
+class RADPayrollChequeDP extends SRSReportDataProviderBase
+{
+    RADPayCheckTmp  payCheckTmp,payCheckTmpDetails;
+    StartDate           startDate,periodStartDate;
+    EndDate             endDate,periodEndDate;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>getPayCheckTmp</Name>
+				<Source><![CDATA[
+    [SrsReportDataSetAttribute(tableStr(RADPayCheckTmp))]
+    public RADPayCheckTmp getPayCheckTmp()
+    {
+        select * from PayCheckTmp;
+
+        return PayCheckTmp;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>processReport</Name>
+				<Source><![CDATA[
+    public void processReport()
+    {
+        RADPayChequeContract    contract = this.parmDataContract() as RADPayChequeContract;
+        CompanyInfo             Cominfo;
+       
+        TSTimesheetTable        timesheetTable;
+        TSTimesheetLineWeek     timesheetLineWeek;
+        TSTimesheetLine         timesheetLine;
+        HcmWorker               hcmWorker;
+        PayrollPayPeriod        payrollPayPeriod;
+        ProjTable               ProjTable;
+
+        payrollPayPeriod    = PayrollPayPeriod::find(contract.parmPayPeriod());
+
+        startDate     = payrollPayPeriod.PeriodStartDate;
+        endDate       = payrollPayPeriod.PeriodEndDate;
+        
+        while select timesheetTable
+            where timesheetTable.PeriodFrom == startDate && timesheetTable.PeriodTo == endDate
+            join timesheetLine 
+            where timesheetTable.TimesheetNbr == timesheetLine.TimesheetNbr
+            join timesheetLineWeek
+            where timesheetLine.RecId == timesheetLineWeek.TSTimesheetLine
+        {
+            hcmWorker =  HcmWorker::find(TSResource::workerRecId(timesheetLine.Resource));
+            ProjTable = ProjTable::find(timesheetLine.ProjId);
+
+            payCheckTmp.CategoryId              =  timesheetLine.CategoryId;
+            payCheckTmp.ResourceName            =  hcmWorker.name();
+            payCheckTmp.dataArea                =  strUpr(timesheetLine.DataAreaId);
+            payCheckTmp.HcmPersonnelNumberId    =  hcmWorker.PersonnelNumber;
+            payCheckTmp.RADPayCalc              =  ProjCategory::find(timesheetLine.CategoryId).RADPayCalc;
+            payCheckTmp.StartDate               =  timesheetLineWeek.DayFrom;//startDate;
+            payCheckTmp.EndDate                 =  timesheetLineWeek.DayTo;
+            payCheckTmp.DefaultProfileId        =  JmgEmployee::find(hcmWorker.recId).DefaultProfileId;
+            payCheckTmp.RADEmployeeType         =  JmgPayAgreementTable::find( payCheckTmp.DefaultProfileId).RADEmployeeType;
+            payCheckTmp.RADLeaveAndAbsence      =  ProjTable.RADLeaveAndAbsence;
+            
+            var TotalHours = timesheetLineWeek.totalHours();
+          
+            payCheckTmp.TotalHours = TotalHours;
+            payCheckTmp.Hours = TotalHours;
+             
+            payCheckTmp.insert();
+        }
+
+
+        HcmPersonnelNumberId    hcmPersonnelNumberId;
+        RADPayCheckDetailsTmp   payCheckDetailsTmp;
+        Qty                     hours;
+
+        insert_recordset payCheckDetailsTmp(Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence)
+            select Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence from payCheckTmp;
+
+
+        while select payCheckTmp group by HcmPersonnelNumberId, startDate,endDate where payCheckTmp.RADEmployeeType != RADEmployeeType::Salaried
+                                                                                    &&  payCheckTmp.RADLeaveAndAbsence == NoYes::No
+        {
+
+            periodStartDate = payCheckTmp.StartDate;
+            periodEndDate   = payCheckTmp.EndDate;
+            hcmPersonnelNumberId    = payCheckTmp.HcmPersonnelNumberId;
+
+            select sum(Hours) from payCheckDetailsTmp where payCheckDetailsTmp.HcmPersonnelNumberId == hcmPersonnelNumberId
+                                        && payCheckDetailsTmp.StartDate == periodStartDate
+                                        && payCheckDetailsTmp.EndDate   == periodEndDate
+                                        && payCheckDetailsTmp.RADLeaveAndAbsence == NoYes::No
+                                        && payCheckDetailsTmp.RADEmployeeType != RADEmployeeType::Salaried;
+            if (payCheckDetailsTmp.Hours > JmgPayAgreementTable::find(JmgEmployee::find(HcmWorker::findByPersonnelNumber(hcmPersonnelNumberId).RecId).DefaultProfileId).RADDays )
+            {
+                hours = payCheckDetailsTmp.Hours - JmgPayAgreementTable::find(JmgEmployee::find(HcmWorker::findByPersonnelNumber(hcmPersonnelNumberId).RecId).DefaultProfileId).RADDays;
+
+                payCheckDetailsTmp.StartDate               =  periodStartDate;//startDate;
+                payCheckDetailsTmp.EndDate                 =  periodEndDate;
+                payCheckDetailsTmp.HcmPersonnelNumberId    =  hcmPersonnelNumberId;
+                payCheckDetailsTmp.CategoryId              = 'OT';
+                payCheckDetailsTmp.Hours                   = hours;//payCheckDetailsTmp.Hours - JmgPayAgreementTable::find(JmgEmployee::find(HcmWorker::findByPersonnelNumber(hcmPersonnelNumberId).RecId).DefaultProfileId).RADDays;
+                payCheckDetailsTmp.RADPayCalc              = RADPayCalc::None;
+                payCheckDetailsTmp.RADEmployeeType                = JmgPayAgreementTable::find(JmgEmployee::find(HcmWorker::findByPersonnelNumber(hcmPersonnelNumberId).RecId).DefaultProfileId).RADEmployeeType;
+                payCheckDetailsTmp.insert();
+            }
+        }
+
+        while select payCheckDetailsTmp where payCheckDetailsTmp.CategoryId == 'OT'
+                                      //  && payCheckDetailsTmp.RADEmployeeType != RADEmployeeType::Salaried
+        {
+            ttsbegin;
+            select payCheckTmp where payCheckTmp.HcmPersonnelNumberId == payCheckDetailsTmp.HcmPersonnelNumberId
+                                && payCheckTmp.CategoryId == 'OT';
+            if(payCheckTmp)
+            {
+                payCheckTmp.selectForUpdate(true);
+                payCheckTmp.Hours += payCheckDetailsTmp.Hours;
+                payCheckTmp.update();
+            }
+            else
+            {
+                payCheckTmp.StartDate               =  startDate;// payCheckDetailsTmp.StartDate ;//startDate;
+                payCheckTmp.EndDate                 =  endDate;//payCheckDetailsTmp.EndDate ;
+                payCheckTmp.HcmPersonnelNumberId    =  payCheckDetailsTmp.HcmPersonnelNumberId ;
+                payCheckTmp.CategoryId              =  payCheckDetailsTmp.CategoryId  ;
+                payCheckTmp.Hours                   =  payCheckDetailsTmp.Hours;//payCheckDetailsTmp.Hours - JmgPayAgreementTable::find(JmgEmployee::find(HcmWorker::findByPersonnelNumber(hcmPersonnelNumberId).RecId).DefaultProfileId).RADDays;
+                payCheckTmp.RADPayCalc              =  RADPayCalc::None;
+                payCheckTmp.ResourceName            =  HcmWorker::findByPersonnelNumber(payCheckDetailsTmp.HcmPersonnelNumberId).name();
+                payCheckTmp.RADLeaveAndAbsence      =  NoYes::Yes;
+                payCheckTmp.RADEmployeeType         =  payCheckDetailsTmp.RADEmployeeType;//JmgPayAgreementTable::find(JmgEmployee::find(HcmWorker::findByPersonnelNumber(hcmPersonnelNumberId).RecId).DefaultProfileId).RADEmployeeType;
+                payCheckTmp.insert();
+            }
+            ttscommit;
+
+        }
+        delete_from payCheckDetailsTmp;
+
+        insert_recordset payCheckDetailsTmp(Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence)
+            select Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence from payCheckTmp;
+
+        delete_from payCheckTmp where payCheckTmp.RADLeaveAndAbsence == NoYes::No;
+
+        while select payCheckDetailsTmp order by HcmPersonnelNumberId where payCheckDetailsTmp.RADLeaveAndAbsence == NoYes::No
+        {
+            ttsbegin;
+            select payCheckTmp where payCheckTmp.HcmPersonnelNumberId == payCheckDetailsTmp.HcmPersonnelNumberId
+                                 && payCheckTmp.RADLeaveAndAbsence == NoYes::No;
+            if(payCheckTmp)
+            {
+                payCheckTmp.selectForUpdate(true);
+                payCheckTmp.Hours += payCheckDetailsTmp.Hours;
+                if (payCheckTmp.Hours > 80 && payCheckDetailsTmp.RADEmployeeType == RADEmployeeType::Hourly )
+                {
+                    payCheckTmp.Hours = 80;
+                }
+                payCheckTmp.update();
+            }
+            else
+            {
+                payCheckTmp.StartDate               =  startDate;
+                payCheckTmp.EndDate                 =  endDate;
+                payCheckTmp.HcmPersonnelNumberId    =  payCheckDetailsTmp.HcmPersonnelNumberId ;
+                if (payCheckDetailsTmp.RADEmployeeType == RADEmployeeType::Hourly)
+                {
+                    payCheckTmp.CategoryId              =  'Hourly';
+                }
+                else
+                {
+                    payCheckTmp.CategoryId              =  'Salary';
+                }
+                payCheckTmp.Hours                   =  payCheckDetailsTmp.Hours;
+                payCheckTmp.RADPayCalc              =  RADPayCalc::None;
+                payCheckTmp.ResourceName            =  HcmWorker::findByPersonnelNumber(payCheckDetailsTmp.HcmPersonnelNumberId).name();
+                payCheckTmp.RADLeaveAndAbsence      =  NoYes::No;
+                payCheckTmp.insert();
+            }
+            ttscommit;
+        }
+        update_recordset payCheckTmp setting StartDate = StartDate,EndDate  =  endDate ;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

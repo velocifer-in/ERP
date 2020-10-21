@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>RADCustInvAmountYearDP</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+/// The <c>CustInvoiceVolumeDP</c> class supports the <c>RADCustInvAmountYear</c>Microsoft SQL Server
+/// Reporting Services report.
+/// </summary>
+/// <remarks>
+/// Declares the variables, tables, enumeration values, macros, and so on that can be used for the
+/// <c>RADCustInvAmountYear</c>Reporting Services report.
+/// </remarks>
+[
+       SRSReportParameterAttribute(classStr(RADCustInvAmountYearContract))
+]
+public class RADCustInvAmountYearDP extends SRSReportDataProviderBase
+{
+
+    CustTable                   custTable;
+    RADCustInvAmountYearTmp     custInvAmountYearTmp;
+    
+    TransDate fromDate;
+    TransDate toDate;
+    AmountMST minAmount;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>dateRange</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Sets the date range.
+    /// </summary>
+    /// <returns>
+    /// The date range value.
+    /// </returns>
+    public str dateRange()
+    {
+        str dateRange = '';
+
+        if (fromDate && toDate)
+        {
+            dateRange = strfmt('%1..%2', fromDate, toDate);
+        }
+        else
+        {
+            if (fromDate && !toDate)
+            {
+                dateRange = strfmt ('%1', fromDate);
+            }
+            if (!fromDate && toDate)
+            {
+                dateRange = strfmt ('%1', toDate);
+            }
+        }
+        return dateRange;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getRADCustInvAmountYearTmp</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Retrieves a temporary table.
+    /// </summary>
+    /// <returns>
+    /// The <c>RADCustInvAmountYearTmp</c> temporary table.
+    /// </returns>
+    [
+        SRSReportDataSetAttribute(tablestr(RADCustInvAmountYearTmp))
+    ]
+    public RADCustInvAmountYearTmp getRADCustInvAmountYearTmp()
+    {
+        select custInvAmountYearTmp;
+        return custInvAmountYearTmp;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>processReport</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Processes the report business logic.
+    /// </summary>
+    /// <remarks>
+    /// This method is used to process the report business logic that is used by the
+    /// <c>CustInvoiceVolume</c> report.
+    /// </remarks>
+    public void processReport()
+    {
+        RADCustInvAmountYearContract contract = this.parmDataContract() as RADCustInvAmountYearContract;
+        CustTrans   custTrans;
+       
+        fromDate = contract.parmFromDate();
+        toDate   = contract.parmToDate();
+        
+        while select custTrans where custTrans.TransDate >= fromDate
+                                &&   custTrans.TransDate <= toDate
+        {
+            custInvAmountYearTmp.TransDate      = custTrans.TransDate;
+            custInvAmountYearTmp.AccountNum     = custTrans.AccountNum;
+            custInvAmountYearTmp.InvoiceAmount  = custTrans.AmountCur;
+            custInvAmountYearTmp.Year           = year(custTrans.TransDate);
+            custInvAmountYearTmp.MonthNum       = mthOfYr(custTrans.TransDate);
+            custInvAmountYearTmp.MonthName      = mthName(mthOfYr(custTrans.TransDate));
+            custInvAmountYearTmp.insert();
+        }
+
+       
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

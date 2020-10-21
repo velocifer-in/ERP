@@ -1,0 +1,1669 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxReport xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V2">
+	<Name>RADPaydetailChequeReport</Name>
+	<DataMethods />
+	<DataSets>
+		<AxReportDataSet xmlns="">
+			<Name>PayChequeDS</Name>
+			<DataSourceType>ReportDataProvider</DataSourceType>
+			<DynamicFilters>false</DynamicFilters>
+			<Query>SELECT * FROM RADPayrollChequeDP.RADPayCheckTmp</Query>
+			<FieldGroups />
+			<Fields>
+				<AxReportDataSetField>
+					<Name>CategoryId</Name>
+					<Alias>RADPayCheckTmp.1.CategoryId</Alias>
+					<DisplayWidth>Auto</DisplayWidth>
+					<UserDefined>false</UserDefined>
+				</AxReportDataSetField>
+				<AxReportDataSetField>
+					<Name>Dataarea</Name>
+					<Alias>RADPayCheckTmp.1.Dataarea</Alias>
+					<Caption>@SYS16939</Caption>
+					<DisplayWidth>Auto</DisplayWidth>
+					<UserDefined>false</UserDefined>
+				</AxReportDataSetField>
+				<AxReportDataSetField>
+					<Name>DefaultProfileId</Name>
+					<Alias>RADPayCheckTmp.1.DefaultProfileId</Alias>
+					<Caption>@SYS38567</Caption>
+					<DisplayWidth>Auto</DisplayWidth>
+					<UserDefined>false</UserDefined>
+				</AxReportDataSetField>
+				<AxReportDataSetField>
+					<Name>EndDate</Name>
+					<Alias>RADPayCheckTmp.1.EndDate</Alias>
+					<Caption>@SYS22882</Caption>
+					<DataType>System.DateTime</DataType>
+					<DisplayWidth>Auto</DisplayWidth>
+					<UserDefined>false</UserDefined>
+				</AxReportDataSetField>
+				<AxReportDataSetField>
+					<Name>HcmPersonnelNumberId</Name>
+					<Alias>RADPayCheckTmp.1.HcmPersonnelNumberId</Alias>
+					<Caption>@SYS303656</Caption>
+					<DisplayWidth>Auto</DisplayWidth>
+					<UserDefined>false</UserDefined>
+				</AxReportDataSetField>
+				<AxReportDataSetField>
+					<Name>Hours</Name>
+					<Alias>RADPayCheckTmp.1.Hours</Alias>
+					<DataType>System.Int32</DataType>
+					<DisplayWidth>Auto</DisplayWidth>
+					<UserDefined>false</UserDefined>
+				</AxReportDataSetField>
+				<AxReportDataSetField>
+					<Name>RADEmployeeTypeLabel</Name>
+					<Alias>RADPayCheckTmp.1.RADEmployeeType:LABEL(RADEmployeeType)</Alias>
+					<DisplayWidth>Auto</DisplayWidth>
+					<UserDefined>false</UserDefined>
+				</AxReportDataSetField>
+				<AxReportDataSetField>
+					<Name>RADEmployeeTypeName</Name>
+					<Alias>RADPayCheckTmp.1.RADEmployeeType:NAME(RADEmployeeType)</Alias>
+					<DisableAutoCreateInDataRegion>true</DisableAutoCreateInDataRegion>
+					<DisplayWidth>Auto</DisplayWidth>
+					<UserDefined>false</UserDefined>
+				</AxReportDataSetField>
+				<AxReportDataSetField>
+					<Name>RADLeaveAndAbsenceLabel</Name>
+					<Alias>RADPayCheckTmp.1.RADLeaveAndAbsence:LABEL(NoYes)</Alias>
+					<Caption>Leave and absence project</Caption>
+					<DisplayWidth>Auto</DisplayWidth>
+					<UserDefined>false</UserDefined>
+				</AxReportDataSetField>
+				<AxReportDataSetField>
+					<Name>RADLeaveAndAbsenceName</Name>
+					<Alias>RADPayCheckTmp.1.RADLeaveAndAbsence:NAME(NoYes)</Alias>
+					<Caption>Leave and absence project</Caption>
+					<DisableAutoCreateInDataRegion>true</DisableAutoCreateInDataRegion>
+					<DisplayWidth>Auto</DisplayWidth>
+					<UserDefined>false</UserDefined>
+				</AxReportDataSetField>
+				<AxReportDataSetField>
+					<Name>RADPayCalcLabel</Name>
+					<Alias>RADPayCheckTmp.1.RADPayCalc:LABEL(RADPayCalc)</Alias>
+					<DisplayWidth>Auto</DisplayWidth>
+					<UserDefined>false</UserDefined>
+				</AxReportDataSetField>
+				<AxReportDataSetField>
+					<Name>RADPayCalcName</Name>
+					<Alias>RADPayCheckTmp.1.RADPayCalc:NAME(RADPayCalc)</Alias>
+					<DisableAutoCreateInDataRegion>true</DisableAutoCreateInDataRegion>
+					<DisplayWidth>Auto</DisplayWidth>
+					<UserDefined>false</UserDefined>
+				</AxReportDataSetField>
+				<AxReportDataSetField>
+					<Name>Resource</Name>
+					<Alias>RADPayCheckTmp.1.Resource</Alias>
+					<Caption>@SYS115378</Caption>
+					<DataType>System.Int32</DataType>
+					<DisplayWidth>Auto</DisplayWidth>
+					<UserDefined>false</UserDefined>
+				</AxReportDataSetField>
+				<AxReportDataSetField>
+					<Name>ResourceName</Name>
+					<Alias>RADPayCheckTmp.1.ResourceName</Alias>
+					<Caption>Resource name</Caption>
+					<DisplayWidth>Auto</DisplayWidth>
+					<UserDefined>false</UserDefined>
+				</AxReportDataSetField>
+				<AxReportDataSetField>
+					<Name>StartDate</Name>
+					<Alias>RADPayCheckTmp.1.StartDate</Alias>
+					<Caption>@SYS2168</Caption>
+					<DataType>System.DateTime</DataType>
+					<DisplayWidth>Auto</DisplayWidth>
+					<UserDefined>false</UserDefined>
+				</AxReportDataSetField>
+				<AxReportDataSetField>
+					<Name>TotalHours</Name>
+					<Alias>RADPayCheckTmp.1.TotalHours</Alias>
+					<DataType>System.Int32</DataType>
+					<DisplayWidth>Auto</DisplayWidth>
+					<UserDefined>false</UserDefined>
+				</AxReportDataSetField>
+			</Fields>
+			<Parameters>
+				<AxReportDataSetParameter>
+					<Name>AX_PartitionKey</Name>
+					<Alias>AX_PartitionKey</Alias>
+					<DataType>System.String</DataType>
+					<Parameter>AX_PartitionKey</Parameter>
+				</AxReportDataSetParameter>
+				<AxReportDataSetParameter>
+					<Name>AX_CompanyName</Name>
+					<Alias>AX_CompanyName</Alias>
+					<DataType>System.String</DataType>
+					<Parameter>AX_CompanyName</Parameter>
+				</AxReportDataSetParameter>
+				<AxReportDataSetParameter>
+					<Name>AX_UserContext</Name>
+					<Alias>AX_UserContext</Alias>
+					<DataType>System.String</DataType>
+					<Parameter>AX_UserContext</Parameter>
+				</AxReportDataSetParameter>
+				<AxReportDataSetParameter>
+					<Name>AX_RenderingCulture</Name>
+					<Alias>AX_RenderingCulture</Alias>
+					<DataType>System.String</DataType>
+					<Parameter>AX_RenderingCulture</Parameter>
+				</AxReportDataSetParameter>
+				<AxReportDataSetParameter>
+					<Name>AX_ReportContext</Name>
+					<Alias>AX_ReportContext</Alias>
+					<DataType>System.String</DataType>
+					<Parameter>AX_ReportContext</Parameter>
+				</AxReportDataSetParameter>
+				<AxReportDataSetParameter>
+					<Name>AX_RdpPreProcessedId</Name>
+					<Alias>AX_RdpPreProcessedId</Alias>
+					<DataType>System.String</DataType>
+					<Parameter>AX_RdpPreProcessedId</Parameter>
+				</AxReportDataSetParameter>
+				<AxReportDataSetParameter>
+					<Name>PayCycle</Name>
+					<Alias>PayCycle</Alias>
+					<DataType>System.Int64</DataType>
+					<Parameter>PayChequeDS_PayCycle</Parameter>
+				</AxReportDataSetParameter>
+				<AxReportDataSetParameter>
+					<Name>PayPeriod</Name>
+					<Alias>PayPeriod</Alias>
+					<DataType>System.Int64</DataType>
+					<Parameter>PayChequeDS_PayPeriod</Parameter>
+				</AxReportDataSetParameter>
+			</Parameters>
+		</AxReportDataSet>
+	</DataSets>
+	<DefaultParameterGroup>
+		<Name xmlns="">Parameters</Name>
+		<ReportParameterBases xmlns="">
+			<AxReportParameterBase xmlns=""
+				i:type="AxReportParameter">
+				<Name>AX_PartitionKey</Name>
+				<AllowBlank>true</AllowBlank>
+				<Nullable>true</Nullable>
+				<UserVisibility>Hidden</UserVisibility>
+				<DefaultValue />
+				<Values />
+			</AxReportParameterBase>
+			<AxReportParameterBase xmlns=""
+				i:type="AxReportParameter">
+				<Name>AX_CompanyName</Name>
+				<UserVisibility>Hidden</UserVisibility>
+				<DefaultValue />
+				<Values />
+			</AxReportParameterBase>
+			<AxReportParameterBase xmlns=""
+				i:type="AxReportParameter">
+				<Name>AX_UserContext</Name>
+				<AllowBlank>true</AllowBlank>
+				<Nullable>true</Nullable>
+				<UserVisibility>Hidden</UserVisibility>
+				<DefaultValue />
+				<Values />
+			</AxReportParameterBase>
+			<AxReportParameterBase xmlns=""
+				i:type="AxReportParameter">
+				<Name>AX_RenderingCulture</Name>
+				<AllowBlank>true</AllowBlank>
+				<Nullable>true</Nullable>
+				<UserVisibility>Hidden</UserVisibility>
+				<DefaultValue />
+				<Values />
+			</AxReportParameterBase>
+			<AxReportParameterBase xmlns=""
+				i:type="AxReportParameter">
+				<Name>AX_ReportContext</Name>
+				<AllowBlank>true</AllowBlank>
+				<Nullable>true</Nullable>
+				<UserVisibility>Hidden</UserVisibility>
+				<DefaultValue />
+				<Values />
+			</AxReportParameterBase>
+			<AxReportParameterBase xmlns=""
+				i:type="AxReportParameter">
+				<Name>AX_RdpPreProcessedId</Name>
+				<AllowBlank>true</AllowBlank>
+				<Nullable>true</Nullable>
+				<UserVisibility>Hidden</UserVisibility>
+				<DefaultValue />
+				<Values />
+			</AxReportParameterBase>
+			<AxReportParameterBase xmlns=""
+				i:type="AxReportParameter">
+				<Name>PayChequeDS_PayCycle</Name>
+				<DataType>System.Int64</DataType>
+				<PromptString>@Payroll:PayCycle1</PromptString>
+				<DefaultValue />
+				<Values />
+			</AxReportParameterBase>
+			<AxReportParameterBase xmlns=""
+				i:type="AxReportParameter">
+				<Name>PayChequeDS_PayPeriod</Name>
+				<DataType>System.Int64</DataType>
+				<PromptString>@Payroll:PayPeriod</PromptString>
+				<DefaultValue />
+				<Values />
+			</AxReportParameterBase>
+		</ReportParameterBases>
+	</DefaultParameterGroup>
+	<Designs>
+		<AxReportDesign xmlns=""
+			i:type="AxReportPrecisionDesign">
+			<Name>Report</Name>
+			<Text>&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/reportdefinition"&gt;
+  &lt;AutoRefresh&gt;0&lt;/AutoRefresh&gt;
+  &lt;DataSources&gt;
+    &lt;DataSource Name="AutoGen__ReportDataProvider"&gt;
+      &lt;Transaction&gt;true&lt;/Transaction&gt;
+      &lt;ConnectionProperties&gt;
+        &lt;DataProvider&gt;AXREPORTDATAPROVIDER&lt;/DataProvider&gt;
+        &lt;ConnectString /&gt;
+        &lt;IntegratedSecurity&gt;true&lt;/IntegratedSecurity&gt;
+      &lt;/ConnectionProperties&gt;
+      &lt;rd:DataSourceID&gt;d9949805-afa0-4ac4-b905-c50a584423e3&lt;/rd:DataSourceID&gt;
+    &lt;/DataSource&gt;
+  &lt;/DataSources&gt;
+  &lt;DataSets&gt;
+    &lt;DataSet Name="PayChequeDS"&gt;
+      &lt;Query&gt;
+        &lt;DataSourceName&gt;AutoGen__ReportDataProvider&lt;/DataSourceName&gt;
+        &lt;QueryParameters&gt;
+          &lt;QueryParameter Name="AX_PartitionKey"&gt;
+            &lt;Value&gt;=Parameters!AX_PartitionKey.Value&lt;/Value&gt;
+          &lt;/QueryParameter&gt;
+          &lt;QueryParameter Name="AX_CompanyName"&gt;
+            &lt;Value&gt;=Parameters!AX_CompanyName.Value&lt;/Value&gt;
+          &lt;/QueryParameter&gt;
+          &lt;QueryParameter Name="AX_UserContext"&gt;
+            &lt;Value&gt;=Parameters!AX_UserContext.Value&lt;/Value&gt;
+          &lt;/QueryParameter&gt;
+          &lt;QueryParameter Name="AX_RenderingCulture"&gt;
+            &lt;Value&gt;=Parameters!AX_RenderingCulture.Value&lt;/Value&gt;
+          &lt;/QueryParameter&gt;
+          &lt;QueryParameter Name="AX_ReportContext"&gt;
+            &lt;Value&gt;=Parameters!AX_ReportContext.Value&lt;/Value&gt;
+          &lt;/QueryParameter&gt;
+          &lt;QueryParameter Name="AX_RdpPreProcessedId"&gt;
+            &lt;Value&gt;=Parameters!AX_RdpPreProcessedId.Value&lt;/Value&gt;
+          &lt;/QueryParameter&gt;
+          &lt;QueryParameter Name="PayCycle"&gt;
+            &lt;Value&gt;=Parameters!PayChequeDS_PayCycle.Value&lt;/Value&gt;
+          &lt;/QueryParameter&gt;
+          &lt;QueryParameter Name="PayPeriod"&gt;
+            &lt;Value&gt;=Parameters!PayChequeDS_PayPeriod.Value&lt;/Value&gt;
+          &lt;/QueryParameter&gt;
+        &lt;/QueryParameters&gt;
+        &lt;CommandText&gt;SELECT * FROM RADPayrollChequeDP.RADPayCheckTmp&lt;/CommandText&gt;
+        &lt;rd:UseGenericDesigner&gt;true&lt;/rd:UseGenericDesigner&gt;
+      &lt;/Query&gt;
+      &lt;Fields&gt;
+        &lt;Field Name="CategoryId"&gt;
+          &lt;DataField&gt;RADPayCheckTmp.1.CategoryId&lt;/DataField&gt;
+          &lt;rd:TypeName&gt;System.String&lt;/rd:TypeName&gt;
+        &lt;/Field&gt;
+        &lt;Field Name="Dataarea"&gt;
+          &lt;DataField&gt;RADPayCheckTmp.1.Dataarea&lt;/DataField&gt;
+          &lt;rd:TypeName&gt;System.String&lt;/rd:TypeName&gt;
+        &lt;/Field&gt;
+        &lt;Field Name="DefaultProfileId"&gt;
+          &lt;DataField&gt;RADPayCheckTmp.1.DefaultProfileId&lt;/DataField&gt;
+          &lt;rd:TypeName&gt;System.String&lt;/rd:TypeName&gt;
+        &lt;/Field&gt;
+        &lt;Field Name="EndDate"&gt;
+          &lt;DataField&gt;RADPayCheckTmp.1.EndDate&lt;/DataField&gt;
+          &lt;rd:TypeName&gt;System.DateTime&lt;/rd:TypeName&gt;
+        &lt;/Field&gt;
+        &lt;Field Name="HcmPersonnelNumberId"&gt;
+          &lt;DataField&gt;RADPayCheckTmp.1.HcmPersonnelNumberId&lt;/DataField&gt;
+          &lt;rd:TypeName&gt;System.String&lt;/rd:TypeName&gt;
+        &lt;/Field&gt;
+        &lt;Field Name="Hours"&gt;
+          &lt;DataField&gt;RADPayCheckTmp.1.Hours&lt;/DataField&gt;
+          &lt;rd:TypeName&gt;System.Int32&lt;/rd:TypeName&gt;
+        &lt;/Field&gt;
+        &lt;Field Name="RADEmployeeTypeLabel"&gt;
+          &lt;DataField&gt;RADPayCheckTmp.1.RADEmployeeType:LABEL(RADEmployeeType)&lt;/DataField&gt;
+          &lt;rd:TypeName&gt;System.String&lt;/rd:TypeName&gt;
+        &lt;/Field&gt;
+        &lt;Field Name="RADEmployeeTypeName"&gt;
+          &lt;DataField&gt;RADPayCheckTmp.1.RADEmployeeType:NAME(RADEmployeeType)&lt;/DataField&gt;
+          &lt;rd:TypeName&gt;System.String&lt;/rd:TypeName&gt;
+        &lt;/Field&gt;
+        &lt;Field Name="RADLeaveAndAbsenceLabel"&gt;
+          &lt;DataField&gt;RADPayCheckTmp.1.RADLeaveAndAbsence:LABEL(NoYes)&lt;/DataField&gt;
+          &lt;rd:TypeName&gt;System.String&lt;/rd:TypeName&gt;
+        &lt;/Field&gt;
+        &lt;Field Name="RADLeaveAndAbsenceName"&gt;
+          &lt;DataField&gt;RADPayCheckTmp.1.RADLeaveAndAbsence:NAME(NoYes)&lt;/DataField&gt;
+          &lt;rd:TypeName&gt;System.String&lt;/rd:TypeName&gt;
+        &lt;/Field&gt;
+        &lt;Field Name="RADPayCalcLabel"&gt;
+          &lt;DataField&gt;RADPayCheckTmp.1.RADPayCalc:LABEL(RADPayCalc)&lt;/DataField&gt;
+          &lt;rd:TypeName&gt;System.String&lt;/rd:TypeName&gt;
+        &lt;/Field&gt;
+        &lt;Field Name="RADPayCalcName"&gt;
+          &lt;DataField&gt;RADPayCheckTmp.1.RADPayCalc:NAME(RADPayCalc)&lt;/DataField&gt;
+          &lt;rd:TypeName&gt;System.String&lt;/rd:TypeName&gt;
+        &lt;/Field&gt;
+        &lt;Field Name="Resource"&gt;
+          &lt;DataField&gt;RADPayCheckTmp.1.Resource&lt;/DataField&gt;
+          &lt;rd:TypeName&gt;System.Int32&lt;/rd:TypeName&gt;
+        &lt;/Field&gt;
+        &lt;Field Name="ResourceName"&gt;
+          &lt;DataField&gt;RADPayCheckTmp.1.ResourceName&lt;/DataField&gt;
+          &lt;rd:TypeName&gt;System.String&lt;/rd:TypeName&gt;
+        &lt;/Field&gt;
+        &lt;Field Name="StartDate"&gt;
+          &lt;DataField&gt;RADPayCheckTmp.1.StartDate&lt;/DataField&gt;
+          &lt;rd:TypeName&gt;System.DateTime&lt;/rd:TypeName&gt;
+        &lt;/Field&gt;
+        &lt;Field Name="TotalHours"&gt;
+          &lt;DataField&gt;RADPayCheckTmp.1.TotalHours&lt;/DataField&gt;
+          &lt;rd:TypeName&gt;System.Int32&lt;/rd:TypeName&gt;
+        &lt;/Field&gt;
+      &lt;/Fields&gt;
+      &lt;rd:DataSetInfo&gt;
+        &lt;rd:DataSetName&gt;PayChequeDS&lt;/rd:DataSetName&gt;
+        &lt;rd:TableName&gt;Fields&lt;/rd:TableName&gt;
+        &lt;rd:TableAdapterFillMethod&gt;Fill&lt;/rd:TableAdapterFillMethod&gt;
+        &lt;rd:TableAdapterGetDataMethod&gt;GetData&lt;/rd:TableAdapterGetDataMethod&gt;
+        &lt;rd:TableAdapterName&gt;FieldsTableAdapter&lt;/rd:TableAdapterName&gt;
+      &lt;/rd:DataSetInfo&gt;
+    &lt;/DataSet&gt;
+  &lt;/DataSets&gt;
+  &lt;ReportSections&gt;
+    &lt;ReportSection&gt;
+      &lt;Body&gt;
+        &lt;ReportItems&gt;
+          &lt;Tablix Name="Tablix1"&gt;
+            &lt;TablixBody&gt;
+              &lt;TablixColumns&gt;
+                &lt;TablixColumn&gt;
+                  &lt;Width&gt;1.09375in&lt;/Width&gt;
+                &lt;/TablixColumn&gt;
+                &lt;TablixColumn&gt;
+                  &lt;Width&gt;1.25in&lt;/Width&gt;
+                &lt;/TablixColumn&gt;
+                &lt;TablixColumn&gt;
+                  &lt;Width&gt;1in&lt;/Width&gt;
+                &lt;/TablixColumn&gt;
+                &lt;TablixColumn&gt;
+                  &lt;Width&gt;1in&lt;/Width&gt;
+                &lt;/TablixColumn&gt;
+                &lt;TablixColumn&gt;
+                  &lt;Width&gt;1in&lt;/Width&gt;
+                &lt;/TablixColumn&gt;
+              &lt;/TablixColumns&gt;
+              &lt;TablixRows&gt;
+                &lt;TablixRow&gt;
+                  &lt;Height&gt;0.25in&lt;/Height&gt;
+                  &lt;TablixCells&gt;
+                    &lt;TablixCell&gt;
+                      &lt;CellContents&gt;
+                        &lt;Textbox Name="Textbox6"&gt;
+                          &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                          &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                          &lt;Paragraphs&gt;
+                            &lt;Paragraph&gt;
+                              &lt;TextRuns&gt;
+                                &lt;TextRun&gt;
+                                  &lt;Value&gt;Pay component&lt;/Value&gt;
+                                  &lt;Style /&gt;
+                                &lt;/TextRun&gt;
+                              &lt;/TextRuns&gt;
+                              &lt;Style /&gt;
+                            &lt;/Paragraph&gt;
+                          &lt;/Paragraphs&gt;
+                          &lt;rd:DefaultName&gt;Textbox6&lt;/rd:DefaultName&gt;
+                          &lt;Style&gt;
+                            &lt;Border&gt;
+                              &lt;Color&gt;LightGrey&lt;/Color&gt;
+                              &lt;Style&gt;Solid&lt;/Style&gt;
+                            &lt;/Border&gt;
+                            &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                            &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                            &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                            &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                          &lt;/Style&gt;
+                        &lt;/Textbox&gt;
+                      &lt;/CellContents&gt;
+                    &lt;/TablixCell&gt;
+                    &lt;TablixCell&gt;
+                      &lt;CellContents&gt;
+                        &lt;Textbox Name="Textbox2"&gt;
+                          &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                          &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                          &lt;Paragraphs&gt;
+                            &lt;Paragraph&gt;
+                              &lt;TextRuns&gt;
+                                &lt;TextRun&gt;
+                                  &lt;Value&gt;RADLeave And Absence Label&lt;/Value&gt;
+                                  &lt;Style /&gt;
+                                &lt;/TextRun&gt;
+                              &lt;/TextRuns&gt;
+                              &lt;Style /&gt;
+                            &lt;/Paragraph&gt;
+                          &lt;/Paragraphs&gt;
+                          &lt;rd:DefaultName&gt;Textbox2&lt;/rd:DefaultName&gt;
+                          &lt;Style&gt;
+                            &lt;Border&gt;
+                              &lt;Color&gt;LightGrey&lt;/Color&gt;
+                              &lt;Style&gt;Solid&lt;/Style&gt;
+                            &lt;/Border&gt;
+                            &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                            &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                            &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                            &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                          &lt;/Style&gt;
+                        &lt;/Textbox&gt;
+                      &lt;/CellContents&gt;
+                    &lt;/TablixCell&gt;
+                    &lt;TablixCell&gt;
+                      &lt;CellContents&gt;
+                        &lt;Textbox Name="Textbox9"&gt;
+                          &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                          &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                          &lt;Paragraphs&gt;
+                            &lt;Paragraph&gt;
+                              &lt;TextRuns&gt;
+                                &lt;TextRun&gt;
+                                  &lt;Value&gt;Start Date&lt;/Value&gt;
+                                  &lt;Style /&gt;
+                                &lt;/TextRun&gt;
+                              &lt;/TextRuns&gt;
+                              &lt;Style /&gt;
+                            &lt;/Paragraph&gt;
+                          &lt;/Paragraphs&gt;
+                          &lt;rd:DefaultName&gt;Textbox9&lt;/rd:DefaultName&gt;
+                          &lt;Style&gt;
+                            &lt;Border&gt;
+                              &lt;Color&gt;LightGrey&lt;/Color&gt;
+                              &lt;Style&gt;Solid&lt;/Style&gt;
+                            &lt;/Border&gt;
+                            &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                            &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                            &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                            &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                          &lt;/Style&gt;
+                        &lt;/Textbox&gt;
+                      &lt;/CellContents&gt;
+                    &lt;/TablixCell&gt;
+                    &lt;TablixCell&gt;
+                      &lt;CellContents&gt;
+                        &lt;Textbox Name="Textbox12"&gt;
+                          &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                          &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                          &lt;Paragraphs&gt;
+                            &lt;Paragraph&gt;
+                              &lt;TextRuns&gt;
+                                &lt;TextRun&gt;
+                                  &lt;Value&gt;End Date&lt;/Value&gt;
+                                  &lt;Style /&gt;
+                                &lt;/TextRun&gt;
+                              &lt;/TextRuns&gt;
+                              &lt;Style /&gt;
+                            &lt;/Paragraph&gt;
+                          &lt;/Paragraphs&gt;
+                          &lt;rd:DefaultName&gt;Textbox12&lt;/rd:DefaultName&gt;
+                          &lt;Style&gt;
+                            &lt;Border&gt;
+                              &lt;Color&gt;LightGrey&lt;/Color&gt;
+                              &lt;Style&gt;Solid&lt;/Style&gt;
+                            &lt;/Border&gt;
+                            &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                            &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                            &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                            &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                          &lt;/Style&gt;
+                        &lt;/Textbox&gt;
+                      &lt;/CellContents&gt;
+                    &lt;/TablixCell&gt;
+                    &lt;TablixCell&gt;
+                      &lt;CellContents&gt;
+                        &lt;Textbox Name="Textbox8"&gt;
+                          &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                          &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                          &lt;Paragraphs&gt;
+                            &lt;Paragraph&gt;
+                              &lt;TextRuns&gt;
+                                &lt;TextRun&gt;
+                                  &lt;Value&gt;Hours&lt;/Value&gt;
+                                  &lt;Style /&gt;
+                                &lt;/TextRun&gt;
+                              &lt;/TextRuns&gt;
+                              &lt;Style&gt;
+                                &lt;TextAlign&gt;Center&lt;/TextAlign&gt;
+                              &lt;/Style&gt;
+                            &lt;/Paragraph&gt;
+                          &lt;/Paragraphs&gt;
+                          &lt;rd:DefaultName&gt;Textbox8&lt;/rd:DefaultName&gt;
+                          &lt;Style&gt;
+                            &lt;Border&gt;
+                              &lt;Color&gt;LightGrey&lt;/Color&gt;
+                              &lt;Style&gt;Solid&lt;/Style&gt;
+                            &lt;/Border&gt;
+                            &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                            &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                            &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                            &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                          &lt;/Style&gt;
+                        &lt;/Textbox&gt;
+                      &lt;/CellContents&gt;
+                    &lt;/TablixCell&gt;
+                  &lt;/TablixCells&gt;
+                &lt;/TablixRow&gt;
+                &lt;TablixRow&gt;
+                  &lt;Height&gt;0.25in&lt;/Height&gt;
+                  &lt;TablixCells&gt;
+                    &lt;TablixCell&gt;
+                      &lt;CellContents&gt;
+                        &lt;Textbox Name="CategoryId"&gt;
+                          &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                          &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                          &lt;Paragraphs&gt;
+                            &lt;Paragraph&gt;
+                              &lt;TextRuns&gt;
+                                &lt;TextRun&gt;
+                                  &lt;Value&gt;=Fields!CategoryId.Value&lt;/Value&gt;
+                                  &lt;Style /&gt;
+                                &lt;/TextRun&gt;
+                              &lt;/TextRuns&gt;
+                              &lt;Style /&gt;
+                            &lt;/Paragraph&gt;
+                          &lt;/Paragraphs&gt;
+                          &lt;rd:DefaultName&gt;CategoryId&lt;/rd:DefaultName&gt;
+                          &lt;CustomProperties&gt;
+                            &lt;CustomProperty&gt;
+                              &lt;Name&gt;AXDataType&lt;/Name&gt;
+                              &lt;Value&gt;String&lt;/Value&gt;
+                            &lt;/CustomProperty&gt;
+                            &lt;CustomProperty&gt;
+                              &lt;Name&gt;AXEDTFormat&lt;/Name&gt;
+                              &lt;Value&gt;RADPayCheckTmp.CategoryId&lt;/Value&gt;
+                            &lt;/CustomProperty&gt;
+                            &lt;CustomProperty&gt;
+                              &lt;Name&gt;AXEDTTextAlign&lt;/Name&gt;
+                              &lt;Value&gt;RADPayCheckTmp.CategoryId&lt;/Value&gt;
+                            &lt;/CustomProperty&gt;
+                            &lt;CustomProperty&gt;
+                              &lt;Name&gt;AXEDTDirection&lt;/Name&gt;
+                              &lt;Value&gt;RADPayCheckTmp.CategoryId&lt;/Value&gt;
+                            &lt;/CustomProperty&gt;
+                          &lt;/CustomProperties&gt;
+                          &lt;Style&gt;
+                            &lt;Border&gt;
+                              &lt;Color&gt;LightGrey&lt;/Color&gt;
+                              &lt;Style&gt;Solid&lt;/Style&gt;
+                            &lt;/Border&gt;
+                            &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                            &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                            &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                            &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                          &lt;/Style&gt;
+                        &lt;/Textbox&gt;
+                      &lt;/CellContents&gt;
+                    &lt;/TablixCell&gt;
+                    &lt;TablixCell&gt;
+                      &lt;CellContents&gt;
+                        &lt;Textbox Name="RADLeaveAndAbsenceLabel"&gt;
+                          &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                          &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                          &lt;Paragraphs&gt;
+                            &lt;Paragraph&gt;
+                              &lt;TextRuns&gt;
+                                &lt;TextRun&gt;
+                                  &lt;Value&gt;=Fields!RADLeaveAndAbsenceLabel.Value&lt;/Value&gt;
+                                  &lt;Style /&gt;
+                                &lt;/TextRun&gt;
+                              &lt;/TextRuns&gt;
+                              &lt;Style /&gt;
+                            &lt;/Paragraph&gt;
+                          &lt;/Paragraphs&gt;
+                          &lt;rd:DefaultName&gt;RADLeaveAndAbsenceLabel&lt;/rd:DefaultName&gt;
+                          &lt;CustomProperties&gt;
+                            &lt;CustomProperty&gt;
+                              &lt;Name&gt;AXDataType&lt;/Name&gt;
+                              &lt;Value&gt;String&lt;/Value&gt;
+                            &lt;/CustomProperty&gt;
+                            &lt;CustomProperty&gt;
+                              &lt;Name&gt;AXEDTFormat&lt;/Name&gt;
+                              &lt;Value&gt;RADPayCheckTmp.RADLeaveAndAbsence&lt;/Value&gt;
+                            &lt;/CustomProperty&gt;
+                            &lt;CustomProperty&gt;
+                              &lt;Name&gt;AXEDTTextAlign&lt;/Name&gt;
+                              &lt;Value&gt;RADPayCheckTmp.RADLeaveAndAbsence&lt;/Value&gt;
+                            &lt;/CustomProperty&gt;
+                            &lt;CustomProperty&gt;
+                              &lt;Name&gt;AXEDTDirection&lt;/Name&gt;
+                              &lt;Value&gt;RADPayCheckTmp.RADLeaveAndAbsence&lt;/Value&gt;
+                            &lt;/CustomProperty&gt;
+                          &lt;/CustomProperties&gt;
+                          &lt;Style&gt;
+                            &lt;Border&gt;
+                              &lt;Color&gt;LightGrey&lt;/Color&gt;
+                              &lt;Style&gt;Solid&lt;/Style&gt;
+                            &lt;/Border&gt;
+                            &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                            &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                            &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                            &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                          &lt;/Style&gt;
+                        &lt;/Textbox&gt;
+                      &lt;/CellContents&gt;
+                    &lt;/TablixCell&gt;
+                    &lt;TablixCell&gt;
+                      &lt;CellContents&gt;
+                        &lt;Textbox Name="StartDate"&gt;
+                          &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                          &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                          &lt;Paragraphs&gt;
+                            &lt;Paragraph&gt;
+                              &lt;TextRuns&gt;
+                                &lt;TextRun&gt;
+                                  &lt;Value&gt;=Fields!StartDate.Value&lt;/Value&gt;
+                                  &lt;Style /&gt;
+                                &lt;/TextRun&gt;
+                              &lt;/TextRuns&gt;
+                              &lt;Style /&gt;
+                            &lt;/Paragraph&gt;
+                          &lt;/Paragraphs&gt;
+                          &lt;rd:DefaultName&gt;StartDate&lt;/rd:DefaultName&gt;
+                          &lt;CustomProperties&gt;
+                            &lt;CustomProperty&gt;
+                              &lt;Name&gt;AXDataType&lt;/Name&gt;
+                              &lt;Value&gt;DateTime&lt;/Value&gt;
+                            &lt;/CustomProperty&gt;
+                            &lt;CustomProperty&gt;
+                              &lt;Name&gt;AXEDTFormat&lt;/Name&gt;
+                              &lt;Value&gt;RADPayCheckTmp.StartDate&lt;/Value&gt;
+                            &lt;/CustomProperty&gt;
+                            &lt;CustomProperty&gt;
+                              &lt;Name&gt;AXEDTTextAlign&lt;/Name&gt;
+                              &lt;Value&gt;RADPayCheckTmp.StartDate&lt;/Value&gt;
+                            &lt;/CustomProperty&gt;
+                            &lt;CustomProperty&gt;
+                              &lt;Name&gt;AXEDTDirection&lt;/Name&gt;
+                              &lt;Value&gt;RADPayCheckTmp.StartDate&lt;/Value&gt;
+                            &lt;/CustomProperty&gt;
+                          &lt;/CustomProperties&gt;
+                          &lt;Style&gt;
+                            &lt;Border&gt;
+                              &lt;Color&gt;LightGrey&lt;/Color&gt;
+                              &lt;Style&gt;Solid&lt;/Style&gt;
+                            &lt;/Border&gt;
+                            &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                            &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                            &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                            &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                          &lt;/Style&gt;
+                        &lt;/Textbox&gt;
+                      &lt;/CellContents&gt;
+                    &lt;/TablixCell&gt;
+                    &lt;TablixCell&gt;
+                      &lt;CellContents&gt;
+                        &lt;Textbox Name="EndDate"&gt;
+                          &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                          &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                          &lt;Paragraphs&gt;
+                            &lt;Paragraph&gt;
+                              &lt;TextRuns&gt;
+                                &lt;TextRun&gt;
+                                  &lt;Value&gt;=Fields!EndDate.Value&lt;/Value&gt;
+                                  &lt;Style /&gt;
+                                &lt;/TextRun&gt;
+                              &lt;/TextRuns&gt;
+                              &lt;Style /&gt;
+                            &lt;/Paragraph&gt;
+                          &lt;/Paragraphs&gt;
+                          &lt;rd:DefaultName&gt;EndDate&lt;/rd:DefaultName&gt;
+                          &lt;CustomProperties&gt;
+                            &lt;CustomProperty&gt;
+                              &lt;Name&gt;AXDataType&lt;/Name&gt;
+                              &lt;Value&gt;DateTime&lt;/Value&gt;
+                            &lt;/CustomProperty&gt;
+                            &lt;CustomProperty&gt;
+                              &lt;Name&gt;AXEDTFormat&lt;/Name&gt;
+                              &lt;Value&gt;RADPayCheckTmp.EndDate&lt;/Value&gt;
+                            &lt;/CustomProperty&gt;
+                            &lt;CustomProperty&gt;
+                              &lt;Name&gt;AXEDTTextAlign&lt;/Name&gt;
+                              &lt;Value&gt;RADPayCheckTmp.EndDate&lt;/Value&gt;
+                            &lt;/CustomProperty&gt;
+                            &lt;CustomProperty&gt;
+                              &lt;Name&gt;AXEDTDirection&lt;/Name&gt;
+                              &lt;Value&gt;RADPayCheckTmp.EndDate&lt;/Value&gt;
+                            &lt;/CustomProperty&gt;
+                          &lt;/CustomProperties&gt;
+                          &lt;Style&gt;
+                            &lt;Border&gt;
+                              &lt;Color&gt;LightGrey&lt;/Color&gt;
+                              &lt;Style&gt;Solid&lt;/Style&gt;
+                            &lt;/Border&gt;
+                            &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                            &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                            &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                            &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                          &lt;/Style&gt;
+                        &lt;/Textbox&gt;
+                      &lt;/CellContents&gt;
+                    &lt;/TablixCell&gt;
+                    &lt;TablixCell&gt;
+                      &lt;CellContents&gt;
+                        &lt;Textbox Name="Hours"&gt;
+                          &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                          &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                          &lt;Paragraphs&gt;
+                            &lt;Paragraph&gt;
+                              &lt;TextRuns&gt;
+                                &lt;TextRun&gt;
+                                  &lt;Value&gt;=Fields!Hours.Value&lt;/Value&gt;
+                                  &lt;Style /&gt;
+                                &lt;/TextRun&gt;
+                              &lt;/TextRuns&gt;
+                              &lt;Style&gt;
+                                &lt;TextAlign&gt;Center&lt;/TextAlign&gt;
+                              &lt;/Style&gt;
+                            &lt;/Paragraph&gt;
+                          &lt;/Paragraphs&gt;
+                          &lt;rd:DefaultName&gt;Hours&lt;/rd:DefaultName&gt;
+                          &lt;CustomProperties&gt;
+                            &lt;CustomProperty&gt;
+                              &lt;Name&gt;AXDataType&lt;/Name&gt;
+                              &lt;Value&gt;Integer&lt;/Value&gt;
+                            &lt;/CustomProperty&gt;
+                            &lt;CustomProperty&gt;
+                              &lt;Name&gt;AXEDTFormat&lt;/Name&gt;
+                              &lt;Value&gt;RADPayCheckTmp.Hours&lt;/Value&gt;
+                            &lt;/CustomProperty&gt;
+                            &lt;CustomProperty&gt;
+                              &lt;Name&gt;AXEDTTextAlign&lt;/Name&gt;
+                              &lt;Value&gt;RADPayCheckTmp.Hours&lt;/Value&gt;
+                            &lt;/CustomProperty&gt;
+                            &lt;CustomProperty&gt;
+                              &lt;Name&gt;AXEDTDirection&lt;/Name&gt;
+                              &lt;Value&gt;RADPayCheckTmp.Hours&lt;/Value&gt;
+                            &lt;/CustomProperty&gt;
+                          &lt;/CustomProperties&gt;
+                          &lt;Style&gt;
+                            &lt;Border&gt;
+                              &lt;Color&gt;LightGrey&lt;/Color&gt;
+                              &lt;Style&gt;Solid&lt;/Style&gt;
+                            &lt;/Border&gt;
+                            &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                            &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                            &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                            &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                          &lt;/Style&gt;
+                        &lt;/Textbox&gt;
+                      &lt;/CellContents&gt;
+                    &lt;/TablixCell&gt;
+                  &lt;/TablixCells&gt;
+                &lt;/TablixRow&gt;
+                &lt;TablixRow&gt;
+                  &lt;Height&gt;0.25in&lt;/Height&gt;
+                  &lt;TablixCells&gt;
+                    &lt;TablixCell&gt;
+                      &lt;CellContents&gt;
+                        &lt;Textbox Name="Textbox17"&gt;
+                          &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                          &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                          &lt;Paragraphs&gt;
+                            &lt;Paragraph&gt;
+                              &lt;TextRuns&gt;
+                                &lt;TextRun&gt;
+                                  &lt;Value /&gt;
+                                  &lt;Style /&gt;
+                                &lt;/TextRun&gt;
+                              &lt;/TextRuns&gt;
+                              &lt;Style /&gt;
+                            &lt;/Paragraph&gt;
+                          &lt;/Paragraphs&gt;
+                          &lt;rd:DefaultName&gt;Textbox17&lt;/rd:DefaultName&gt;
+                          &lt;Style&gt;
+                            &lt;Border&gt;
+                              &lt;Color&gt;LightGrey&lt;/Color&gt;
+                              &lt;Style&gt;Solid&lt;/Style&gt;
+                            &lt;/Border&gt;
+                            &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                            &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                            &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                            &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                          &lt;/Style&gt;
+                        &lt;/Textbox&gt;
+                      &lt;/CellContents&gt;
+                    &lt;/TablixCell&gt;
+                    &lt;TablixCell&gt;
+                      &lt;CellContents&gt;
+                        &lt;Textbox Name="Textbox10"&gt;
+                          &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                          &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                          &lt;Paragraphs&gt;
+                            &lt;Paragraph&gt;
+                              &lt;TextRuns&gt;
+                                &lt;TextRun&gt;
+                                  &lt;Value /&gt;
+                                  &lt;Style /&gt;
+                                &lt;/TextRun&gt;
+                              &lt;/TextRuns&gt;
+                              &lt;Style /&gt;
+                            &lt;/Paragraph&gt;
+                          &lt;/Paragraphs&gt;
+                          &lt;rd:DefaultName&gt;Textbox10&lt;/rd:DefaultName&gt;
+                          &lt;Style&gt;
+                            &lt;Border&gt;
+                              &lt;Color&gt;LightGrey&lt;/Color&gt;
+                              &lt;Style&gt;Solid&lt;/Style&gt;
+                            &lt;/Border&gt;
+                            &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                            &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                            &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                            &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                          &lt;/Style&gt;
+                        &lt;/Textbox&gt;
+                      &lt;/CellContents&gt;
+                    &lt;/TablixCell&gt;
+                    &lt;TablixCell&gt;
+                      &lt;CellContents&gt;
+                        &lt;Textbox Name="Textbox11"&gt;
+                          &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                          &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                          &lt;Paragraphs&gt;
+                            &lt;Paragraph&gt;
+                              &lt;TextRuns&gt;
+                                &lt;TextRun&gt;
+                                  &lt;Value /&gt;
+                                  &lt;Style /&gt;
+                                &lt;/TextRun&gt;
+                              &lt;/TextRuns&gt;
+                              &lt;Style /&gt;
+                            &lt;/Paragraph&gt;
+                          &lt;/Paragraphs&gt;
+                          &lt;rd:DefaultName&gt;Textbox11&lt;/rd:DefaultName&gt;
+                          &lt;Style&gt;
+                            &lt;Border&gt;
+                              &lt;Color&gt;LightGrey&lt;/Color&gt;
+                              &lt;Style&gt;Solid&lt;/Style&gt;
+                            &lt;/Border&gt;
+                            &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                            &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                            &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                            &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                          &lt;/Style&gt;
+                        &lt;/Textbox&gt;
+                      &lt;/CellContents&gt;
+                    &lt;/TablixCell&gt;
+                    &lt;TablixCell&gt;
+                      &lt;CellContents&gt;
+                        &lt;Textbox Name="Textbox14"&gt;
+                          &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                          &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                          &lt;Paragraphs&gt;
+                            &lt;Paragraph&gt;
+                              &lt;TextRuns&gt;
+                                &lt;TextRun&gt;
+                                  &lt;Value /&gt;
+                                  &lt;Style /&gt;
+                                &lt;/TextRun&gt;
+                              &lt;/TextRuns&gt;
+                              &lt;Style /&gt;
+                            &lt;/Paragraph&gt;
+                          &lt;/Paragraphs&gt;
+                          &lt;rd:DefaultName&gt;Textbox14&lt;/rd:DefaultName&gt;
+                          &lt;Style&gt;
+                            &lt;Border&gt;
+                              &lt;Color&gt;LightGrey&lt;/Color&gt;
+                              &lt;Style&gt;Solid&lt;/Style&gt;
+                            &lt;/Border&gt;
+                            &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                            &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                            &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                            &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                          &lt;/Style&gt;
+                        &lt;/Textbox&gt;
+                      &lt;/CellContents&gt;
+                    &lt;/TablixCell&gt;
+                    &lt;TablixCell&gt;
+                      &lt;CellContents&gt;
+                        &lt;Textbox Name="Textbox18"&gt;
+                          &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                          &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                          &lt;Paragraphs&gt;
+                            &lt;Paragraph&gt;
+                              &lt;TextRuns&gt;
+                                &lt;TextRun&gt;
+                                  &lt;Value&gt;=Sum(Fields!Hours.Value)&lt;/Value&gt;
+                                  &lt;Style /&gt;
+                                &lt;/TextRun&gt;
+                              &lt;/TextRuns&gt;
+                              &lt;Style&gt;
+                                &lt;TextAlign&gt;Center&lt;/TextAlign&gt;
+                              &lt;/Style&gt;
+                            &lt;/Paragraph&gt;
+                          &lt;/Paragraphs&gt;
+                          &lt;rd:DefaultName&gt;Textbox18&lt;/rd:DefaultName&gt;
+                          &lt;Style&gt;
+                            &lt;Border&gt;
+                              &lt;Color&gt;LightGrey&lt;/Color&gt;
+                              &lt;Style&gt;Solid&lt;/Style&gt;
+                            &lt;/Border&gt;
+                            &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                            &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                            &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                            &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                          &lt;/Style&gt;
+                        &lt;/Textbox&gt;
+                      &lt;/CellContents&gt;
+                    &lt;/TablixCell&gt;
+                  &lt;/TablixCells&gt;
+                &lt;/TablixRow&gt;
+              &lt;/TablixRows&gt;
+            &lt;/TablixBody&gt;
+            &lt;TablixColumnHierarchy&gt;
+              &lt;TablixMembers&gt;
+                &lt;TablixMember /&gt;
+                &lt;TablixMember&gt;
+                  &lt;Visibility&gt;
+                    &lt;Hidden&gt;true&lt;/Hidden&gt;
+                  &lt;/Visibility&gt;
+                &lt;/TablixMember&gt;
+                &lt;TablixMember&gt;
+                  &lt;Visibility&gt;
+                    &lt;Hidden&gt;true&lt;/Hidden&gt;
+                  &lt;/Visibility&gt;
+                &lt;/TablixMember&gt;
+                &lt;TablixMember&gt;
+                  &lt;Visibility&gt;
+                    &lt;Hidden&gt;true&lt;/Hidden&gt;
+                  &lt;/Visibility&gt;
+                &lt;/TablixMember&gt;
+                &lt;TablixMember /&gt;
+              &lt;/TablixMembers&gt;
+            &lt;/TablixColumnHierarchy&gt;
+            &lt;TablixRowHierarchy&gt;
+              &lt;TablixMembers&gt;
+                &lt;TablixMember&gt;
+                  &lt;TablixHeader&gt;
+                    &lt;Size&gt;1in&lt;/Size&gt;
+                    &lt;CellContents&gt;
+                      &lt;Textbox Name="Textbox19"&gt;
+                        &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                        &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                        &lt;Paragraphs&gt;
+                          &lt;Paragraph&gt;
+                            &lt;TextRuns&gt;
+                              &lt;TextRun&gt;
+                                &lt;Value&gt;Company &lt;/Value&gt;
+                                &lt;Style /&gt;
+                              &lt;/TextRun&gt;
+                            &lt;/TextRuns&gt;
+                            &lt;Style /&gt;
+                          &lt;/Paragraph&gt;
+                        &lt;/Paragraphs&gt;
+                        &lt;rd:DefaultName&gt;Textbox19&lt;/rd:DefaultName&gt;
+                        &lt;Style&gt;
+                          &lt;Border&gt;
+                            &lt;Color&gt;LightGrey&lt;/Color&gt;
+                            &lt;Style&gt;Solid&lt;/Style&gt;
+                          &lt;/Border&gt;
+                          &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                          &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                          &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                          &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                        &lt;/Style&gt;
+                      &lt;/Textbox&gt;
+                    &lt;/CellContents&gt;
+                  &lt;/TablixHeader&gt;
+                  &lt;TablixMembers&gt;
+                    &lt;TablixMember&gt;
+                      &lt;TablixHeader&gt;
+                        &lt;Size&gt;1in&lt;/Size&gt;
+                        &lt;CellContents&gt;
+                          &lt;Textbox Name="Textbox3"&gt;
+                            &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                            &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                            &lt;Paragraphs&gt;
+                              &lt;Paragraph&gt;
+                                &lt;TextRuns&gt;
+                                  &lt;TextRun&gt;
+                                    &lt;Value&gt;Resource&lt;/Value&gt;
+                                    &lt;Style /&gt;
+                                  &lt;/TextRun&gt;
+                                &lt;/TextRuns&gt;
+                                &lt;Style /&gt;
+                              &lt;/Paragraph&gt;
+                            &lt;/Paragraphs&gt;
+                            &lt;rd:DefaultName&gt;Textbox3&lt;/rd:DefaultName&gt;
+                            &lt;Style&gt;
+                              &lt;Border&gt;
+                                &lt;Color&gt;LightGrey&lt;/Color&gt;
+                                &lt;Style&gt;Solid&lt;/Style&gt;
+                              &lt;/Border&gt;
+                              &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                              &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                              &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                              &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                            &lt;/Style&gt;
+                          &lt;/Textbox&gt;
+                        &lt;/CellContents&gt;
+                      &lt;/TablixHeader&gt;
+                      &lt;TablixMembers&gt;
+                        &lt;TablixMember&gt;
+                          &lt;TablixHeader&gt;
+                            &lt;Size&gt;1in&lt;/Size&gt;
+                            &lt;CellContents&gt;
+                              &lt;Textbox Name="Textbox4"&gt;
+                                &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                                &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                                &lt;Paragraphs&gt;
+                                  &lt;Paragraph&gt;
+                                    &lt;TextRuns&gt;
+                                      &lt;TextRun&gt;
+                                        &lt;Value&gt;Resource Name&lt;/Value&gt;
+                                        &lt;Style /&gt;
+                                      &lt;/TextRun&gt;
+                                    &lt;/TextRuns&gt;
+                                    &lt;Style /&gt;
+                                  &lt;/Paragraph&gt;
+                                &lt;/Paragraphs&gt;
+                                &lt;rd:DefaultName&gt;Textbox4&lt;/rd:DefaultName&gt;
+                                &lt;Style&gt;
+                                  &lt;Border&gt;
+                                    &lt;Color&gt;LightGrey&lt;/Color&gt;
+                                    &lt;Style&gt;Solid&lt;/Style&gt;
+                                  &lt;/Border&gt;
+                                  &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                                  &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                                  &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                                  &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                                &lt;/Style&gt;
+                              &lt;/Textbox&gt;
+                            &lt;/CellContents&gt;
+                          &lt;/TablixHeader&gt;
+                          &lt;TablixMembers&gt;
+                            &lt;TablixMember&gt;
+                              &lt;TablixHeader&gt;
+                                &lt;Size&gt;1.14583in&lt;/Size&gt;
+                                &lt;CellContents&gt;
+                                  &lt;Textbox Name="Textbox7"&gt;
+                                    &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                                    &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                                    &lt;Paragraphs&gt;
+                                      &lt;Paragraph&gt;
+                                        &lt;TextRuns&gt;
+                                          &lt;TextRun&gt;
+                                            &lt;Value&gt;Default Profile Id&lt;/Value&gt;
+                                            &lt;Style /&gt;
+                                          &lt;/TextRun&gt;
+                                        &lt;/TextRuns&gt;
+                                        &lt;Style /&gt;
+                                      &lt;/Paragraph&gt;
+                                    &lt;/Paragraphs&gt;
+                                    &lt;rd:DefaultName&gt;Textbox5&lt;/rd:DefaultName&gt;
+                                    &lt;Style&gt;
+                                      &lt;Border&gt;
+                                        &lt;Color&gt;LightGrey&lt;/Color&gt;
+                                        &lt;Style&gt;Solid&lt;/Style&gt;
+                                      &lt;/Border&gt;
+                                      &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                                      &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                                      &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                                      &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                                    &lt;/Style&gt;
+                                  &lt;/Textbox&gt;
+                                &lt;/CellContents&gt;
+                              &lt;/TablixHeader&gt;
+                              &lt;TablixMembers&gt;
+                                &lt;TablixMember /&gt;
+                              &lt;/TablixMembers&gt;
+                            &lt;/TablixMember&gt;
+                          &lt;/TablixMembers&gt;
+                        &lt;/TablixMember&gt;
+                      &lt;/TablixMembers&gt;
+                    &lt;/TablixMember&gt;
+                  &lt;/TablixMembers&gt;
+                  &lt;KeepWithGroup&gt;After&lt;/KeepWithGroup&gt;
+                &lt;/TablixMember&gt;
+                &lt;TablixMember&gt;
+                  &lt;Group Name="Resource"&gt;
+                    &lt;GroupExpressions&gt;
+                      &lt;GroupExpression&gt;=Fields!Resource.Value&lt;/GroupExpression&gt;
+                      &lt;GroupExpression&gt;=Fields!ResourceName.Value&lt;/GroupExpression&gt;
+                    &lt;/GroupExpressions&gt;
+                  &lt;/Group&gt;
+                  &lt;SortExpressions&gt;
+                    &lt;SortExpression&gt;
+                      &lt;Value&gt;=Fields!Resource.Value&lt;/Value&gt;
+                    &lt;/SortExpression&gt;
+                  &lt;/SortExpressions&gt;
+                  &lt;TablixHeader&gt;
+                    &lt;Size&gt;1in&lt;/Size&gt;
+                    &lt;CellContents&gt;
+                      &lt;Textbox Name="Dataarea"&gt;
+                        &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                        &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                        &lt;Paragraphs&gt;
+                          &lt;Paragraph&gt;
+                            &lt;TextRuns&gt;
+                              &lt;TextRun&gt;
+                                &lt;Value&gt;=Fields!Dataarea.Value&lt;/Value&gt;
+                                &lt;Style /&gt;
+                              &lt;/TextRun&gt;
+                            &lt;/TextRuns&gt;
+                            &lt;Style /&gt;
+                          &lt;/Paragraph&gt;
+                        &lt;/Paragraphs&gt;
+                        &lt;rd:DefaultName&gt;Dataarea&lt;/rd:DefaultName&gt;
+                        &lt;CustomProperties&gt;
+                          &lt;CustomProperty&gt;
+                            &lt;Name&gt;AXDataType&lt;/Name&gt;
+                            &lt;Value&gt;String&lt;/Value&gt;
+                          &lt;/CustomProperty&gt;
+                          &lt;CustomProperty&gt;
+                            &lt;Name&gt;AXEDTFormat&lt;/Name&gt;
+                            &lt;Value&gt;RADPayCheckTmp.Dataarea&lt;/Value&gt;
+                          &lt;/CustomProperty&gt;
+                          &lt;CustomProperty&gt;
+                            &lt;Name&gt;AXEDTTextAlign&lt;/Name&gt;
+                            &lt;Value&gt;RADPayCheckTmp.Dataarea&lt;/Value&gt;
+                          &lt;/CustomProperty&gt;
+                          &lt;CustomProperty&gt;
+                            &lt;Name&gt;AXEDTDirection&lt;/Name&gt;
+                            &lt;Value&gt;RADPayCheckTmp.Dataarea&lt;/Value&gt;
+                          &lt;/CustomProperty&gt;
+                        &lt;/CustomProperties&gt;
+                        &lt;Style&gt;
+                          &lt;Border&gt;
+                            &lt;Color&gt;LightGrey&lt;/Color&gt;
+                            &lt;Style&gt;Solid&lt;/Style&gt;
+                          &lt;/Border&gt;
+                          &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                          &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                          &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                          &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                        &lt;/Style&gt;
+                      &lt;/Textbox&gt;
+                    &lt;/CellContents&gt;
+                  &lt;/TablixHeader&gt;
+                  &lt;TablixMembers&gt;
+                    &lt;TablixMember&gt;
+                      &lt;TablixHeader&gt;
+                        &lt;Size&gt;1in&lt;/Size&gt;
+                        &lt;CellContents&gt;
+                          &lt;Textbox Name="HcmPersonnelNumberId"&gt;
+                            &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                            &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                            &lt;Paragraphs&gt;
+                              &lt;Paragraph&gt;
+                                &lt;TextRuns&gt;
+                                  &lt;TextRun&gt;
+                                    &lt;Value&gt;=Fields!HcmPersonnelNumberId.Value&lt;/Value&gt;
+                                    &lt;Style /&gt;
+                                  &lt;/TextRun&gt;
+                                &lt;/TextRuns&gt;
+                                &lt;Style /&gt;
+                              &lt;/Paragraph&gt;
+                            &lt;/Paragraphs&gt;
+                            &lt;rd:DefaultName&gt;HcmPersonnelNumberId&lt;/rd:DefaultName&gt;
+                            &lt;CustomProperties&gt;
+                              &lt;CustomProperty&gt;
+                                &lt;Name&gt;AXDataType&lt;/Name&gt;
+                                &lt;Value&gt;String&lt;/Value&gt;
+                              &lt;/CustomProperty&gt;
+                              &lt;CustomProperty&gt;
+                                &lt;Name&gt;AXEDTFormat&lt;/Name&gt;
+                                &lt;Value&gt;RADPayCheckTmp.HcmPersonnelNumberId&lt;/Value&gt;
+                              &lt;/CustomProperty&gt;
+                              &lt;CustomProperty&gt;
+                                &lt;Name&gt;AXEDTTextAlign&lt;/Name&gt;
+                                &lt;Value&gt;RADPayCheckTmp.HcmPersonnelNumberId&lt;/Value&gt;
+                              &lt;/CustomProperty&gt;
+                              &lt;CustomProperty&gt;
+                                &lt;Name&gt;AXEDTDirection&lt;/Name&gt;
+                                &lt;Value&gt;RADPayCheckTmp.HcmPersonnelNumberId&lt;/Value&gt;
+                              &lt;/CustomProperty&gt;
+                            &lt;/CustomProperties&gt;
+                            &lt;Style&gt;
+                              &lt;Border&gt;
+                                &lt;Color&gt;LightGrey&lt;/Color&gt;
+                                &lt;Style&gt;Solid&lt;/Style&gt;
+                              &lt;/Border&gt;
+                              &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                              &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                              &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                              &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                            &lt;/Style&gt;
+                          &lt;/Textbox&gt;
+                        &lt;/CellContents&gt;
+                      &lt;/TablixHeader&gt;
+                      &lt;TablixMembers&gt;
+                        &lt;TablixMember&gt;
+                          &lt;TablixHeader&gt;
+                            &lt;Size&gt;1in&lt;/Size&gt;
+                            &lt;CellContents&gt;
+                              &lt;Textbox Name="ResourceName"&gt;
+                                &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                                &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                                &lt;Paragraphs&gt;
+                                  &lt;Paragraph&gt;
+                                    &lt;TextRuns&gt;
+                                      &lt;TextRun&gt;
+                                        &lt;Value&gt;=Fields!ResourceName.Value&lt;/Value&gt;
+                                        &lt;Style /&gt;
+                                      &lt;/TextRun&gt;
+                                    &lt;/TextRuns&gt;
+                                    &lt;Style /&gt;
+                                  &lt;/Paragraph&gt;
+                                &lt;/Paragraphs&gt;
+                                &lt;rd:DefaultName&gt;ResourceName&lt;/rd:DefaultName&gt;
+                                &lt;CustomProperties&gt;
+                                  &lt;CustomProperty&gt;
+                                    &lt;Name&gt;AXDataType&lt;/Name&gt;
+                                    &lt;Value&gt;String&lt;/Value&gt;
+                                  &lt;/CustomProperty&gt;
+                                  &lt;CustomProperty&gt;
+                                    &lt;Name&gt;AXEDTFormat&lt;/Name&gt;
+                                    &lt;Value&gt;RADPayCheckTmp.ResourceName&lt;/Value&gt;
+                                  &lt;/CustomProperty&gt;
+                                  &lt;CustomProperty&gt;
+                                    &lt;Name&gt;AXEDTTextAlign&lt;/Name&gt;
+                                    &lt;Value&gt;RADPayCheckTmp.ResourceName&lt;/Value&gt;
+                                  &lt;/CustomProperty&gt;
+                                  &lt;CustomProperty&gt;
+                                    &lt;Name&gt;AXEDTDirection&lt;/Name&gt;
+                                    &lt;Value&gt;RADPayCheckTmp.ResourceName&lt;/Value&gt;
+                                  &lt;/CustomProperty&gt;
+                                &lt;/CustomProperties&gt;
+                                &lt;Style&gt;
+                                  &lt;Border&gt;
+                                    &lt;Color&gt;LightGrey&lt;/Color&gt;
+                                    &lt;Style&gt;Solid&lt;/Style&gt;
+                                  &lt;/Border&gt;
+                                  &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                                  &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                                  &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                                  &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                                &lt;/Style&gt;
+                              &lt;/Textbox&gt;
+                            &lt;/CellContents&gt;
+                          &lt;/TablixHeader&gt;
+                          &lt;TablixMembers&gt;
+                            &lt;TablixMember&gt;
+                              &lt;TablixHeader&gt;
+                                &lt;Size&gt;1.14583in&lt;/Size&gt;
+                                &lt;CellContents&gt;
+                                  &lt;Textbox Name="DefaultProfileId2"&gt;
+                                    &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                                    &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                                    &lt;Paragraphs&gt;
+                                      &lt;Paragraph&gt;
+                                        &lt;TextRuns&gt;
+                                          &lt;TextRun&gt;
+                                            &lt;Value&gt;=Fields!DefaultProfileId.Value&lt;/Value&gt;
+                                            &lt;Style /&gt;
+                                          &lt;/TextRun&gt;
+                                        &lt;/TextRuns&gt;
+                                        &lt;Style /&gt;
+                                      &lt;/Paragraph&gt;
+                                    &lt;/Paragraphs&gt;
+                                    &lt;rd:DefaultName&gt;DefaultProfileId&lt;/rd:DefaultName&gt;
+                                    &lt;CustomProperties&gt;
+                                      &lt;CustomProperty&gt;
+                                        &lt;Name&gt;AXDataType&lt;/Name&gt;
+                                        &lt;Value&gt;String&lt;/Value&gt;
+                                      &lt;/CustomProperty&gt;
+                                      &lt;CustomProperty&gt;
+                                        &lt;Name&gt;AXEDTFormat&lt;/Name&gt;
+                                        &lt;Value&gt;RADPayCheckTmp.DefaultProfileId&lt;/Value&gt;
+                                      &lt;/CustomProperty&gt;
+                                      &lt;CustomProperty&gt;
+                                        &lt;Name&gt;AXEDTTextAlign&lt;/Name&gt;
+                                        &lt;Value&gt;RADPayCheckTmp.DefaultProfileId&lt;/Value&gt;
+                                      &lt;/CustomProperty&gt;
+                                      &lt;CustomProperty&gt;
+                                        &lt;Name&gt;AXEDTDirection&lt;/Name&gt;
+                                        &lt;Value&gt;RADPayCheckTmp.DefaultProfileId&lt;/Value&gt;
+                                      &lt;/CustomProperty&gt;
+                                    &lt;/CustomProperties&gt;
+                                    &lt;Style&gt;
+                                      &lt;Border&gt;
+                                        &lt;Color&gt;LightGrey&lt;/Color&gt;
+                                        &lt;Style&gt;Solid&lt;/Style&gt;
+                                      &lt;/Border&gt;
+                                      &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                                      &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                                      &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                                      &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                                    &lt;/Style&gt;
+                                  &lt;/Textbox&gt;
+                                &lt;/CellContents&gt;
+                              &lt;/TablixHeader&gt;
+                              &lt;TablixMembers&gt;
+                                &lt;TablixMember&gt;
+                                  &lt;Group Name="Details" /&gt;
+                                  &lt;TablixMembers&gt;
+                                    &lt;TablixMember /&gt;
+                                  &lt;/TablixMembers&gt;
+                                &lt;/TablixMember&gt;
+                              &lt;/TablixMembers&gt;
+                            &lt;/TablixMember&gt;
+                          &lt;/TablixMembers&gt;
+                        &lt;/TablixMember&gt;
+                      &lt;/TablixMembers&gt;
+                    &lt;/TablixMember&gt;
+                  &lt;/TablixMembers&gt;
+                &lt;/TablixMember&gt;
+                &lt;TablixMember&gt;
+                  &lt;TablixHeader&gt;
+                    &lt;Size&gt;1in&lt;/Size&gt;
+                    &lt;CellContents&gt;
+                      &lt;Textbox Name="Textbox21"&gt;
+                        &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                        &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                        &lt;Paragraphs&gt;
+                          &lt;Paragraph&gt;
+                            &lt;TextRuns&gt;
+                              &lt;TextRun&gt;
+                                &lt;Value /&gt;
+                                &lt;Style&gt;
+                                  &lt;FontWeight&gt;Bold&lt;/FontWeight&gt;
+                                &lt;/Style&gt;
+                              &lt;/TextRun&gt;
+                            &lt;/TextRuns&gt;
+                            &lt;Style /&gt;
+                          &lt;/Paragraph&gt;
+                        &lt;/Paragraphs&gt;
+                        &lt;rd:DefaultName&gt;Textbox21&lt;/rd:DefaultName&gt;
+                        &lt;Style&gt;
+                          &lt;Border&gt;
+                            &lt;Color&gt;LightGrey&lt;/Color&gt;
+                            &lt;Style&gt;Solid&lt;/Style&gt;
+                          &lt;/Border&gt;
+                          &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                          &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                          &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                          &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                        &lt;/Style&gt;
+                      &lt;/Textbox&gt;
+                    &lt;/CellContents&gt;
+                  &lt;/TablixHeader&gt;
+                  &lt;TablixMembers&gt;
+                    &lt;TablixMember&gt;
+                      &lt;TablixHeader&gt;
+                        &lt;Size&gt;1in&lt;/Size&gt;
+                        &lt;CellContents&gt;
+                          &lt;Textbox Name="Textbox15"&gt;
+                            &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                            &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                            &lt;Paragraphs&gt;
+                              &lt;Paragraph&gt;
+                                &lt;TextRuns&gt;
+                                  &lt;TextRun&gt;
+                                    &lt;Value&gt;Total&lt;/Value&gt;
+                                    &lt;Style&gt;
+                                      &lt;FontWeight&gt;Bold&lt;/FontWeight&gt;
+                                    &lt;/Style&gt;
+                                  &lt;/TextRun&gt;
+                                &lt;/TextRuns&gt;
+                                &lt;Style /&gt;
+                              &lt;/Paragraph&gt;
+                            &lt;/Paragraphs&gt;
+                            &lt;rd:DefaultName&gt;Textbox15&lt;/rd:DefaultName&gt;
+                            &lt;Style&gt;
+                              &lt;Border&gt;
+                                &lt;Color&gt;LightGrey&lt;/Color&gt;
+                                &lt;Style&gt;Solid&lt;/Style&gt;
+                              &lt;/Border&gt;
+                              &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                              &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                              &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                              &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                            &lt;/Style&gt;
+                          &lt;/Textbox&gt;
+                        &lt;/CellContents&gt;
+                      &lt;/TablixHeader&gt;
+                      &lt;TablixMembers&gt;
+                        &lt;TablixMember&gt;
+                          &lt;TablixHeader&gt;
+                            &lt;Size&gt;1in&lt;/Size&gt;
+                            &lt;CellContents&gt;
+                              &lt;Textbox Name="Textbox16"&gt;
+                                &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                                &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                                &lt;Paragraphs&gt;
+                                  &lt;Paragraph&gt;
+                                    &lt;TextRuns&gt;
+                                      &lt;TextRun&gt;
+                                        &lt;Value /&gt;
+                                        &lt;Style /&gt;
+                                      &lt;/TextRun&gt;
+                                    &lt;/TextRuns&gt;
+                                    &lt;Style /&gt;
+                                  &lt;/Paragraph&gt;
+                                &lt;/Paragraphs&gt;
+                                &lt;rd:DefaultName&gt;Textbox16&lt;/rd:DefaultName&gt;
+                                &lt;Style&gt;
+                                  &lt;Border&gt;
+                                    &lt;Color&gt;LightGrey&lt;/Color&gt;
+                                    &lt;Style&gt;Solid&lt;/Style&gt;
+                                  &lt;/Border&gt;
+                                  &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                                  &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                                  &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                                  &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                                &lt;/Style&gt;
+                              &lt;/Textbox&gt;
+                            &lt;/CellContents&gt;
+                          &lt;/TablixHeader&gt;
+                          &lt;TablixMembers&gt;
+                            &lt;TablixMember&gt;
+                              &lt;TablixHeader&gt;
+                                &lt;Size&gt;1.14583in&lt;/Size&gt;
+                                &lt;CellContents&gt;
+                                  &lt;Textbox Name="Textbox24"&gt;
+                                    &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                                    &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                                    &lt;Paragraphs&gt;
+                                      &lt;Paragraph&gt;
+                                        &lt;TextRuns&gt;
+                                          &lt;TextRun&gt;
+                                            &lt;Value /&gt;
+                                            &lt;Style /&gt;
+                                          &lt;/TextRun&gt;
+                                        &lt;/TextRuns&gt;
+                                        &lt;Style /&gt;
+                                      &lt;/Paragraph&gt;
+                                    &lt;/Paragraphs&gt;
+                                    &lt;rd:DefaultName&gt;Textbox24&lt;/rd:DefaultName&gt;
+                                    &lt;Style&gt;
+                                      &lt;Border&gt;
+                                        &lt;Color&gt;LightGrey&lt;/Color&gt;
+                                        &lt;Style&gt;Solid&lt;/Style&gt;
+                                      &lt;/Border&gt;
+                                      &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                                      &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                                      &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                                      &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                                    &lt;/Style&gt;
+                                  &lt;/Textbox&gt;
+                                &lt;/CellContents&gt;
+                              &lt;/TablixHeader&gt;
+                            &lt;/TablixMember&gt;
+                          &lt;/TablixMembers&gt;
+                        &lt;/TablixMember&gt;
+                      &lt;/TablixMembers&gt;
+                      &lt;Visibility&gt;
+                        &lt;Hidden&gt;true&lt;/Hidden&gt;
+                      &lt;/Visibility&gt;
+                    &lt;/TablixMember&gt;
+                  &lt;/TablixMembers&gt;
+                  &lt;KeepWithGroup&gt;Before&lt;/KeepWithGroup&gt;
+                &lt;/TablixMember&gt;
+              &lt;/TablixMembers&gt;
+            &lt;/TablixRowHierarchy&gt;
+            &lt;DataSetName&gt;PayChequeDS&lt;/DataSetName&gt;
+            &lt;Top&gt;0.05083in&lt;/Top&gt;
+            &lt;Left&gt;0.125in&lt;/Left&gt;
+            &lt;Height&gt;0.75in&lt;/Height&gt;
+            &lt;Width&gt;9.48958in&lt;/Width&gt;
+            &lt;Style&gt;
+              &lt;Border&gt;
+                &lt;Style&gt;None&lt;/Style&gt;
+              &lt;/Border&gt;
+            &lt;/Style&gt;
+          &lt;/Tablix&gt;
+        &lt;/ReportItems&gt;
+        &lt;Height&gt;0.80083in&lt;/Height&gt;
+        &lt;Style /&gt;
+      &lt;/Body&gt;
+      &lt;Width&gt;9.61458in&lt;/Width&gt;
+      &lt;Page&gt;
+        &lt;PageHeader&gt;
+          &lt;Height&gt;0.7175in&lt;/Height&gt;
+          &lt;PrintOnFirstPage&gt;true&lt;/PrintOnFirstPage&gt;
+          &lt;PrintOnLastPage&gt;true&lt;/PrintOnLastPage&gt;
+          &lt;ReportItems&gt;
+            &lt;Textbox Name="Textbox1"&gt;
+              &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+              &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+              &lt;Paragraphs&gt;
+                &lt;Paragraph&gt;
+                  &lt;TextRuns&gt;
+                    &lt;TextRun&gt;
+                      &lt;Value&gt;Payroll Paychex Report&lt;/Value&gt;
+                      &lt;Style&gt;
+                        &lt;FontWeight&gt;Bold&lt;/FontWeight&gt;
+                      &lt;/Style&gt;
+                    &lt;/TextRun&gt;
+                  &lt;/TextRuns&gt;
+                  &lt;Style /&gt;
+                &lt;/Paragraph&gt;
+              &lt;/Paragraphs&gt;
+              &lt;rd:DefaultName&gt;Textbox1&lt;/rd:DefaultName&gt;
+              &lt;Top&gt;0.28694in&lt;/Top&gt;
+              &lt;Left&gt;1.97791in&lt;/Left&gt;
+              &lt;Height&gt;0.25in&lt;/Height&gt;
+              &lt;Width&gt;1.8125in&lt;/Width&gt;
+              &lt;Style&gt;
+                &lt;Border&gt;
+                  &lt;Style&gt;None&lt;/Style&gt;
+                &lt;/Border&gt;
+                &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+              &lt;/Style&gt;
+            &lt;/Textbox&gt;
+            &lt;Textbox Name="Textbox5"&gt;
+              &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+              &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+              &lt;Paragraphs&gt;
+                &lt;Paragraph&gt;
+                  &lt;TextRuns&gt;
+                    &lt;TextRun&gt;
+                      &lt;Value&gt;="Period : " &amp;amp; First(Fields!StartDate.Value, "PayChequeDS") &amp;amp; " - "  &amp;amp;First(Fields!EndDate.Value, "PayChequeDS")&lt;/Value&gt;
+                      &lt;Style&gt;
+                        &lt;FontWeight&gt;Bold&lt;/FontWeight&gt;
+                      &lt;/Style&gt;
+                    &lt;/TextRun&gt;
+                  &lt;/TextRuns&gt;
+                  &lt;Style /&gt;
+                &lt;/Paragraph&gt;
+              &lt;/Paragraphs&gt;
+              &lt;rd:DefaultName&gt;Textbox5&lt;/rd:DefaultName&gt;
+              &lt;Top&gt;0.28694in&lt;/Top&gt;
+              &lt;Left&gt;4.49875in&lt;/Left&gt;
+              &lt;Height&gt;0.25in&lt;/Height&gt;
+              &lt;Width&gt;2.75in&lt;/Width&gt;
+              &lt;ZIndex&gt;1&lt;/ZIndex&gt;
+              &lt;Style&gt;
+                &lt;Border&gt;
+                  &lt;Style&gt;None&lt;/Style&gt;
+                &lt;/Border&gt;
+                &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+              &lt;/Style&gt;
+            &lt;/Textbox&gt;
+          &lt;/ReportItems&gt;
+          &lt;Style&gt;
+            &lt;Border&gt;
+              &lt;Style&gt;None&lt;/Style&gt;
+            &lt;/Border&gt;
+          &lt;/Style&gt;
+        &lt;/PageHeader&gt;
+        &lt;InteractiveHeight&gt;11in&lt;/InteractiveHeight&gt;
+        &lt;InteractiveWidth&gt;8.5in&lt;/InteractiveWidth&gt;
+        &lt;LeftMargin&gt;1in&lt;/LeftMargin&gt;
+        &lt;RightMargin&gt;1in&lt;/RightMargin&gt;
+        &lt;TopMargin&gt;1in&lt;/TopMargin&gt;
+        &lt;BottomMargin&gt;1in&lt;/BottomMargin&gt;
+        &lt;Style /&gt;
+      &lt;/Page&gt;
+    &lt;/ReportSection&gt;
+  &lt;/ReportSections&gt;
+  &lt;ReportParameters&gt;
+    &lt;ReportParameter Name="AX_PartitionKey"&gt;
+      &lt;DataType&gt;String&lt;/DataType&gt;
+      &lt;Nullable&gt;true&lt;/Nullable&gt;
+      &lt;AllowBlank&gt;true&lt;/AllowBlank&gt;
+      &lt;Prompt&gt;AX_PartitionKey&lt;/Prompt&gt;
+      &lt;Hidden&gt;true&lt;/Hidden&gt;
+    &lt;/ReportParameter&gt;
+    &lt;ReportParameter Name="AX_CompanyName"&gt;
+      &lt;DataType&gt;String&lt;/DataType&gt;
+      &lt;Prompt&gt;AX_CompanyName&lt;/Prompt&gt;
+      &lt;Hidden&gt;true&lt;/Hidden&gt;
+    &lt;/ReportParameter&gt;
+    &lt;ReportParameter Name="AX_UserContext"&gt;
+      &lt;DataType&gt;String&lt;/DataType&gt;
+      &lt;Nullable&gt;true&lt;/Nullable&gt;
+      &lt;AllowBlank&gt;true&lt;/AllowBlank&gt;
+      &lt;Prompt&gt;AX_UserContext&lt;/Prompt&gt;
+      &lt;Hidden&gt;true&lt;/Hidden&gt;
+    &lt;/ReportParameter&gt;
+    &lt;ReportParameter Name="AX_RenderingCulture"&gt;
+      &lt;DataType&gt;String&lt;/DataType&gt;
+      &lt;Nullable&gt;true&lt;/Nullable&gt;
+      &lt;AllowBlank&gt;true&lt;/AllowBlank&gt;
+      &lt;Prompt&gt;AX_RenderingCulture&lt;/Prompt&gt;
+      &lt;Hidden&gt;true&lt;/Hidden&gt;
+    &lt;/ReportParameter&gt;
+    &lt;ReportParameter Name="AX_ReportContext"&gt;
+      &lt;DataType&gt;String&lt;/DataType&gt;
+      &lt;Nullable&gt;true&lt;/Nullable&gt;
+      &lt;AllowBlank&gt;true&lt;/AllowBlank&gt;
+      &lt;Prompt&gt;AX_ReportContext&lt;/Prompt&gt;
+      &lt;Hidden&gt;true&lt;/Hidden&gt;
+      &lt;UsedInQuery&gt;True&lt;/UsedInQuery&gt;
+    &lt;/ReportParameter&gt;
+    &lt;ReportParameter Name="AX_RdpPreProcessedId"&gt;
+      &lt;DataType&gt;String&lt;/DataType&gt;
+      &lt;Nullable&gt;true&lt;/Nullable&gt;
+      &lt;AllowBlank&gt;true&lt;/AllowBlank&gt;
+      &lt;Prompt&gt;AX_RdpPreProcessedId&lt;/Prompt&gt;
+      &lt;Hidden&gt;true&lt;/Hidden&gt;
+    &lt;/ReportParameter&gt;
+    &lt;ReportParameter Name="PayChequeDS_PayCycle"&gt;
+      &lt;DataType&gt;String&lt;/DataType&gt;
+      &lt;Prompt&gt;@Payroll:PayCycle1&lt;/Prompt&gt;
+    &lt;/ReportParameter&gt;
+    &lt;ReportParameter Name="PayChequeDS_PayPeriod"&gt;
+      &lt;DataType&gt;String&lt;/DataType&gt;
+      &lt;Prompt&gt;@Payroll:PayPeriod&lt;/Prompt&gt;
+    &lt;/ReportParameter&gt;
+  &lt;/ReportParameters&gt;
+  &lt;Language&gt;en-US&lt;/Language&gt;
+  &lt;rd:ReportUnitType&gt;Inch&lt;/rd:ReportUnitType&gt;
+  &lt;rd:ExpressionDialog&gt;Microsoft.Dynamics.Framework.Design.Reports.ExpressionEditor.ExpressionEditorDialog, Microsoft.Dynamics.Framework.Design.Reports&lt;/rd:ExpressionDialog&gt;
+  &lt;rd:ReportID&gt;6c716d38-fc6b-4a86-bb81-f07ee68ba97f&lt;/rd:ReportID&gt;
+&lt;/Report&gt;</Text>
+			<DisableIndividualTransformation />
+		</AxReportDesign>
+	</Designs>
+	<EmbeddedImages />
+</AxReport>

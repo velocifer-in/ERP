@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <BuildTasksDirectory Condition=" '$(BuildTasksDirectory)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Dynamics\AX</BuildTasksDirectory>
+    <Model>RADDevelopment</Model>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <OutputPath>bin</OutputPath>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{14d07b22-b7ef-400b-aba3-889b43e3c14f}</ProjectGuid>
+    <Name>SIGProjectSalesDetailsReport</Name>
+    <RootNamespace>SIGProjectSalesDetailsReport</RootNamespace>
+    <StartupType>Class</StartupType>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Configuration>Debug</Configuration>
+    <DBSyncInBuild>True</DBSyncInBuild>
+    <GenerateFormAdaptors>False</GenerateFormAdaptors>
+    <Company>
+    </Company>
+    <Partition>initial</Partition>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
+    <DataEntityUseLabelTextAsFieldName>False</DataEntityUseLabelTextAsFieldName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="AxClass\ProjRepContract">
+      <SubType>Content</SubType>
+      <Name>ProjRepContract</Name>
+      <Link>ProjRepContract</Link>
+    </Content>
+    <Content Include="AxClass\ProjreportDP">
+      <SubType>Content</SubType>
+      <Name>ProjreportDP</Name>
+      <Link>ProjreportDP</Link>
+    </Content>
+    <Content Include="AxMenuExtension\ProjectManagementAndAccounting.Extension">
+      <SubType>Content</SubType>
+      <Name>ProjectManagementAndAccounting.Extension</Name>
+      <Link>ProjectManagementAndAccounting.Extension</Link>
+    </Content>
+    <Content Include="AxMenuItemDisplay\PrjSalesReport">
+      <SubType>Content</SubType>
+      <Name>PrjSalesReport</Name>
+      <Link>PrjSalesReport</Link>
+    </Content>
+    <Content Include="AxMenuItemOutput\PrjSalesOP">
+      <SubType>Content</SubType>
+      <Name>PrjSalesOP</Name>
+      <Link>PrjSalesOP</Link>
+    </Content>
+    <Content Include="AxReport\ProjSalesReport">
+      <SubType>Content</SubType>
+      <Name>ProjSalesReport</Name>
+      <Link>ProjSalesReport</Link>
+    </Content>
+    <Content Include="AxTable\ProjRepTmpTable">
+      <SubType>Content</SubType>
+      <Name>ProjRepTmpTable</Name>
+      <Link>ProjRepTmpTable</Link>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
+  <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.targets" />
+</Project>

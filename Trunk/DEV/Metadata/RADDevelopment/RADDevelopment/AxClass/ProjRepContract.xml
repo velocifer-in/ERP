@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>ProjRepContract</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[DataContractAttribute]
+class ProjRepContract
+{
+    date FromDate,ToDate;
+    
+   
+
+
+  
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>parmfromDate</Name>
+				<Source><![CDATA[
+    [DataMemberAttribute('FromDate')]
+    public date parmfromDate(date _fromdate = FromDate)
+    {
+        FromDate = _fromdate;
+        return FromDate;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmToDate</Name>
+				<Source><![CDATA[
+    [DataMemberAttribute('ToDate')]
+    public date parmToDate(date _ToDate = ToDate)
+    {
+        ToDate = _ToDate;
+        return ToDate;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <BuildTasksDirectory Condition=" '$(BuildTasksDirectory)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Dynamics\AX</BuildTasksDirectory>
+    <Model>RADDevelopment</Model>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <OutputPath>bin</OutputPath>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{ff6d6451-d92e-4d83-8f57-0052466e65c4}</ProjectGuid>
+    <Name>RADCustInvoiceAmountyear</Name>
+    <RootNamespace>RADCustInvoiceAmountyear</RootNamespace>
+    <StartupType>MenuItemOutput</StartupType>
+    <StartupObject>RADCustInvAmountYear</StartupObject>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Configuration>Debug</Configuration>
+    <DBSyncInBuild>False</DBSyncInBuild>
+    <GenerateFormAdaptors>False</GenerateFormAdaptors>
+    <Company>USSI</Company>
+    <Partition>initial</Partition>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
+    <DataEntityUseLabelTextAsFieldName>False</DataEntityUseLabelTextAsFieldName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Classes\" />
+    <Folder Include="Menu Extensions\" />
+    <Folder Include="Output Menu Items\" />
+    <Folder Include="Reports\" />
+    <Folder Include="Tables\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AxClass\RADCustInvAmountYearContract">
+      <SubType>Content</SubType>
+      <Name>RADCustInvAmountYearContract</Name>
+      <Link>Classes\RADCustInvAmountYearContract</Link>
+    </Content>
+    <Content Include="AxClass\RADCustInvAmountYearDP">
+      <SubType>Content</SubType>
+      <Name>RADCustInvAmountYearDP</Name>
+      <Link>Classes\RADCustInvAmountYearDP</Link>
+    </Content>
+    <Content Include="AxMenuExtension\AccountsReceivable.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>AccountsReceivable.RADDevelopment</Name>
+      <Link>Menu Extensions\AccountsReceivable.RADDevelopment</Link>
+    </Content>
+    <Content Include="AxMenuItemOutput\RADCustInvAmountYear">
+      <SubType>Content</SubType>
+      <Name>RADCustInvAmountYear</Name>
+      <Link>Output Menu Items\RADCustInvAmountYear</Link>
+    </Content>
+    <Content Include="AxReport\RADCustInvAmtYear">
+      <SubType>Content</SubType>
+      <Name>RADCustInvAmtYear</Name>
+      <Link>Reports\RADCustInvAmtYear</Link>
+    </Content>
+    <Content Include="AxTable\RADCustInvAmountYearTmp">
+      <SubType>Content</SubType>
+      <Name>RADCustInvAmountYearTmp</Name>
+      <Link>Tables\RADCustInvAmountYearTmp</Link>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
+  <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.targets" />
+</Project>

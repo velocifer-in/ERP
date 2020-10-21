@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>RADPayChequeContract</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+///    The <c>PayrollPayStatementReportContract</c> class is the Data Contract class for the <c>PayrollPayStatementReport</c>
+///    SSRS report.
+/// </summary>
+/// <remarks>
+///    This is the Data Contract class for the the <c>PayrollPayStatementReport</c> SSRS Report.
+/// </remarks>
+
+[
+    DataContractAttribute,
+    SysOperationContractProcessingAttribute(classStr(RADPayChequeUIBuilder), SysOperationDataContractProcessingMode::CreateSeparateUIBuilderForEachContract)
+]
+public class RADPayChequeContract
+{
+    #DEFINE.PayCycle("PayCycle")
+    #DEFINE.PayPeriod("PayPeriod")
+
+    RADPayrollPayCycleRecId            payrollPayCycleRecId;
+    PayrollPayPeriodRecId           payrollPayPeriodRecId;
+    
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>parmPayCycle</Name>
+				<Source><![CDATA[
+    [
+        DataMemberAttribute(#PayCycle),
+        SysOperationLabelAttribute(literalStr("@Payroll:PayCycle1")),
+        SysOperationHelpTextAttribute(literalStr("@SYS4090106")),
+        SysOperationDisplayOrderAttribute("0")
+    ]
+    public RADPayrollPayCycleRecId parmPayCycle(RADPayrollPayCycleRecId _payrollPayCycleRecId = payrollPayCycleRecId)
+    {
+        payrollPayCycleRecId = _payrollPayCycleRecId;
+        return payrollPayCycleRecId;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmPayPeriod</Name>
+				<Source><![CDATA[
+    [
+        DataMemberAttribute(#PayPeriod),
+        SysOperationLabelAttribute(literalStr("@Payroll:PayPeriod")),
+        SysOperationHelpTextAttribute(literalStr("@SYS4090107")),
+        SysOperationDisplayOrderAttribute("1")
+    ]
+    public PayrollPayPeriodRecId parmPayPeriod(PayrollPayPeriodRecId _payrollPayPeriodRecId = payrollPayPeriodRecId)
+    {
+        payrollPayPeriodRecId = _payrollPayPeriodRecId;
+        return payrollPayPeriodRecId;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

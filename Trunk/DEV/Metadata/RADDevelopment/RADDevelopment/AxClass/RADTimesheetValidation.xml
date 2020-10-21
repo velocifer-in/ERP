@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>RADTimesheetValidation</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+class RADTimesheetValidation
+{        
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>main</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Runs the class with the specified arguments.
+    /// </summary>
+    /// <param name = "_args">The specified arguments.</param>
+    public static void main(Args _args)
+    {    
+    
+        TSTimesheetTable        timesheetTable;
+        TSTimesheetLineWeek     timesheetLineWeek;
+        TSTimesheetLine         timesheetLine;
+        #TimeConstants
+
+        while select timesheetTable
+            where timesheetTable.TimesheetNbr == '00002049'
+            join timesheetLine
+            where timesheetTable.TimesheetNbr == timesheetLine.TimesheetNbr
+            join timesheetLineWeek
+            where timesheetLine.RecId == timesheetLineWeek.TSTimesheetLine
+        {
+            
+            for (int i = 1; i <= #daysPerWeek; i++)
+            {
+                if (timesheetLineWeek.Hours[i] )
+                {
+                    info(strFmt('%1 %2 %3 %4 %5',timesheetTable.TimesheetNbr ,timesheetLine.ProjId,ProjTable::find(timesheetLine.ProjId).RADLeaveAndAbsence,timesheetLine.CategoryId,timesheetLineWeek.Hours[i] ));
+                }
+            }
+
+
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

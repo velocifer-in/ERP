@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>ProjreportDP</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[SrsReportParameterAttribute(classStr(ProjRepContract))]
+class ProjreportDP extends SRSReportDataProviderBase
+{
+    ProjRepTmpTable  ProjReptmp;
+
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>getprojReptmpTable</Name>
+				<Source><![CDATA[
+    [SrsReportDataSetAttribute(tableStr(ProjRepTmpTable))]
+    public ProjRepTmpTable getprojReptmpTable()
+    {
+        select * from projReptmp;
+
+        return projReptmp;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>processReport</Name>
+				<Source><![CDATA[
+    public void processReport()
+    {
+        DimensionAttributeValueSet           dimAttrValueSet;
+        DimensionAttributeValueSetItem       dimAttrValueSetItem;;
+        DimensionAttributeValue              dimAttrValue;
+        DimensionAttribute                   dimAttribute;
+        Name                                 attributeName,attributeName2;
+   
+        ProjTable                             projtable;
+        ProjBudgetLine                        PrjBudline;
+        date                                  Fdate,Tdate;
+        ProjRepContract                       contract;
+     
+      //  GetDimforPrjSales                     getprjsalesDim;
+        HcmWorker                             HCW;
+        ProjResponsibleSalesWorker            storeworker;
+        RecId                                 DefaultDim;            
+        TimeOfDay                             StartTime,endTime;
+        utcDateTime                           rangeStart, rangeEnd;
+
+        contract = this.parmDataContract() as ProjRepContract;
+        Fdate = contract.parmfromDate();
+        Tdate = contract.parmToDate();
+
+        StartTime = str2Time("12:00:00 AM");
+        endTime   = str2Time("12:00:00 AM");
+       
+       
+         //Created date time format
+       rangeStart = DateTimeUtil::newDateTime(Fdate,startTime);
+        rangeEnd = DateTimeUtil::newDateTime(Tdate,endTime);
+   
+
+        while select * from PrjBudline where PrjBudline.ProjBudgetLineType == ProjBudgetLineType::Revenue && PrjBudline.CreatedDateTime >= rangeStart  && PrjBudline.CreatedDateTime <= rangeEnd 
+        {
+                     ProjReptmp.ProjectID = PrjBudline.ProjId;
+                     ProjReptmp.Created_By = PrjBudline.CreatedBy;
+                     ProjReptmp.OriginalBudget = PrjBudline.OriginalBudget;
+                     ProjReptmp.RevisionAmount = PrjBudline.CommittedRevisions;
+                     ProjReptmp.TotalBudget = PrjBudline.TotalBudget;
+                     ProjReptmp.CreatedDate = DateTimeUtil::date(PrjBudline.CreatedDateTime);
+
+                    select Name from projtable where projtable.ProjId == PrjBudline.ProjId;
+                    ProjReptmp.ProjectName = projtable.Name;
+                    storeworker = projtable.WorkerResponsibleSales;
+                    DefaultDim = projtable.DefaultDimension;
+
+            //Get Business unit
+
+            attributeName = "BusinessUnit";
+            dimAttrValueSet = DimensionAttributeValueSet::find(DefaultDim);
+
+            
+            select dimAttrValueSetItem where dimAttrValueSetItem.DimensionAttributeValueSet == dimAttrValueSet.RecId
+                join dimAttrValue where dimAttrValue.RecId == dimAttrValueSetItem.DimensionAttributeValue
+                    join dimAttribute where dimAttribute.RecId == dimAttrValue.DimensionAttribute && dimAttribute.Name == attributeName;
+            {
+                ProjReptmp.DimBU = dimAttrValue.getValue() + "--" + dimAttrValue.getName() ;
+            }
+
+            //Get CostCenter
+
+            attributeName2 = "ServiceLine";
+           select dimAttrValueSetItem where dimAttrValueSetItem.DimensionAttributeValueSet == dimAttrValueSet.RecId
+                join dimAttrValue where dimAttrValue.RecId == dimAttrValueSetItem.DimensionAttributeValue
+                    join dimAttribute where dimAttribute.RecId == dimAttrValue.DimensionAttribute && dimAttribute.Name == attributeName2;
+            {
+                ProjReptmp.Dimensions = dimAttrValue.getValue() + "--" + dimAttrValue.getName() ;
+            }
+
+            //Get Sales Person
+             select * from HCW where storeworker == HCW.RecId;
+             ProjReptmp.SalesManager = HCW.name();
+           
+           
+             ProjReptmp.insert();
+           }
+        
+       
+
+      }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

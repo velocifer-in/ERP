@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>RADCustInvAmountYearContract</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+/// Data Contract class for <c>RADCustInvAmountYear</c> SSRS report
+/// </summary>
+/// <remarks>
+/// This is the Data Contract class for the <c>RADCustInvAmountYear</c> SSRS Report.
+/// </remarks>
+[DataContractAttribute]
+public class RADCustInvAmountYearContract
+{
+    CustAccount     custaccount;
+    FromDate        fromDate;
+    ToDate          toDate;
+    AmountMST       minimumAmount;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>parmFromDate</Name>
+				<Source><![CDATA[
+    // </summary>
+/// <param name="_fromDate">
+/// The new value of the datacontract parameter FromDate; optional.
+/// </param>
+/// <returns>
+///  The current value of datacontract parameter FromDate
+/// </returns>
+[
+        DataMemberAttribute('FromDate'),
+        SysOperationLabelAttribute(literalstr("@SYS5209")),
+        SysOperationHelpTextAttribute(literalstr("@SYS4083"))
+    ]
+    public FromDate parmFromDate(FromDate _fromDate = fromDate)
+{
+    fromDate = _fromDate;
+    return fromDate;
+}
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmToDate</Name>
+				<Source><![CDATA[
+    /// <summary>
+/// Gets or sets the value of the datacontract parameter ToDate.
+/// </summary>
+/// <param name="_toDate">
+/// The new value of the datacontract parameter ToDate; optional.
+/// </param>
+/// <returns>
+///  The current value of datacontract parameter ToDate
+/// </returns>
+[
+        DataMemberAttribute('ToDate'),
+        SysOperationLabelAttribute(literalstr("@SYS14656")),
+        SysOperationHelpTextAttribute(literalstr("@SYS53942"))
+    ]
+    public ToDate parmToDate(ToDate _toDate = toDate)
+{
+    toDate = _toDate;
+    return toDate;
+}
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

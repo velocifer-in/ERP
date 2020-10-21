@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <BuildTasksDirectory Condition=" '$(BuildTasksDirectory)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Dynamics\AX</BuildTasksDirectory>
+    <Model>RADDevelopment</Model>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <OutputPath>bin</OutputPath>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7296f193-7e19-473a-a683-6e8682def2c7}</ProjectGuid>
+    <Name>RADPayChequeReport</Name>
+    <RootNamespace>RADPayChequeReport</RootNamespace>
+    <StartupType>Class</StartupType>
+    <StartupObject>RADTimesheetValidation</StartupObject>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Configuration>Debug</Configuration>
+    <DBSyncInBuild>False</DBSyncInBuild>
+    <GenerateFormAdaptors>False</GenerateFormAdaptors>
+    <Company>USSI</Company>
+    <Partition>initial</Partition>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
+    <DataEntityUseLabelTextAsFieldName>False</DataEntityUseLabelTextAsFieldName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Base Enums\" />
+    <Folder Include="Classes\" />
+    <Folder Include="Extended Data Types\" />
+    <Folder Include="Form Extensions\" />
+    <Folder Include="Forms\" />
+    <Folder Include="Menu Extensions\" />
+    <Folder Include="Output Menu Items\" />
+    <Folder Include="Reports\" />
+    <Folder Include="Table Extensions\" />
+    <Folder Include="Tables\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AxClass\RADPayChequeContract">
+      <SubType>Content</SubType>
+      <Name>RADPayChequeContract</Name>
+      <Link>Classes\RADPayChequeContract</Link>
+    </Content>
+    <Content Include="AxClass\RADPayChequeUIBuilder">
+      <SubType>Content</SubType>
+      <Name>RADPayChequeUIBuilder</Name>
+      <Link>Classes\RADPayChequeUIBuilder</Link>
+    </Content>
+    <Content Include="AxClass\RADPayrollChequeDP">
+      <SubType>Content</SubType>
+      <Name>RADPayrollChequeDP</Name>
+      <Link>Classes\RADPayrollChequeDP</Link>
+    </Content>
+    <Content Include="AxClass\RADTimesheetValidation">
+      <SubType>Content</SubType>
+      <Name>RADTimesheetValidation</Name>
+      <Link>Classes\RADTimesheetValidation</Link>
+    </Content>
+    <Content Include="AxClass\RADTSTimesheetLineWeek_Extension">
+      <SubType>Content</SubType>
+      <Name>RADTSTimesheetLineWeek_Extension</Name>
+      <Link>Classes\RADTSTimesheetLineWeek_Extension</Link>
+    </Content>
+    <Content Include="AxEdt\RADPayrollPayCycleRecId">
+      <SubType>Content</SubType>
+      <Name>RADPayrollPayCycleRecId</Name>
+      <Link>Extended Data Types\RADPayrollPayCycleRecId</Link>
+    </Content>
+    <Content Include="AxEnum\RADEmployeeType">
+      <SubType>Content</SubType>
+      <Name>RADEmployeeType</Name>
+      <Link>Base Enums\RADEmployeeType</Link>
+    </Content>
+    <Content Include="AxEnum\RADPayCalc">
+      <SubType>Content</SubType>
+      <Name>RADPayCalc</Name>
+      <Link>Base Enums\RADPayCalc</Link>
+    </Content>
+    <Content Include="AxFormExtension\JmgPayAgreementTable.Extension">
+      <SubType>Content</SubType>
+      <Name>JmgPayAgreementTable.Extension</Name>
+      <Link>Form Extensions\JmgPayAgreementTable.Extension</Link>
+    </Content>
+    <Content Include="AxMenuExtension\Payroll.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>Payroll.RADDevelopment</Name>
+      <Link>Menu Extensions\Payroll.RADDevelopment</Link>
+    </Content>
+    <Content Include="AxMenuItemOutput\RADPayChequeReport">
+      <SubType>Content</SubType>
+      <Name>RADPayChequeReport</Name>
+      <Link>Output Menu Items\RADPayChequeReport</Link>
+    </Content>
+    <Content Include="AxReport\RADPayChequeReport">
+      <SubType>Content</SubType>
+      <Name>RADPayChequeReport</Name>
+      <Link>Reports\RADPayChequeReport</Link>
+    </Content>
+    <Content Include="AxReport\RADPaydetailChequeReport">
+      <SubType>Content</SubType>
+      <Name>RADPaydetailChequeReport</Name>
+      <Link>Reports\RADPaydetailChequeReport</Link>
+    </Content>
+    <Content Include="AxTableExtension\JmgPayAgreementTable.RADExtension">
+      <SubType>Content</SubType>
+      <Name>JmgPayAgreementTable.RADExtension</Name>
+      <Link>Table Extensions\JmgPayAgreementTable.RADExtension</Link>
+    </Content>
+    <Content Include="AxTableExtension\ProjCategory.RADExtension">
+      <SubType>Content</SubType>
+      <Name>ProjCategory.RADExtension</Name>
+      <Link>Table Extensions\ProjCategory.RADExtension</Link>
+    </Content>
+    <Content Include="AxTableExtension\ProjTable.RADExtension">
+      <SubType>Content</SubType>
+      <Name>ProjTable.RADExtension</Name>
+      <Link>Table Extensions\ProjTable.RADExtension</Link>
+    </Content>
+    <Content Include="AxTable\RADPayCheckDetailsTmp">
+      <SubType>Content</SubType>
+      <Name>RADPayCheckDetailsTmp</Name>
+      <Link>Tables\RADPayCheckDetailsTmp</Link>
+    </Content>
+    <Content Include="AxTable\RADPayCheckTmp">
+      <SubType>Content</SubType>
+      <Name>RADPayCheckTmp</Name>
+      <Link>Tables\RADPayCheckTmp</Link>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
+  <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.targets" />
+</Project>
