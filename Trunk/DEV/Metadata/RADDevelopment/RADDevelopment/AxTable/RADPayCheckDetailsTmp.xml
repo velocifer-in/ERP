@@ -59,6 +59,7 @@ public class RADPayCheckDetailsTmp extends common
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
 			<Name>CategoryId</Name>
+			<StringSize>30</StringSize>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">

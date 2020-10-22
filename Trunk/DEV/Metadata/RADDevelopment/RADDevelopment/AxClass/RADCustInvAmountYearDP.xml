@@ -20,10 +20,10 @@ public class RADCustInvAmountYearDP extends SRSReportDataProviderBase
     CustTable                   custTable;
     RADCustInvAmountYearTmp     custInvAmountYearTmp;
     
-    TransDate fromDate;
-    TransDate toDate;
-    AmountMST minAmount;
-
+    TransDate   fromDate;
+    TransDate   toDate;
+    AmountMST   minAmount;
+    String30    businessUnit,costCenter;
 }
 ]]></Declaration>
 		<Methods>
@@ -101,16 +101,49 @@ public class RADCustInvAmountYearDP extends SRSReportDataProviderBase
         while select custTrans where custTrans.TransDate >= fromDate
                                 &&   custTrans.TransDate <= toDate
         {
+            this.getDimensionDisplayValue(custTrans.DefaultDimension);
+
             custInvAmountYearTmp.TransDate      = custTrans.TransDate;
             custInvAmountYearTmp.AccountNum     = custTrans.AccountNum;
             custInvAmountYearTmp.InvoiceAmount  = custTrans.AmountCur;
             custInvAmountYearTmp.Year           = year(custTrans.TransDate);
             custInvAmountYearTmp.MonthNum       = mthOfYr(custTrans.TransDate);
             custInvAmountYearTmp.MonthName      = mthName(mthOfYr(custTrans.TransDate));
+            custInvAmountYearTmp.Dataarea       = curExt();
+            custInvAmountYearTmp.BusinessUnit   = businessUnit;//this.getDimensionDisplayValue(custTrans.DefaultDimension,'');
+            custInvAmountYearTmp.CostCenter     = costCenter;//this.getDimensionDisplayValue(custTrans.DefaultDimension,'');
+            custInvAmountYearTmp.CompanyName    = custTrans.DataAreaId;
+            custInvAmountYearTmp.CompnayLogo    = FormLetter::companyLogo();
             custInvAmountYearTmp.insert();
         }
 
        
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getDimensionDisplayValue</Name>
+				<Source><![CDATA[
+    public void getDimensionDisplayValue(RecId defaultDimension)
+    {
+        DimensionAttributeValueSetStorage dimStorage;
+
+        dimStorage = DimensionAttributeValueSetStorage::find(defaultDimension);
+        for (int i= 1 ; i<= dimStorage.elements() ; i++)
+        {
+            // Change the string "CostCenter" to whatever financial dimension you want
+            if(DimensionAttribute::find(dimStorage.getAttributeByIndex(i)).Name == "BusinessUnit")
+            {
+                businessUnit = dimStorage.getDisplayValueByIndex(i);
+            }
+            // Change the string "CostCenter" to whatever financial dimension you want
+            if(DimensionAttribute::find(dimStorage.getAttributeByIndex(i)).Name == "CostCenter")
+            {
+                costCenter = dimStorage.getDisplayValueByIndex(i);
+            }
+        }
+      //  return dimStorage.getDisplayValueByDimensionAttribute(DimensionAttribute::findByName(dimName).RecId);
     }
 
 ]]></Source>

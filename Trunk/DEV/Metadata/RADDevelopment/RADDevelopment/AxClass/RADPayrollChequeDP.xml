@@ -104,7 +104,7 @@ class RADPayrollChequeDP extends SRSReportDataProviderBase
                 payCheckDetailsTmp.StartDate               =  periodStartDate;//startDate;
                 payCheckDetailsTmp.EndDate                 =  periodEndDate;
                 payCheckDetailsTmp.HcmPersonnelNumberId    =  hcmPersonnelNumberId;
-                payCheckDetailsTmp.CategoryId              = 'OT';
+                payCheckDetailsTmp.CategoryId              = 'Overtime';
                 payCheckDetailsTmp.Hours                   = hours;//payCheckDetailsTmp.Hours - JmgPayAgreementTable::find(JmgEmployee::find(HcmWorker::findByPersonnelNumber(hcmPersonnelNumberId).RecId).DefaultProfileId).RADDays;
                 payCheckDetailsTmp.RADPayCalc              = RADPayCalc::None;
                 payCheckDetailsTmp.RADEmployeeType                = JmgPayAgreementTable::find(JmgEmployee::find(HcmWorker::findByPersonnelNumber(hcmPersonnelNumberId).RecId).DefaultProfileId).RADEmployeeType;
@@ -112,12 +112,12 @@ class RADPayrollChequeDP extends SRSReportDataProviderBase
             }
         }
 
-        while select payCheckDetailsTmp where payCheckDetailsTmp.CategoryId == 'OT'
+        while select payCheckDetailsTmp where payCheckDetailsTmp.CategoryId == 'Overtime'
                                       //  && payCheckDetailsTmp.RADEmployeeType != RADEmployeeType::Salaried
         {
             ttsbegin;
             select payCheckTmp where payCheckTmp.HcmPersonnelNumberId == payCheckDetailsTmp.HcmPersonnelNumberId
-                                && payCheckTmp.CategoryId == 'OT';
+                                && payCheckTmp.CategoryId == 'Overtime';
             if(payCheckTmp)
             {
                 payCheckTmp.selectForUpdate(true);

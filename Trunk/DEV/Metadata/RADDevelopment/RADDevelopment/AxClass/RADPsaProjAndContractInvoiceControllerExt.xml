@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>RADPsaProjAndContractInvoiceControllerExt</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+class RADPsaProjAndContractInvoiceControllerExt extends PSAProjAndContractInvoiceController
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static RADPsaProjAndContractInvoiceControllerExt construct()
+    {
+        return new RADPsaProjAndContractInvoiceControllerExt();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>main</Name>
+				<Source><![CDATA[
+    public static void main(Args _args)
+    {
+        SrsReportRunController formLetterController = RADPsaProjAndContractInvoiceControllerExt::construct();
+        RADPsaProjAndContractInvoiceControllerExt controller = formLetterController;
+        //controller.parmReportName(ssrsReportStr(RADPSAProjInvoice, Report));
+        //controller.parmArgs(_args);
+        //controller.startOperation();
+
+       // PSAProjAndContractInvoiceController controller;
+
+        //<GMX>
+        if (EInvoiceParameters_MX::isElectronicInvoiceEnabled()
+            && EInvoiceProjController_MX::hasEInvoice(_args))
+        {
+            EInvoiceProjController_MX::main(_args);
+            return;
+        }
+        //</GMX>
+
+        // <GTH>
+        if (!ProjInvoiceJour_TH::canInvoiceBePrinted(_args))
+        {
+            return;
+        }
+        // </GTH>
+        
+       // controller = new PSAProjAndContractInvoiceController();
+        controller.initArgs(_args);
+        controller.startOperation();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getReportTitle</Name>
+				<Source><![CDATA[
+    protected ReportTitle getReportTitle(
+        MenuItemName _menuItemName,
+        boolean _isProforma,
+        PrintCopyOriginal _printCopyOriginal = PrintCopyOriginal::OriginalPrint)
+    {
+        LabelId reportTitle;
+
+        boolean isCopy = _menuItemName == menuitemOutputStr(ProjInvoiceCopy) ||
+                         _menuItemName == menuitemOutputStr(PSAProjInvoiceCopy) ||
+                         _printCopyOriginal == PrintCopyOriginal::Copy;
+
+        // <GTH>
+        TaxUnrealizedSalesNoteFormat    noteFormat;
+        boolean                         isPrintDuringPostInvoice = (!_isProforma && (_menuItemName == menuItemOutputStr(PSAProjInvoice) || _menuItemName == menuItemOutputStr(PSAContractLineInvoice)));
+        boolean                         isPrintAfterPosting = (_menuItemName == menuItemOutputStr(ProjInvoiceOriginalPrint));
+        boolean                         isViewSubstitutionOrAdjustmentAfterPosting = (_menuItemName == menuItemOutputStr(ProjInvoiceAdjustment_TH) || menuItemOutputStr(ProjInvoiceSubstitution_TH));
+        boolean                         isViewCopyAfterPosting = (_menuItemName == menuItemOutputStr(PSAProjInvoiceCopy));
+        boolean                         isViewOriginalAfterPosting = (_menuItemName == menuItemOutputStr(PSAProjInvoiceOriginal));
+        // </GTH>
+
+        // <GTH>
+        if (TaxThaiGovCertificationFeatureChecker::isCountryRegionTH()
+            && (documentType == PrintMgmtDocumentType::SIProjInvoice
+            || documentType == PrintMgmtDocumentType::SIProjInvoiceWithBR))
+        {
+            noteFormat = invoiceJournal.projInvoiceJourExtension_TH().NoteFormat;
+
+            if (noteFormat == TaxUnrealizedSalesNoteFormat::None)
+            {
+                if (hasRealizedTax)
+                {
+                    if (_isProforma)
+                    {
+                        // @SYS121362: Pro forma tax invoice
+                        reportTitle = literalStr("@SYS121362");
+                    }
+                    else if (isPrintDuringPostInvoice
+                        || isPrintAfterPosting
+                        || isViewSubstitutionOrAdjustmentAfterPosting
+                        || (isViewCopyAfterPosting && !isViewSubstitutionOrAdjustmentAfterPosting)
+                        || isViewOriginalAfterPosting)
+                    {
+                        // @SYS115505: Tax invoice
+                        reportTitle = literalStr("@SYS115505");
+                    }
+                }
+                else
+                {
+                    if (_isProforma)
+                    {
+                        // @SYS4701: Pro forma invoice
+                        reportTitle = literalStr("Draft invoice");
+                    }
+                    else if (isPrintDuringPostInvoice
+                        || isPrintAfterPosting
+                        || isViewSubstitutionOrAdjustmentAfterPosting
+                        || (isViewCopyAfterPosting && !isViewSubstitutionOrAdjustmentAfterPosting)
+                        || isViewOriginalAfterPosting)
+                    {
+                        // @SYS12128: Invoice
+                        reportTitle = literalStr("@SYS12128");
+                    }
+                }
+            }
+            else
+            {
+                if (noteFormat       == TaxUnrealizedSalesNoteFormat::DebitNoteValue
+                    || noteFormat   == TaxUnrealizedSalesNoteFormat::DebitNoteQuantity)
+                {
+                    if (_isProforma
+                        ||isViewOriginalAfterPosting)
+                    {
+                        // @Tax:ReportTitle_DebitNoteOriginal: Debit note original
+                        reportTitle = literalStr("@Tax:ReportTitle_DebitNoteOriginal");
+                    }
+                    else if (isPrintDuringPostInvoice
+                        || isPrintAfterPosting
+                        || isViewSubstitutionOrAdjustmentAfterPosting)
+                    {
+                        // @SYP4860805: Debit note
+                        reportTitle = literalStr("@SYP4860805");
+                    }
+                    else if (isViewCopyAfterPosting)
+                    {
+                        // @SYP4860807: Debit note copy
+                        reportTitle = literalStr("@SYP4860807");
+                    }
+                }
+                else
+                {
+                    // @SYS8125: Credit note
+                    reportTitle = literalStr("@SYS8125");
+                }
+            }
+        }
+        else
+        {
+            boolean isContryRegionAE = SysCountryRegionCode::isLegalEntityInCountryRegion([#isoAE]);
+            // </GTH>
+            if (invoiceJournal.InvoiceAmount >= 0)
+            {
+                if (_isProforma)
+                {
+                    // <GMY>
+                    if (TaxGSTFeatureChecker_MY::isCountryRegionMY()
+                        && invoiceJournal.InvoiceType_MY == InvoiceType_MY::GST
+                        && (documentType    == PrintMgmtDocumentType::SIProjInvoice
+                            || documentType == PrintMgmtDocumentType::SIProjInvoiceWithBR))
+                    {
+                        if (invoiceJournal.NoteType_MY == NoteType_MY::DebitNote)
+                        {
+                            reportTitle = literalStr("@SYP4860811");
+                        }
+                        else
+                        {
+                            reportTitle = literalStr("@SYS121362");
+                        }
+                    }
+                    else
+                    {
+                        // </GMY>
+                        reportTitle = literalStr("@SYS4701");
+                       //reportTitle = literalStr("Draft invoice");
+                        // <GMY>
+                    }
+                    // </GMY>
+                }
+                else if (isCopy)
+                {
+                    // <GBR>
+                    if (BrazilParameters::isEnabled() && invoiceJournal.ProjInvoiceType == ProjInvoiceType::DebitNote_BR)
+                    {
+                        reportTitle = literalStr("@GLS510103");
+                        this.parmDialogCaption("@GLS510103");
+                    }
+                    // <GMY>
+                    else if (TaxGSTFeatureChecker_MY::isCountryRegionMY() && invoiceJournal.InvoiceType_MY == InvoiceType_MY::GST)
+                    {
+                        if (invoiceJournal.NoteType_MY == NoteType_MY::DebitNote)
+                        {
+                            reportTitle = literalStr("@SYP4860807");
+                        }
+                        else
+                        {
+                            reportTitle = literalStr("@SYS121364");
+                        }
+                    }
+                    // </GMY>
+                    else if (isContryRegionAE)
+                    {
+                        reportTitle = literalStr("@UAE_VAT:UAE_VAT_CopyTaxInvoice");
+                    }
+                    else
+                    {
+                        // </GBR>
+                        reportTitle = literalStr("@SYS24428");
+                        // <GBR>
+                    }
+                    // </GBR>
+                }
+                else if (_menuItemName == menuitemOutputStr(ProjInvoice) || _menuItemName == menuitemOutputStr(PSAProjInvoice))
+                {
+                    // <GMY>
+                    if (TaxGSTFeatureChecker_MY::isCountryRegionMY() && invoiceJournal.InvoiceType_MY == InvoiceType_MY::GST)
+                    {
+                        if (invoiceJournal.NoteType_MY == NoteType_MY::DebitNote)
+                        {
+                            reportTitle = literalStr("@SYP4860805");
+                        }
+                        else
+                        {
+                            reportTitle = literalStr("@SYS115505");
+                        }
+                    }
+                    else if (isContryRegionAE && _menuItemName == menuitemOutputStr(PSAProjInvoice))
+                    {
+                        reportTitle = literalStr("@SYS115505");
+                    }
+                    else
+                    {
+                        // </GMY>
+                        reportTitle = literalStr("@SYS12128");
+                        // <GMY>
+                    }
+                    // </GMY>
+                }
+                else
+                {
+                    // <GBR>
+                    if (BrazilParameters::isEnabled() && invoiceJournal.ProjInvoiceType == ProjInvoiceType::DebitNote_BR)
+                    {
+                        reportTitle = literalStr("@GLS510025");
+                        this.parmDialogCaption("@GLS510104");
+                    }
+                    // <GMY>
+                    else if (TaxGSTFeatureChecker_MY::isCountryRegionMY()
+                        && invoiceJournal.InvoiceType_MY == InvoiceType_MY::GST
+                        && (documentType == PrintMgmtDocumentType::SIProjInvoice
+                            || documentType == PrintMgmtDocumentType::SIProjInvoiceWithBR))
+                    {
+                        if (invoiceJournal.NoteType_MY == NoteType_MY::DebitNote)
+                        {
+                            reportTitle = literalStr("@SYP4860805");
+                        }
+                        else
+                        {
+                            reportTitle = literalStr("@SYS115505");
+                        }
+                    }
+                    // </GMY>
+                    else if (isContryRegionAE)
+                    {
+                        reportTitle = literalStr("@SYS115505");
+                    }
+                    else
+                    {
+                        // </GBR>
+                        reportTitle = literalStr("@SYS12128");
+                        // <GBR>
+                    }
+                    // </GBR>
+                }
+            }
+            else
+            {
+                if (_isProforma)
+                {
+                    reportTitle = literalStr("@SYS99735");
+                }
+                else if (isCopy)
+                {
+                    // <GBR>
+                    if (BrazilParameters::isEnabled() && invoiceJournal.ProjInvoiceType == ProjInvoiceType::DebitNote_BR)
+                    {
+                        reportTitle = literalStr("@GLS510103");
+                        this.parmDialogCaption("@GLS510103");
+                    }
+                    else  if (isContryRegionAE)
+                    {
+                        reportTitle = literalStr("@UAE_VAT:UAE_VAT_CopyTaxCreditNote");
+                    }
+                    else
+                    {
+                        // </GBR>
+                        reportTitle = literalStr("@SYS24607");
+                        // <GBR>
+                    }
+                    // </GBR>
+                }
+                else if (isContryRegionAE && _menuItemName == menuitemOutputStr(PSAProjInvoice))
+                {
+                    reportTitle = literalStr("@UAE_VAT:UAE_VAT_TaxCreditNote");
+                }
+                else if (_menuItemName == menuitemOutputStr(ProjInvoice) || _menuItemName == menuitemOutputStr(PSAProjInvoice))
+                {
+                    reportTitle = literalStr("@SYS8125");
+                }
+                else
+                {
+                    // <GBR>
+                    if (BrazilParameters::isEnabled() && invoiceJournal.ProjInvoiceType == ProjInvoiceType::DebitNote_BR)
+                    {
+                        reportTitle = literalStr("@GLS510025");
+                        this.parmDialogCaption("@GLS510104");
+                    }
+                    else if (isContryRegionAE)
+                    {
+                        reportTitle = literalStr("@UAE_VAT:UAE_VAT_TaxCreditNote");
+                    }
+                    else
+                    {
+                        // </GBR>
+                        reportTitle = literalStr("@SYS8125");
+                        // <GBR>
+                    }
+                    // </GBR>
+                }
+            }
+            // <GTH>
+        }
+        // </GTH>
+
+        this.parmReportContract().parmRdlContract().parmLabelLanguageId(invoiceJournal.LanguageId);
+        this.parmReportContract().parmRdlContract().parmLanguageId(invoiceJournal.LanguageId);
+        // <GEELT>
+        #ISOCountryRegionCodes
+        if (SysCountryRegionCode::isLegalEntityInCountryRegion([#isoLT]))
+        {
+            if (strLRTrim(CompanyInfo::find().getPrimaryRegistrationNumber(TaxRegistrationTypesList::TAXID, invoiceJournal.InvoiceDate)))
+            {
+                // Add "VAT" to the beginning of the invoice text.
+                return SysLabel::labelId2String(literalStr("@GLS107406"),invoicejournal.LanguageId) + ' ' +
+                        SysLabel::labelId2String(reportTitle,invoiceJournal.LanguageId);
+            }
+        }
+        // </GEELT>
+
+        return SysLabel::labelId2String(reportTitle, invoiceJournal.LanguageId);
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

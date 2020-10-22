@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <BuildTasksDirectory Condition=" '$(BuildTasksDirectory)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Dynamics\AX</BuildTasksDirectory>
+    <Model>RADDevelopment</Model>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <OutputPath>bin</OutputPath>
+    <SchemaVersion>2.0</SchemaVersion>
+    <GenerateCrossReferences>True</GenerateCrossReferences>
+    <ProjectGuid>{7540cb67-41dd-4cb5-8095-4b44c07de72a}</ProjectGuid>
+    <Name>RADARReport</Name>
+    <RootNamespace>RADCustAgingReportV2</RootNamespace>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <StartupObject>RADARReportV2</StartupObject>
+    <StartupType>MenuItemOutput</StartupType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Configuration>Debug</Configuration>
+    <DBSyncInBuild>False</DBSyncInBuild>
+    <GenerateFormAdaptors>False</GenerateFormAdaptors>
+    <Company>RILC</Company>
+    <Partition>initial</Partition>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
+    <DataEntityUseLabelTextAsFieldName>False</DataEntityUseLabelTextAsFieldName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Classes\" />
+    <Folder Include="Output Menu Items\" />
+    <Folder Include="Reports\" />
+    <Folder Include="Table Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AxClass\RADCustAgingReportControllerV2">
+      <SubType>Content</SubType>
+      <Name>RADCustAgingReportControllerV2</Name>
+      <Link>Classes\RADCustAgingReportControllerV2</Link>
+    </Content>
+    <Content Include="AxClass\RADCustAgingReportDPV2">
+      <SubType>Content</SubType>
+      <Name>RADCustAgingReportDPV2</Name>
+      <Link>Classes\RADCustAgingReportDPV2</Link>
+    </Content>
+    <Content Include="AxMenuItemOutput\RADARReportV2">
+      <SubType>Content</SubType>
+      <Name>RADARReportV2</Name>
+      <Link>Output Menu Items\RADARReportV2</Link>
+    </Content>
+    <Content Include="AxReport\RADCustAgingReportV2">
+      <SubType>Content</SubType>
+      <Name>RADCustAgingReportV2</Name>
+      <Link>Reports\RADCustAgingReportV2</Link>
+    </Content>
+    <Content Include="AxTableExtension\CustAgingReportTmp.Extension">
+      <SubType>Content</SubType>
+      <Name>CustAgingReportTmp.Extension</Name>
+      <Link>Table Extensions\CustAgingReportTmp.Extension</Link>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
+  <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.targets" />
+</Project>

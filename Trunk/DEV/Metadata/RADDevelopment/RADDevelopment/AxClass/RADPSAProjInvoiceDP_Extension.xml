@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>RADPSAProjInvoiceDP_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(classStr(PSAProjInvoiceDP))]
+final public class RADPSAProjInvoiceDP_Extension
+{
+    
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>initFromProjProposalEmpl</Name>
+				<Source><![CDATA[
+    protected void initFromProjProposalEmpl(ProjProposalEmpl _projProposalEmpl)
+    {
+        next initFromProjProposalEmpl(_projProposalEmpl);
+        
+        Projproposaljour projproposaljour;
+        ProjTrans projTransEmpl             = ProjTrans::newProjProposalEmpl(_projProposalEmpl);
+        tmpPSAProjInvoice.MainProjId        = ProjTable::getRootProjId(projTransEmpl.ProjId());
+        tmpPSAProjInvoice.MainProjIDProjName= ProjTable::find(tmpPSAProjInvoice.MainProjId).Name;
+        tmpPSAProjInvoice.ContractValue     = this.calcTotalBudgetLine(tmpPSAProjInvoice.MainProjId).TotalBudget;
+
+        select sum( invoiceamount) from projproposaljour 
+            where projproposaljour.PROJINVOICEPROJID == projTransEmpl.projTable().ProjInvoiceProjId
+            && projproposaljour.LineProperty      == ProjLinePropertyCode::Invoiced;
+                
+        tmpPSAProjInvoice.priorBilled       = projproposaljour.InvoiceAmount;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>populatePSAProjInvoiceHeaderTmp</Name>
+				<Source><![CDATA[
+    protected void populatePSAProjInvoiceHeaderTmp()
+    {
+        next populatePSAProjInvoiceHeaderTmp();
+
+        CompanyInfo companyInfo = CompanyInfo::find();
+        NoYes   noyes;
+
+        tmpPSAProjInvoiceHeader.Address     = PSAProjInvoiceDP::cfbs_formatAddress(companyInfo.postalAddress());
+       // tmpPSAProjInvoiceHeader.CustAddress = PSAProjInvoiceDP::cfbs_formatAddress(LogisticsPostalAddress::findRecId(projInvoiceJour.DeliveryPostalAddress));
+        tmpPSAProjInvoiceHeader.Payment     = CustTable::find(projInvoiceJour.InvoiceAccount).PaymTermId;
+        tmpPSAProjInvoiceHeader.RAD_WithContractSummary = ProjProposalJour::find(projInvoiceJour.ProposalId).RAD_WithContractSummary;
+
+        noyes = projProposalJour.RAD_WithContractSummary;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>calcTotalBudgetLine</Name>
+				<Source><![CDATA[
+    public ProjBudgetLine calcTotalBudgetLine(ProjId _projId)
+    {
+        ProjBudgetLine  projBudgetLineLocal;
+        #define.Star("*");
+        ProjBudget projBudget;
+
+        select projBudget where projBudget.RootProjId == _projId;
+      
+        select sum(OriginalBudget),sum(CommittedRevisions),sum(UncommittedRevisions), sum(TotalBudget)
+                    from projBudgetLineLocal
+                    where projBudgetLineLocal.ProjBudget == projBudget.RecId
+                    &&    projBudgetLineLocal.ProjBudgetLineType == ProjBudgetLineType::Revenue
+                    &&    projBudgetLineLocal.ProjId like _projId + #Star;
+
+        return projBudgetLineLocal;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>cfbs_formatAddress</Name>
+				<Source><![CDATA[
+    public static server LogisticsAddressing cfbs_formatAddress(LogisticsPostalAddress _address)
+    {
+        #define.LineFeed('\n')
+        #DirParty
+        #define.comma(',')
+        #define.space(' ')
+        LogisticsAddressFormatId         addrFormat      = LogisticsPostalAddressMap::addressFormatId(_address.CountryRegionId);
+        LogisticsAddressFormatLines      logisticsAddressFormatLinesFieldList;
+        TempStr                 saveLogisticsAddress     = '';
+        LogisticsAddressCountryRegion    countryRegion   = LogisticsAddressCountryRegion::find(_address.CountryRegionId);
+        LogisticsAddressState            state           = LogisticsAddressState::find(_address.CountryRegionId, _address.State);
+        LogisticsAddressCounty           county          = LogisticsAddressCounty::find(_address.CountryRegionId, _address.State, _address.County);
+        // <GEERU>
+        #ISOCountryRegionCodes
+        boolean                                  isRU    = countryRegion.isOcode == #isoRU;
+        LogisticsAddressCountryRegionTranslation countryRegionTranslation;
+        UserInfo                                 userInfo;
+
+        #localMacro.Separators
+     logisticsAddressFormatLinesFieldList.Separator + (logisticsAddressFormatLinesFieldList.SeparatorCrLf ? #LineFeed : '')
+     #endmacro
+        // </GEERU>
+        if (addrFormat)
+        {
+
+            //  Prepare saveLogisticsAddress string
+            while select Element, InActive, Separator, SeparatorCrLf from logisticsAddressFormatLinesFieldList
+            order by LineNum
+            where logisticsAddressFormatLinesFieldList.AddrFormat == addrFormat &&
+                logisticsAddressFormatLinesFieldList.InActive == false &&
+                logisticsAddressFormatLinesFieldList.DataEntryOnly == false
+            {
+                if (logisticsAddressFormatLinesFieldList.Separator == #comma)
+                logisticsAddressFormatLinesFieldList.Separator += #space;
+                switch(logisticsAddressFormatLinesFieldList.Element)
+                {
+                    case LogisticsAddressElement::StreetName :
+                    if (_address.Street)
+                        {
+                            // <GEERU>
+                            saveLogisticsAddress += _address.Street + #Separators ;
+                            // </GEERU>
+                        }
+                        break;
+
+                    case LogisticsAddressElement::ZipCode :
+                    if (_address.ZipCode)
+                        {
+                            saveLogisticsAddress += _address.ZipCode + #Separators;
+                        }
+                        break;
+
+                    case LogisticsAddressElement::City :
+                    if (_address.City)
+                        {
+                           
+                          
+                                saveLogisticsAddress += _address.City + #Separators;
+                             
+                        }
+                        break;
+
+                    case LogisticsAddressElement::County :
+                    if (_address.County)
+                        {
+                           
+                                saveLogisticsAddress += ((county.Name && logisticsAddressFormatLinesFieldList.Expand) ? county.Name : _address.County) + #Separators;
+                                
+                        }
+                        break;
+
+                    case LogisticsAddressElement::State :
+                    if (_address.State)
+                        {
+                           
+                            saveLogisticsAddress += ((state.Name && logisticsAddressFormatLinesFieldList.Expand) ? state.Name : _address.State) + #Separators;
+                               
+                            //saveLogisticsAddress += #space;
+                        }
+                        break;
+
+                    //case LogisticsAddressElement::CountryRegion :
+                    //if (_address.CountryRegionId)
+                    //    {
+
+                    //            saveLogisticsAddress += ((logisticsAddressFormatLinesFieldList.Expand) ? #CountryRegionToken : _address.CountryRegionId) + #Separators;
+
+                    //    }
+                    //    break;
+                    case LogisticsAddressElement::District :
+                    if (LogisticsAddressDistrict::getDistrictName(_address.District))
+                        {
+                           
+                                saveLogisticsAddress += LogisticsAddressDistrict::getDistrictName(_address.District) + #Separators;
+                             
+                        }
+                        break;
+                    case LogisticsAddressElement::StreetNumber :
+                    if (_address.StreetNumber)
+                        {
+                            saveLogisticsAddress += _address.StreetNumber + #Separators;
+                        }
+                        break;
+                    case LogisticsAddressElement::BuildingCompliment :
+                        // <GEERU>
+                        // see \Data Dictionary\Maps\LogisticsPostalAddressMap\Methods\makeStreet_RU
+                        if (_address.BuildingCompliment
+                     && !LogisticsAddressFormatLines::includeElementInAddressFormat(addrFormat, LogisticsAddressElement::StreetName))
+                    // </GEERU>
+                        {
+                            saveLogisticsAddress += _address.BuildingCompliment +
+                                    logisticsAddressFormatLinesFieldList.Separator            +
+                                    (logisticsAddressFormatLinesFieldList.SeparatorCrLf ? #LineFeed : '');
+                        }
+                        break;
+                    case LogisticsAddressElement::PostBox :
+                    if (_address.PostBox)
+                        {
+                            saveLogisticsAddress += _address.PostBox +
+                                        logisticsAddressFormatLinesFieldList.Separator            +
+                                        (logisticsAddressFormatLinesFieldList.SeparatorCrLf ? #LineFeed : '');
+                        }
+                        break;
+                }
+                if (logisticsAddressFormatLinesFieldList.SeparatorCrLf && strScan(saveLogisticsAddress, #LineFeed, strLen(saveLogisticsAddress), -1) == 0)
+                {
+                    saveLogisticsAddress += #LineFeed;
+                }
+            }
+            //Lets remove trailing spaces
+            saveLogisticsAddress = strRTrim(saveLogisticsAddress);
+
+            //Lets remove empty lines from LogisticsAddress string
+            while (saveLogisticsAddress && strScan(saveLogisticsAddress, #LineFeed, strLen(saveLogisticsAddress), -1))
+            {
+                saveLogisticsAddress = strRTrim(strDel(saveLogisticsAddress, strLen(saveLogisticsAddress), 1));
+            }
+        }
+        else
+        {
+            saveLogisticsAddress = strRTrim(_address.Street);
+        }
+        return saveLogisticsAddress;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

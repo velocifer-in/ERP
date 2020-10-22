@@ -78,6 +78,31 @@ public class RADCustInvAmountYearTmp extends common
 			<Name>MonthNum</Name>
 			<Label>Month</Label>
 		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>Dataarea</Name>
+			<ExtendedDataType>CompanyId</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>BusinessUnit</Name>
+			<StringSize>50</StringSize>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>CostCenter</Name>
+			<StringSize>50</StringSize>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldContainer">
+			<Name>CompnayLogo</Name>
+			<ExtendedDataType>Bitmap</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>CompanyName</Name>
+			<ExtendedDataType>CompanyName</ExtendedDataType>
+		</AxTableField>
 	</Fields>
 	<FullTextIndexes />
 	<Indexes />

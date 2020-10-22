@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <BuildTasksDirectory Condition=" '$(BuildTasksDirectory)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Dynamics\AX</BuildTasksDirectory>
+    <Model>RADDevelopment</Model>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <OutputPath>bin</OutputPath>
+    <SchemaVersion>2.0</SchemaVersion>
+    <GenerateCrossReferences>True</GenerateCrossReferences>
+    <ProjectGuid>{a0fe1c59-4402-4491-a0f3-5a790407264b}</ProjectGuid>
+    <Name>Project Invoice Report</Name>
+    <RootNamespace>RADDevProject</RootNamespace>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Configuration>Debug</Configuration>
+    <DBSyncInBuild>False</DBSyncInBuild>
+    <GenerateFormAdaptors>False</GenerateFormAdaptors>
+    <Company>
+    </Company>
+    <Partition>initial</Partition>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
+    <DataEntityUseLabelTextAsFieldName>False</DataEntityUseLabelTextAsFieldName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Classes\" />
+    <Folder Include="Form Extensions\" />
+    <Folder Include="Output Menu Item Extensions\" />
+    <Folder Include="Reports\" />
+    <Folder Include="Table Extensions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AxClass\RADPrintMgtDocTypeHandlersExt">
+      <SubType>Content</SubType>
+      <Name>RADPrintMgtDocTypeHandlersExt</Name>
+      <Link>Classes\RADPrintMgtDocTypeHandlersExt</Link>
+    </Content>
+    <Content Include="AxClass\RADPsaProjAndContractInvoiceControllerExt">
+      <SubType>Content</SubType>
+      <Name>RADPsaProjAndContractInvoiceControllerExt</Name>
+      <Link>Classes\RADPsaProjAndContractInvoiceControllerExt</Link>
+    </Content>
+    <Content Include="AxClass\RADPSAProjInvoiceDP_Extension">
+      <SubType>Content</SubType>
+      <Name>RADPSAProjInvoiceDP_Extension</Name>
+      <Link>Classes\RADPSAProjInvoiceDP_Extension</Link>
+    </Content>
+    <Content Include="AxFormExtension\ProjInvoiceProposalDetail.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>ProjInvoiceProposalDetail.RADDevelopment</Name>
+      <Link>Form Extensions\ProjInvoiceProposalDetail.RADDevelopment</Link>
+    </Content>
+    <Content Include="AxMenuItemOutputExtension\PSAProjInvoice.Extension">
+      <SubType>Content</SubType>
+      <Name>PSAProjInvoice.Extension</Name>
+      <Link>Output Menu Item Extensions\PSAProjInvoice.Extension</Link>
+    </Content>
+    <Content Include="AxReport\RADPSAProjInvoice">
+      <SubType>Content</SubType>
+      <Name>RADPSAProjInvoice</Name>
+      <Link>Reports\RADPSAProjInvoice</Link>
+    </Content>
+    <Content Include="AxTableExtension\ProjProposalJour.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>ProjProposalJour.RADDevelopment</Name>
+      <Link>Table Extensions\ProjProposalJour.RADDevelopment</Link>
+    </Content>
+    <Content Include="AxTableExtension\PSAProjInvoiceHeaderTmp.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>PSAProjInvoiceHeaderTmp.RADDevelopment</Name>
+      <Link>Table Extensions\PSAProjInvoiceHeaderTmp.RADDevelopment</Link>
+    </Content>
+    <Content Include="AxTableExtension\PSAProjInvoiceTmp.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>PSAProjInvoiceTmp.RADDevelopment</Name>
+      <Link>Table Extensions\PSAProjInvoiceTmp.RADDevelopment</Link>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
+  <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.targets" />
+</Project>

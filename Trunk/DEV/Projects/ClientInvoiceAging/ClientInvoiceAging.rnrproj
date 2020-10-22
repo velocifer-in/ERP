@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <BuildTasksDirectory Condition=" '$(BuildTasksDirectory)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Dynamics\AX</BuildTasksDirectory>
+    <Model>Report_Cust_Model</Model>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <OutputPath>bin</OutputPath>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{78cf9265-e03f-45b9-b957-f29e8766ee59}</ProjectGuid>
+    <Name>ClientInvoiceAging</Name>
+    <RootNamespace>ClientInvoiceAging</RootNamespace>
+    <StartupType>MenuItemOutput</StartupType>
+    <StartupObject>RADClientInvoiceAgingV1</StartupObject>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Configuration>Debug</Configuration>
+    <DBSyncInBuild>True</DBSyncInBuild>
+    <GenerateFormAdaptors>False</GenerateFormAdaptors>
+    <Company>USSI</Company>
+    <Partition>initial</Partition>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
+    <DataEntityUseLabelTextAsFieldName>False</DataEntityUseLabelTextAsFieldName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Classes\" />
+    <Folder Include="Output Menu Items\" />
+    <Folder Include="Reports\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AxClass\RADCustAgingReportControllerV1">
+      <SubType>Content</SubType>
+      <Name>RADCustAgingReportControllerV1</Name>
+      <Link>Classes\RADCustAgingReportControllerV1</Link>
+    </Content>
+    <Content Include="AxClass\RADCustAgingReportDPV1">
+      <SubType>Content</SubType>
+      <Name>RADCustAgingReportDPV1</Name>
+      <Link>Classes\RADCustAgingReportDPV1</Link>
+    </Content>
+    <Content Include="AxMenuItemOutput\RADClientInvoiceAgingV1">
+      <SubType>Content</SubType>
+      <Name>RADClientInvoiceAgingV1</Name>
+      <Link>Output Menu Items\RADClientInvoiceAgingV1</Link>
+    </Content>
+    <Content Include="AxReport\RADCustAgingReportV1">
+      <SubType>Content</SubType>
+      <Name>RADCustAgingReportV1</Name>
+      <Link>Reports\RADCustAgingReportV1</Link>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
+  <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.targets" />
+</Project>
