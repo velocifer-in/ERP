@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGProjTable_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(tablestr(ProjTable))]
+public final class SIGProjTable_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>validateWrite</Name>
+				<Source><![CDATA[
+    public boolean validateWrite(boolean _calledFromStatus)
+    {
+        boolean ret = next validateWrite(_calledFromStatus);
+
+
+        if (ret && !this.ProjectedEndDate)
+        {
+            ret = checkFailed("Projected end date should not be blank");
+        }
+
+        if (ret && !this.WorkerResponsible)
+        {
+            ret = checkFailed("Project manager should not be blank");
+        }
+
+        if (ret && !this.WorkerResponsibleFinancial)
+        {
+            ret = checkFailed("Proect controller should not be blank");
+        }
+
+        return ret;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

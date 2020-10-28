@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGProjInvoiceControl_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(formDataSourceStr(ProjInvoiceControl,General))]
+public final class SIGProjInvoiceControl_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>displayContractAmount</Name>
+				<Source><![CDATA[
+    public  display Amount  displayContractAmount()
+    {
+        FormDataSource formDS = this;
+        FormRun formRun = this.formRun();
+        
+        return ProjTable::find(formRun.projId()).SIGAmount;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

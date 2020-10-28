@@ -17,6 +17,12 @@ Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "RADARReport (USR) [RADDevel
 EndProject
 Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "Project Invoice Report (USR) [RADDevelopment]", "Project Invoice Report\Project Invoice Report.rnrproj", "{A0FE1C59-4402-4491-A0F3-5A790407264B}"
 EndProject
+Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "SIGEmployeeTimesheetAndUtilizationSummary (USR) [RADDevelopment]", "SIGEmployeeTimesheetAndUtilizationSummary\SIGEmployeeTimesheetAndUtilizationSummary.rnrproj", "{AFD8E04A-7DB6-4403-A67E-01AB28F84B71}"
+EndProject
+Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "SIGProjTableModifications (USR) [RADDevelopment]", "SIGProjTableModifications\SIGProjTableModifications.rnrproj", "{FBEFAA47-B086-4DA5-91B7-655240262C06}"
+EndProject
+Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "SIGPayCheqxWeeklyReport (USR) [RADDevelopment]", "SIGPayCheqxWeeklyReport\SIGPayCheqxWeeklyReport.rnrproj", "{1E2EB54F-9549-4B90-A812-872E5FB39B32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,12 +42,18 @@ Global
 		{7540CB67-41DD-4CB5-8095-4B44C07DE72A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0FE1C59-4402-4491-A0F3-5A790407264B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A0FE1C59-4402-4491-A0F3-5A790407264B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFD8E04A-7DB6-4403-A67E-01AB28F84B71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFD8E04A-7DB6-4403-A67E-01AB28F84B71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBEFAA47-B086-4DA5-91B7-655240262C06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBEFAA47-B086-4DA5-91B7-655240262C06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E2EB54F-9549-4B90-A812-872E5FB39B32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E2EB54F-9549-4B90-A812-872E5FB39B32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 8
+		SccNumberOfProjects = 11
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/erpsig
 		SccLocalPath0 = .
@@ -66,5 +78,14 @@ Global
 		SccProjectUniqueName7 = Project\u0020Invoice\u0020Report\\Project\u0020Invoice\u0020Report.rnrproj
 		SccProjectName7 = Project\u0020Invoice\u0020Report
 		SccLocalPath7 = Project\u0020Invoice\u0020Report
+		SccProjectUniqueName8 = SIGEmployeeTimesheetAndUtilizationSummary\\SIGEmployeeTimesheetAndUtilizationSummary.rnrproj
+		SccProjectName8 = SIGEmployeeTimesheetAndUtilizationSummary
+		SccLocalPath8 = SIGEmployeeTimesheetAndUtilizationSummary
+		SccProjectUniqueName9 = SIGProjTableModifications\\SIGProjTableModifications.rnrproj
+		SccProjectName9 = SIGProjTableModifications
+		SccLocalPath9 = SIGProjTableModifications
+		SccProjectUniqueName10 = SIGPayCheqxWeeklyReport\\SIGPayCheqxWeeklyReport.rnrproj
+		SccProjectName10 = SIGPayCheqxWeeklyReport
+		SccLocalPath10 = SIGPayCheqxWeeklyReport
 	EndGlobalSection
 EndGlobal

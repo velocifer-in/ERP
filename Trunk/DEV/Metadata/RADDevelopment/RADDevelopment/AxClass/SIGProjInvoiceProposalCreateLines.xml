@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGProjInvoiceProposalCreateLines</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+//[ExtensionOf(formControlStr(ProjInvoiceProposalCreateLines, SIGCreateProposal))]
+public  class SIGProjInvoiceProposalCreateLines//_Extension
+{
+    
+    
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>SIGCreateProposal_OnGotFocus</Name>
+				<Source><![CDATA[
+    //public void clicked()
+    //{
+    //    DialogButton diagBut;
+
+    //    diagBut = Box::okCancel('Confirm invoice through end date',DialogButton::Yes,'Invoice through end date');
+
+    //    //if(diagbut == dialogbutton::no)
+    //    //{
+
+    //    //}
+    // //   if(diagBut == DialogButton::Yes)
+    //    {
+    //        next clicked();
+    //    }
+
+
+    //}
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    //[FormControlEventHandler(formControlStr(ProjInvoiceProposalCreateLines, SIGCreateProposal), FormControlEventType::GotFocus)]
+    //public static void SIGCreateProposal_OnClicked(FormControl sender, FormControlEventArgs e)
+    //{
+    //    FormRun formRun = sender.formRun();
+    //    FormCommandButtonControl cancelButton = formRun.design().controlName(formControlStr(ProjInvoiceProposalCreateLines, CancelButton)) as FormCommandButtonControl;
+
+
+    //    DialogButton diagBut;
+
+    //    diagBut = Box::okCancel('Confirm invoice through end date',DialogButton::Yes,'Invoice through end date');
+
+    //    if(diagbut == dialogbutton::no)
+    //    {
+    //        cancelButton.clicked();
+    //    }
+    //    //if(diagBut == DialogButton::Yes)
+    //    //{
+    //    //    next clicked();
+    //    //}
+    //}
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    [FormControlEventHandler(formControlStr(ProjInvoiceProposalCreateLines, SIGCreateProposal), FormControlEventType::GotFocus)]
+    public static void SIGCreateProposal_OnGotFocus(FormControl sender, FormControlEventArgs e)
+    {
+        FormRun formRun = sender.formRun();
+        FormCommandButtonControl cancelButton = formRun.design().controlName(formControlStr(ProjInvoiceProposalCreateLines, CancelButton)) as FormCommandButtonControl;
+
+
+        DialogButton diagBut;
+
+        diagBut = Box::okCancel('Confirm invoice through end date',DialogButton::Yes,'Invoice through end date');
+
+        if(diagbut == dialogbutton::Cancel)
+        {
+            cancelButton.clicked();
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

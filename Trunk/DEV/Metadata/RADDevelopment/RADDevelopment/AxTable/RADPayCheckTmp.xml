@@ -44,7 +44,7 @@ public class RADPayCheckTmp extends common
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
 			<Name>Dataarea</Name>
-			<ExtendedDataType>CompanyId</ExtendedDataType>
+			<ExtendedDataType>String10</ExtendedDataType>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldInt">
@@ -59,6 +59,7 @@ public class RADPayCheckTmp extends common
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
 			<Name>CategoryId</Name>
+			<ExtendedDataType>String30</ExtendedDataType>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">

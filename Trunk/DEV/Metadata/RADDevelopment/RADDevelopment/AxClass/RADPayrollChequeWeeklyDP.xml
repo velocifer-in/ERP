@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-	<Name>RADPayrollChequeDP</Name>
+	<Name>RADPayrollChequeWeeklyDP</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
-[SrsReportParameterAttribute(classstr(RADPayChequeContract))]
-class RADPayrollChequeDP extends SRSReportDataProviderBase
+[SrsReportParameterAttribute(classstr(RADPayChequeWeeklyContract))]
+class RADPayrollChequeWeeklyDP extends SRSReportDataProviderBase
 {
     RADPayCheckTmp  payCheckTmp,payCheckTmpDetails;
     StartDate           startDate,periodStartDate;
@@ -31,7 +31,7 @@ class RADPayrollChequeDP extends SRSReportDataProviderBase
 				<Source><![CDATA[
     public void processReport()
     {
-        RADPayChequeContract    contract = this.parmDataContract() as RADPayChequeContract;
+        RADPayChequeWeeklyContract    contract = this.parmDataContract() as RADPayChequeWeeklyContract;
         CompanyInfo             Cominfo;
        
         TSTimesheetTable        timesheetTable;
@@ -151,8 +151,6 @@ class RADPayrollChequeDP extends SRSReportDataProviderBase
 
         delete_from payCheckTmp where payCheckTmp.RADLeaveAndAbsence == NoYes::No;
 
-        Qty cuttoffHours;
-
         while select payCheckDetailsTmp order by HcmPersonnelNumberId where payCheckDetailsTmp.RADLeaveAndAbsence == NoYes::No
         {
             ttsbegin;
@@ -162,14 +160,9 @@ class RADPayrollChequeDP extends SRSReportDataProviderBase
             {
                 payCheckTmp.selectForUpdate(true);
                 payCheckTmp.Hours += payCheckDetailsTmp.Hours;
-
-                //cuttoffHours = JmgPayAgreementTable::find( JMGPROFILETABLE::find(payCheckTmp.DefaultProfileId).PayAgreement).RADDays;
-
-                //cuttoffHours = cuttoffHours * 2;
-
-                //if (payCheckTmp.Hours)// >  cuttoffHours)//&& payCheckDetailsTmp.RADEmployeeType == RADEmployeeType::Hourly )
+                //if (payCheckTmp.Hours > 40 )//&& payCheckDetailsTmp.RADEmployeeType == RADEmployeeType::Hourly )
                 //{
-                //    payCheckTmp.Hours = cuttoffHours;
+                //    payCheckTmp.Hours = 40;
                 //}
                 //else //(payCheckTmp.Hours < 80 )
                 //{
@@ -191,7 +184,14 @@ class RADPayrollChequeDP extends SRSReportDataProviderBase
                 {
                     payCheckTmp.CategoryId              =  'Salary';
                 }
-                payCheckTmp.Hours                   =  payCheckDetailsTmp.Hours;
+                //if (payCheckDetailsTmp.Hours > 40)
+                //{
+                //    payCheckTmp.Hours                   =  40;
+                //}
+                //else
+                //{
+                //    payCheckTmp.Hours                   =  payCheckDetailsTmp.Hours;
+                //}
                 payCheckTmp.RADPayCalc              =  RADPayCalc::None;
                 payCheckTmp.ResourceName            =  HcmWorker::findByPersonnelNumber(payCheckDetailsTmp.HcmPersonnelNumberId).name();
                 payCheckTmp.RADLeaveAndAbsence      =  NoYes::No;
@@ -225,7 +225,7 @@ class RADPayrollChequeDP extends SRSReportDataProviderBase
                 && (payCheckTmp.CategoryId == 'Salary'  || payCheckTmp.CategoryId == 'Hourly');
             salaryHours = payCheckTmp.Hours;
 
-            if (salaryHours && otHours)
+            if (salaryHours  && otHours)
             {
                 payCheckTmp.Hours -= otHours;
                 payCheckTmp.update();

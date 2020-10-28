@@ -9,20 +9,21 @@
     <OutputPath>bin</OutputPath>
     <SchemaVersion>2.0</SchemaVersion>
     <GenerateCrossReferences>True</GenerateCrossReferences>
-    <ProjectGuid>{a0fe1c59-4402-4491-a0f3-5a790407264b}</ProjectGuid>
-    <Name>Project Invoice Report</Name>
-    <RootNamespace>RADDevProject</RootNamespace>
+    <ProjectGuid>{1e2eb54f-9549-4b90-a812-872e5fb39b32}</ProjectGuid>
+    <Name>SIGPayCheqxWeeklyReport</Name>
+    <RootNamespace>SIGPayCheqxWeeklyReport</RootNamespace>
     <SccProjectName>SAK</SccProjectName>
     <SccProvider>SAK</SccProvider>
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
+    <StartupType>MenuItemOutput</StartupType>
+    <StartupObject>RADPayChequeWeeklyReport</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <Configuration>Debug</Configuration>
     <DBSyncInBuild>False</DBSyncInBuild>
     <GenerateFormAdaptors>False</GenerateFormAdaptors>
-    <Company>
-    </Company>
+    <Company>RILC</Company>
     <Partition>initial</Partition>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
@@ -34,56 +35,57 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Classes\" />
-    <Folder Include="Form Extensions\" />
-    <Folder Include="Output Menu Item Extensions\" />
+    <Folder Include="Extended Data Types\" />
+    <Folder Include="Menu Extensions\" />
+    <Folder Include="Output Menu Items\" />
     <Folder Include="Reports\" />
-    <Folder Include="Table Extensions\" />
+    <Folder Include="Tables\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AxClass\RADPrintMgtDocTypeHandlersExt">
+    <Content Include="AxClass\RADPayChequeWeeklyContract">
       <SubType>Content</SubType>
-      <Name>RADPrintMgtDocTypeHandlersExt</Name>
-      <Link>Classes\RADPrintMgtDocTypeHandlersExt</Link>
+      <Name>RADPayChequeWeeklyContract</Name>
+      <Link>Classes\RADPayChequeWeeklyContract</Link>
     </Content>
-    <Content Include="AxClass\RADPsaProjAndContractInvoiceControllerExt">
+    <Content Include="AxClass\RADPayChequeWeeklyUIBuilder">
       <SubType>Content</SubType>
-      <Name>RADPsaProjAndContractInvoiceControllerExt</Name>
-      <Link>Classes\RADPsaProjAndContractInvoiceControllerExt</Link>
+      <Name>RADPayChequeWeeklyUIBuilder</Name>
+      <Link>Classes\RADPayChequeWeeklyUIBuilder</Link>
     </Content>
-    <Content Include="AxClass\RADPSAProjInvoiceDP_Extension">
+    <Content Include="AxClass\RADPayrollChequeWeeklyDP">
       <SubType>Content</SubType>
-      <Name>RADPSAProjInvoiceDP_Extension</Name>
-      <Link>Classes\RADPSAProjInvoiceDP_Extension</Link>
+      <Name>RADPayrollChequeWeeklyDP</Name>
+      <Link>Classes\RADPayrollChequeWeeklyDP</Link>
     </Content>
-    <Content Include="AxFormExtension\ProjInvoiceProposalDetail.RADDevelopment">
+    <Content Include="AxEdt\RADPayrollPayCycleWeeklyRecId">
       <SubType>Content</SubType>
-      <Name>ProjInvoiceProposalDetail.RADDevelopment</Name>
-      <Link>Form Extensions\ProjInvoiceProposalDetail.RADDevelopment</Link>
+      <Name>RADPayrollPayCycleWeeklyRecId</Name>
+      <Link>Extended Data Types\RADPayrollPayCycleWeeklyRecId</Link>
     </Content>
-    <Content Include="AxMenuItemOutputExtension\PSAProjInvoice.Extension">
+    <Content Include="AxMenuExtension\Payroll.RADDevelopment">
       <SubType>Content</SubType>
-      <Name>PSAProjInvoice.Extension</Name>
-      <Link>Output Menu Item Extensions\PSAProjInvoice.Extension</Link>
+      <Name>Payroll.RADDevelopment</Name>
+      <Link>Menu Extensions\Payroll.RADDevelopment</Link>
     </Content>
-    <Content Include="AxReport\SIGPSAProjInvoice">
+    <Content Include="AxMenuItemOutput\RADPayChequeWeeklyReport">
       <SubType>Content</SubType>
-      <Name>SIGPSAProjInvoice</Name>
-      <Link>Reports\SIGPSAProjInvoice</Link>
+      <Name>RADPayChequeWeeklyReport</Name>
+      <Link>Output Menu Items\RADPayChequeWeeklyReport</Link>
     </Content>
-    <Content Include="AxTableExtension\ProjProposalJour.RADDevelopment">
+    <Content Include="AxReport\SIGPayChexWeeklyReport">
       <SubType>Content</SubType>
-      <Name>ProjProposalJour.RADDevelopment</Name>
-      <Link>Table Extensions\ProjProposalJour.RADDevelopment</Link>
+      <Name>SIGPayChexWeeklyReport</Name>
+      <Link>Reports\SIGPayChexWeeklyReport</Link>
     </Content>
-    <Content Include="AxTableExtension\PSAProjInvoiceHeaderTmp.RADDevelopment">
+    <Content Include="AxTable\RADPayCheckDetailsWeeklyTmp">
       <SubType>Content</SubType>
-      <Name>PSAProjInvoiceHeaderTmp.RADDevelopment</Name>
-      <Link>Table Extensions\PSAProjInvoiceHeaderTmp.RADDevelopment</Link>
+      <Name>RADPayCheckDetailsWeeklyTmp</Name>
+      <Link>Tables\RADPayCheckDetailsWeeklyTmp</Link>
     </Content>
-    <Content Include="AxTableExtension\PSAProjInvoiceTmp.RADDevelopment">
+    <Content Include="AxTable\RADPayCheckWeeklyTmp">
       <SubType>Content</SubType>
-      <Name>PSAProjInvoiceTmp.RADDevelopment</Name>
-      <Link>Table Extensions\PSAProjInvoiceTmp.RADDevelopment</Link>
+      <Name>RADPayCheckWeeklyTmp</Name>
+      <Link>Tables\RADPayCheckWeeklyTmp</Link>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />

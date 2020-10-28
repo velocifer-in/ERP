@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AxTable xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-	<Name>RADPayCheckDetailsTmp</Name>
+	<Name>RADPayCheckDetailsWeeklyTmp</Name>
 	<SourceCode>
 		<Declaration><![CDATA[
-public class RADPayCheckDetailsTmp extends common
+public class RADPayCheckDetailsWeeklyTmp extends common
 {
 }
 

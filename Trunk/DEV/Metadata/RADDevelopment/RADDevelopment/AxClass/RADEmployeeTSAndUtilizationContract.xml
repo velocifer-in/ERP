@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>RADEmployeeTSAndUtilizationContract</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[
+    DataContractAttribute,
+    SysOperationContractProcessingAttribute(classStr(RADEmployeeTSAndUtilizationUIBuilder), SysOperationDataContractProcessingMode::CreateSeparateUIBuilderForEachContract)
+]
+class RADEmployeeTSAndUtilizationContract
+{
+    #DEFINE.PayCycle("PayCycle")
+    #DEFINE.PayPeriod("PayPeriod")
+
+    PayrollPayCycleRecId            payrollPayCycleRecId;
+    PayrollPayPeriodRecId           payrollPayPeriodRecId;
+    
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>parmPayCycle</Name>
+				<Source><![CDATA[
+    [
+        DataMemberAttribute(#PayCycle),
+        SysOperationLabelAttribute(literalStr("@Payroll:PayCycle1")),
+        SysOperationHelpTextAttribute(literalStr("@SYS4090106")),
+        SysOperationDisplayOrderAttribute("0")
+    ]
+    public PayrollPayCycleRecId parmPayCycle(PayrollPayCycleRecId _payrollPayCycleRecId = payrollPayCycleRecId)
+    {
+        payrollPayCycleRecId = _payrollPayCycleRecId;
+        return payrollPayCycleRecId;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmPayPeriod</Name>
+				<Source><![CDATA[
+    [
+        DataMemberAttribute(#PayPeriod),
+        SysOperationLabelAttribute(literalStr("@Payroll:PayPeriod")),
+        SysOperationHelpTextAttribute(literalStr("@SYS4090107")),
+        SysOperationDisplayOrderAttribute("1")
+    ]
+    public PayrollPayPeriodRecId parmPayPeriod(PayrollPayPeriodRecId _payrollPayPeriodRecId = payrollPayPeriodRecId)
+    {
+        payrollPayPeriodRecId = _payrollPayPeriodRecId;
+        return payrollPayPeriodRecId;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

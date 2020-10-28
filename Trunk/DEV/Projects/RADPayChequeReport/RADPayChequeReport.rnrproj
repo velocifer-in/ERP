@@ -11,8 +11,8 @@
     <ProjectGuid>{7296f193-7e19-473a-a683-6e8682def2c7}</ProjectGuid>
     <Name>RADPayChequeReport</Name>
     <RootNamespace>RADPayChequeReport</RootNamespace>
-    <StartupType>Class</StartupType>
-    <StartupObject>RADTimesheetValidation</StartupObject>
+    <StartupType>MenuItemOutput</StartupType>
+    <StartupObject>RADPayChequeReport</StartupObject>
     <SccProjectName>SAK</SccProjectName>
     <SccProvider>SAK</SccProvider>
     <SccAuxPath>SAK</SccAuxPath>
@@ -105,10 +105,10 @@
       <Name>RADPayChequeReport</Name>
       <Link>Reports\RADPayChequeReport</Link>
     </Content>
-    <Content Include="AxReport\RADPaydetailChequeReport">
+    <Content Include="AxReport\SIGPaychexreport">
       <SubType>Content</SubType>
-      <Name>RADPaydetailChequeReport</Name>
-      <Link>Reports\RADPaydetailChequeReport</Link>
+      <Name>SIGPaychexreport</Name>
+      <Link>Reports\SIGPaychexreport</Link>
     </Content>
     <Content Include="AxTableExtension\JmgPayAgreementTable.RADExtension">
       <SubType>Content</SubType>

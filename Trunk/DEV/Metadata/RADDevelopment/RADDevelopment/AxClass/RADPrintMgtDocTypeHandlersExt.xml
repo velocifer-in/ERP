@@ -17,7 +17,7 @@ class RADPrintMgtDocTypeHandlersExt
         switch (_docType)
         {
             case PrintMgmtDocumentType::SIProjInvoice:
-                _result.result(ssrsReportStr(RADPSAProjInvoice, Report));
+                _result.result(ssrsReportStr(SIGPSAProjInvoice, Report));
                 break;
         }
     }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxFormExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V6">
+	<Name>ProjTable.RADDevelopment</Name>
+	<ControlModifications />
+	<Controls>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlcmztny1g1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormRealControl">
+				<Name>ProjTable_SIGAmount</Name>
+				<Type>Real</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataField>SIGAmount</DataField>
+				<DataSource>ProjTable</DataSource>
+			</FormControl>
+			<Parent>Integration</Parent>
+		</AxFormExtensionControl>
+	</Controls>
+	<DataSourceModifications />
+	<DataSourceReferences />
+	<DataSources />
+	<Parts />
+	<PropertyModifications />
+</AxFormExtension>

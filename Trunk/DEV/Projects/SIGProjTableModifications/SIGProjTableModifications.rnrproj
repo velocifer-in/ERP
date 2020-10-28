@@ -9,20 +9,21 @@
     <OutputPath>bin</OutputPath>
     <SchemaVersion>2.0</SchemaVersion>
     <GenerateCrossReferences>True</GenerateCrossReferences>
-    <ProjectGuid>{a0fe1c59-4402-4491-a0f3-5a790407264b}</ProjectGuid>
-    <Name>Project Invoice Report</Name>
-    <RootNamespace>RADDevProject</RootNamespace>
+    <ProjectGuid>{fbefaa47-b086-4da5-91b7-655240262c06}</ProjectGuid>
+    <Name>SIGProjTableModifications</Name>
+    <RootNamespace>SIGProjTableModifications</RootNamespace>
     <SccProjectName>SAK</SccProjectName>
     <SccProvider>SAK</SccProvider>
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
+    <StartupType>Form</StartupType>
+    <StartupObject>ProjTable (ProjTable.RADDevelopment)</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <Configuration>Debug</Configuration>
     <DBSyncInBuild>False</DBSyncInBuild>
     <GenerateFormAdaptors>False</GenerateFormAdaptors>
-    <Company>
-    </Company>
+    <Company>RILC</Company>
     <Partition>initial</Partition>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
@@ -35,55 +36,43 @@
   <ItemGroup>
     <Folder Include="Classes\" />
     <Folder Include="Form Extensions\" />
-    <Folder Include="Output Menu Item Extensions\" />
-    <Folder Include="Reports\" />
     <Folder Include="Table Extensions\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AxClass\RADPrintMgtDocTypeHandlersExt">
+    <Content Include="AxClass\SIGProjInvoiceControl_Extension">
       <SubType>Content</SubType>
-      <Name>RADPrintMgtDocTypeHandlersExt</Name>
-      <Link>Classes\RADPrintMgtDocTypeHandlersExt</Link>
+      <Name>SIGProjInvoiceControl_Extension</Name>
+      <Link>Classes\SIGProjInvoiceControl_Extension</Link>
     </Content>
-    <Content Include="AxClass\RADPsaProjAndContractInvoiceControllerExt">
+    <Content Include="AxClass\SIGProjInvoiceProposalCreateLines">
       <SubType>Content</SubType>
-      <Name>RADPsaProjAndContractInvoiceControllerExt</Name>
-      <Link>Classes\RADPsaProjAndContractInvoiceControllerExt</Link>
+      <Name>SIGProjInvoiceProposalCreateLines</Name>
+      <Link>Classes\SIGProjInvoiceProposalCreateLines</Link>
     </Content>
-    <Content Include="AxClass\RADPSAProjInvoiceDP_Extension">
+    <Content Include="AxClass\SIGProjTable_Extension">
       <SubType>Content</SubType>
-      <Name>RADPSAProjInvoiceDP_Extension</Name>
-      <Link>Classes\RADPSAProjInvoiceDP_Extension</Link>
+      <Name>SIGProjTable_Extension</Name>
+      <Link>Classes\SIGProjTable_Extension</Link>
     </Content>
-    <Content Include="AxFormExtension\ProjInvoiceProposalDetail.RADDevelopment">
+    <Content Include="AxFormExtension\ProjInvoiceControl.RADDevelopment">
       <SubType>Content</SubType>
-      <Name>ProjInvoiceProposalDetail.RADDevelopment</Name>
-      <Link>Form Extensions\ProjInvoiceProposalDetail.RADDevelopment</Link>
+      <Name>ProjInvoiceControl.RADDevelopment</Name>
+      <Link>Form Extensions\ProjInvoiceControl.RADDevelopment</Link>
     </Content>
-    <Content Include="AxMenuItemOutputExtension\PSAProjInvoice.Extension">
+    <Content Include="AxFormExtension\ProjInvoiceProposalCreateLines.RADDevelopment">
       <SubType>Content</SubType>
-      <Name>PSAProjInvoice.Extension</Name>
-      <Link>Output Menu Item Extensions\PSAProjInvoice.Extension</Link>
+      <Name>ProjInvoiceProposalCreateLines.RADDevelopment</Name>
+      <Link>Form Extensions\ProjInvoiceProposalCreateLines.RADDevelopment</Link>
     </Content>
-    <Content Include="AxReport\SIGPSAProjInvoice">
+    <Content Include="AxFormExtension\ProjTable.RADDevelopment">
       <SubType>Content</SubType>
-      <Name>SIGPSAProjInvoice</Name>
-      <Link>Reports\SIGPSAProjInvoice</Link>
+      <Name>ProjTable.RADDevelopment</Name>
+      <Link>Form Extensions\ProjTable.RADDevelopment</Link>
     </Content>
-    <Content Include="AxTableExtension\ProjProposalJour.RADDevelopment">
+    <Content Include="AxTableExtension\ProjTable.RADDevelopment">
       <SubType>Content</SubType>
-      <Name>ProjProposalJour.RADDevelopment</Name>
-      <Link>Table Extensions\ProjProposalJour.RADDevelopment</Link>
-    </Content>
-    <Content Include="AxTableExtension\PSAProjInvoiceHeaderTmp.RADDevelopment">
-      <SubType>Content</SubType>
-      <Name>PSAProjInvoiceHeaderTmp.RADDevelopment</Name>
-      <Link>Table Extensions\PSAProjInvoiceHeaderTmp.RADDevelopment</Link>
-    </Content>
-    <Content Include="AxTableExtension\PSAProjInvoiceTmp.RADDevelopment">
-      <SubType>Content</SubType>
-      <Name>PSAProjInvoiceTmp.RADDevelopment</Name>
-      <Link>Table Extensions\PSAProjInvoiceTmp.RADDevelopment</Link>
+      <Name>ProjTable.RADDevelopment</Name>
+      <Link>Table Extensions\ProjTable.RADDevelopment</Link>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />

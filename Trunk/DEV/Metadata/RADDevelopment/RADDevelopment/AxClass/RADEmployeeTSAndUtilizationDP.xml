@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>RADEmployeeTSAndUtilizationDP</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[SrsReportParameterAttribute(classstr(RADEmployeeTSAndUtilizationContract))]
+class RADEmployeeTSAndUtilizationDP extends SRSReportDataProviderBase
+{
+
+    //TableBuffer Decleration
+    RADEmployeeTSAndUtilizationTmp      employeeTSAndUtilizationTmp;
+    StartDate                           startDate,periodStartDate;
+    EndDate                             endDate,periodEndDate;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>getRADEmployeeTSAndUtilizationTmp</Name>
+				<Source><![CDATA[
+    //Setting SRSReportDataSet Attribute
+    [SrsReportDataSetAttribute('RADEmployeeTSAndUtilizationTmp')]
+    public RADEmployeeTSAndUtilizationTmp getRADEmployeeTSAndUtilizationTmp()
+    {
+        select * from employeeTSAndUtilizationTmp; 
+        return employeeTSAndUtilizationTmp;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>processReport</Name>
+				<Source><![CDATA[
+    [SysEntryPointAttribute()]
+    public void processReport()
+    {
+        RADEmployeeTSAndUtilizationContract     contract = this.parmDataContract() as RADEmployeeTSAndUtilizationContract;
+        TSTimesheetTable                        timesheetTable;
+        TSTimesheetLineWeek                     timesheetLineWeek;
+        TSTimesheetLine                         timesheetLine;
+        PayrollPayPeriod                        payrollPayPeriod;
+        ProjTable                               projTable;
+        HcmWorker                               hcmWorker;
+
+        payrollPayPeriod    = PayrollPayPeriod::find(contract.parmPayPeriod());
+
+        startDate     = payrollPayPeriod.PeriodStartDate;
+        endDate       = payrollPayPeriod.PeriodEndDate;
+
+        while select timesheetTable
+            where timesheetTable.PeriodFrom == startDate && timesheetTable.PeriodTo == endDate
+            join timesheetLine
+            where timesheetTable.TimesheetNbr == timesheetLine.TimesheetNbr
+            join timesheetLineWeek
+            where timesheetLine.RecId == timesheetLineWeek.TSTimesheetLine
+        {
+            hcmWorker =  HcmWorker::find(TSResource::workerRecId(timesheetLine.Resource));
+            projTable = ProjTable::find(timesheetLine.ProjId);
+
+
+            employeeTSAndUtilizationTmp.HcmPersonnelNumberId    = hcmWorker.PersonnelNumber;
+            employeeTSAndUtilizationTmp.ResourceName            = hcmWorker.name();
+            employeeTSAndUtilizationTmp.BillableHours           = timesheetLineWeek.totalHours();
+            employeeTSAndUtilizationTmp.StartDate               = timesheetLineWeek.DayFrom;
+            employeeTSAndUtilizationTmp.EndDate                 = timesheetLineWeek.DayTo;
+            employeeTSAndUtilizationTmp.insert();
+
+        }
+
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>
