@@ -55,11 +55,6 @@ public class RADEmployeeTSAndUtilizationTmp extends common
 			<ExtendedDataType>EndDate</ExtendedDataType>
 		</AxTableField>
 		<AxTableField xmlns=""
-			i:type="AxTableFieldInt">
-			<Name>Hours</Name>
-			<IsObsolete>Yes</IsObsolete>
-		</AxTableField>
-		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
 			<Name>Supervisor</Name>
 			<ExtendedDataType>Name</ExtendedDataType>
@@ -70,76 +65,74 @@ public class RADEmployeeTSAndUtilizationTmp extends common
 			<ExtendedDataType>ResourceName</ExtendedDataType>
 		</AxTableField>
 		<AxTableField xmlns=""
-			i:type="AxTableFieldInt">
+			i:type="AxTableFieldReal">
 			<Name>UtilizationExlHolPL</Name>
-			<IsObsolete>Yes</IsObsolete>
-			<Label>UtilizationExlHolPL</Label>
+			<ExtendedDataType>Qty</ExtendedDataType>
 		</AxTableField>
 		<AxTableField xmlns=""
-			i:type="AxTableFieldInt">
+			i:type="AxTableFieldReal">
 			<Name>UtilizationAllHours</Name>
-			<IsObsolete>Yes</IsObsolete>
-			<Label>UtilizationAllHours</Label>
+			<ExtendedDataType>Qty</ExtendedDataType>
 		</AxTableField>
 		<AxTableField xmlns=""
-			i:type="AxTableFieldInt">
+			i:type="AxTableFieldReal">
 			<Name>Total</Name>
-			<IsObsolete>Yes</IsObsolete>
-			<Label>Total</Label>
+			<ExtendedDataType>Qty</ExtendedDataType>
 		</AxTableField>
 		<AxTableField xmlns=""
-			i:type="AxTableFieldInt">
+			i:type="AxTableFieldReal">
 			<Name>Regular</Name>
-			<IsObsolete>Yes</IsObsolete>
-			<Label>Regular</Label>
+			<ExtendedDataType>Qty</ExtendedDataType>
 		</AxTableField>
 		<AxTableField xmlns=""
-			i:type="AxTableFieldInt">
+			i:type="AxTableFieldReal">
 			<Name>OTHours</Name>
-			<IsObsolete>Yes</IsObsolete>
-			<Label>OTHours</Label>
+			<ExtendedDataType>Qty</ExtendedDataType>
 		</AxTableField>
 		<AxTableField xmlns=""
-			i:type="AxTableFieldInt">
+			i:type="AxTableFieldReal">
 			<Name>OTNonBillableHours</Name>
-			<IsObsolete>Yes</IsObsolete>
-			<Label>OTNonBillableHours</Label>
+			<ExtendedDataType>Qty</ExtendedDataType>
 		</AxTableField>
 		<AxTableField xmlns=""
-			i:type="AxTableFieldInt">
+			i:type="AxTableFieldReal">
 			<Name>BillableHours</Name>
-			<IsObsolete>Yes</IsObsolete>
-			<Label>BillableHours</Label>
+			<ExtendedDataType>Qty</ExtendedDataType>
 		</AxTableField>
 		<AxTableField xmlns=""
-			i:type="AxTableFieldInt">
+			i:type="AxTableFieldReal">
+			<Name>BilledHours</Name>
+			<ExtendedDataType>Qty</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldReal">
 			<Name>NonBillableHours</Name>
-			<IsObsolete>Yes</IsObsolete>
-			<Label>NonBillableHours</Label>
+			<ExtendedDataType>Qty</ExtendedDataType>
 		</AxTableField>
 		<AxTableField xmlns=""
-			i:type="AxTableFieldInt">
+			i:type="AxTableFieldReal">
 			<Name>PersonalLeave</Name>
-			<IsObsolete>Yes</IsObsolete>
-			<Label>PersonalLeave</Label>
+			<ExtendedDataType>Qty</ExtendedDataType>
 		</AxTableField>
 		<AxTableField xmlns=""
-			i:type="AxTableFieldInt">
+			i:type="AxTableFieldReal">
 			<Name>Holiday</Name>
-			<IsObsolete>Yes</IsObsolete>
-			<Label>Holiday</Label>
+			<ExtendedDataType>Qty</ExtendedDataType>
 		</AxTableField>
 		<AxTableField xmlns=""
-			i:type="AxTableFieldInt">
-			<Name>UtilBaseExl</Name>
-			<IsObsolete>Yes</IsObsolete>
-			<Label>UtilBaseExl</Label>
+			i:type="AxTableFieldReal">
+			<Name>WithoutPay</Name>
+			<ExtendedDataType>Qty</ExtendedDataType>
 		</AxTableField>
 		<AxTableField xmlns=""
-			i:type="AxTableFieldInt">
+			i:type="AxTableFieldReal">
+			<Name>UtilBaseExlHolPL</Name>
+			<ExtendedDataType>Qty</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldReal">
 			<Name>UtilBaseAllHours</Name>
-			<IsObsolete>Yes</IsObsolete>
-			<Label>UtilBaseAllHours</Label>
+			<ExtendedDataType>Qty</ExtendedDataType>
 		</AxTableField>
 	</Fields>
 	<FullTextIndexes />

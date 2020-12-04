@@ -31,6 +31,11 @@
 			<ExtendedDataType>NoYesId</ExtendedDataType>
 			<EnumType>NoYes</EnumType>
 		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>Description</Name>
+			<ExtendedDataType>Description</ExtendedDataType>
+		</AxTableField>
 	</Fields>
 	<FullTextIndexes />
 	<Indexes />

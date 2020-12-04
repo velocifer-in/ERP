@@ -13,7 +13,15 @@
 				<AxReportDataSetField>
 					<Name>BillableHours</Name>
 					<Alias>RADEmployeeTSAndUtilizationTmp.1.BillableHours</Alias>
-					<DataType>System.Int32</DataType>
+					<DataType>System.Double</DataType>
+					<DisplayWidth>Auto</DisplayWidth>
+					<UserDefined>false</UserDefined>
+				</AxReportDataSetField>
+				<AxReportDataSetField>
+					<Name>BilledHours</Name>
+					<Alias>RADEmployeeTSAndUtilizationTmp.1.BilledHours</Alias>
+					<Caption>@SYS14578</Caption>
+					<DataType>System.Double</DataType>
 					<DisplayWidth>Auto</DisplayWidth>
 					<UserDefined>false</UserDefined>
 				</AxReportDataSetField>
@@ -35,49 +43,42 @@
 				<AxReportDataSetField>
 					<Name>Holiday</Name>
 					<Alias>RADEmployeeTSAndUtilizationTmp.1.Holiday</Alias>
-					<DataType>System.Int32</DataType>
-					<DisplayWidth>Auto</DisplayWidth>
-					<UserDefined>false</UserDefined>
-				</AxReportDataSetField>
-				<AxReportDataSetField>
-					<Name>Hours</Name>
-					<Alias>RADEmployeeTSAndUtilizationTmp.1.Hours</Alias>
-					<DataType>System.Int32</DataType>
+					<DataType>System.Double</DataType>
 					<DisplayWidth>Auto</DisplayWidth>
 					<UserDefined>false</UserDefined>
 				</AxReportDataSetField>
 				<AxReportDataSetField>
 					<Name>NonBillableHours</Name>
 					<Alias>RADEmployeeTSAndUtilizationTmp.1.NonBillableHours</Alias>
-					<DataType>System.Int32</DataType>
+					<DataType>System.Double</DataType>
 					<DisplayWidth>Auto</DisplayWidth>
 					<UserDefined>false</UserDefined>
 				</AxReportDataSetField>
 				<AxReportDataSetField>
 					<Name>OTHours</Name>
 					<Alias>RADEmployeeTSAndUtilizationTmp.1.OTHours</Alias>
-					<DataType>System.Int32</DataType>
+					<DataType>System.Double</DataType>
 					<DisplayWidth>Auto</DisplayWidth>
 					<UserDefined>false</UserDefined>
 				</AxReportDataSetField>
 				<AxReportDataSetField>
 					<Name>OTNonBillableHours</Name>
 					<Alias>RADEmployeeTSAndUtilizationTmp.1.OTNonBillableHours</Alias>
-					<DataType>System.Int32</DataType>
+					<DataType>System.Double</DataType>
 					<DisplayWidth>Auto</DisplayWidth>
 					<UserDefined>false</UserDefined>
 				</AxReportDataSetField>
 				<AxReportDataSetField>
 					<Name>PersonalLeave</Name>
 					<Alias>RADEmployeeTSAndUtilizationTmp.1.PersonalLeave</Alias>
-					<DataType>System.Int32</DataType>
+					<DataType>System.Double</DataType>
 					<DisplayWidth>Auto</DisplayWidth>
 					<UserDefined>false</UserDefined>
 				</AxReportDataSetField>
 				<AxReportDataSetField>
 					<Name>Regular</Name>
 					<Alias>RADEmployeeTSAndUtilizationTmp.1.Regular</Alias>
-					<DataType>System.Int32</DataType>
+					<DataType>System.Double</DataType>
 					<DisplayWidth>Auto</DisplayWidth>
 					<UserDefined>false</UserDefined>
 				</AxReportDataSetField>
@@ -106,35 +107,44 @@
 				<AxReportDataSetField>
 					<Name>Total</Name>
 					<Alias>RADEmployeeTSAndUtilizationTmp.1.Total</Alias>
-					<DataType>System.Int32</DataType>
+					<DataType>System.Double</DataType>
 					<DisplayWidth>Auto</DisplayWidth>
 					<UserDefined>false</UserDefined>
 				</AxReportDataSetField>
 				<AxReportDataSetField>
 					<Name>UtilBaseAllHours</Name>
 					<Alias>RADEmployeeTSAndUtilizationTmp.1.UtilBaseAllHours</Alias>
-					<DataType>System.Int32</DataType>
+					<DataType>System.Double</DataType>
 					<DisplayWidth>Auto</DisplayWidth>
 					<UserDefined>false</UserDefined>
 				</AxReportDataSetField>
 				<AxReportDataSetField>
-					<Name>UtilBaseExl</Name>
-					<Alias>RADEmployeeTSAndUtilizationTmp.1.UtilBaseExl</Alias>
-					<DataType>System.Int32</DataType>
+					<Name>UtilBaseExlHolPL</Name>
+					<Alias>RADEmployeeTSAndUtilizationTmp.1.UtilBaseExlHolPL</Alias>
+					<Caption>@SYS14578</Caption>
+					<DataType>System.Double</DataType>
 					<DisplayWidth>Auto</DisplayWidth>
 					<UserDefined>false</UserDefined>
 				</AxReportDataSetField>
 				<AxReportDataSetField>
 					<Name>UtilizationAllHours</Name>
 					<Alias>RADEmployeeTSAndUtilizationTmp.1.UtilizationAllHours</Alias>
-					<DataType>System.Int32</DataType>
+					<DataType>System.Double</DataType>
 					<DisplayWidth>Auto</DisplayWidth>
 					<UserDefined>false</UserDefined>
 				</AxReportDataSetField>
 				<AxReportDataSetField>
 					<Name>UtilizationExlHolPL</Name>
 					<Alias>RADEmployeeTSAndUtilizationTmp.1.UtilizationExlHolPL</Alias>
-					<DataType>System.Int32</DataType>
+					<DataType>System.Double</DataType>
+					<DisplayWidth>Auto</DisplayWidth>
+					<UserDefined>false</UserDefined>
+				</AxReportDataSetField>
+				<AxReportDataSetField>
+					<Name>WithoutPay</Name>
+					<Alias>RADEmployeeTSAndUtilizationTmp.1.WithoutPay</Alias>
+					<Caption>@SYS14578</Caption>
+					<DataType>System.Double</DataType>
 					<DisplayWidth>Auto</DisplayWidth>
 					<UserDefined>false</UserDefined>
 				</AxReportDataSetField>
@@ -279,7 +289,7 @@
         &lt;ConnectString /&gt;
         &lt;IntegratedSecurity&gt;true&lt;/IntegratedSecurity&gt;
       &lt;/ConnectionProperties&gt;
-      &lt;rd:DataSourceID&gt;4857b589-703a-415c-a7fd-b98f62352834&lt;/rd:DataSourceID&gt;
+      &lt;rd:DataSourceID&gt;15438296-d8d4-4b8d-8592-d0232199e14e&lt;/rd:DataSourceID&gt;
     &lt;/DataSource&gt;
   &lt;/DataSources&gt;
   &lt;DataSets&gt;
@@ -318,7 +328,11 @@
       &lt;Fields&gt;
         &lt;Field Name="BillableHours"&gt;
           &lt;DataField&gt;RADEmployeeTSAndUtilizationTmp.1.BillableHours&lt;/DataField&gt;
-          &lt;rd:TypeName&gt;System.Int32&lt;/rd:TypeName&gt;
+          &lt;rd:TypeName&gt;System.Double&lt;/rd:TypeName&gt;
+        &lt;/Field&gt;
+        &lt;Field Name="BilledHours"&gt;
+          &lt;DataField&gt;RADEmployeeTSAndUtilizationTmp.1.BilledHours&lt;/DataField&gt;
+          &lt;rd:TypeName&gt;System.Double&lt;/rd:TypeName&gt;
         &lt;/Field&gt;
         &lt;Field Name="EndDate"&gt;
           &lt;DataField&gt;RADEmployeeTSAndUtilizationTmp.1.EndDate&lt;/DataField&gt;
@@ -330,31 +344,27 @@
         &lt;/Field&gt;
         &lt;Field Name="Holiday"&gt;
           &lt;DataField&gt;RADEmployeeTSAndUtilizationTmp.1.Holiday&lt;/DataField&gt;
-          &lt;rd:TypeName&gt;System.Int32&lt;/rd:TypeName&gt;
-        &lt;/Field&gt;
-        &lt;Field Name="Hours"&gt;
-          &lt;DataField&gt;RADEmployeeTSAndUtilizationTmp.1.Hours&lt;/DataField&gt;
-          &lt;rd:TypeName&gt;System.Int32&lt;/rd:TypeName&gt;
+          &lt;rd:TypeName&gt;System.Double&lt;/rd:TypeName&gt;
         &lt;/Field&gt;
         &lt;Field Name="NonBillableHours"&gt;
           &lt;DataField&gt;RADEmployeeTSAndUtilizationTmp.1.NonBillableHours&lt;/DataField&gt;
-          &lt;rd:TypeName&gt;System.Int32&lt;/rd:TypeName&gt;
+          &lt;rd:TypeName&gt;System.Double&lt;/rd:TypeName&gt;
         &lt;/Field&gt;
         &lt;Field Name="OTHours"&gt;
           &lt;DataField&gt;RADEmployeeTSAndUtilizationTmp.1.OTHours&lt;/DataField&gt;
-          &lt;rd:TypeName&gt;System.Int32&lt;/rd:TypeName&gt;
+          &lt;rd:TypeName&gt;System.Double&lt;/rd:TypeName&gt;
         &lt;/Field&gt;
         &lt;Field Name="OTNonBillableHours"&gt;
           &lt;DataField&gt;RADEmployeeTSAndUtilizationTmp.1.OTNonBillableHours&lt;/DataField&gt;
-          &lt;rd:TypeName&gt;System.Int32&lt;/rd:TypeName&gt;
+          &lt;rd:TypeName&gt;System.Double&lt;/rd:TypeName&gt;
         &lt;/Field&gt;
         &lt;Field Name="PersonalLeave"&gt;
           &lt;DataField&gt;RADEmployeeTSAndUtilizationTmp.1.PersonalLeave&lt;/DataField&gt;
-          &lt;rd:TypeName&gt;System.Int32&lt;/rd:TypeName&gt;
+          &lt;rd:TypeName&gt;System.Double&lt;/rd:TypeName&gt;
         &lt;/Field&gt;
         &lt;Field Name="Regular"&gt;
           &lt;DataField&gt;RADEmployeeTSAndUtilizationTmp.1.Regular&lt;/DataField&gt;
-          &lt;rd:TypeName&gt;System.Int32&lt;/rd:TypeName&gt;
+          &lt;rd:TypeName&gt;System.Double&lt;/rd:TypeName&gt;
         &lt;/Field&gt;
         &lt;Field Name="ResourceName"&gt;
           &lt;DataField&gt;RADEmployeeTSAndUtilizationTmp.1.ResourceName&lt;/DataField&gt;
@@ -370,23 +380,27 @@
         &lt;/Field&gt;
         &lt;Field Name="Total"&gt;
           &lt;DataField&gt;RADEmployeeTSAndUtilizationTmp.1.Total&lt;/DataField&gt;
-          &lt;rd:TypeName&gt;System.Int32&lt;/rd:TypeName&gt;
+          &lt;rd:TypeName&gt;System.Double&lt;/rd:TypeName&gt;
         &lt;/Field&gt;
         &lt;Field Name="UtilBaseAllHours"&gt;
           &lt;DataField&gt;RADEmployeeTSAndUtilizationTmp.1.UtilBaseAllHours&lt;/DataField&gt;
-          &lt;rd:TypeName&gt;System.Int32&lt;/rd:TypeName&gt;
+          &lt;rd:TypeName&gt;System.Double&lt;/rd:TypeName&gt;
         &lt;/Field&gt;
-        &lt;Field Name="UtilBaseExl"&gt;
-          &lt;DataField&gt;RADEmployeeTSAndUtilizationTmp.1.UtilBaseExl&lt;/DataField&gt;
-          &lt;rd:TypeName&gt;System.Int32&lt;/rd:TypeName&gt;
+        &lt;Field Name="UtilBaseExlHolPL"&gt;
+          &lt;DataField&gt;RADEmployeeTSAndUtilizationTmp.1.UtilBaseExlHolPL&lt;/DataField&gt;
+          &lt;rd:TypeName&gt;System.Double&lt;/rd:TypeName&gt;
         &lt;/Field&gt;
         &lt;Field Name="UtilizationAllHours"&gt;
           &lt;DataField&gt;RADEmployeeTSAndUtilizationTmp.1.UtilizationAllHours&lt;/DataField&gt;
-          &lt;rd:TypeName&gt;System.Int32&lt;/rd:TypeName&gt;
+          &lt;rd:TypeName&gt;System.Double&lt;/rd:TypeName&gt;
         &lt;/Field&gt;
         &lt;Field Name="UtilizationExlHolPL"&gt;
           &lt;DataField&gt;RADEmployeeTSAndUtilizationTmp.1.UtilizationExlHolPL&lt;/DataField&gt;
-          &lt;rd:TypeName&gt;System.Int32&lt;/rd:TypeName&gt;
+          &lt;rd:TypeName&gt;System.Double&lt;/rd:TypeName&gt;
+        &lt;/Field&gt;
+        &lt;Field Name="WithoutPay"&gt;
+          &lt;DataField&gt;RADEmployeeTSAndUtilizationTmp.1.WithoutPay&lt;/DataField&gt;
+          &lt;rd:TypeName&gt;System.Double&lt;/rd:TypeName&gt;
         &lt;/Field&gt;
       &lt;/Fields&gt;
       &lt;rd:DataSetInfo&gt;
@@ -428,6 +442,12 @@
                 &lt;/TablixColumn&gt;
                 &lt;TablixColumn&gt;
                   &lt;Width&gt;1.31029cm&lt;/Width&gt;
+                &lt;/TablixColumn&gt;
+                &lt;TablixColumn&gt;
+                  &lt;Width&gt;2.5cm&lt;/Width&gt;
+                &lt;/TablixColumn&gt;
+                &lt;TablixColumn&gt;
+                  &lt;Width&gt;2.5cm&lt;/Width&gt;
                 &lt;/TablixColumn&gt;
                 &lt;TablixColumn&gt;
                   &lt;Width&gt;2.5cm&lt;/Width&gt;
@@ -718,6 +738,66 @@
                     &lt;/TablixCell&gt;
                     &lt;TablixCell&gt;
                       &lt;CellContents&gt;
+                        &lt;Textbox Name="Textbox3"&gt;
+                          &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                          &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                          &lt;Paragraphs&gt;
+                            &lt;Paragraph&gt;
+                              &lt;TextRuns&gt;
+                                &lt;TextRun&gt;
+                                  &lt;Value&gt;Personal Leave&lt;/Value&gt;
+                                  &lt;Style /&gt;
+                                &lt;/TextRun&gt;
+                              &lt;/TextRuns&gt;
+                              &lt;Style /&gt;
+                            &lt;/Paragraph&gt;
+                          &lt;/Paragraphs&gt;
+                          &lt;rd:DefaultName&gt;Textbox3&lt;/rd:DefaultName&gt;
+                          &lt;Style&gt;
+                            &lt;Border&gt;
+                              &lt;Color&gt;LightGrey&lt;/Color&gt;
+                              &lt;Style&gt;Solid&lt;/Style&gt;
+                            &lt;/Border&gt;
+                            &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                            &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                            &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                            &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                          &lt;/Style&gt;
+                        &lt;/Textbox&gt;
+                      &lt;/CellContents&gt;
+                    &lt;/TablixCell&gt;
+                    &lt;TablixCell&gt;
+                      &lt;CellContents&gt;
+                        &lt;Textbox Name="Textbox7"&gt;
+                          &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                          &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                          &lt;Paragraphs&gt;
+                            &lt;Paragraph&gt;
+                              &lt;TextRuns&gt;
+                                &lt;TextRun&gt;
+                                  &lt;Value&gt;Holiday&lt;/Value&gt;
+                                  &lt;Style /&gt;
+                                &lt;/TextRun&gt;
+                              &lt;/TextRuns&gt;
+                              &lt;Style /&gt;
+                            &lt;/Paragraph&gt;
+                          &lt;/Paragraphs&gt;
+                          &lt;rd:DefaultName&gt;Textbox7&lt;/rd:DefaultName&gt;
+                          &lt;Style&gt;
+                            &lt;Border&gt;
+                              &lt;Color&gt;LightGrey&lt;/Color&gt;
+                              &lt;Style&gt;Solid&lt;/Style&gt;
+                            &lt;/Border&gt;
+                            &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                            &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                            &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                            &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                          &lt;/Style&gt;
+                        &lt;/Textbox&gt;
+                      &lt;/CellContents&gt;
+                    &lt;/TablixCell&gt;
+                    &lt;TablixCell&gt;
+                      &lt;CellContents&gt;
                         &lt;Textbox Name="Textbox28"&gt;
                           &lt;CanGrow&gt;true&lt;/CanGrow&gt;
                           &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
@@ -857,7 +937,6 @@
                             &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
                           &lt;/Style&gt;
                         &lt;/Textbox&gt;
-                        &lt;rd:Selected&gt;true&lt;/rd:Selected&gt;
                       &lt;/CellContents&gt;
                     &lt;/TablixCell&gt;
                     &lt;TablixCell&gt;
@@ -927,24 +1006,6 @@
                             &lt;/Paragraph&gt;
                           &lt;/Paragraphs&gt;
                           &lt;rd:DefaultName&gt;UtilizationExlHolPL&lt;/rd:DefaultName&gt;
-                          &lt;CustomProperties&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXDataType&lt;/Name&gt;
-                              &lt;Value&gt;Integer&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTFormat&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.UtilizationExlHolPL&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTTextAlign&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.UtilizationExlHolPL&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTDirection&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.UtilizationExlHolPL&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                          &lt;/CustomProperties&gt;
                           &lt;Style&gt;
                             &lt;Border&gt;
                               &lt;Color&gt;LightGrey&lt;/Color&gt;
@@ -977,24 +1038,6 @@
                             &lt;/Paragraph&gt;
                           &lt;/Paragraphs&gt;
                           &lt;rd:DefaultName&gt;UtilizationAllHours&lt;/rd:DefaultName&gt;
-                          &lt;CustomProperties&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXDataType&lt;/Name&gt;
-                              &lt;Value&gt;Integer&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTFormat&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.UtilizationAllHours&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTTextAlign&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.UtilizationAllHours&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTDirection&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.UtilizationAllHours&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                          &lt;/CustomProperties&gt;
                           &lt;Style&gt;
                             &lt;Border&gt;
                               &lt;Color&gt;LightGrey&lt;/Color&gt;
@@ -1027,24 +1070,6 @@
                             &lt;/Paragraph&gt;
                           &lt;/Paragraphs&gt;
                           &lt;rd:DefaultName&gt;Total&lt;/rd:DefaultName&gt;
-                          &lt;CustomProperties&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXDataType&lt;/Name&gt;
-                              &lt;Value&gt;Integer&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTFormat&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.Total&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTTextAlign&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.Total&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTDirection&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.Total&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                          &lt;/CustomProperties&gt;
                           &lt;Style&gt;
                             &lt;Border&gt;
                               &lt;Color&gt;LightGrey&lt;/Color&gt;
@@ -1077,24 +1102,6 @@
                             &lt;/Paragraph&gt;
                           &lt;/Paragraphs&gt;
                           &lt;rd:DefaultName&gt;Regular&lt;/rd:DefaultName&gt;
-                          &lt;CustomProperties&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXDataType&lt;/Name&gt;
-                              &lt;Value&gt;Integer&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTFormat&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.Regular&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTTextAlign&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.Regular&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTDirection&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.Regular&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                          &lt;/CustomProperties&gt;
                           &lt;Style&gt;
                             &lt;Border&gt;
                               &lt;Color&gt;LightGrey&lt;/Color&gt;
@@ -1127,24 +1134,6 @@
                             &lt;/Paragraph&gt;
                           &lt;/Paragraphs&gt;
                           &lt;rd:DefaultName&gt;OTHours&lt;/rd:DefaultName&gt;
-                          &lt;CustomProperties&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXDataType&lt;/Name&gt;
-                              &lt;Value&gt;Integer&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTFormat&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.OTHours&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTTextAlign&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.OTHours&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTDirection&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.OTHours&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                          &lt;/CustomProperties&gt;
                           &lt;Style&gt;
                             &lt;Border&gt;
                               &lt;Color&gt;LightGrey&lt;/Color&gt;
@@ -1177,24 +1166,6 @@
                             &lt;/Paragraph&gt;
                           &lt;/Paragraphs&gt;
                           &lt;rd:DefaultName&gt;OTNonBillableHours&lt;/rd:DefaultName&gt;
-                          &lt;CustomProperties&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXDataType&lt;/Name&gt;
-                              &lt;Value&gt;Integer&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTFormat&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.OTNonBillableHours&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTTextAlign&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.OTNonBillableHours&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTDirection&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.OTNonBillableHours&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                          &lt;/CustomProperties&gt;
                           &lt;Style&gt;
                             &lt;Border&gt;
                               &lt;Color&gt;LightGrey&lt;/Color&gt;
@@ -1227,24 +1198,6 @@
                             &lt;/Paragraph&gt;
                           &lt;/Paragraphs&gt;
                           &lt;rd:DefaultName&gt;BillableHours&lt;/rd:DefaultName&gt;
-                          &lt;CustomProperties&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXDataType&lt;/Name&gt;
-                              &lt;Value&gt;Integer&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTFormat&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.BillableHours&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTTextAlign&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.BillableHours&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTDirection&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.BillableHours&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                          &lt;/CustomProperties&gt;
                           &lt;Style&gt;
                             &lt;Border&gt;
                               &lt;Color&gt;LightGrey&lt;/Color&gt;
@@ -1260,14 +1213,14 @@
                     &lt;/TablixCell&gt;
                     &lt;TablixCell&gt;
                       &lt;CellContents&gt;
-                        &lt;Textbox Name="UtilBaseExl"&gt;
+                        &lt;Textbox Name="PersonalLeave"&gt;
                           &lt;CanGrow&gt;true&lt;/CanGrow&gt;
                           &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
                           &lt;Paragraphs&gt;
                             &lt;Paragraph&gt;
                               &lt;TextRuns&gt;
                                 &lt;TextRun&gt;
-                                  &lt;Value&gt;=Fields!UtilBaseExl.Value&lt;/Value&gt;
+                                  &lt;Value&gt;=Fields!PersonalLeave.Value&lt;/Value&gt;
                                   &lt;Style /&gt;
                                 &lt;/TextRun&gt;
                               &lt;/TextRuns&gt;
@@ -1276,25 +1229,71 @@
                               &lt;/Style&gt;
                             &lt;/Paragraph&gt;
                           &lt;/Paragraphs&gt;
-                          &lt;rd:DefaultName&gt;UtilBaseExl&lt;/rd:DefaultName&gt;
-                          &lt;CustomProperties&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXDataType&lt;/Name&gt;
-                              &lt;Value&gt;Integer&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTFormat&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.UtilBaseExl&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTTextAlign&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.UtilBaseExl&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTDirection&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.UtilBaseExl&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                          &lt;/CustomProperties&gt;
+                          &lt;rd:DefaultName&gt;PersonalLeave&lt;/rd:DefaultName&gt;
+                          &lt;Style&gt;
+                            &lt;Border&gt;
+                              &lt;Color&gt;LightGrey&lt;/Color&gt;
+                              &lt;Style&gt;Solid&lt;/Style&gt;
+                            &lt;/Border&gt;
+                            &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                            &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                            &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                            &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                          &lt;/Style&gt;
+                        &lt;/Textbox&gt;
+                      &lt;/CellContents&gt;
+                    &lt;/TablixCell&gt;
+                    &lt;TablixCell&gt;
+                      &lt;CellContents&gt;
+                        &lt;Textbox Name="Holiday"&gt;
+                          &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                          &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                          &lt;Paragraphs&gt;
+                            &lt;Paragraph&gt;
+                              &lt;TextRuns&gt;
+                                &lt;TextRun&gt;
+                                  &lt;Value&gt;=Fields!Holiday.Value&lt;/Value&gt;
+                                  &lt;Style /&gt;
+                                &lt;/TextRun&gt;
+                              &lt;/TextRuns&gt;
+                              &lt;Style&gt;
+                                &lt;TextAlign&gt;Center&lt;/TextAlign&gt;
+                              &lt;/Style&gt;
+                            &lt;/Paragraph&gt;
+                          &lt;/Paragraphs&gt;
+                          &lt;rd:DefaultName&gt;Holiday&lt;/rd:DefaultName&gt;
+                          &lt;Style&gt;
+                            &lt;Border&gt;
+                              &lt;Color&gt;LightGrey&lt;/Color&gt;
+                              &lt;Style&gt;Solid&lt;/Style&gt;
+                            &lt;/Border&gt;
+                            &lt;PaddingLeft&gt;2pt&lt;/PaddingLeft&gt;
+                            &lt;PaddingRight&gt;2pt&lt;/PaddingRight&gt;
+                            &lt;PaddingTop&gt;2pt&lt;/PaddingTop&gt;
+                            &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
+                          &lt;/Style&gt;
+                        &lt;/Textbox&gt;
+                      &lt;/CellContents&gt;
+                    &lt;/TablixCell&gt;
+                    &lt;TablixCell&gt;
+                      &lt;CellContents&gt;
+                        &lt;Textbox Name="UtilBaseExlHolPL"&gt;
+                          &lt;CanGrow&gt;true&lt;/CanGrow&gt;
+                          &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
+                          &lt;Paragraphs&gt;
+                            &lt;Paragraph&gt;
+                              &lt;TextRuns&gt;
+                                &lt;TextRun&gt;
+                                  &lt;Value&gt;=Fields!UtilBaseExlHolPL.Value&lt;/Value&gt;
+                                  &lt;Style /&gt;
+                                &lt;/TextRun&gt;
+                              &lt;/TextRuns&gt;
+                              &lt;Style&gt;
+                                &lt;TextAlign&gt;Center&lt;/TextAlign&gt;
+                              &lt;/Style&gt;
+                            &lt;/Paragraph&gt;
+                          &lt;/Paragraphs&gt;
+                          &lt;rd:DefaultName&gt;UtilBaseExlHolPL&lt;/rd:DefaultName&gt;
                           &lt;Style&gt;
                             &lt;Border&gt;
                               &lt;Color&gt;LightGrey&lt;/Color&gt;
@@ -1327,24 +1326,6 @@
                             &lt;/Paragraph&gt;
                           &lt;/Paragraphs&gt;
                           &lt;rd:DefaultName&gt;UtilBaseAllHours&lt;/rd:DefaultName&gt;
-                          &lt;CustomProperties&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXDataType&lt;/Name&gt;
-                              &lt;Value&gt;Integer&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTFormat&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.UtilBaseAllHours&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTTextAlign&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.UtilBaseAllHours&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTDirection&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.UtilBaseAllHours&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                          &lt;/CustomProperties&gt;
                           &lt;Style&gt;
                             &lt;Border&gt;
                               &lt;Color&gt;LightGrey&lt;/Color&gt;
@@ -1375,24 +1356,6 @@
                             &lt;/Paragraph&gt;
                           &lt;/Paragraphs&gt;
                           &lt;rd:DefaultName&gt;Supervisor&lt;/rd:DefaultName&gt;
-                          &lt;CustomProperties&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXDataType&lt;/Name&gt;
-                              &lt;Value&gt;String&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTFormat&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.Supervisor&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTTextAlign&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.Supervisor&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                            &lt;CustomProperty&gt;
-                              &lt;Name&gt;AXEDTDirection&lt;/Name&gt;
-                              &lt;Value&gt;RADEmployeeTSAndUtilizationTmp.Supervisor&lt;/Value&gt;
-                            &lt;/CustomProperty&gt;
-                          &lt;/CustomProperties&gt;
                           &lt;Style&gt;
                             &lt;Border&gt;
                               &lt;Color&gt;LightGrey&lt;/Color&gt;
@@ -1412,6 +1375,8 @@
             &lt;/TablixBody&gt;
             &lt;TablixColumnHierarchy&gt;
               &lt;TablixMembers&gt;
+                &lt;TablixMember /&gt;
+                &lt;TablixMember /&gt;
                 &lt;TablixMember /&gt;
                 &lt;TablixMember /&gt;
                 &lt;TablixMember /&gt;
@@ -1445,7 +1410,7 @@
             &lt;Top&gt;0.3175cm&lt;/Top&gt;
             &lt;Left&gt;0cm&lt;/Left&gt;
             &lt;Height&gt;1.2cm&lt;/Height&gt;
-            &lt;Width&gt;26.45551cm&lt;/Width&gt;
+            &lt;Width&gt;31.45551cm&lt;/Width&gt;
             &lt;Style&gt;
               &lt;Border&gt;
                 &lt;Style&gt;None&lt;/Style&gt;
@@ -1456,7 +1421,7 @@
         &lt;Height&gt;1.5175cm&lt;/Height&gt;
         &lt;Style /&gt;
       &lt;/Body&gt;
-      &lt;Width&gt;26.45551cm&lt;/Width&gt;
+      &lt;Width&gt;31.45551cm&lt;/Width&gt;
       &lt;Page&gt;
         &lt;PageHeader&gt;
           &lt;Height&gt;2.13129cm&lt;/Height&gt;

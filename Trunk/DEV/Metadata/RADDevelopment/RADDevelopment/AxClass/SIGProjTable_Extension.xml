@@ -17,22 +17,135 @@ public final class SIGProjTable_Extension
         boolean ret = next validateWrite(_calledFromStatus);
 
 
-        if (ret && !this.ProjectedEndDate)
+        if (ret && !this.ProjectedEndDate && this.DefaultDimension && this.RecId)
         {
             ret = checkFailed("Projected end date should not be blank");
         }
 
-        if (ret && !this.WorkerResponsible)
+        if (ret && !this.WorkerResponsible && this.DefaultDimension && this.RecId)
         {
             ret = checkFailed("Project manager should not be blank");
         }
 
-        if (ret && !this.WorkerResponsibleFinancial)
+        if (ret && !this.WorkerResponsibleFinancial && this.DefaultDimension && this.RecId)
         {
-            ret = checkFailed("Proect controller should not be blank");
+            ret = checkFailed("Project controller should not be blank");
         }
 
         return ret;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>displayOriginalBudget</Name>
+				<Source><![CDATA[
+    public  display Amount  displayOriginalBudget()
+    {
+        //ProjBudgetLine  localProjectBudgetLocal,projBudgetLineCost;
+
+        //localProjectBudgetLocal = projBudgetLineCost.calcTotalBudgetLine(this.ProjId);
+
+        //return localProjectBudgetLocal.OriginalBudget;
+
+        ProjBudgetLine  localProjectBudgetLocal,projBudgetLineCost;
+        ProjBudgetLine  projBudgetLineLocal;
+        #define.Star("*");
+        select sum(OriginalBudget),sum(CommittedRevisions),sum(UncommittedRevisions), sum(TotalBudget)
+                            from projBudgetLineLocal
+                            where  projBudgetLineLocal.ProjId like this.ProjId + #Star
+                            &&    projBudgetLineLocal.ProjBudgetLineType == ProjBudgetLineType::Revenue;
+
+        //projBudgetLineLocal.ProjBudget == this.ProjBudget
+        //                &&    projBudgetLineLocal.ProjBudgetLineType == ProjBudgetLineType::Cost
+        //                &&    projBudgetLineLocal.ProjId like _projId + #Star;
+
+        //     localProjectBudgetLocal = projBudgetLineCost.calcTotalBudgetLine(this.ProjId);
+        
+        return projBudgetLineLocal.OriginalBudget;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>displayCommittedRevisionsTotal</Name>
+				<Source><![CDATA[
+    public  display Amount  displayCommittedRevisionsTotal()
+    {
+        //ProjBudgetLine  localProjectBudgetLocal,projBudgetLineCost;
+
+        //localProjectBudgetLocal = projBudgetLineCost.calcTotalBudgetLine(this.ProjId);
+
+        //return localProjectBudgetLocal.CommittedRevisions;
+        ProjBudgetLine  localProjectBudgetLocal,projBudgetLineCost;
+        ProjBudgetLine  projBudgetLineLocal;
+        #define.Star("*");
+        select sum(OriginalBudget),sum(CommittedRevisions),sum(UncommittedRevisions), sum(TotalBudget)
+                            from projBudgetLineLocal
+                            where  projBudgetLineLocal.ProjId like this.ProjId + #Star
+                            &&    projBudgetLineLocal.ProjBudgetLineType == ProjBudgetLineType::Revenue;
+
+        //projBudgetLineLocal.ProjBudget == this.ProjBudget
+        //                &&    projBudgetLineLocal.ProjBudgetLineType == ProjBudgetLineType::Cost
+        //                &&    projBudgetLineLocal.ProjId like _projId + #Star;
+
+        //     localProjectBudgetLocal = projBudgetLineCost.calcTotalBudgetLine(this.ProjId);
+        
+        return projBudgetLineLocal.CommittedRevisions;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>displayUncommittedRevisionsTotal</Name>
+				<Source><![CDATA[
+    public  display Amount  displayUncommittedRevisionsTotal()
+    {
+        ProjBudgetLine  localProjectBudgetLocal,projBudgetLineCost;
+        ProjBudgetLine  projBudgetLineLocal;
+        #define.Star("*");
+        select sum(OriginalBudget),sum(CommittedRevisions),sum(UncommittedRevisions), sum(TotalBudget)
+                            from projBudgetLineLocal
+                            where  projBudgetLineLocal.ProjId like this.ProjId + #Star
+                            &&    projBudgetLineLocal.ProjBudgetLineType == ProjBudgetLineType::Revenue;
+
+            //projBudgetLineLocal.ProjBudget == this.ProjBudget
+            //                &&    projBudgetLineLocal.ProjBudgetLineType == ProjBudgetLineType::Cost
+            //                &&    projBudgetLineLocal.ProjId like _projId + #Star;
+
+   //     localProjectBudgetLocal = projBudgetLineCost.calcTotalBudgetLine(this.ProjId);
+        
+        return projBudgetLineLocal.UncommittedRevisions;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>displayBudgetLineTotal</Name>
+				<Source><![CDATA[
+    public  display Amount  displayBudgetLineTotal()
+    {
+        //ProjBudgetLine  localProjectBudgetLocal,projBudgetLineCost;
+
+        //localProjectBudgetLocal = projBudgetLineCost.calcTotalBudgetLine(this.ProjId);
+
+        //return localProjectBudgetLocal.TotalBudget;
+
+        ProjBudgetLine  localProjectBudgetLocal,projBudgetLineCost;
+        ProjBudgetLine  projBudgetLineLocal;
+        #define.Star("*");
+        select sum(OriginalBudget),sum(CommittedRevisions),sum(UncommittedRevisions), sum(TotalBudget)
+                            from projBudgetLineLocal
+                            where  projBudgetLineLocal.ProjId like this.ProjId + #Star
+                            &&    projBudgetLineLocal.ProjBudgetLineType == ProjBudgetLineType::Revenue;
+
+        //projBudgetLineLocal.ProjBudget == this.ProjBudget
+        //                &&    projBudgetLineLocal.ProjBudgetLineType == ProjBudgetLineType::Cost
+        //                &&    projBudgetLineLocal.ProjId like _projId + #Star;
+
+        //     localProjectBudgetLocal = projBudgetLineCost.calcTotalBudgetLine(this.ProjId);
+        
+        return projBudgetLineLocal.TotalBudget;
     }
 
 ]]></Source>

@@ -70,6 +70,16 @@
       <Name>RADEmployeeTSAndUtilizationTmp</Name>
       <Link>Tables\RADEmployeeTSAndUtilizationTmp</Link>
     </Content>
+    <Content Include="AxTable\RADPayCheckUtilizationDetailsTmp">
+      <SubType>Content</SubType>
+      <Name>RADPayCheckUtilizationDetailsTmp</Name>
+      <Link>Tables\RADPayCheckUtilizationDetailsTmp</Link>
+    </Content>
+    <Content Include="AxTable\RADPayCheckUtilizationTmp">
+      <SubType>Content</SubType>
+      <Name>RADPayCheckUtilizationTmp</Name>
+      <Link>Tables\RADPayCheckUtilizationTmp</Link>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
   <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.targets" />

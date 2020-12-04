@@ -9,12 +9,66 @@
 				i:type="AxFormRealControl">
 				<Name>ProjTable_SIGAmount</Name>
 				<Type>Real</Type>
+				<Visible>No</Visible>
 				<FormControlExtension
 					i:nil="true" />
 				<DataField>SIGAmount</DataField>
 				<DataSource>ProjTable</DataSource>
 			</FormControl>
 			<Parent>Integration</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControld2kpxzbq1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormGroupControl">
+				<Name>SIGBudgetGroup</Name>
+				<Type>Group</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl xmlns=""
+						i:type="AxFormRealControl">
+						<Name>SIGOriginalBudget</Name>
+						<Type>Real</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataMethod>SIGProjTable_Extension.displayOriginalBudget</DataMethod>
+						<DataSource>ProjTable</DataSource>
+						<Label>Total original budget</Label>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormRealControl">
+						<Name>SIGApprovedRevisionBudet</Name>
+						<Type>Real</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataMethod>SIGProjTable_Extension.displayCommittedRevisionsTotal</DataMethod>
+						<DataSource>ProjTable</DataSource>
+						<Label>Total approved revisions</Label>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormRealControl">
+						<Name>SIGUnApprovedBudget</Name>
+						<Type>Real</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataMethod>SIGProjTable_Extension.displayUncommittedRevisionsTotal</DataMethod>
+						<DataSource>ProjTable</DataSource>
+						<Label>Total unappproved revisions</Label>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormRealControl">
+						<Name>SIGTotalBudget</Name>
+						<Type>Real</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataMethod>SIGProjTable_Extension.displayBudgetLineTotal</DataMethod>
+						<DataSource>ProjTable</DataSource>
+						<Label>Total approved budget</Label>
+					</AxFormControl>
+				</Controls>
+			</FormControl>
+			<Parent>General</Parent>
 		</AxFormExtensionControl>
 	</Controls>
 	<DataSourceModifications />

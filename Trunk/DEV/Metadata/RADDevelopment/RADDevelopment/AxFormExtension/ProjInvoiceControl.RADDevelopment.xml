@@ -11,9 +11,9 @@
 				<Type>Real</Type>
 				<FormControlExtension
 					i:nil="true" />
-				<DataMethod>SIGProjInvoiceControl_Extension.displayContractAmount</DataMethod>
+				<DataMethod>SIGProjInvoiceControl_Extension.displayApprovedBudget</DataMethod>
 				<DataSource>General</DataSource>
-				<Label>Contract amount</Label>
+				<Label>Approved budget</Label>
 			</FormControl>
 			<Parent>SalesCurrency</Parent>
 		</AxFormExtensionControl>

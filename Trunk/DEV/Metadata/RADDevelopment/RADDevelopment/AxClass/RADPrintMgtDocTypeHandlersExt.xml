@@ -19,6 +19,9 @@ class RADPrintMgtDocTypeHandlersExt
             case PrintMgmtDocumentType::SIProjInvoice:
                 _result.result(ssrsReportStr(SIGPSAProjInvoice, Report));
                 break;
+           case PrintMgmtDocumentType::SIProjInvoiceWithBR:
+                _result.result(ssrsReportStr(SIGPSAProjInvoice, Report));
+                break;
         }
     }
 

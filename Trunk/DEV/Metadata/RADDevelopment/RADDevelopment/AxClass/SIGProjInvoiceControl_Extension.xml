@@ -22,6 +22,19 @@ public final class SIGProjInvoiceControl_Extension
 
 ]]></Source>
 			</Method>
+			<Method>
+				<Name>displayApprovedBudget</Name>
+				<Source><![CDATA[
+    public  display Amount  displayApprovedBudget()
+    {
+        FormDataSource formDS = this;
+        FormRun formRun = this.formRun();
+        
+        return ProjTable::find(formRun.projId()).displayOriginalBudget();
+    }
+
+]]></Source>
+			</Method>
 		</Methods>
 	</SourceCode>
 </AxClass>

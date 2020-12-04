@@ -48,6 +48,7 @@ class RADPayrollChequeDP extends SRSReportDataProviderBase
         
         while select timesheetTable
             where timesheetTable.PeriodFrom >= startDate && timesheetTable.PeriodTo <= endDate
+            && timesheetTable.ApprovalStatus    == TSAppStatus::Ledger
             join timesheetLine 
             where timesheetTable.TimesheetNbr == timesheetLine.TimesheetNbr
             join timesheetLineWeek
@@ -67,7 +68,7 @@ class RADPayrollChequeDP extends SRSReportDataProviderBase
             payCheckTmp.RADEmployeeType         =  JmgPayAgreementTable::find( JMGPROFILETABLE::find(payCheckTmp.DefaultProfileId ).PayAgreement).RADEmployeeType;
             payCheckTmp.RADLeaveAndAbsence      =  ProjTable.RADLeaveAndAbsence;
             
-            var TotalHours = timesheetLineWeek.totalHours();
+            Hours TotalHours = timesheetLineWeek.totalHours();
           
             payCheckTmp.TotalHours = TotalHours;
             payCheckTmp.Hours = TotalHours;
@@ -78,7 +79,7 @@ class RADPayrollChequeDP extends SRSReportDataProviderBase
 
         HcmPersonnelNumberId    hcmPersonnelNumberId;
         RADPayCheckDetailsTmp   payCheckDetailsTmp,payCheckTmpDetailsIns;
-        Qty                     hours;
+        Hours                     hours;
 
         insert_recordset payCheckDetailsTmp(Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence)
             select Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence from payCheckTmp;

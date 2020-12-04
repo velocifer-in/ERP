@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxFormExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V6">
+	<Name>ProjInvoiceTable.RADDevelopment</Name>
+	<ControlModifications />
+	<Controls>
+		<AxFormExtensionControl xmlns="">
+			<Name>Copyyszaq1401</Name>
+			<FormControl xmlns=""
+				i:type="AxFormComboBoxControl">
+				<Name>SIGProjFundingSource_PSAInvoiceFormats</Name>
+				<AutoDeclaration>Yes</AutoDeclaration>
+				<ElementPosition>2072918241</ElementPosition>
+				<FilterExpression>%1</FilterExpression>
+				<HeightMode>Auto</HeightMode>
+				<Type>ComboBox</Type>
+				<VerticalSpacing>-1</VerticalSpacing>
+				<Visible>No</Visible>
+				<WidthMode>Auto</WidthMode>
+				<FormControlExtension
+					i:nil="true" />
+				<DataMethod>SIGProjInvoiceTable_Extension.editInvoiceFormatSIG</DataMethod>
+				<DataSource>ProjFundingSource</DataSource>
+				<Items />
+			</FormControl>
+			<Parent>FundingGrid</Parent>
+		</AxFormExtensionControl>
+	</Controls>
+	<DataSourceModifications />
+	<DataSourceReferences />
+	<DataSources />
+	<Parts />
+	<PropertyModifications />
+</AxFormExtension>

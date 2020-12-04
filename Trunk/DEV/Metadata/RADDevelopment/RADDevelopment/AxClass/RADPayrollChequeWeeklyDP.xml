@@ -33,7 +33,7 @@ class RADPayrollChequeWeeklyDP extends SRSReportDataProviderBase
     {
         RADPayChequeWeeklyContract    contract = this.parmDataContract() as RADPayChequeWeeklyContract;
         CompanyInfo             Cominfo;
-       
+
         TSTimesheetTable        timesheetTable;
         TSTimesheetLineWeek     timesheetLineWeek;
         TSTimesheetLine         timesheetLine;
@@ -45,7 +45,7 @@ class RADPayrollChequeWeeklyDP extends SRSReportDataProviderBase
 
         startDate     = payrollPayPeriod.PeriodStartDate;
         endDate       = payrollPayPeriod.PeriodEndDate;
-        
+
         while select timesheetTable
             where timesheetTable.PeriodFrom >= startDate && timesheetTable.PeriodTo <= endDate
             join timesheetLine 
@@ -66,12 +66,12 @@ class RADPayrollChequeWeeklyDP extends SRSReportDataProviderBase
             payCheckTmp.DefaultProfileId        =  JmgEmployee::find(hcmWorker.recId).DefaultProfileId;
             payCheckTmp.RADEmployeeType         =  JmgPayAgreementTable::find( JMGPROFILETABLE::find(payCheckTmp.DefaultProfileId ).PayAgreement).RADEmployeeType;
             payCheckTmp.RADLeaveAndAbsence      =  ProjTable.RADLeaveAndAbsence;
-            
+
             var TotalHours = timesheetLineWeek.totalHours();
-          
+
             payCheckTmp.TotalHours = TotalHours;
             payCheckTmp.Hours = TotalHours;
-             
+
             payCheckTmp.insert();
         }
 
@@ -203,7 +203,7 @@ class RADPayrollChequeWeeklyDP extends SRSReportDataProviderBase
             ttscommit;
         }
         update_recordset payCheckTmp setting StartDate = StartDate,EndDate  =  endDate ;
-        
+
         delete_from payCheckDetailsTmp;
 
         insert_recordset payCheckDetailsTmp(Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence)
@@ -231,7 +231,7 @@ class RADPayrollChequeWeeklyDP extends SRSReportDataProviderBase
                 payCheckTmp.update();
             }
             ttscommit;
-            
+
 
 
 

@@ -48,7 +48,7 @@
 				<AxReportDataSetField>
 					<Name>Hours</Name>
 					<Alias>RADPayCheckTmp.1.Hours</Alias>
-					<DataType>System.Int32</DataType>
+					<DataType>System.Double</DataType>
 					<DisplayWidth>Auto</DisplayWidth>
 					<UserDefined>false</UserDefined>
 				</AxReportDataSetField>
@@ -119,7 +119,7 @@
 				<AxReportDataSetField>
 					<Name>TotalHours</Name>
 					<Alias>RADPayCheckTmp.1.TotalHours</Alias>
-					<DataType>System.Int32</DataType>
+					<DataType>System.Double</DataType>
 					<DisplayWidth>Auto</DisplayWidth>
 					<UserDefined>false</UserDefined>
 				</AxReportDataSetField>
@@ -264,7 +264,7 @@
         &lt;ConnectString /&gt;
         &lt;IntegratedSecurity&gt;true&lt;/IntegratedSecurity&gt;
       &lt;/ConnectionProperties&gt;
-      &lt;rd:DataSourceID&gt;8b2cf0a9-f2cf-4c59-a80a-ce3694035bac&lt;/rd:DataSourceID&gt;
+      &lt;rd:DataSourceID&gt;f09ec51e-efa8-4dee-ad77-d738cbc4e31d&lt;/rd:DataSourceID&gt;
     &lt;/DataSource&gt;
   &lt;/DataSources&gt;
   &lt;DataSets&gt;
@@ -323,7 +323,7 @@
         &lt;/Field&gt;
         &lt;Field Name="Hours"&gt;
           &lt;DataField&gt;RADPayCheckTmp.1.Hours&lt;/DataField&gt;
-          &lt;rd:TypeName&gt;System.Int32&lt;/rd:TypeName&gt;
+          &lt;rd:TypeName&gt;System.Double&lt;/rd:TypeName&gt;
         &lt;/Field&gt;
         &lt;Field Name="RADEmployeeTypeLabel"&gt;
           &lt;DataField&gt;RADPayCheckTmp.1.RADEmployeeType:LABEL(RADEmployeeType)&lt;/DataField&gt;
@@ -363,7 +363,7 @@
         &lt;/Field&gt;
         &lt;Field Name="TotalHours"&gt;
           &lt;DataField&gt;RADPayCheckTmp.1.TotalHours&lt;/DataField&gt;
-          &lt;rd:TypeName&gt;System.Int32&lt;/rd:TypeName&gt;
+          &lt;rd:TypeName&gt;System.Double&lt;/rd:TypeName&gt;
         &lt;/Field&gt;
       &lt;/Fields&gt;
       &lt;rd:DataSetInfo&gt;
@@ -437,7 +437,6 @@
                             &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
                           &lt;/Style&gt;
                         &lt;/Textbox&gt;
-                        &lt;rd:Selected&gt;true&lt;/rd:Selected&gt;
                       &lt;/CellContents&gt;
                     &lt;/TablixCell&gt;
                     &lt;TablixCell&gt;
@@ -472,7 +471,6 @@
                             &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
                           &lt;/Style&gt;
                         &lt;/Textbox&gt;
-                        &lt;rd:Selected&gt;true&lt;/rd:Selected&gt;
                       &lt;/CellContents&gt;
                     &lt;/TablixCell&gt;
                     &lt;TablixCell&gt;
@@ -507,7 +505,6 @@
                             &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
                           &lt;/Style&gt;
                         &lt;/Textbox&gt;
-                        &lt;rd:Selected&gt;true&lt;/rd:Selected&gt;
                       &lt;/CellContents&gt;
                     &lt;/TablixCell&gt;
                     &lt;TablixCell&gt;
@@ -542,7 +539,6 @@
                             &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
                           &lt;/Style&gt;
                         &lt;/Textbox&gt;
-                        &lt;rd:Selected&gt;true&lt;/rd:Selected&gt;
                       &lt;/CellContents&gt;
                     &lt;/TablixCell&gt;
                     &lt;TablixCell&gt;
@@ -577,7 +573,6 @@
                             &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
                           &lt;/Style&gt;
                         &lt;/Textbox&gt;
-                        &lt;rd:Selected&gt;true&lt;/rd:Selected&gt;
                       &lt;/CellContents&gt;
                     &lt;/TablixCell&gt;
                     &lt;TablixCell&gt;
@@ -612,7 +607,6 @@
                             &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
                           &lt;/Style&gt;
                         &lt;/Textbox&gt;
-                        &lt;rd:Selected&gt;true&lt;/rd:Selected&gt;
                       &lt;/CellContents&gt;
                     &lt;/TablixCell&gt;
                   &lt;/TablixCells&gt;
@@ -870,7 +864,9 @@
                               &lt;TextRuns&gt;
                                 &lt;TextRun&gt;
                                   &lt;Value&gt;=Fields!Hours.Value&lt;/Value&gt;
-                                  &lt;Style /&gt;
+                                  &lt;Style&gt;
+                                    &lt;Format&gt;n2&lt;/Format&gt;
+                                  &lt;/Style&gt;
                                 &lt;/TextRun&gt;
                               &lt;/TextRuns&gt;
                               &lt;Style&gt;
@@ -882,7 +878,7 @@
                           &lt;CustomProperties&gt;
                             &lt;CustomProperty&gt;
                               &lt;Name&gt;AXDataType&lt;/Name&gt;
-                              &lt;Value&gt;Integer&lt;/Value&gt;
+                              &lt;Value&gt;Float&lt;/Value&gt;
                             &lt;/CustomProperty&gt;
                             &lt;CustomProperty&gt;
                               &lt;Name&gt;AXEDTFormat&lt;/Name&gt;
@@ -908,6 +904,7 @@
                             &lt;PaddingBottom&gt;2pt&lt;/PaddingBottom&gt;
                           &lt;/Style&gt;
                         &lt;/Textbox&gt;
+                        &lt;rd:Selected&gt;true&lt;/rd:Selected&gt;
                       &lt;/CellContents&gt;
                     &lt;/TablixCell&gt;
                   &lt;/TablixCells&gt;

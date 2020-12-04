@@ -64,6 +64,11 @@
       <Name>ProjInvoiceProposalCreateLines.RADDevelopment</Name>
       <Link>Form Extensions\ProjInvoiceProposalCreateLines.RADDevelopment</Link>
     </Content>
+    <Content Include="AxFormExtension\ProjProjectsListPage.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>ProjProjectsListPage.RADDevelopment</Name>
+      <Link>Form Extensions\ProjProjectsListPage.RADDevelopment</Link>
+    </Content>
     <Content Include="AxFormExtension\ProjTable.RADDevelopment">
       <SubType>Content</SubType>
       <Name>ProjTable.RADDevelopment</Name>

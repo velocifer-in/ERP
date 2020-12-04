@@ -2,19 +2,7 @@
 <AxMenuExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V1">
 	<Name>ProjectManagementAndAccounting.Extension</Name>
 	<Customizations />
-	<Elements>
-		<AxMenuExtensionElement xmlns="">
-			<Parent>InquiriesAndReports</Parent>
-			<PositionType>AfterItem</PositionType>
-			<PreviousSibling>ProjListTransProject</PreviousSibling>
-			<MenuElement xmlns=""
-				i:type="AxMenuElementMenuItem">
-				<Name>Proj_Sales_Report</Name>
-				<MenuItemName>PrjSalesOP</MenuItemName>
-				<MenuItemType>Output</MenuItemType>
-			</MenuElement>
-		</AxMenuExtensionElement>
-	</Elements>
+	<Elements />
 	<MenuElementModifications />
 	<PropertyModifications />
 </AxMenuExtension>

@@ -19,15 +19,68 @@ final public class RADPSAProjInvoiceDP_Extension
         
         Projproposaljour projproposaljour;
         ProjTrans projTransEmpl             = ProjTrans::newProjProposalEmpl(_projProposalEmpl);
-        tmpPSAProjInvoice.MainProjId        = ProjTable::getRootProjId(projTransEmpl.ProjId());
+        tmpPSAProjInvoice.MainProjId        = ProjTable::getRootProjId(_projProposalEmpl.projProposalJour().projId());
         tmpPSAProjInvoice.MainProjIDProjName= ProjTable::find(tmpPSAProjInvoice.MainProjId).Name;
-        tmpPSAProjInvoice.ContractValue     = this.calcTotalBudgetLine(tmpPSAProjInvoice.MainProjId).TotalBudget;
+        //tmpPSAProjInvoice.ContractValue     = this.calcTotalBudgetLine(tmpPSAProjInvoice.MainProjId).TotalBudget;
 
-        select sum( invoiceamount) from projproposaljour 
-            where projproposaljour.PROJINVOICEPROJID == projTransEmpl.projTable().ProjInvoiceProjId
-            && projproposaljour.LineProperty      == ProjLinePropertyCode::Invoiced;
+        //select sum( invoiceamount) from projproposaljour 
+        //    where projproposaljour.ProposalId == projTransEmpl.proposalId()
+        //    && projproposaljour.LineProperty      == ProjLinePropertyCode::Invoiced;
+
+        //tmpPSAProjInvoice.priorBilled       = projproposaljour.InvoiceAmount;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>initFromProjInvoiceEmpl</Name>
+				<Source><![CDATA[
+    protected void initFromProjInvoiceEmpl(ProjInvoiceEmpl _projInvoiceEmpl)
+    {
+        next initFromProjInvoiceEmpl(_projInvoiceEmpl);
+
+        //ProjInvoiceJour projInvoiceJour;
+
+       // ProjTrans projTransEmpl             = ProjTrans::newProjProposalEmpl(_projProposalEmpl);
+        tmpPSAProjInvoice.MainProjId        = ProjTable::getRootProjId(_projInvoiceEmpl.ProjId);
+        tmpPSAProjInvoice.MainProjIDProjName= ProjTable::find(tmpPSAProjInvoice.MainProjId).Name;
+        //tmpPSAProjInvoice.ContractValue     = this.calcTotalBudgetLine(tmpPSAProjInvoice.MainProjId).TotalBudget;
+
+        //select sum( invoiceamount) from projInvoiceJour
+        //    where projInvoiceJour.PROJINVOICEID == _projInvoiceEmpl.ProjInvoiceId;
+            //&& projInvoiceJour.LineProperty      == ProjLinePropertyCode::Invoiced;
                 
-        tmpPSAProjInvoice.priorBilled       = projproposaljour.InvoiceAmount;
+     //   tmpPSAProjInvoice.priorBilled       = projInvoiceJour.InvoiceAmount;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>initFromProjInvoiceOnAcc</Name>
+				<Source><![CDATA[
+    protected void initFromProjInvoiceOnAcc(ProjInvoiceOnAcc _projInvoiceOnAcc)
+    {
+        next initFromProjInvoiceOnAcc(_projInvoiceOnAcc);
+
+        PSAProjProposalProj     projProposalProjSum;
+        ProjPostTransView       projPostTransView;
+
+        tmpPSAProjInvoice.MainProjId        = ProjTable::getRootProjId(_projInvoiceOnAcc.ProjId);
+        tmpPSAProjInvoice.MainProjIDProjName= ProjTable::find(tmpPSAProjInvoice.MainProjId).Name;
+        //tmpPSAProjInvoice.ContractValue     = this.calcTotalBudgetLine(tmpPSAProjInvoice.MainProjId).TotalBudget;
+
+        //select sum( invoiceamount) from projInvoiceJour
+        //    where projInvoiceJour.PROJINVOICEID == _projInvoiceEmpl.ProjInvoiceId;
+        //&& projInvoiceJour.LineProperty      == ProjLinePropertyCode::Invoiced;
+       // select sum( Invoiced) from projProposalProjSum
+       //     where projProposalProjSum.ProjId == _projInvoiceOnAcc.ProjId;
+       //// && projProposalProjSum.LineProperty      == ProjLinePropertyCode::Invoiced;
+
+       // if (projProposalProjSum.Invoiced)
+       // {
+       //     tmpPSAProjInvoice.priorBilled       =  projProposalProjSum.Invoiced - tmpPSAProjInvoice.LineAmount;
+       // }
+            //projInvoiceJour.InvoiceAmount;
     }
 
 ]]></Source>
@@ -45,9 +98,15 @@ final public class RADPSAProjInvoiceDP_Extension
         tmpPSAProjInvoiceHeader.Address     = PSAProjInvoiceDP::cfbs_formatAddress(companyInfo.postalAddress());
        // tmpPSAProjInvoiceHeader.CustAddress = PSAProjInvoiceDP::cfbs_formatAddress(LogisticsPostalAddress::findRecId(projInvoiceJour.DeliveryPostalAddress));
         tmpPSAProjInvoiceHeader.Payment     = CustTable::find(projInvoiceJour.InvoiceAccount).PaymTermId;
-        tmpPSAProjInvoiceHeader.RAD_WithContractSummary = ProjProposalJour::find(projInvoiceJour.ProposalId).RAD_WithContractSummary;
-
-        noyes = projProposalJour.RAD_WithContractSummary;
+        if (projInvoiceJour)
+        {
+            tmpPSAProjInvoiceHeader.RAD_WithContractSummary = ProjProposalJour::find(projInvoiceJour.ProposalId).RAD_WithContractSummary;
+        }
+        else 
+        {
+            tmpPSAProjInvoiceHeader.RAD_WithContractSummary = projproposaljour.RAD_WithContractSummary;
+        }
+        noyes = tmpPSAProjInvoiceHeader.RAD_WithContractSummary;
     }
 
 ]]></Source>

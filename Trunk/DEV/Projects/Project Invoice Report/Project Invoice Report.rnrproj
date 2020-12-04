@@ -55,6 +55,21 @@
       <Name>RADPSAProjInvoiceDP_Extension</Name>
       <Link>Classes\RADPSAProjInvoiceDP_Extension</Link>
     </Content>
+    <Content Include="AxClass\SIGProjInvoiceJour_Extension">
+      <SubType>Content</SubType>
+      <Name>SIGProjInvoiceJour_Extension</Name>
+      <Link>Classes\SIGProjInvoiceJour_Extension</Link>
+    </Content>
+    <Content Include="AxClass\SIGProjProposalJour_Extension">
+      <SubType>Content</SubType>
+      <Name>SIGProjProposalJour_Extension</Name>
+      <Link>Classes\SIGProjProposalJour_Extension</Link>
+    </Content>
+    <Content Include="AxClass\SIGPSAProjInvoiceTmp_Extension">
+      <SubType>Content</SubType>
+      <Name>SIGPSAProjInvoiceTmp_Extension</Name>
+      <Link>Classes\SIGPSAProjInvoiceTmp_Extension</Link>
+    </Content>
     <Content Include="AxFormExtension\ProjInvoiceProposalDetail.RADDevelopment">
       <SubType>Content</SubType>
       <Name>ProjInvoiceProposalDetail.RADDevelopment</Name>
