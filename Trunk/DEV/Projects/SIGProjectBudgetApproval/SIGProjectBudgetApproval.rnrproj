@@ -23,7 +23,7 @@
     <Configuration>Debug</Configuration>
     <DBSyncInBuild>False</DBSyncInBuild>
     <GenerateFormAdaptors>False</GenerateFormAdaptors>
-    <Company>USMF</Company>
+    <Company>USSI</Company>
     <Partition>initial</Partition>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
@@ -39,6 +39,11 @@
     <Folder Include="Menu Extensions\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AxClass\SIGCreditCardTransDeleteBatch">
+      <SubType>Content</SubType>
+      <Name>SIGCreditCardTransDeleteBatch</Name>
+      <Link>Classes\SIGCreditCardTransDeleteBatch</Link>
+    </Content>
     <Content Include="AxClass\SIGProjectBudgetApproval">
       <SubType>Content</SubType>
       <Name>SIGProjectBudgetApproval</Name>
@@ -53,6 +58,11 @@
       <SubType>Content</SubType>
       <Name>SystemAdministration.RADDevelopment</Name>
       <Link>Menu Extensions\SystemAdministration.RADDevelopment</Link>
+    </Content>
+    <Content Include="AxMenuItemAction\SIGCreditCardTransDeleteBatch">
+      <SubType>Content</SubType>
+      <Name>SIGCreditCardTransDeleteBatch</Name>
+      <Link>Action Menu Items\SIGCreditCardTransDeleteBatch</Link>
     </Content>
     <Content Include="AxMenuItemAction\SIGProjectBudgetApprovalBatch">
       <SubType>Content</SubType>

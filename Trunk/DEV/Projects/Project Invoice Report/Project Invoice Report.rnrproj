@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Classes\" />
+    <Folder Include="EDT Extensions\" />
     <Folder Include="Form Extensions\" />
     <Folder Include="Output Menu Item Extensions\" />
     <Folder Include="Reports\" />
@@ -69,6 +70,11 @@
       <SubType>Content</SubType>
       <Name>SIGPSAProjInvoiceTmp_Extension</Name>
       <Link>Classes\SIGPSAProjInvoiceTmp_Extension</Link>
+    </Content>
+    <Content Include="AxEdtExtension\ProjName.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>ProjName.RADDevelopment</Name>
+      <Link>EDT Extensions\ProjName.RADDevelopment</Link>
     </Content>
     <Content Include="AxFormExtension\ProjInvoiceProposalDetail.RADDevelopment">
       <SubType>Content</SubType>

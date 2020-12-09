@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGTrvExpTrans_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(tableStr(TrvExpTrans))]
+public final class SIGTrvExpTrans_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>validateWrite</Name>
+				<Source><![CDATA[
+    public boolean validateWrite()
+    {
+        boolean                 ret;
+        TrvAdminCustomFields    adminCustomFields = TrvAdminCustomFields::find(tableNum(ProjTable),fieldNum(ProjTable,ProjId));
+
+        ret = next  validateWrite();
+
+        if(!this.ProjId && adminCustomFields.Visibility != TrvFieldVisibility::DoNotDisplay)
+        {
+            ret = checkFailed(strFmt("Project Id should not be blank "));
+        }
+        return ret;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

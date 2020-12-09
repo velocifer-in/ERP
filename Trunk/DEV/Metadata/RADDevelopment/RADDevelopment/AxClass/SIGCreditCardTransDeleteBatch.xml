@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGCreditCardTransDeleteBatch</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+class SIGCreditCardTransDeleteBatch extends RunBaseBatch
+{
+    DialogField     fieldDisplayMessage;
+    DialogField     dlgFromDate,dlgToDate;
+    FromDate        fromDate;
+    ToDate          toDate;
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static SIGCreditCardTransDeleteBatch construct()
+    {
+        return new SIGCreditCardTransDeleteBatch();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>dialog</Name>
+				<Source><![CDATA[
+    public Object dialog()
+    {
+        DialogRunbase dlg;
+        
+ 
+        dlg                 = super();
+        dlgFromDate         = dlg.addFieldValue(extendedTypeStr(FromDate),fromDate);
+        dlgToDate           = dlg.addFieldValue(extendedTypeStr(ToDate), toDate);
+ 
+        return dlg;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getFromDialog</Name>
+				<Source><![CDATA[
+    public boolean getFromDialog()
+    {
+        boolean ret;
+        
+ 
+        ret             = super();
+        fromDate        = dlgFromDate.value();
+        toDate          = dlgToDate.value();
+ 
+        return ret;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>run</Name>
+				<Source><![CDATA[
+    public void run()
+    {
+        TrvPBSMaindata trvpbs;
+
+        ttsbegin;
+        while select forupdate trvpbs where trvpbs.TransDate >= fromDate
+                                        && trvpbs.TransDate <= toDate
+        {
+            trvpbs.delete();
+        }
+        ttscommit;
+        info("Credit card transcation deletion has been completed.");
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>main</Name>
+				<Source><![CDATA[
+    public static void main(Args    _args)
+    {
+        SIGCreditCardTransDeleteBatch projectBudgetApprovalBatch = SIGCreditCardTransDeleteBatch::construct();
+        
+        if (projectBudgetApprovalBatch.prompt())
+        {
+            projectBudgetApprovalBatch.run();
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

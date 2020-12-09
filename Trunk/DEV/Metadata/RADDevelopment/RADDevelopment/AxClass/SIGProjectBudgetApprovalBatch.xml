@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGProjectBudgetApprovalBatch</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+class SIGProjectBudgetApprovalBatch extends RunBaseBatch
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static SIGProjectBudgetApprovalBatch construct()
+    {
+        return new SIGProjectBudgetApprovalBatch();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>run</Name>
+				<Source><![CDATA[
+    public void run()
+    {
+        ProjBudget          projBudget;
+        Args                args = new Args();
+        ProjBudget          projBudgetLocal;// = ProjBudget::find(68719483497);
+
+        while select projBudgetLocal where projBudgetLocal.BudgetWorkflowStatus != ProjBudgetWorkflowStatus::Approved
+        {
+            ttsbegin;
+            ProjBudget::updateProjBudgetStatus(projBudgetLocal.RecId, ProjBudgetWorkflowStatus::Submitted);
+            ProjBudget::updateProjBudgetStatus(projBudgetLocal.RecId, ProjBudgetWorkflowStatus::Approved);
+
+            projBudget = ProjBudget::find(projBudgetLocal.RecId);
+
+            if (projBudget.BudgetWorkflowStatus == ProjBudgetWorkflowStatus::Approved)
+            {
+                args.record(projBudget);
+                args.parmEnumType(enumnum(ProjBudgetManagerActionType));
+                args.parmEnum(ProjBudgetManagerActionType::Commit);
+
+                ProjBudgetManager::main(args);
+
+            }
+            ttscommit;
+        }
+        info('Project budget for all Projects are approved.');
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>main</Name>
+				<Source><![CDATA[
+    public static void main(Args    _args)
+    {
+        SIGProjectBudgetApprovalBatch projectBudgetApprovalBatch = SIGProjectBudgetApprovalBatch::construct();
+        
+        if (projectBudgetApprovalBatch.prompt())
+        {
+            projectBudgetApprovalBatch.run();
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

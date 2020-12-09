@@ -92,6 +92,8 @@ final public class RADPSAProjInvoiceDP_Extension
     {
         next populatePSAProjInvoiceHeaderTmp();
 
+        ProjTable projTableLocal;
+
         CompanyInfo companyInfo = CompanyInfo::find();
         NoYes   noyes;
 
@@ -101,11 +103,20 @@ final public class RADPSAProjInvoiceDP_Extension
         if (projInvoiceJour)
         {
             tmpPSAProjInvoiceHeader.RAD_WithContractSummary = ProjProposalJour::find(projInvoiceJour.ProposalId).RAD_WithContractSummary;
+            tmpPSAProjInvoiceHeader.RAD_ProjectMileStone = ProjProposalJour::find(projInvoiceJour.ProposalId).RAD_ProjectMileStone;
+
         }
         else 
         {
             tmpPSAProjInvoiceHeader.RAD_WithContractSummary = projproposaljour.RAD_WithContractSummary;
+            tmpPSAProjInvoiceHeader.RAD_ProjectMileStone    = projproposaljour.RAD_ProjectMileStone;
+
         }
+        projTableLocal = ProjTable::find(projInvoiceJour.ProjInvoiceProjId);
+
+        tmpPSAProjInvoiceHeader.RADType                 = projTableLocal.Type;
+        tmpPSAProjInvoiceHeader.RADMainProjId           = projTableLocal.ProjId;
+        tmpPSAProjInvoiceHeader.RADMainProjIDProjName   = projTableLocal.Name;
         noyes = tmpPSAProjInvoiceHeader.RAD_WithContractSummary;
     }
 

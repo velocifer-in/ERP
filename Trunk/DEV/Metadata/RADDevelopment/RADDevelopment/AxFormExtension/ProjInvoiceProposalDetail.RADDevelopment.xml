@@ -16,6 +16,19 @@
 			</FormControl>
 			<Parent>General</Parent>
 		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlqxhivuc21</Name>
+			<FormControl xmlns=""
+				i:type="AxFormCheckBoxControl">
+				<Name>ProjProposalJour_RAD_ProjectMileStone</Name>
+				<Type>CheckBox</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataField>RAD_ProjectMileStone</DataField>
+				<DataSource>ProjProposalJour</DataSource>
+			</FormControl>
+			<Parent>General</Parent>
+		</AxFormExtensionControl>
 	</Controls>
 	<DataSourceModifications />
 	<DataSourceReferences />

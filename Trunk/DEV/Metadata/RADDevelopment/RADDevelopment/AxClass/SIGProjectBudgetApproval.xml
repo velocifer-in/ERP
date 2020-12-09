@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGProjectBudgetApproval</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+class SIGProjectBudgetApproval
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>main</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Runs the class with the specified arguments.
+    /// </summary>
+    /// <param name = "_args">The specified arguments.</param>
+    public static void main(Args _args)
+    {
+        ProjBudget          projBudget;
+        Args                args = new Args();
+
+        ProjBudget          projBudgetLocal = ProjBudget::find(68719482040);
+
+        while select projBudgetLocal where projBudgetLocal.BudgetWorkflowStatus != ProjBudgetWorkflowStatus::Approved
+        {
+            ttsbegin;
+            ProjBudget::updateProjBudgetStatus(projBudgetLocal.RecId, ProjBudgetWorkflowStatus::Submitted);
+            ProjBudget::updateProjBudgetStatus(projBudgetLocal.RecId, ProjBudgetWorkflowStatus::Approved);
+
+            projBudget = ProjBudget::find(projBudgetLocal.RecId);
+
+            if (projBudget.BudgetWorkflowStatus == ProjBudgetWorkflowStatus::Approved)
+            {
+                args.record(projBudget);
+                args.parmEnumType(enumnum(ProjBudgetManagerActionType));
+                args.parmEnum(ProjBudgetManagerActionType::Commit);
+
+                ProjBudgetManager::main(args);
+
+            }
+            ttscommit;
+        }
+        info('Project budget approved.');
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

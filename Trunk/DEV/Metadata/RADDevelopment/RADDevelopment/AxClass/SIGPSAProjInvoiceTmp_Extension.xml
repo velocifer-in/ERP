@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGPSAProjInvoiceTmp_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(tableStr(PSAProjInvoiceTmp))]
+public final class SIGPSAProjInvoiceTmp_Extension
+{
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>insert</Name>
+				<Source><![CDATA[
+    public void insert()
+    {
+        ProjPostTransView       projPostTransView;
+        Amount                  totalSaleAmount;
+        ProjInvoiceStatus       projInvoiceStatus;
+        ProjTable               projTable;
+
+        while select projPostTransView where  projPostTransView.ProjId == this.ProjId
+        {
+            projInvoiceStatus = projPostTransView.projInvoiceStatus(projPostTransView);
+
+            if (projInvoiceStatus == ProjInvoiceStatus::FullyInvoiced || projInvoiceStatus == ProjInvoiceStatus::PartiallyInvoiced)
+            {
+                totalSaleAmount += projPostTransView.TotalSalesAmountCur;
+            }
+        }
+        //select sum(TotalSalesAmountCur) from projPostTransView where projPostTransView.ProjId == this.ProjId;
+
+        //if (projPostTransView.TotalSalesAmountCur )
+        //{
+        //    this.PriorBilled = projPostTransView.TotalSalesAmountCur;
+        //}
+        
+        this.ContractValue      = this.calcTotalBudgetLine(this.ProjId).TotalBudget;
+        this.PriorBilled        = totalSaleAmount;
+        this.MainProjId         = ProjTable::getRootProjId(this.ProjId);
+
+        projTable =  ProjTable::find(this.MainProjId);
+
+        this.MainProjIDProjName = projTable.Name;
+        this.RADType            = projTable.Type;
+      //  this.Description    = ProjProposalOnAcc::find(this.).Txt;
+        next insert();
+
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>calcTotalBudgetLine</Name>
+				<Source><![CDATA[
+    public ProjBudgetLine calcTotalBudgetLine(ProjId _projId)
+    {
+        ProjBudgetLine  projBudgetLineLocal;
+        #define.Star("*");
+        ProjBudget projBudget;
+
+        select projBudget where projBudget.RootProjId == _projId;
+      
+        select sum(OriginalBudget),sum(CommittedRevisions),sum(UncommittedRevisions), sum(TotalBudget)
+                    from projBudgetLineLocal
+                    where projBudgetLineLocal.ProjBudget == projBudget.RecId
+                    &&    projBudgetLineLocal.ProjBudgetLineType == ProjBudgetLineType::Revenue
+                    &&    projBudgetLineLocal.ProjId like _projId + #Star;
+
+        return projBudgetLineLocal;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

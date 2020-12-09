@@ -12,6 +12,13 @@
 			<Label>Include contract summary </Label>
 			<EnumType>NoYes</EnumType>
 		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>RAD_ProjectMileStone</Name>
+			<ExtendedDataType>NoYesId</ExtendedDataType>
+			<Label>Project mile stone details</Label>
+			<EnumType>NoYes</EnumType>
+		</AxTableField>
 	</Fields>
 	<FullTextIndexes />
 	<Indexes />

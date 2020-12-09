@@ -12,6 +12,30 @@
 			<Label>Include contract summary </Label>
 			<EnumType>NoYes</EnumType>
 		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>RADType</Name>
+			<AllowEdit>No</AllowEdit>
+			<AssetClassification>Customer Content</AssetClassification>
+			<EnumType>ProjType</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>RADMainProjId</Name>
+			<ExtendedDataType>ProjId</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>RADMainProjIDProjName</Name>
+			<ExtendedDataType>ProjName</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>RAD_ProjectMileStone</Name>
+			<ExtendedDataType>NoYesId</ExtendedDataType>
+			<Label>Project mile stone details</Label>
+			<EnumType>NoYes</EnumType>
+		</AxTableField>
 	</Fields>
 	<FullTextIndexes />
 	<Indexes />
