@@ -71,6 +71,21 @@
       <Name>SIGPSAProjInvoiceTmp_Extension</Name>
       <Link>Classes\SIGPSAProjInvoiceTmp_Extension</Link>
     </Content>
+    <Content Include="AxEdtExtension\CategoryId.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>CategoryId.RADDevelopment</Name>
+      <Link>EDT Extensions\CategoryId.RADDevelopment</Link>
+    </Content>
+    <Content Include="AxEdtExtension\CategoryName.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>CategoryName.RADDevelopment</Name>
+      <Link>EDT Extensions\CategoryName.RADDevelopment</Link>
+    </Content>
+    <Content Include="AxEdtExtension\Name.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>Name.RADDevelopment</Name>
+      <Link>EDT Extensions\Name.RADDevelopment</Link>
+    </Content>
     <Content Include="AxEdtExtension\ProjName.RADDevelopment">
       <SubType>Content</SubType>
       <Name>ProjName.RADDevelopment</Name>

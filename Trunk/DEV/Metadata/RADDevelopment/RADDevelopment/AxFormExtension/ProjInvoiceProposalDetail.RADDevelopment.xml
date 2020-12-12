@@ -26,6 +26,7 @@
 					i:nil="true" />
 				<DataField>RAD_ProjectMileStone</DataField>
 				<DataSource>ProjProposalJour</DataSource>
+				<Label>Include milestone details</Label>
 			</FormControl>
 			<Parent>General</Parent>
 		</AxFormExtensionControl>

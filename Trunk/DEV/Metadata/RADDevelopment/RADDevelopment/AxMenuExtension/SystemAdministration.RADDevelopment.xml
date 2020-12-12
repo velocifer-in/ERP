@@ -8,7 +8,6 @@
 			<MenuElement xmlns=""
 				i:type="AxMenuElementMenuItem">
 				<Name>SIGProjectBudgetApprovalBatch</Name>
-				<Visible>No</Visible>
 				<MenuItemName>SIGProjectBudgetApprovalBatch</MenuItemName>
 				<MenuItemType>Action</MenuItemType>
 			</MenuElement>

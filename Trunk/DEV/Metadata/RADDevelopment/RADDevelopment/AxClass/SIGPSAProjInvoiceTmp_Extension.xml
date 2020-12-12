@@ -15,35 +15,46 @@ public final class SIGPSAProjInvoiceTmp_Extension
 				<Source><![CDATA[
     public void insert()
     {
-        ProjPostTransView       projPostTransView;
-        Amount                  totalSaleAmount;
-        ProjInvoiceStatus       projInvoiceStatus;
-        ProjTable               projTable;
+        ProjPostTransView               projPostTransView;
+        Amount                          totalSaleAmount;
+        ProjInvoiceStatus               projInvoiceStatus;
+        ProjTable                       projTable;
+        PSAProjProposalProj             projProposalProjLocal;
+        ProjBegBalJournalTrans_OnAcc    projBegBalJournalTrans_OnAcc;
 
-        while select projPostTransView where  projPostTransView.ProjId == this.ProjId
-        {
-            projInvoiceStatus = projPostTransView.projInvoiceStatus(projPostTransView);
+        //while select projPostTransView where  projPostTransView.ProjId == this.ProjId
+        //{
+        //    projInvoiceStatus = projPostTransView.projInvoiceStatus(projPostTransView);
 
-            if (projInvoiceStatus == ProjInvoiceStatus::FullyInvoiced || projInvoiceStatus == ProjInvoiceStatus::PartiallyInvoiced)
-            {
-                totalSaleAmount += projPostTransView.TotalSalesAmountCur;
-            }
-        }
+        //    if (projInvoiceStatus == ProjInvoiceStatus::FullyInvoiced || projInvoiceStatus == ProjInvoiceStatus::PartiallyInvoiced)
+        //    {
+        //        totalSaleAmount += projPostTransView.TotalSalesAmountCur;
+        //    }
+        //}
         //select sum(TotalSalesAmountCur) from projPostTransView where projPostTransView.ProjId == this.ProjId;
 
         //if (projPostTransView.TotalSalesAmountCur )
         //{
         //    this.PriorBilled = projPostTransView.TotalSalesAmountCur;
         //}
+        select sum(Invoiced) from projProposalProjLocal where projProposalProjLocal.ProjId == this.ProjId;
+        select sum(ProjSalesAmount) from projBegBalJournalTrans_OnAcc where projBegBalJournalTrans_OnAcc.ProjId == this.ProjId;
         
         this.ContractValue      = this.calcTotalBudgetLine(this.ProjId).TotalBudget;
-        this.PriorBilled        = totalSaleAmount;
+        this.PriorBilled        = projProposalProjLocal.Invoiced +  projBegBalJournalTrans_OnAcc.ProjSalesAmount;//totalSaleAmount;
         this.MainProjId         = ProjTable::getRootProjId(this.ProjId);
+
 
         projTable =  ProjTable::find(this.MainProjId);
 
         this.MainProjIDProjName = projTable.Name;
         this.RADType            = projTable.Type;
+        
+        //this.CategoryName       = CategoryTable::find(this.Category).CategoryName;
+        if (!this.TransTxt)
+        {
+            this.TransTxt = CategoryTable::find(this.Category).CategoryName;
+        }
       //  this.Description    = ProjProposalOnAcc::find(this.).Txt;
         next insert();
 
