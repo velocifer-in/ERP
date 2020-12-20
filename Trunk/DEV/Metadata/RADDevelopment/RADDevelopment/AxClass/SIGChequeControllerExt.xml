@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGChequeControllerExt</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+class SIGChequeControllerExt extends ChequeController
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static SIGChequeControllerExt construct()
+    {
+        return new SIGChequeControllerExt();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>main</Name>
+				<Source><![CDATA[
+    public static void main(Args _args)
+    {
+        SIGChequeControllerExt controller = new SIGChequeControllerExt();
+
+        BankParameters  bankParameters = BankParameters::find();
+
+        controller.parmArgs(_args);
+        controller.deleteTempData();
+        controller.parmReportName(controller.getChequeReport());
+
+        if (bankParameters.SIGSSRADISE)
+        {
+            controller.parmReportName(ssrsReportStr(SIGCheque_US, ReportSmart));
+        }
+        else
+        {
+            controller.parmReportName(ssrsReportStr(SIGCheque_US, Report));
+        }
+        controller.parmShowDialog(false);
+        controller.parmDialogCaption("@SYS24090");
+        controller.startOperation();
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

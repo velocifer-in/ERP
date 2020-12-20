@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGCustVendCheque_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(classStr(CustVendCheque))]
+public final class SIGCustVendCheque_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>formatSlipText</Name>
+				<Source><![CDATA[
+    protected ChequeSlipTxt formatSlipText(LedgerJournalTrans _ledgerJournalTrans)
+    {
+        next formatSlipText(_ledgerJournalTrans);
+
+        return strFmt('');
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>output</Name>
+				<Source><![CDATA[
+    public void output(CustVendPaym _custVendPaym)
+    {
+        LedgerJournalTrans ledgerJournalTrans = _custVendPaym.ledgerJournalTrans();
+
+        next output(_custVendPaym);
+
+        tmpChequePrintout.SIGTxt = ledgerJournalTrans.Txt;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

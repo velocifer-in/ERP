@@ -16,9 +16,15 @@ public final class SIGTrvExpTrans_Extension
     {
         boolean                 ret;
 
+        TrvAdminCustomFields    adminCustomFields = TrvAdminCustomFields::find(tableNum(TrvExpTrans),fieldNum(TrvExpTrans,ProjId));
+
         ret = next  validateWrite();
 
-      
+        if(!this.ProjId && adminCustomFields.Visibility != TrvFieldVisibility::DoNotDisplay)
+        {
+            ret = checkFailed(strFmt("Project Id should not be blank "));
+        }
+
         return ret;
     }
 

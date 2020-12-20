@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGChequeTmp_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(tablestr(ChequeTmp))]
+public final class SIGChequeTmp_Extension
+{
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>insert</Name>
+				<Source><![CDATA[
+    public void insert()
+    {
+        BankChequeLayout    bankChequeLayout = BankChequeLayout::find(this.AccountId);
+        
+        this.SIGAFTPLLC     = bankChequeLayout.SIGAFTPLLC;
+        this.SIGSSRADISE    = bankChequeLayout.SIGSSRADISE;
+
+        next insert();
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

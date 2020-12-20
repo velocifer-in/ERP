@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGTmpChequePrintout_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(tablestr(TmpChequePrintout))]
+public final class SIGTmpChequePrintout_Extension
+{
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>insert</Name>
+				<Source><![CDATA[
+    public void insert()
+    {
+        Notes txt;
+
+
+
+        //if (this.SlipTxt)
+        //{
+        //    this.SlipTxt = strRem(this.SlipTxt,'Invoice number  Currency  Invoice date  Gross amount  Cash discount  Payment amount'); //strFind(this.SlipTxt,'Invoice',1,10000);
+        this.SlipTxt = strfmt('\n %1',this.SlipTxt);
+        //}
+        next insert();
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

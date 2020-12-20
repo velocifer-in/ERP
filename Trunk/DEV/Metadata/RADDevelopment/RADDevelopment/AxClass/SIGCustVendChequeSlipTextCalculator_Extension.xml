@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGCustVendChequeSlipTextCalculator_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(classStr(CustVendChequeSlipTextCalculator))]
+public final class SIGCustVendChequeSlipTextCalculator_Extension
+{
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>determineSlipTextTitleAndEndLinesAdjustmentForColumnHeaders</Name>
+				<Source><![CDATA[
+    public container determineSlipTextTitleAndEndLinesAdjustmentForColumnHeaders(
+        BankChequeTable _bankChequeTable,
+        ChequeFormType _chequeFormType)
+    {
+        ChequeSlipTxt   chequeSlipText;
+        Counter         endLines;
+        BankParameters  bankParameters = BankParameters::find();
+
+        [chequeSlipText, endLines] = next determineSlipTextTitleAndEndLinesAdjustmentForColumnHeaders(_bankChequeTable,_chequeFormType);
+        chequeSlipText = '';
+        //if (bankParameters.SIGAFTPLLC)
+        //{
+        //    chequeSlipText = '';
+        //}
+        //else
+        //{
+        //    chequeSlipText += strFmt(
+        //            '%1  %2          %3  %4 %5 %6\n \n',
+        //            "@SYS4726", "Description", "@SYS7354", "@SYS11818", "@SYS4376", "@SYS1943");
+        //}
+        endLines = -1;
+        return [chequeSlipText, endLines];
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>determineSlipTextTitleAndEndLinesAdjustmentForChequeFormType</Name>
+				<Source><![CDATA[
+    public container determineSlipTextTitleAndEndLinesAdjustmentForChequeFormType(
+        BankChequeTable _bankChequeTable,
+        ChequeFormType _chequeFormType)
+    {
+        ChequeSlipTxt chequeSlipText;
+        Counter endLines;
+        
+        //switch (_chequeFormType)
+        //{
+        //    case ChequeFormType::USStyle,
+
+
+        //        chequeSlipText = "@SYS22495" + ' ' + _bankChequeTable.ChequeNum + '\n\n';
+        //        endLines = -2;
+        //        break;
+        //}
+
+        //return [chequeSlipText, endLines];
+
+        [chequeSlipText, endLines] = 
+            next determineSlipTextTitleAndEndLinesAdjustmentForChequeFormType(_bankChequeTable,_chequeFormType);
+
+        chequeSlipText = '';
+        endLines = -1;
+        return [chequeSlipText, endLines];
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>determineSlipTextTitleAndEndLinesAdjustmentForChequeRecipientType</Name>
+				<Source><![CDATA[
+    public container determineSlipTextTitleAndEndLinesAdjustmentForChequeRecipientType(
+        BankChequeTable _bankChequeTable,
+        ChequeFormType _chequeFormType)
+    {
+        ChequeSlipTxt chequeSlipText;
+        Counter endLines;
+
+       
+        [chequeSlipText, endLines] = next determineSlipTextTitleAndEndLinesAdjustmentForChequeRecipientType(_bankChequeTable,_chequeFormType);
+
+        chequeSlipText = '';
+      //  endLines = -1;
+        return [chequeSlipText, endLines];
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>determineSlipTextTitleAndEndLinesForSubTotalOrTotal</Name>
+				<Source><![CDATA[
+    protected CustVendChequeSlipTextCalcDeterminSlipTextForTotalReturn determineSlipTextTitleAndEndLinesForSubTotalOrTotal(CustVendChequeSlipTextCalcDeterminSlipTextForTotalParameters _args)
+    {
+        _args.chequeSlipTxtLabel = '';
+        next  determineSlipTextTitleAndEndLinesForSubTotalOrTotal(_args);
+
+        CustVendChequeSlipTextCalcDeterminSlipTextForTotalReturn totalReturn = CustVendChequeSlipTextCalcDeterminSlipTextForTotalReturn::construct();
+        //totalReturn.chequeSlipTxt = strFmt('\n%1 %2', strLFix(_args.chequeSlipTxtLabel, 66), num2str(_args.TotalAmountCur, 16, 2, -1, -1));
+        //totalReturn.endLines = -1;
+
+        return totalReturn;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>determineSlipTextAndEndLinesAdjustmentForBankChequePaymTrans</Name>
+				<Source><![CDATA[
+    protected container determineSlipTextAndEndLinesAdjustmentForBankChequePaymTrans(BankChequePaymTrans bankChequePaymTrans)
+    {
+        ChequeSlipTxt chequeSlipText;
+        Counter endLines;
+        LedgerJournalTrans  ledgerJournalTransLocal;
+        FromDate invoiceDate = bankChequePaymTrans.InvoiceDate;
+        CashDiscAmount cashDiscAmount = bankChequePaymTrans.CashDiscAmountCur;
+
+        next determineSlipTextAndEndLinesAdjustmentForBankChequePaymTrans(bankChequePaymTrans);
+
+        select Txt from ledgerJournalTransLocal where ledgerJournalTransLocal.Voucher == bankChequePaymTrans.Voucher;
+
+        chequeSlipText += strFmt(
+            '%1  %2  %3  %4  %5  %6\n',
+            strLFix(bankChequePaymTrans.InvoiceId, 14),
+            //strLFix(" ", 20),
+            strLFix(ledgerJournalTransLocal.Txt, 22),
+            //bankChequePaymTrans.CurrencyCode, 8),cSIGTxtSIGTxt
+            strLFix(date2StrUsr(invoiceDate), 10),
+            strRFix(num2str(-bankChequePaymTrans.InvoiceAmountCur, 0, 2, -1, -1), 12),
+            strRFix(num2str(cashDiscAmount, 0, 2, -1, -1), 12),
+            strRFix(num2str(-bankChequePaymTrans.PaymentAmountCur, 0, 2, -1, -1), 12));
+            
+        endLines = -1;
+
+        return [chequeSlipText, endLines];
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>
