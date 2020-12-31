@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGTSTimesheetLineWeek_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(tablestr(TSTimesheetLineWeek))]
+public final class SIGTSTimesheetLineWeek_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>validateWrite</Name>
+				<Source><![CDATA[
+    public boolean validateWrite()
+    {
+        #TimeConstants
+        boolean     ret;
+        int             idx    = 1;
+
+        next validateWrite();
+        
+        while (idx <= #daysPerWeek)
+        {
+            if (this.Hours[idx] && this.InternalComments[idx] == "")
+            {
+               ret = checkFailed(strFmt('Internal notes should not be blank for %1',(this.DayFrom + idx -1))) ;
+            }
+            else
+            {
+                ret = true;
+            }
+            idx++;
+        }
+
+        return ret ;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

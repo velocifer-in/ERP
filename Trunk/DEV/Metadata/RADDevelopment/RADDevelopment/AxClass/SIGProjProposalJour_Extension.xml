@@ -23,6 +23,50 @@ public final class SIGProjProposalJour_Extension
 
 ]]></Source>
 			</Method>
+			<Method>
+				<Name>displayProjId</Name>
+				<Source><![CDATA[
+    [SysClientCacheDataMethodAttribute(true)]
+    public  display ProjId  displayProjId()
+    {
+        return this.projId();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>displayProjController</Name>
+				<Source><![CDATA[
+    [SysClientCacheDataMethodAttribute(true)]
+    public  display Name  displayProjController()
+    {
+        return HcmWorker::find(ProjTable::find(this.projId()).WorkerResponsibleFinancial).name();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>displayProjManager</Name>
+				<Source><![CDATA[
+    [SysClientCacheDataMethodAttribute(true)]
+    public  display Name  displayProjManager()
+    {
+        return  HcmWorker::find(ProjTable::find(this.projId()).WorkerResponsible).name();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>displayProjName</Name>
+				<Source><![CDATA[
+    [SysClientCacheDataMethodAttribute(true)]
+    public  display ProjectName  displayProjName()
+    {
+        return ProjTable::find(this.projId()).Name;
+    }
+
+]]></Source>
+			</Method>
 		</Methods>
 	</SourceCode>
 </AxClass>

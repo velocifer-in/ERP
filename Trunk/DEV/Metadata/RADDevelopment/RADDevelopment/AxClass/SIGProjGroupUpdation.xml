@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGProjGroupUpdation</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+class SIGProjGroupUpdation  extends RunBaseBatch
+{
+    DialogField             fieldDisplayMessage;
+    DialogField             dlgProjGroupId,dlgProjLedgerStatusOnAcc;
+    ProjGroupId             projGroupId;
+    ProjLedgerStatusOnAcc   projLedgerStatusOnAcc;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static SIGProjGroupUpdation construct()
+    {
+        return new SIGProjGroupUpdation();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>dialog</Name>
+				<Source><![CDATA[
+    public Object dialog()
+    {
+        DialogRunbase dlg;
+ 
+        dlg                         = super();
+        dlgProjGroupId              = dlg.addFieldValue(extendedTypeStr(ProjGroupId),projGroupId);
+        dlgProjLedgerStatusOnAcc    = dlg.addFieldValue(identifierStr(ProjLedgerStatusOnAcc),projLedgerStatusOnAcc);
+
+        return dlg;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getFromDialog</Name>
+				<Source><![CDATA[
+    public boolean getFromDialog()
+    {
+        boolean ret;
+        
+        ret                     = super();
+        projGroupId             = dlgProjGroupId.value();
+        projLedgerStatusOnAcc   = dlgProjLedgerStatusOnAcc.value();
+        return ret;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>run</Name>
+				<Source><![CDATA[
+    public void run()
+    {
+        ProjGroup projGroup;
+        
+        ttsbegin;
+
+        select forupdate projGroup where projGroup.ProjGroupId == projGroupId;
+        if (projGroup)
+        {
+            projGroup.InvoicePosting = projLedgerStatusOnAcc;
+            projGroup.doUpdate();
+        }
+        ttscommit;
+        info("Project group Invoice posting account has been updated");
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>main</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Runs the class with the specified arguments.
+    /// </summary>
+    /// <param name = "_args">The specified arguments.</param>
+    public static void main(Args _args)
+    {
+        SIGProjGroupUpdation projGroupUpdation = SIGProjGroupUpdation::construct();
+        
+        if (projGroupUpdation.prompt())
+        {
+            projGroupUpdation.run();
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

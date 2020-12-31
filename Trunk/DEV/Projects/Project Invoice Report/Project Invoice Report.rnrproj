@@ -38,6 +38,7 @@
     <Folder Include="Form Extensions\" />
     <Folder Include="Output Menu Item Extensions\" />
     <Folder Include="Reports\" />
+    <Folder Include="Simple Query Extensions\" />
     <Folder Include="Table Extensions\" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +61,11 @@
       <SubType>Content</SubType>
       <Name>SIGProjInvoiceJour_Extension</Name>
       <Link>Classes\SIGProjInvoiceJour_Extension</Link>
+    </Content>
+    <Content Include="AxClass\SIGProjProposalJournProjId_Extension">
+      <SubType>Content</SubType>
+      <Name>SIGProjProposalJournProjId_Extension</Name>
+      <Link>Classes\SIGProjProposalJournProjId_Extension</Link>
     </Content>
     <Content Include="AxClass\SIGProjProposalJour_Extension">
       <SubType>Content</SubType>
@@ -96,10 +102,25 @@
       <Name>ProjInvoiceProposalDetail.RADDevelopment</Name>
       <Link>Form Extensions\ProjInvoiceProposalDetail.RADDevelopment</Link>
     </Content>
+    <Content Include="AxFormExtension\ProjInvoiceProposalListPage.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>ProjInvoiceProposalListPage.RADDevelopment</Name>
+      <Link>Form Extensions\ProjInvoiceProposalListPage.RADDevelopment</Link>
+    </Content>
     <Content Include="AxMenuItemOutputExtension\PSAProjInvoice.Extension">
       <SubType>Content</SubType>
       <Name>PSAProjInvoice.Extension</Name>
       <Link>Output Menu Item Extensions\PSAProjInvoice.Extension</Link>
+    </Content>
+    <Content Include="AxQuerySimpleExtension\ProjInvoiceListPage.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>ProjInvoiceListPage.RADDevelopment</Name>
+      <Link>Simple Query Extensions\ProjInvoiceListPage.RADDevelopment</Link>
+    </Content>
+    <Content Include="AxQuerySimpleExtension\ProjInvoiceProposalListPage.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>ProjInvoiceProposalListPage.RADDevelopment</Name>
+      <Link>Simple Query Extensions\ProjInvoiceProposalListPage.RADDevelopment</Link>
     </Content>
     <Content Include="AxReport\SIGPSAProjInvoice">
       <SubType>Content</SubType>

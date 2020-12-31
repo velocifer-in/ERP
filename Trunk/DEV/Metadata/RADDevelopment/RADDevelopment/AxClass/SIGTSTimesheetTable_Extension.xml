@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGTSTimesheetTable_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(tableStr(TSTimesheetTable))]
+public final class SIGTSTimesheetTable_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>displayHours1</Name>
+				<Source><![CDATA[
+    [SysClientCacheDataMethodAttribute(true)]
+    public display HoursPerDay displayHours1()
+    {
+        TSTimesheetLineWeek    timeSheetLineWeek;
+
+        select sum(Hours) from timeSheetLineWeek where timeSheetLineWeek.TimesheetNbr == this.TimesheetNbr;
+
+        return  timeSheetLineWeek.Hours[1] ;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>displayHours2</Name>
+				<Source><![CDATA[
+    [SysClientCacheDataMethodAttribute(true)]
+    public display HoursPerDay displayHours2()
+    {
+        TSTimesheetLineWeek    timeSheetLineWeek;
+
+        select sum(Hours) from timeSheetLineWeek where timeSheetLineWeek.TimesheetNbr == this.TimesheetNbr;
+
+        return  timeSheetLineWeek.Hours[2] ;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>displayHours3</Name>
+				<Source><![CDATA[
+    [SysClientCacheDataMethodAttribute(true)]
+    public display HoursPerDay displayHours3()
+    {
+        TSTimesheetLineWeek    timeSheetLineWeek;
+
+        select sum(Hours) from timeSheetLineWeek where timeSheetLineWeek.TimesheetNbr == this.TimesheetNbr;
+
+        return  timeSheetLineWeek.Hours[3] ;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>displayHours4</Name>
+				<Source><![CDATA[
+    [SysClientCacheDataMethodAttribute(true)]
+    public display HoursPerDay displayHours4()
+    {
+        TSTimesheetLineWeek    timeSheetLineWeek;
+
+        select sum(Hours) from timeSheetLineWeek where timeSheetLineWeek.TimesheetNbr == this.TimesheetNbr;
+
+        return  timeSheetLineWeek.Hours[4] ;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>displayHours5</Name>
+				<Source><![CDATA[
+    [SysClientCacheDataMethodAttribute(true)]
+    public display HoursPerDay displayHours5()
+    {
+        TSTimesheetLineWeek    timeSheetLineWeek;
+
+        select sum(Hours) from timeSheetLineWeek where timeSheetLineWeek.TimesheetNbr == this.TimesheetNbr;
+
+        return  timeSheetLineWeek.Hours[5] ;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>displayHours6</Name>
+				<Source><![CDATA[
+    [SysClientCacheDataMethodAttribute(true)]
+    public display HoursPerDay displayHours6()
+    {
+        TSTimesheetLineWeek    timeSheetLineWeek;
+
+        select sum(Hours) from timeSheetLineWeek where timeSheetLineWeek.TimesheetNbr == this.TimesheetNbr;
+
+        return  timeSheetLineWeek.Hours[6] ;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>displayHours7</Name>
+				<Source><![CDATA[
+    [SysClientCacheDataMethodAttribute(true)]
+    public display HoursPerDay displayHours7()
+    {
+        TSTimesheetLineWeek    timeSheetLineWeek;
+
+        select sum(Hours) from timeSheetLineWeek where timeSheetLineWeek.TimesheetNbr == this.TimesheetNbr;
+
+        return  timeSheetLineWeek.Hours[7] ;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

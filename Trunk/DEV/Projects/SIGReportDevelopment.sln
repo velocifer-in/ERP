@@ -29,6 +29,10 @@ Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "SIGProjectBudgetApproval (U
 EndProject
 Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "SIGExpenseManagementModifications (USR) [SIGDevelopment]", "SIGExpenseManagementModifications\SIGExpenseManagementModifications.rnrproj", "{278CFFC3-6417-494E-9D20-BDC6817CA8B6}"
 EndProject
+Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "SIGTimeSheetInternalCommentsValidation (USR) [SIGDevelopment]", "SIGTimeSheetInternalCommentsValidation\SIGTimeSheetInternalCommentsValidation.rnrproj", "{8D5B426A-4529-478F-8317-9D4CE5803FF8}"
+EndProject
+Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "SIGProjectGroupupdate (USR) [SIGDevelopment]", "SIGProjectGroupupdate\SIGProjectGroupupdate.rnrproj", "{CB8EB164-4173-4FA7-8A07-ECE42FC6C921}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,12 +64,16 @@ Global
 		{2B3357A0-F21F-40B2-8441-27733B0B06AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{278CFFC3-6417-494E-9D20-BDC6817CA8B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{278CFFC3-6417-494E-9D20-BDC6817CA8B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D5B426A-4529-478F-8317-9D4CE5803FF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D5B426A-4529-478F-8317-9D4CE5803FF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB8EB164-4173-4FA7-8A07-ECE42FC6C921}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB8EB164-4173-4FA7-8A07-ECE42FC6C921}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 14
+		SccNumberOfProjects = 16
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/erpsig
 		SccLocalPath0 = .
@@ -108,5 +116,11 @@ Global
 		SccProjectUniqueName13 = SIGExpenseManagementModifications\\SIGExpenseManagementModifications.rnrproj
 		SccProjectName13 = SIGExpenseManagementModifications
 		SccLocalPath13 = SIGExpenseManagementModifications
+		SccProjectUniqueName14 = SIGTimeSheetInternalCommentsValidation\\SIGTimeSheetInternalCommentsValidation.rnrproj
+		SccProjectName14 = SIGTimeSheetInternalCommentsValidation
+		SccLocalPath14 = SIGTimeSheetInternalCommentsValidation
+		SccProjectUniqueName15 = SIGProjectGroupupdate\\SIGProjectGroupupdate.rnrproj
+		SccProjectName15 = SIGProjectGroupupdate
+		SccLocalPath15 = SIGProjectGroupupdate
 	EndGlobalSection
 EndGlobal

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxFormExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V6">
+	<Name>TSTimesheetEntry.RADDevelopment</Name>
+	<ControlModifications />
+	<Controls>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControltajvfzoi1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormGroupControl">
+				<Name>TimeSummary</Name>
+				<Type>Group</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl xmlns=""
+						i:type="AxFormRealControl">
+						<Name>TSTimeSheetHours_1</Name>
+						<Type>Real</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<Alignment>Center</Alignment>
+						<DataMethod>SIGTSTimesheetTable_Extension.displayHours1</DataMethod>
+						<DataSource>TSTimesheetTable</DataSource>
+						<DisplayHeight>2</DisplayHeight>
+						<DisplayHeightMode>Fixed</DisplayHeightMode>
+						<DisplayLength>4</DisplayLength>
+						<DisplayLengthMode>Fixed</DisplayLengthMode>
+						<LimitText>70</LimitText>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormRealControl">
+						<Name>TSTimeSheetHours_2</Name>
+						<Type>Real</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<Alignment>Center</Alignment>
+						<DataMethod>SIGTSTimesheetTable_Extension.displayHours2</DataMethod>
+						<DataSource>TSTimesheetTable</DataSource>
+						<DisplayHeight>2</DisplayHeight>
+						<DisplayHeightMode>Fixed</DisplayHeightMode>
+						<DisplayLength>4</DisplayLength>
+						<DisplayLengthMode>Fixed</DisplayLengthMode>
+						<LimitText>70</LimitText>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormRealControl">
+						<Name>TSTimeSheetHours_3</Name>
+						<Type>Real</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<Alignment>Center</Alignment>
+						<DataMethod>SIGTSTimesheetTable_Extension.displayHours3</DataMethod>
+						<DataSource>TSTimesheetTable</DataSource>
+						<DisplayLength>6</DisplayLength>
+						<DisplayLengthMode>Fixed</DisplayLengthMode>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormRealControl">
+						<Name>TSTimeSheetHours_4</Name>
+						<Type>Real</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<Alignment>Center</Alignment>
+						<DataMethod>SIGTSTimesheetTable_Extension.displayHours4</DataMethod>
+						<DataSource>TSTimesheetTable</DataSource>
+						<DisplayLength>6</DisplayLength>
+						<DisplayLengthMode>Fixed</DisplayLengthMode>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormRealControl">
+						<Name>TSTimeSheetHours_5</Name>
+						<Type>Real</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<Alignment>Center</Alignment>
+						<DataMethod>SIGTSTimesheetTable_Extension.displayHours5</DataMethod>
+						<DataSource>TSTimesheetTable</DataSource>
+						<DisplayLength>6</DisplayLength>
+						<DisplayLengthMode>Fixed</DisplayLengthMode>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormRealControl">
+						<Name>TSTimeSheetHours_6</Name>
+						<Type>Real</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<Alignment>Center</Alignment>
+						<DataMethod>SIGTSTimesheetTable_Extension.displayHours6</DataMethod>
+						<DataSource>TSTimesheetTable</DataSource>
+						<DisplayLength>6</DisplayLength>
+						<DisplayLengthMode>Fixed</DisplayLengthMode>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormRealControl">
+						<Name>TSTimeSheetHours_7</Name>
+						<Type>Real</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<Alignment>Center</Alignment>
+						<DataMethod>SIGTSTimesheetTable_Extension.displayHours7</DataMethod>
+						<DataSource>TSTimesheetTable</DataSource>
+						<DisplayLength>6</DisplayLength>
+						<DisplayLengthMode>Fixed</DisplayLengthMode>
+					</AxFormControl>
+				</Controls>
+				<FrameType>None</FrameType>
+			</FormControl>
+			<Parent>LineViewHeaderDetailsTabPage</Parent>
+		</AxFormExtensionControl>
+	</Controls>
+	<DataSourceModifications />
+	<DataSourceReferences />
+	<DataSources />
+	<Parts />
+	<PropertyModifications />
+</AxFormExtension>
