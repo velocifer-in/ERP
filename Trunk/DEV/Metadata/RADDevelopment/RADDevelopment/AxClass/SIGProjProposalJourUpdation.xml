@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGProjProposalJourUpdation</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+class SIGProjProposalJourUpdation extends RunBaseBatch
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static SIGProjProposalJourUpdation construct()
+    {
+        return new SIGProjProposalJourUpdation();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>run</Name>
+				<Source><![CDATA[
+    public void run()
+    {
+        ProjProposalJour    projProposalJour,projProposalJourInvoice;//    = ProjProposalJour::find(this.ProjProposalId,true);
+        ProjTable           projTable           ;//= ProjTable::find(this.ProjId);
+        PSAProjProposalProj psaProjProposalProj;
+        ProjInvoiceJour     projInvoiceJour;
+        //if (ProjTable::getRootProjId(projProposalJour.SIGProjId) == projProposalJour.SIGProjId)
+       // LedgerDimensionFacade
+        while select psaProjProposalProj
+        {
+            projProposalJour   = ProjProposalJour::find(psaProjProposalProj.ProjProposalId,true);
+            projTable          = ProjTable::find(psaProjProposalProj.ProjId);
+
+            if (!projProposalJour.SIGProjId || (projProposalJour.SIGProjId != '' && ProjTable::getRootProjId(projProposalJour.SIGProjId) != projProposalJour.SIGProjId))
+            {
+                ttsbegin;
+                projProposalJour.SIGProjId                      = psaProjProposalProj.ProjId;
+                projProposalJour.SIGProjectName                 = projTable.Name;
+                projProposalJour.SIGProjType                    = projTable.Type;
+                projProposalJour.SIGWorkerResponsible           = projTable.WorkerResponsible;
+                projProposalJour.SIGWorkerResponsibleFinancial  = projTable.WorkerResponsibleFinancial;
+                projProposalJour.SIGBusinessUnit                = this.getDisplayName(projTable.DefaultDimension,'BusinessUnit');//SIGDimensionHelper::getValueByDefaultDimension(projTable.DefaultDimension,'BusinessUnit');
+                projProposalJour.SIGCostCenter                  = this.getDisplayName(projTable.DefaultDimension,'CostCenter');
+            
+                //if (projProposalJour.SIGProjectedEndDate > this.sig)
+
+                projProposalJour.doUpdate();
+
+                //Updating project invoice jour table fields
+                update_recordset projInvoiceJour Setting SIGProjId = projProposalJour.SIGProjId 
+                            where projInvoiceJour.ProposalId == projProposalJour.ProposalId;
+
+                ttscommit;
+            }
+        }
+
+        //while select  projProposalJourInvoice 
+        //{
+        //    update_recordset projInvoiceJour Setting SIGProjId = projProposalJour.SIGProjId,
+        //                                            SIGProjectName = projProposalJour.SIGProjectName ,
+        //                                            SIGProjType = projProposalJour.SIGProjType      ,
+        //                                            SIGWorkerResponsible = projProposalJour.SIGWorkerResponsible   ,
+        //                                            SIGWorkerResponsibleFinancial = projProposalJour.SIGWorkerResponsibleFinancial ,
+        //                                            SIGBusinessUnit = projProposalJour.SIGBusinessUnit    ,
+        //                                            SIGCostCenter = projProposalJour.SIGCostCenter   
+        //                                            where projInvoiceJour.ProposalId == projProposalJour.ProposalId;
+        //}
+
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getDisplayName</Name>
+				<Source><![CDATA[
+    public Description getDisplayName(DimensionDefault  _dimensionDefault, Name _dimensionName)
+    {
+        DimensionAttributeValueSetItem  dimensionAttributeValueSetItem;
+        DimensionAttributeValue         dimensionAttributeValue;
+        DimensionAttribute              dimensionAttribute;
+        
+
+        select firstonly dimensionAttributeValueSetItem
+        where dimensionAttributeValueSetItem.DimensionAttributeValueSet == _dimensionDefault
+        join dimensionAttributeValue where dimensionAttributeValue.RecId == dimensionAttributeValueSetItem.DimensionAttributeValue
+        join dimensionAttribute where dimensionAttribute.RecId == dimensionAttributeValue.DimensionAttribute &&
+        dimensionAttribute.Name Like _dimensionName;//"BusinessUnit";
+       
+        return dimensionAttributeValue.getName();//Info(strFmt("%1 %2",dimensionAttributeValue.getName()));
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>main</Name>
+				<Source><![CDATA[
+    public static void main(Args _args)
+    {
+        SIGProjProposalJourUpdation projProposalJourUpdation = SIGProjProposalJourUpdation::construct();
+        
+        if (projProposalJourUpdation.prompt())
+        {
+            projProposalJourUpdation.run();
+        }
+        Info('Project proposals has been updated.');
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

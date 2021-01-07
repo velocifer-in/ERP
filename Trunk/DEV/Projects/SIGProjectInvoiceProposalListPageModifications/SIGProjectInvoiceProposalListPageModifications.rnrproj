@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <BuildTasksDirectory Condition=" '$(BuildTasksDirectory)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Dynamics\AX</BuildTasksDirectory>
+    <Model>RADDevelopment</Model>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <OutputPath>bin</OutputPath>
+    <SchemaVersion>2.0</SchemaVersion>
+    <GenerateCrossReferences>True</GenerateCrossReferences>
+    <ProjectGuid>{24eb4c2e-47b6-47d1-b6da-07431fab31c4}</ProjectGuid>
+    <Name>SIGProjectInvoiceProposalListPageModifications</Name>
+    <RootNamespace>SIGProjectInvoiceProposalListPageModifications</RootNamespace>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <StartupType>MenuItemAction</StartupType>
+    <StartupObject>SIGProjProposalJourUpdation</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Configuration>Debug</Configuration>
+    <DBSyncInBuild>False</DBSyncInBuild>
+    <GenerateFormAdaptors>False</GenerateFormAdaptors>
+    <Company>USSI</Company>
+    <Partition>initial</Partition>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
+    <DataEntityUseLabelTextAsFieldName>False</DataEntityUseLabelTextAsFieldName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Action Menu Items\" />
+    <Folder Include="Classes\" />
+    <Folder Include="Forms\" />
+    <Folder Include="Simple Queries\" />
+    <Folder Include="Simple Query Extensions" />
+    <Folder Include="Table Extensions\" />
+    <Folder Include="Tables\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AxClass\RunnableClassdefalutdim">
+      <SubType>Content</SubType>
+      <Name>RunnableClassdefalutdim</Name>
+      <Link>Classes\RunnableClassdefalutdim</Link>
+    </Content>
+    <Content Include="AxClass\SIGDimensionHelper">
+      <SubType>Content</SubType>
+      <Name>SIGDimensionHelper</Name>
+      <Link>Classes\SIGDimensionHelper</Link>
+    </Content>
+    <Content Include="AxClass\SIGProjInvoiceJour_Extension">
+      <SubType>Content</SubType>
+      <Name>SIGProjInvoiceJour_Extension</Name>
+      <Link>Classes\SIGProjInvoiceJour_Extension</Link>
+    </Content>
+    <Content Include="AxClass\SIGProjProposalJourUpdation">
+      <SubType>Content</SubType>
+      <Name>SIGProjProposalJourUpdation</Name>
+      <Link>Classes\SIGProjProposalJourUpdation</Link>
+    </Content>
+    <Content Include="AxClass\SIGPSAProjProposalProj_Extension">
+      <SubType>Content</SubType>
+      <Name>SIGPSAProjProposalProj_Extension</Name>
+      <Link>Classes\SIGPSAProjProposalProj_Extension</Link>
+    </Content>
+    <Content Include="AxMenuItemAction\SIGProjProposalJourUpdation">
+      <SubType>Content</SubType>
+      <Name>SIGProjProposalJourUpdation</Name>
+      <Link>Action Menu Items\SIGProjProposalJourUpdation</Link>
+    </Content>
+    <Content Include="AxTableExtension\ProjInvoiceJour.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>ProjInvoiceJour.RADDevelopment</Name>
+      <Link>Table Extensions\ProjInvoiceJour.RADDevelopment</Link>
+    </Content>
+    <Content Include="AxTableExtension\ProjProposalJour.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>ProjProposalJour.RADDevelopment</Name>
+      <Link>Table Extensions\ProjProposalJour.RADDevelopment</Link>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
+  <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.targets" />
+</Project>

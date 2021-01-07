@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGDimensionHelper</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+class SIGDimensionHelper
+{
+    //put the default value here
+
+    static protected Name businessUnit   = 'BusinessUnit';
+    static protected Name department     = 'Department';
+    static protected Name costCenter     = 'CostCenter';
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>BusinessUnit</Name>
+				<Source><![CDATA[
+    static public Name BusinessUnit()  
+    { 
+        return BusinessUnit;  
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>Department</Name>
+				<Source><![CDATA[
+    static public Name Department()    
+    { 
+        return Department;  
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>CostCenter</Name>
+				<Source><![CDATA[
+    static public Name CostCenter()    
+    { 
+        return CostCenter;  
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>TypeNew</Name>
+				<Source><![CDATA[
+    static void TypeNew()
+    {
+        //place code here to override default values
+        //see DEVDimNamesReference table
+        //e.g. BusinessUnit = myParmTable.BusinessUnit
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getValueByDefaultDimension</Name>
+				<Source><![CDATA[
+    //CREATE A NEW FINANCIAL DIMENSION
+    //https://docs.microsoft.com/en-us/dynamics365/unified-operations//dev-itpro/financial/dimensionable-entities
+    //INTERNAL STRUCTURE
+    //https://docs.microsoft.com/en-us/dynamics365/unified-operations/dev-itpro/financial/ledgeraccountcombinations
+
+    //EXTRACT VALUES
+    //--Value str from DefaultDimension
+    static DimensionValue getValueByDefaultDimension(DimensionDefault  _dimensionDefault, Name _dimensionName)
+    {
+        DimensionValue                     res;
+        FieldId fieldIdDim = DimensionAttributeValueSet::getDimensionValueFieldId(_dimensionName);
+        if (fieldIdDim)
+        {
+            DimensionAttributeValueSet dimValueTable = DimensionAttributeValueSet::find(_dimensionDefault);
+            if (dimValueTable.RecId)
+            {
+                res = dimValueTable.(fieldIdDim);
+            }
+        }
+        //this is a standard 'slow' version
+        //DimensionAttributeValueSetStorage  dimStorage;
+        //dimStorage = DimensionAttributeValueSetStorage::find(_dimensionDefault);
+        //res = dimStorage.getDisplayValueByDimensionAttribute(DimensionAttribute::findByName(_dimensionName).RecId);
+
+        return res;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getValueByLedgerDimension</Name>
+				<Source><![CDATA[
+    static DimensionValue getValueByLedgerDimension(LedgerDimensionAccount  _dimensionDefault, Name _dimensionName)
+    {
+        DimensionValue                     res;
+        FieldId fieldIdDim = DimensionAttributeValueCombination::getDimensionValueFieldId(_dimensionName);
+        if (fieldIdDim)
+        {
+            DimensionAttributeValueCombination dimValueTable = DimensionAttributeValueCombination::find(_dimensionDefault);
+            if (dimValueTable.RecId)
+            {
+                res = dimValueTable.(fieldIdDim);
+            }
+        }
+        return res;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setValueToDefaultDimension</Name>
+				<Source><![CDATA[
+    static DimensionDefault setValueToDefaultDimension(DimensionDefault _dimensionDefault,Name _dimensionName, DimensionValue  _newDimensionValue)
+    {
+        DimensionDefault                     res;
+        
+        res = SIGDimensionHelper::setDefaultDimensionRecId(_dimensionDefault, DimensionAttribute::findByName(_dimensionName).RecId, _newDimensionValue);
+
+        return res;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setValueToDefaultDimensionCon</Name>
+				<Source><![CDATA[
+    static DimensionDefault setValueToDefaultDimensionCon(DimensionDefault _dimensionDefault,container _dimensionNameValueCon)
+    {
+        DimensionDefault    res = _dimensionDefault;
+        int                 i;
+
+        for (i = 1; i <= conLen(_dimensionNameValueCon); i += 2)
+        {
+            res = SIGDimensionHelper::setValueToDefaultDimension(res, conPeek(_dimensionNameValueCon, i), conPeek(_dimensionNameValueCon, i + 1));
+        }
+
+        return res;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setDefaultDimensionRecId</Name>
+				<Source><![CDATA[
+    //FILTER VALUES
+    //SysQuery::addDimensionAttributeRange(
+    //To filter by dimension value
+    //https://www.1clickfactory.com/blog/microsoft-dynamics-365-changes-to-financial-dimensions-structure/
+    /*
+    DimensionAttributeValueSet  davs;
+
+    businessUnitId = DimensionAttributeValueCombination::getDimensionValueFieldId(DEVDimensionHelper::BusinessUnit);
+
+    while select ProjId from projTable
+    exists join davs
+        where davs.RecId            == projTable.DefaultDimension &&
+              davs.(businessUnitId) == '20' ...
+    qbdDimensionAttributeValueSet = qbdProjTable.addDataSource(tableNum(DimensionAttributeValueSet));
+    qbdDimensionAttributeValueSet.relations(true);
+    SysQuery::findOrCreateRange(qbdDimensionAttributeValueSet, businessUnitId).value('20');
+    */
+    //--DefaultDimension merge with DefaultDimension
+    //DimensionDefaultFacade::serviceMergeDefaultDimensions
+
+    public static DimensionDefault setDefaultDimensionRecId(DimensionDefault _dimensionDefault,RefRecId _dimensionAttributeRecId, DimensionValue  _newDimensionValue)
+    {
+        DimensionAttributeValueSetStorage   dimStorage;
+        DimensionDefault                    newDimensionDefault = _dimensionDefault;
+        DimensionAttributeValue             dimensionAttributeValue;
+
+        if (_dimensionAttributeRecId)
+        {
+            dimStorage = DimensionAttributeValueSetStorage::find(_dimensionDefault);
+            if (_newDimensionValue)
+            {
+                dimensionAttributeValue = DimensionAttributeValue::findByDimensionAttributeAndValue(DimensionAttribute::find(_dimensionAttributeRecId), _newDimensionValue, false, true);
+                dimStorage.addItem(dimensionAttributeValue);
+            }
+            else
+            {
+                dimStorage.removeDimensionAttribute(_dimensionAttributeRecId);
+            }
+            newDimensionDefault = dimStorage.save();
+        }
+        return newDimensionDefault;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

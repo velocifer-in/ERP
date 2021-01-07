@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGPSAProjProposalProj_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(tablestr(PSAProjProposalProj))]
+public final class SIGPSAProjProposalProj_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>insert</Name>
+				<Source><![CDATA[
+    public void insert()
+    {
+      
+        
+        next insert();
+
+        ProjProposalJour    projProposalJour    = ProjProposalJour::find(this.ProjProposalId,true);
+        ProjTable           projTable           = ProjTable::find(this.ProjId);
+        
+        if (ProjTable::getRootProjId(projProposalJour.SIGProjId) == projProposalJour.SIGProjId)
+
+        if (!projProposalJour.SIGProjId || (projProposalJour.SIGProjId != '' && ProjTable::getRootProjId(projProposalJour.SIGProjId) != projProposalJour.SIGProjId))
+        {   
+            ttsbegin;
+            projProposalJour.SIGProjId                      = this.ProjId;
+            projProposalJour.SIGProjectName                 = projTable.Name;
+            projProposalJour.SIGProjType                    = projTable.Type;
+            projProposalJour.SIGWorkerResponsible           = projTable.WorkerResponsible;
+            projProposalJour.SIGWorkerResponsibleFinancial  = projTable.WorkerResponsibleFinancial;
+            projProposalJour.SIGBusinessUnit                = SIGDimensionHelper::getValueByDefaultDimension(projTable.DefaultDimension,'BusinessUnit');
+            projProposalJour.SIGCostCenter                  = SIGDimensionHelper::getValueByDefaultDimension(projTable.DefaultDimension,'CostCenter');
+            
+            //if (projProposalJour.SIGProjectedEndDate > this.sig)
+
+            projProposalJour.doUpdate();
+            ttscommit;
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

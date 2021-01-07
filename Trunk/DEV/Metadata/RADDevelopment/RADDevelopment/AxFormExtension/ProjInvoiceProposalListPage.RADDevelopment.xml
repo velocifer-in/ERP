@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxFormExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V6">
+	<Name>ProjInvoiceProposalListPage.RADDevelopment</Name>
+	<ControlModifications />
+	<Controls>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControla23jvt231</Name>
+			<FormControl xmlns=""
+				i:type="AxFormStringControl">
+				<Name>ProjProposalJour_SIGProjId</Name>
+				<Type>String</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataField>SIGProjId</DataField>
+				<DataSource>ProjProposalJour</DataSource>
+			</FormControl>
+			<Parent>ListPageGrid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControl0lo54hrt1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormStringControl">
+				<Name>ProjProposalJour_SIGProjectName</Name>
+				<Type>String</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataField>SIGProjectName</DataField>
+				<DataSource>ProjProposalJour</DataSource>
+			</FormControl>
+			<Parent>ListPageGrid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControln4hv0f0o1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormReferenceGroupControl">
+				<Name>ProjProposalJour_SIGWorkerResponsible</Name>
+				<Type>ReferenceGroup</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls />
+				<DataSource>ProjProposalJour</DataSource>
+				<ReferenceField>SIGWorkerResponsible</ReferenceField>
+			</FormControl>
+			<Parent>ListPageGrid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControly23yryks1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormReferenceGroupControl">
+				<Name>ProjProposalJour_SIGWorkerResponsibleFinancial</Name>
+				<Type>ReferenceGroup</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls />
+				<DataSource>ProjProposalJour</DataSource>
+				<ReferenceField>SIGWorkerResponsibleFinancial</ReferenceField>
+			</FormControl>
+			<Parent>ListPageGrid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlhmmnzif51</Name>
+			<FormControl xmlns=""
+				i:type="AxFormComboBoxControl">
+				<Name>ProjProposalJour_SIGProjType</Name>
+				<Type>ComboBox</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataField>SIGProjType</DataField>
+				<DataSource>ProjProposalJour</DataSource>
+				<Items />
+			</FormControl>
+			<Parent>ListPageGrid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlswlgbi3v1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormStringControl">
+				<Name>ProjProposalJour_SIGBusinessUnit</Name>
+				<Type>String</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataField>SIGBusinessUnit</DataField>
+				<DataSource>ProjProposalJour</DataSource>
+			</FormControl>
+			<Parent>ListPageGrid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlo5uovhhy1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormStringControl">
+				<Name>ProjProposalJour_SIGCostCenter</Name>
+				<Type>String</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataField>SIGCostCenter</DataField>
+				<DataSource>ProjProposalJour</DataSource>
+			</FormControl>
+			<Parent>ListPageGrid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlrjl341lq1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormDateControl">
+				<Name>ProjProposalJour_SIGProjectedEndDate</Name>
+				<Type>Date</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataField>SIGProjectedEndDate</DataField>
+				<DataSource>ProjProposalJour</DataSource>
+			</FormControl>
+			<Parent>ListPageGrid</Parent>
+		</AxFormExtensionControl>
+	</Controls>
+	<DataSourceModifications />
+	<DataSourceReferences />
+	<DataSources />
+	<Parts />
+	<PropertyModifications />
+</AxFormExtension>

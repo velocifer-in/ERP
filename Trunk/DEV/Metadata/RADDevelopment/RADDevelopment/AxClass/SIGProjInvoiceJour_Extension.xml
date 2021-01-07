@@ -22,6 +22,24 @@ public final class SIGProjInvoiceJour_Extension
 
 ]]></Source>
 			</Method>
+			<Method>
+				<Name>initFromProjProposal</Name>
+				<Source><![CDATA[
+    public void initFromProjProposal(ProjProposalJour projProposalJour)
+    {
+        next initFromProjProposal(projProposalJour);
+
+        this.SIGProjId                      = projProposalJour.SIGProjId;
+        this.SIGProjectName                 = projProposalJour.SIGProjectName;
+        this.SIGProjType                    = projProposalJour.SIGProjType;
+        this.SIGWorkerResponsible           = projProposalJour.SIGWorkerResponsible;
+        this.SIGWorkerResponsibleFinancial  = projProposalJour.SIGWorkerResponsibleFinancial;
+        this.SIGBusinessUnit                = projProposalJour.SIGBusinessUnit;
+        this.SIGCostCenter                  = projProposalJour.SIGCostCenter;
+    }
+
+]]></Source>
+			</Method>
 		</Methods>
 	</SourceCode>
 </AxClass>

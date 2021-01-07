@@ -30,6 +30,15 @@
 				<MenuItemType>Action</MenuItemType>
 			</MenuElement>
 		</AxMenuExtensionElement>
+		<AxMenuExtensionElement xmlns="">
+			<Parent>Periodic</Parent>
+			<MenuElement xmlns=""
+				i:type="AxMenuElementMenuItem">
+				<Name>SIGProjProposalJourUpdation</Name>
+				<MenuItemName>SIGProjProposalJourUpdation</MenuItemName>
+				<MenuItemType>Action</MenuItemType>
+			</MenuElement>
+		</AxMenuExtensionElement>
 	</Elements>
 	<MenuElementModifications />
 	<PropertyModifications />

@@ -1,24 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AxTableExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
-	<Name>ProjProposalJour.RADDevelopment</Name>
+	<Name>ProjInvoiceJour.RADDevelopment</Name>
 	<FieldGroupExtensions />
 	<FieldGroups />
 	<FieldModifications />
 	<Fields>
-		<AxTableField xmlns=""
-			i:type="AxTableFieldEnum">
-			<Name>RAD_WithContractSummary</Name>
-			<ExtendedDataType>NoYesId</ExtendedDataType>
-			<Label>Include contract summary </Label>
-			<EnumType>NoYes</EnumType>
-		</AxTableField>
-		<AxTableField xmlns=""
-			i:type="AxTableFieldEnum">
-			<Name>RAD_ProjectMileStone</Name>
-			<ExtendedDataType>NoYesId</ExtendedDataType>
-			<Label>Include milestone details</Label>
-			<EnumType>NoYes</EnumType>
-		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
 			<Name>SIGProjId</Name>
