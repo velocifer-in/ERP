@@ -13,10 +13,14 @@ public final class SIGChequeDP_Extension
 				<Name>populateChequeTmp</Name>
 				<Source><![CDATA[
     protected void populateChequeTmp()
+
     {
         next populateChequeTmp();
 
+        LedgerJournalTrans  ledgerJournalTransLocal = LedgerJournalTrans::findRecId(tmpChequePrintout.TransactionRecId,false);
+
         chequeTmp.SIGTxt                    = tmpChequePrintout.SIGTxt;
+        chequeTmp.RecipientName             = ledgerJournalTransLocal.LedgerDimensionName;
     }
 
 ]]></Source>

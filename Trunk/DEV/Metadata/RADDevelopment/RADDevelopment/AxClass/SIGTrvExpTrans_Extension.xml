@@ -20,7 +20,7 @@ public final class SIGTrvExpTrans_Extension
 
         ret = next  validateWrite();
 
-        if(!this.ProjId && adminCustomFields.Visibility != TrvFieldVisibility::DoNotDisplay)
+        if(this.RecId && !this.ProjId && adminCustomFields.Visibility != TrvFieldVisibility::DoNotDisplay)
         {
             ret = checkFailed(strFmt("Project Id should not be blank "));
         }

@@ -50,25 +50,29 @@ class SIGProjProposalJourUpdation extends RunBaseBatch
                 projProposalJour.doUpdate();
 
                 //Updating project invoice jour table fields
-                update_recordset projInvoiceJour Setting SIGProjId = projProposalJour.SIGProjId 
-                            where projInvoiceJour.ProposalId == projProposalJour.ProposalId;
+                //update_recordset projInvoiceJour Setting SIGProjId = projProposalJour.SIGProjId 
+                //            where projInvoiceJour.ProposalId == projProposalJour.ProposalId;
 
                 ttscommit;
             }
         }
-
-        //while select  projProposalJourInvoice 
-        //{
-        //    update_recordset projInvoiceJour Setting SIGProjId = projProposalJour.SIGProjId,
-        //                                            SIGProjectName = projProposalJour.SIGProjectName ,
-        //                                            SIGProjType = projProposalJour.SIGProjType      ,
-        //                                            SIGWorkerResponsible = projProposalJour.SIGWorkerResponsible   ,
-        //                                            SIGWorkerResponsibleFinancial = projProposalJour.SIGWorkerResponsibleFinancial ,
-        //                                            SIGBusinessUnit = projProposalJour.SIGBusinessUnit    ,
-        //                                            SIGCostCenter = projProposalJour.SIGCostCenter   
-        //                                            where projInvoiceJour.ProposalId == projProposalJour.ProposalId;
-        //}
-
+        ttsbegin;
+        while select  projProposalJourInvoice 
+        {
+            while select forupdate projInvoiceJour  where projInvoiceJour.ProposalId == projProposalJourInvoice.ProposalId
+            {
+                projInvoiceJour.SIGProjId                       = projProposalJourInvoice.SIGProjId;
+                projInvoiceJour.SIGProjectName                  = projProposalJourInvoice.SIGProjectName;
+                projInvoiceJour.SIGProjType                     = projProposalJourInvoice.SIGProjType ;
+                projInvoiceJour.SIGWorkerResponsible            = projProposalJourInvoice.SIGWorkerResponsible;
+                projInvoiceJour.SIGWorkerResponsibleFinancial   = projProposalJourInvoice.SIGWorkerResponsibleFinancial;
+                projInvoiceJour.SIGBusinessUnit                 = projProposalJourInvoice.SIGBusinessUnit;
+                projInvoiceJour.SIGCostCenter                   = projProposalJourInvoice.SIGCostCenter;
+                projInvoiceJour.doUpdate();
+                                                   
+            }
+        }
+        ttscommit;
     }
 
 ]]></Source>

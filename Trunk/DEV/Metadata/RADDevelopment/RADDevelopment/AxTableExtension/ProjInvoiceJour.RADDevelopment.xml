@@ -37,6 +37,7 @@
 			<Name>SIGProjectedEndDate</Name>
 			<AssetClassification>Customer Content</AssetClassification>
 			<ExtendedDataType>ProjProjectedEndDate</ExtendedDataType>
+			<Label>Invoice through date</Label>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">

@@ -603,7 +603,7 @@
         &lt;ConnectString /&gt;
         &lt;IntegratedSecurity&gt;true&lt;/IntegratedSecurity&gt;
       &lt;/ConnectionProperties&gt;
-      &lt;rd:DataSourceID&gt;15f10f08-3cd2-4fa9-9ebb-844f8096fc87&lt;/rd:DataSourceID&gt;
+      &lt;rd:DataSourceID&gt;8df8e6c4-709b-4278-a0e2-8985fb82e92b&lt;/rd:DataSourceID&gt;
     &lt;/DataSource&gt;
   &lt;/DataSources&gt;
   &lt;DataSets&gt;
@@ -1349,7 +1349,7 @@
                               &lt;/ReportItems&gt;
                               &lt;KeepTogether&gt;true&lt;/KeepTogether&gt;
                               &lt;Top&gt;0.72008in&lt;/Top&gt;
-                              &lt;Height&gt;0.19231in&lt;/Height&gt;
+                              &lt;Height&gt;0.19389in&lt;/Height&gt;
                               &lt;Width&gt;7.91138in&lt;/Width&gt;
                               &lt;ZIndex&gt;3&lt;/ZIndex&gt;
                               &lt;Style&gt;
@@ -1391,10 +1391,10 @@
                                       &lt;Style /&gt;
                                     &lt;/Paragraph&gt;
                                   &lt;/Paragraphs&gt;
-                                  &lt;Top&gt;0.1875in&lt;/Top&gt;
+                                  &lt;Top&gt;0.19445in&lt;/Top&gt;
                                   &lt;Left&gt;0.04167in&lt;/Left&gt;
-                                  &lt;Height&gt;0.25in&lt;/Height&gt;
-                                  &lt;Width&gt;2.125in&lt;/Width&gt;
+                                  &lt;Height&gt;0.59375in&lt;/Height&gt;
+                                  &lt;Width&gt;3.91944in&lt;/Width&gt;
                                   &lt;CustomProperties&gt;
                                     &lt;CustomProperty&gt;
                                       &lt;Name&gt;AXDataType&lt;/Name&gt;
@@ -1460,7 +1460,7 @@
                               &lt;DataElementOutput&gt;ContentsOnly&lt;/DataElementOutput&gt;
                               &lt;Top&gt;2.0125in&lt;/Top&gt;
                               &lt;Left&gt;0.75833in&lt;/Left&gt;
-                              &lt;Height&gt;0.5in&lt;/Height&gt;
+                              &lt;Height&gt;0.7882in&lt;/Height&gt;
                               &lt;Width&gt;4.3825in&lt;/Width&gt;
                               &lt;Style&gt;
                                 &lt;BackgroundImage&gt;
@@ -2006,6 +2006,7 @@
                             &lt;/BackgroundImage&gt;
                           &lt;/Style&gt;
                         &lt;/Rectangle&gt;
+                        &lt;rd:Selected&gt;true&lt;/rd:Selected&gt;
                       &lt;/CellContents&gt;
                     &lt;/TablixCell&gt;
                   &lt;/TablixCells&gt;
@@ -2580,7 +2581,7 @@
         &lt;ConnectString /&gt;
         &lt;IntegratedSecurity&gt;true&lt;/IntegratedSecurity&gt;
       &lt;/ConnectionProperties&gt;
-      &lt;rd:DataSourceID&gt;c480a306-9e11-43c6-9b37-594a1734b96a&lt;/rd:DataSourceID&gt;
+      &lt;rd:DataSourceID&gt;f66bf46d-baa7-4c9c-9abe-ff8bedfd3ae6&lt;/rd:DataSourceID&gt;
     &lt;/DataSource&gt;
   &lt;/DataSources&gt;
   &lt;DataSets&gt;
@@ -3803,8 +3804,8 @@
                                   &lt;/Paragraphs&gt;
                                   &lt;Top&gt;0.1875in&lt;/Top&gt;
                                   &lt;Left&gt;0.04167in&lt;/Left&gt;
-                                  &lt;Height&gt;0.25in&lt;/Height&gt;
-                                  &lt;Width&gt;2.125in&lt;/Width&gt;
+                                  &lt;Height&gt;0.58333in&lt;/Height&gt;
+                                  &lt;Width&gt;2.47002in&lt;/Width&gt;
                                   &lt;CustomProperties&gt;
                                     &lt;CustomProperty&gt;
                                       &lt;Name&gt;AXDataType&lt;/Name&gt;
@@ -3870,7 +3871,7 @@
                               &lt;DataElementOutput&gt;ContentsOnly&lt;/DataElementOutput&gt;
                               &lt;Top&gt;2.175in&lt;/Top&gt;
                               &lt;Left&gt;0.75833in&lt;/Left&gt;
-                              &lt;Height&gt;0.5in&lt;/Height&gt;
+                              &lt;Height&gt;0.77083in&lt;/Height&gt;
                               &lt;Width&gt;4.3825in&lt;/Width&gt;
                               &lt;Style&gt;
                                 &lt;BackgroundImage&gt;
