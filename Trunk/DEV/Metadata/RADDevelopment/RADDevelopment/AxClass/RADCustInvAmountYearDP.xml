@@ -93,26 +93,30 @@ public class RADCustInvAmountYearDP extends SRSReportDataProviderBase
     public void processReport()
     {
         RADCustInvAmountYearContract contract = this.parmDataContract() as RADCustInvAmountYearContract;
-        CustTrans   custTrans;
+        //CustTrans   custTrans;
+        ProjInvoiceJour     projInvoiceJour;
        
         fromDate = contract.parmFromDate();
         toDate   = contract.parmToDate();
         
-        while select custTrans where custTrans.TransDate >= fromDate
-                                &&   custTrans.TransDate <= toDate
+        //while select custTrans where custTrans.TransDate >= fromDate
+        //                        &&   custTrans.TransDate <= toDate
+        while select projInvoiceJour where projInvoiceJour.InvoiceDate >= fromDate
+                                &&   projInvoiceJour.InvoiceDate <= toDate
+        
         {
-            this.getDimensionDisplayValue(custTrans.DefaultDimension);
+           // this.getDimensionDisplayValue(custTrans.DefaultDimension);
 
-            custInvAmountYearTmp.TransDate      = custTrans.TransDate;
-            custInvAmountYearTmp.AccountNum     = custTrans.AccountNum;
-            custInvAmountYearTmp.InvoiceAmount  = custTrans.AmountCur;
-            custInvAmountYearTmp.Year           = year(custTrans.TransDate);
-            custInvAmountYearTmp.MonthNum       = mthOfYr(custTrans.TransDate);
-            custInvAmountYearTmp.MonthName      = mthName(mthOfYr(custTrans.TransDate));
+           custInvAmountYearTmp.TransDate      = projInvoiceJour.InvoiceDate;
+            //custInvAmountYearTmp.AccountNum     = custTrans.AccountNum;
+            custInvAmountYearTmp.InvoiceAmount  = projInvoiceJour.InvoiceAmount;
+            custInvAmountYearTmp.Year           = year(projInvoiceJour.InvoiceDate);
+            custInvAmountYearTmp.MonthNum       = mthOfYr(projInvoiceJour.InvoiceDate);
+            custInvAmountYearTmp.MonthName      = mthName(mthOfYr(projInvoiceJour.InvoiceDate));
             custInvAmountYearTmp.Dataarea       = curExt();
-            custInvAmountYearTmp.BusinessUnit   = businessUnit;//this.getDimensionDisplayValue(custTrans.DefaultDimension,'');
-            custInvAmountYearTmp.CostCenter     = costCenter;//this.getDimensionDisplayValue(custTrans.DefaultDimension,'');
-            custInvAmountYearTmp.CompanyName    = custTrans.DataAreaId;
+            custInvAmountYearTmp.BusinessUnit   = projInvoiceJour.SIGBusinessUnit;//this.getDimensionDisplayValue(custTrans.DefaultDimension,'');
+            custInvAmountYearTmp.CostCenter     = projInvoiceJour.SIGCostCenter;//this.getDimensionDisplayValue(custTrans.DefaultDimension,'');
+            custInvAmountYearTmp.CompanyName    = projInvoiceJour.DataAreaId;
             custInvAmountYearTmp.CompnayLogo    = FormLetter::companyLogo();
             custInvAmountYearTmp.insert();
         }
