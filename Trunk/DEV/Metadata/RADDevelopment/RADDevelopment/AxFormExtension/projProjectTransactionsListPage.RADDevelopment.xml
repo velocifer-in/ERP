@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxFormExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V6">
+	<Name>projProjectTransactionsListPage.RADDevelopment</Name>
+	<ControlModifications />
+	<Controls>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControllcr34qom1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormRealControl">
+				<Name>ProjPostTransView_1_Qty</Name>
+				<Type>Real</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataField>Qty</DataField>
+				<DataSource>ProjPostTransView_1</DataSource>
+			</FormControl>
+			<Parent>Grid</Parent>
+			<PositionType>AfterItem</PositionType>
+			<PreviousSibling>ProjPostTransView_1_VendorName</PreviousSibling>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlwbedcyu01</Name>
+			<FormControl xmlns=""
+				i:type="AxFormStringControl">
+				<Name>ProjPostTransView_1_SIGInternalComments</Name>
+				<Type>String</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataField>SIGInternalComments</DataField>
+				<DataSource>ProjPostTransView_1</DataSource>
+			</FormControl>
+			<Parent>Grid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlvlkw0mox1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormComboBoxControl">
+				<Name>ProjTable_1_Type</Name>
+				<Type>ComboBox</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataField>Type</DataField>
+				<DataSource>ProjTable_1</DataSource>
+				<Items />
+			</FormControl>
+			<Parent>Grid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlfudkxlmo1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormReferenceGroupControl">
+				<Name>ProjTable_1_WorkerResponsible</Name>
+				<Type>ReferenceGroup</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls />
+				<DataSource>ProjTable_1</DataSource>
+				<ReferenceField>WorkerResponsible</ReferenceField>
+			</FormControl>
+			<Parent>Grid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlseko5rgf1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormReferenceGroupControl">
+				<Name>ProjTable_1_WorkerResponsibleFinancial</Name>
+				<Type>ReferenceGroup</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls />
+				<DataSource>ProjTable_1</DataSource>
+				<ReferenceField>WorkerResponsibleFinancial</ReferenceField>
+			</FormControl>
+			<Parent>Grid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControl2442bmfi1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormStringControl">
+				<Name>SIGAcitivityDescription</Name>
+				<Type>String</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataMethod>SIGProjPostTransView_Extension.acitivityText</DataMethod>
+				<DataSource>ProjPostTransView_1</DataSource>
+				<Label>Activity name</Label>
+			</FormControl>
+			<Parent>Grid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>Copyzyipaf1f1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormStringControl">
+				<Name>SIGBusinessUnit</Name>
+				<Type>String</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataMethod>SIGProjPostTransView_Extension.businessUnitSIG</DataMethod>
+				<DataSource>ProjPostTransView_1</DataSource>
+				<Label>BusinessUnit</Label>
+			</FormControl>
+			<Parent>Grid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>Copya3lvp0ti1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormStringControl">
+				<Name>SIGCostCenter</Name>
+				<Type>String</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataMethod>SIGProjPostTransView_Extension.costCenterSIG</DataMethod>
+				<DataSource>ProjPostTransView_1</DataSource>
+				<Label>CostCenter</Label>
+			</FormControl>
+			<Parent>Grid</Parent>
+		</AxFormExtensionControl>
+	</Controls>
+	<DataSourceModifications />
+	<DataSourceReferences />
+	<DataSources />
+	<Parts />
+	<PropertyModifications />
+</AxFormExtension>

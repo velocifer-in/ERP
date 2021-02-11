@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGProjPostTransView_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(viewStr(ProjPostTransView))]
+final public class SIGProjPostTransView_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>intComment</Name>
+				<Source><![CDATA[
+        public static str intComment()
+        {
+            SysDictTable timeSheetTrans = new SysDictTable(tableNum(TSTimesheetTrans));
+                   
+            return strFmt('SELECT %2 FROM %1 WHERE %1.%3 = %4',
+                timeSheetTrans.name(DbBackend::Sql),
+                timeSheetTrans.fieldName(fieldNum(TSTimesheetTrans, IntComment), DbBackend::Sql),
+                timeSheetTrans.fieldName(fieldNum(TSTimesheetTrans, TRANSID), DbBackend::Sql),
+                SysComputedColumn::returnField(tableStr(ProjPostTransView), identifierStr(ProjPostedTransTable), fieldStr(ProjPostedTransTable, TRANSID)));
+        }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>extComment</Name>
+				<Source><![CDATA[
+        public static str extComment()
+        {
+            SysDictTable timeSheetTrans = new SysDictTable(tableNum(TSTimesheetTrans));
+                   
+            return strFmt('SELECT %2 FROM %1 WHERE %1.%3 = %4',
+                    timeSheetTrans.name(DbBackend::Sql),
+                    timeSheetTrans.fieldName(fieldNum(TSTimesheetTrans, ExtComment), DbBackend::Sql),
+                    timeSheetTrans.fieldName(fieldNum(TSTimesheetTrans, TRANSID), DbBackend::Sql),
+                    SysComputedColumn::returnField(tableStr(ProjPostTransView), identifierStr(ProjPostedTransTable), fieldStr(ProjPostedTransTable, TRANSID)));
+        }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>acitivityText</Name>
+				<Source><![CDATA[
+        display str acitivityText()
+        {
+            TSTimesheetTrans        timeSheetTrans;
+            String30                businessUnit,refRecId;
+            TSTimesheetLineWeek     timesheetLineWeek;
+            TSTimesheetLine         timeSheetLine;
+            ProjTransIdBase         transId;
+            RefRecId                timeSheetLineWeekRecId;
+
+            select * from timeSheetLine join  timesheetLineWeek
+                                    where timeSheetLine.RecId   == timesheetLineWeek.TSTimesheetLine
+                                        join  timeSheetTrans
+                                    where timeSheetTrans.RecId == timesheetLineWeek.TSTimesheetLine
+                                    && timeSheetTrans.TransId == this.TransId;
+        
+            return smmActivities::find(timeSheetLine.ActivityNumber).Purpose;
+        }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>businessUnitSIG</Name>
+				<Source><![CDATA[
+        display str businessUnitSIG()
+        {
+            TSTimesheetTrans        timeSheetTrans;
+            String30                businessUnit,refRecId;
+            TSTimesheetLineWeek     timesheetLineWeek;
+            TSTimesheetLine         timeSheetLine;
+            ProjTransIdBase         transId;
+            RefRecId                timeSheetLineWeekRecId;
+            
+
+            SIGProjProposalJourUpdation  prjProPosalUpdation = new SIGProjProposalJourUpdation();
+        
+            select DefaultDimension from timeSheetLine 
+                                        join  timesheetLineWeek
+                                    where timeSheetLine.RecId   == timesheetLineWeek.TSTimesheetLine
+                                        join  timeSheetTrans
+                                    where timeSheetTrans.RecId == timesheetLineWeek.TSTimesheetLine
+                                    && timeSheetTrans.TransId == this.TransId;//SysComputedColumn::returnField(tableStr(ProjPostTransView), identifierStr(ProjPostedTransTable), fieldStr(ProjPostedTransTable, TRANSID));
+            businessUnit = prjProPosalUpdation.getDisplayName(timeSheetLine.DefaultDimension,'BusinessUnit');//BusinessUnit
+            
+            return  businessUnit;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>costCenterSIG</Name>
+				<Source><![CDATA[
+        display str costCenterSIG()
+        {
+            TSTimesheetTrans                timeSheetTrans;
+            String30                        costCenter;
+            TSTimesheetLineWeek             timesheetLineWeek;
+            TSTimesheetLine                 timeSheetLine;
+            SIGProjProposalJourUpdation     prjProPosalUpdation = new SIGProjProposalJourUpdation();
+
+            select * from timeSheetLine join  timesheetLineWeek
+                                        where timeSheetLine.RecId   == timesheetLineWeek.TSTimesheetLine
+                                            join  timeSheetTrans
+                                        where timeSheetTrans.RecId == timesheetLineWeek.TSTimesheetLine
+                                            && timeSheetTrans.TransId ==   this.TransId;
+            
+            costCenter = prjProPosalUpdation.getDisplayName(timeSheetLine.DefaultDimension,'CostCenter');
+
+            return costCenter;
+        }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

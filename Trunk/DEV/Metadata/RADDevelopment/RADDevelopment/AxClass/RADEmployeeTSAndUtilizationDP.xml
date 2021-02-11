@@ -9,8 +9,8 @@ class RADEmployeeTSAndUtilizationDP extends SRSReportDataProviderBase
 
     //TableBuffer Decleration
     RADEmployeeTSAndUtilizationTmp      employeeTSAndUtilizationTmp;
-    StartDate                           startDate,periodStartDate;
-    EndDate                             endDate,periodEndDate;
+    StartDate                           startDate,periodStartDate,parmStartDate;
+    EndDate                             endDate,periodEndDate,parmEndDate;
     RADPayCheckUtilizationTmp           payCheckTmp;
 
 }
@@ -52,7 +52,7 @@ class RADEmployeeTSAndUtilizationDP extends SRSReportDataProviderBase
 
         startDate     = payrollPayPeriod.PeriodStartDate;
         endDate       = payrollPayPeriod.PeriodEndDate;
-
+        delete_from payCheckDetailsTmp;
         while select timesheetTable
             where timesheetTable.PeriodFrom >= startDate && timesheetTable.PeriodTo <= endDate
             join timesheetLine
@@ -64,6 +64,8 @@ class RADEmployeeTSAndUtilizationDP extends SRSReportDataProviderBase
             projTable = ProjTable::find(timesheetLine.ProjId);
 
             payCheckTmp.CategoryId              =  timesheetLine.CategoryId;
+            payCheckTmp.LinePropertyId          =  timesheetLine.LinePropertyId;
+            payCheckTmp.TimesheetNbr            =  timesheetLine.TimesheetNbr;
             payCheckTmp.ResourceName            =  hcmWorker.name();
             payCheckTmp.dataArea                =  '18127741';//strUpr(timesheetLine.DataAreaId);
             payCheckTmp.HcmPersonnelNumberId    =  hcmWorker.PersonnelNumber;
@@ -83,8 +85,8 @@ class RADEmployeeTSAndUtilizationDP extends SRSReportDataProviderBase
         }
 
 
-        insert_recordset payCheckDetailsTmp(Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence)
-            select Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence from payCheckTmp;
+        insert_recordset payCheckDetailsTmp(Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence,LinePropertyId,TimesheetNbr)
+            select Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence,LinePropertyId,TimesheetNbr from payCheckTmp;
 
 
         while select payCheckTmp group by HcmPersonnelNumberId, startDate,endDate where payCheckTmp.RADEmployeeType != RADEmployeeType::Salaried
@@ -149,8 +151,8 @@ class RADEmployeeTSAndUtilizationDP extends SRSReportDataProviderBase
         }
         delete_from payCheckDetailsTmp;
 
-        insert_recordset payCheckDetailsTmp(Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence)
-            select Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence from payCheckTmp;
+        insert_recordset payCheckDetailsTmp(Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence,LinePropertyId,TimesheetNbr )
+            select Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence,LinePropertyId,TimesheetNbr  from payCheckTmp;
 
         delete_from payCheckTmp where payCheckTmp.RADLeaveAndAbsence == NoYes::No;
 
@@ -195,8 +197,8 @@ class RADEmployeeTSAndUtilizationDP extends SRSReportDataProviderBase
         
         delete_from payCheckDetailsTmp;
 
-        insert_recordset payCheckDetailsTmp(Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence)
-            select Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence from payCheckTmp;
+        insert_recordset payCheckDetailsTmp(Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence,LinePropertyId,TimesheetNbr )
+            select Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence,LinePropertyId,TimesheetNbr  from payCheckTmp;
 
  
 
@@ -220,7 +222,102 @@ class RADEmployeeTSAndUtilizationDP extends SRSReportDataProviderBase
             ttscommit;
          
         }
+        delete_from payCheckDetailsTmp;
 
+        insert_recordset payCheckDetailsTmp(Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence,LinePropertyId,TimesheetNbr )
+            select Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence,LinePropertyId,TimesheetNbr  from payCheckTmp;
+
+        TSHoursTotal        otHoursSIG, utilizationExlHolPLSIG , utilizationAllHoursSIG,personalLeave,holiday;
+        TSTimesheetTrans    timeSheetTrans;
+        ProjJournalTrans    projJournalTrans;
+        TSHoursTotal        billableHours,nonBillableHours;
+
+        while select payCheckTmp group by HcmPersonnelNumberId
+        {
+            employeeTSAndUtilizationTmp.HcmPersonnelNumberId    = payCheckTmp.HcmPersonnelNumberId;
+            employeeTSAndUtilizationTmp.ResourceName            = HcmWorker::findByPersonnelNumber(payCheckTmp.HcmPersonnelNumberId).name();
+            otHoursSIG              = 0;
+            utilizationExlHolPLSIG  = 0;
+            utilizationAllHoursSIG  = 0;
+            while select payCheckDetailsTmp where payCheckDetailsTmp.HcmPersonnelNumberId == payCheckTmp.HcmPersonnelNumberId
+            {
+                if (payCheckDetailsTmp.CategoryId ==  "Overtime")
+                {
+                    otHoursSIG += payCheckDetailsTmp.Hours;
+                }
+                if (payCheckDetailsTmp.CategoryId == "Hourly"  || payCheckDetailsTmp.CategoryId == "Salary")
+                {
+                    utilizationExlHolPLSIG  += payCheckDetailsTmp.Hours;
+                }
+                if (payCheckDetailsTmp.RADPayCalc == RADPayCalc::PersonalTimeOff)
+                {
+                    personalLeave = payCheckDetailsTmp.Hours;
+                }
+                if (payCheckDetailsTmp.RADPayCalc == RADPayCalc::Holiday)
+                {
+                    holiday = payCheckDetailsTmp.Hours;
+                }
+                utilizationAllHoursSIG += payCheckDetailsTmp.Hours;
+
+                parmStartDate   = payCheckDetailsTmp.StartDate;
+                parmEndDate     = payCheckDetailsTmp.EndDate;
+
+                //if(ProjLinePropertySetup::find(ProjCategory::find(payCheckDetailsTmp.CategoryId).projLinePropertyIdEdit()).ToBeInvoiced)
+                //{
+                //    billableHours = payCheckDetailsTmp.Hours;
+                //}
+                //else
+                //{
+                //    nonBillableHours = payCheckDetailsTmp.Hours;
+                //}
+            }
+
+           // utilizationAllHoursSIG ;//= utilizationExlHolPLSIG + otHoursSIG;
+            //select sum(Hours)  from payCheckDetailsTmp where payCheckDetailsTmp.HcmPersonnelNumberId == payCheckTmp.HcmPersonnelNumberId
+            //    && (payCheckDetailsTmp.CategoryId == "Hourly" || payCheckDetailsTmp.CategoryId ==  "Overtime" );
+            //                                           // && payCheckDetailsTmp.RADLeaveAndAbsence;
+
+            //select sum(Hours)  from payCheckTmpDetailsIns where payCheckTmpDetailsIns.HcmPersonnelNumberId == payCheckTmp.HcmPersonnelNumberId;
+            //                                           // && payCheckTmpDetailsIns.RADLeaveAndAbsence;
+
+            employeeTSAndUtilizationTmp.UtilizationExlHolPL     = utilizationExlHolPLSIG + otHoursSIG ;//payCheckDetailsTmp.Hours;
+            employeeTSAndUtilizationTmp.UtilizationAllHours     = utilizationAllHoursSIG;//payCheckTmpDetailsIns.Hours;
+            employeeTSAndUtilizationTmp.HourlySalaried          = JmgEmployee::find(HcmWorker::findByPersonnelNumber(employeeTSAndUtilizationTmp.HcmPersonnelNumberId).RecId).DefaultProfileId;
+            employeeTSAndUtilizationTmp.Regular                 = JmgPayAgreementTable::find( employeeTSAndUtilizationTmp.HourlySalaried).RADDays;
+            employeeTSAndUtilizationTmp.BilledHours             = billableHours;
+            //payCheckDetailsTmp.clear();
+            //payCheckTmpDetailsIns.clear();
+
+            //select sum(Hours)  from payCheckDetailsTmp where payCheckDetailsTmp.HcmPersonnelNumberId == payCheckTmp.HcmPersonnelNumberId
+                                                        //&& payCheckDetailsTmp.CategoryId ==  "Overtime" ;
+            utcdatetime _asOfDate = DateTimeUtil::utcNow();
+            HcmPositionHierarchy positionHierarchy                      = HcmPositionHierarchy::findByPosition(HcmWorkerHelper::getPrimaryPosition(HcmWorker::findByPersonnelNumber(employeeTSAndUtilizationTmp.HcmPersonnelNumberId).RecId, _asOfDate), _asOfDate);
+            HcmPositionWorkerAssignment managerPositionWorkerAssignment = HcmPositionWorkerAssignment::findByPosition(positionHierarchy.ParentPosition, _asOfDate);
+            HcmEmployment       hcmEmployment;
+            ResourceRecId                   resourceRecId;
+
+            select hcmEmployment where hcmEmployment.Worker == managerPositionWorkerAssignment.Worker;
+            if (hcmEmployment)
+            {
+                changecompany(CompanyInfo::findRecId(hcmEmployment.LegalEntity).DataArea)
+                {
+                    resourceRecId  = ResourceFacade::findByWorker(managerPositionWorkerAssignment.Worker);
+                }
+
+                employeeTSAndUtilizationTmp.Supervisor              = WrkCtrTable::findByRecId(resourceRecId).Name;
+            }
+            employeeTSAndUtilizationTmp.OTHours                 = otHoursSIG;//payCheckDetailsTmp.Hours;
+            employeeTSAndUtilizationTmp.PersonalLeave           = personalLeave;
+            employeeTSAndUtilizationTmp.Holiday                 = holiday;
+            employeeTSAndUtilizationTmp.StartDate               = parmStartDate;//payCheckDetailsTmp.StartDate;
+            employeeTSAndUtilizationTmp.EndDate                 = parmEndDate;//payCheckDetailsTmp.EndDate;
+            employeeTSAndUtilizationTmp.insert();
+
+            //assinging null values
+            otHoursSIG              = 0;
+            utilizationExlHolPLSIG  = 0;
+            utilizationAllHoursSIG  = 0;
+        }
     }
 
 ]]></Source>

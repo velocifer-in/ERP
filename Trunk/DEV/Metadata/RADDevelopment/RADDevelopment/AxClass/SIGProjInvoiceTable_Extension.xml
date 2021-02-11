@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGProjInvoiceTable_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(formDataSourceStr(ProjInvoiceTable,ProjFundingSource))]
+Public final class SIGProjInvoiceTable_Extension
+{
+    
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>SIGProjFundingSource_PSAInvoiceFormats_OnEnter</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    [FormControlEventHandler(formControlStr(ProjInvoiceTable, SIGProjFundingSource_PSAInvoiceFormats), FormControlEventType::Enter)]
+    public static void SIGProjFundingSource_PSAInvoiceFormats_OnEnter(FormControl sender, FormControlEventArgs e)
+    {
+        FormRun             formRun = sender.formRun();
+        FormComboBoxControl projFundingSource_PSAInvoiceFormats = formRun.design().controlName(formControlStr(ProjInvoiceTable, SIGProjFundingSource_PSAInvoiceFormats)) as FormComboBoxControl;
+
+        projFundingSource_PSAInvoiceFormats.clear();
+
+        projFundingSource_PSAInvoiceFormats.add(enum2str(PSAInvoiceFormats::DetailInvoice));
+        projFundingSource_PSAInvoiceFormats.add(enum2str(PSAInvoiceFormats::SummaryInvoice));
+        projFundingSource_PSAInvoiceFormats.add(enum2str(PSAInvoiceFormats::SummaryByCategory));
+
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>editInvoiceFormatSIG</Name>
+				<Source><![CDATA[
+    public edit PSAInvoiceFormat editInvoiceFormatSIG(boolean _set, ProjFundingSource _projFundingSource, PSAInvoiceFormat _newValue)
+    {
+        PSAInvoiceFormat    currentValue;
+        PSAInvoiceFormats   formatValue;
+
+     
+        if (_set)
+        {
+            if (PSAContractLineItems::hasBillingRules(_projFundingSource.ContractId))
+            {
+                if (_newValue == 0)
+                {
+                    formatValue = PSAInvoiceFormats::DetailInvoice;
+                }
+            }
+            else
+            {
+                switch (_newValue)
+                {
+                    case 0:
+                        formatValue = PSAInvoiceFormats::DetailInvoice;
+                        break;
+
+                    case 1:
+                        formatValue = PSAInvoiceFormats::SummaryInvoice;
+                        break;
+
+                    case 2:
+                        formatValue = PSAInvoiceFormats::SummaryByCategory;
+                        break;
+                }
+            }
+            if (_projFundingSource.psaInvoiceFormats != formatValue)
+            {
+                _projFundingSource.psaInvoiceFormats = formatValue;
+            }
+        }
+
+        //if (PSAContractLineItems::hasBillingRules(_projFundingSource.ContractId))
+        //{
+        //    if (_projFundingSource.psaInvoiceFormats == PSAInvoiceFormats::DetailInvoice)
+        //    {
+        //        currentValue = 0;
+        //    }
+        //}
+        //else
+        {
+            switch (_projFundingSource.psaInvoiceFormats)
+            {
+                case PSAInvoiceFormats::DetailInvoice:
+                    currentValue = 0;
+                    break;
+
+                case PSAInvoiceFormats::SummaryInvoice:
+                    currentValue = 1;
+                    break;
+
+                case PSAInvoiceFormats::SummaryByCategory:
+                    currentValue = 2;
+                    break;
+            }
+        }
+
+        return currentValue;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

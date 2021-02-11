@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGTimeSheetTableUpdationBatch</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+class SIGTimeSheetTableUpdationBatch extends RunBaseBatch
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static SIGTimeSheetTableUpdationBatch construct()
+    {
+        return new SIGTimeSheetTableUpdationBatch();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>run</Name>
+				<Source><![CDATA[
+    public void run()
+    {
+        
+        TSTimesheetTable                timeSheetTable;
+        utcdatetime                     _asOfDate = DateTimeUtil::utcNow();
+        HcmPositionHierarchy            positionHierarchy;
+        HcmPositionWorkerAssignment     managerPositionWorkerAssignment;
+        HcmWorker                       hcmWorker;
+        ResourceId                      resourceId;
+        RefRecId                        resourceRecId;
+        HcmEmployment                   hcmEmployment;
+        ResourceRecId                   parentResourceRecId;
+
+        ttsbegin;
+        while select hcmWorker
+        {
+            resourceRecId = ResourceFacade::findByWorker(hcmWorker.RecId);
+       
+            while select forupdate timeSheetTable  where timeSheetTable.Resource == resourceRecId
+                                                    && timeSheetTable.SIGParentResource == 0
+            {
+                positionHierarchy                   = HcmPositionHierarchy::findByPosition(HcmWorkerHelper::getPrimaryPosition(hcmWorker.RecId, _asOfDate), _asOfDate);
+                if (positionHierarchy)
+                {
+                    managerPositionWorkerAssignment     = HcmPositionWorkerAssignment::findByPosition(positionHierarchy.ParentPosition, _asOfDate);
+
+                    timeSheetTable.SIGParentWorker    = managerPositionWorkerAssignment.Worker;
+                    
+                    select hcmEmployment where hcmEmployment.Worker == managerPositionWorkerAssignment.Worker;
+
+                    changecompany(CompanyInfo::findRecId(hcmEmployment.LegalEntity).DataArea)
+                    {
+                        parentResourceRecId  = ResourceFacade::findByWorker(timeSheetTable.SIGParentWorker);
+                    }
+                    timeSheetTable.SIGParentResource  = parentResourceRecId;
+                    timeSheetTable.doUpdate();
+                }
+            }
+        }
+        ttscommit;
+        Info('Timesheet has been updated with Supervisor details');
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>main</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Runs the class with the specified arguments.
+    /// </summary>
+    /// <param name = "_args">The specified arguments.</param>
+    public static void main(Args _args)
+    {
+        SIGTimeSheetTableUpdationBatch timeSheetUpdation = SIGTimeSheetTableUpdationBatch::construct();
+        
+        if (timeSheetUpdation.prompt())
+        {
+            timeSheetUpdation.run();
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

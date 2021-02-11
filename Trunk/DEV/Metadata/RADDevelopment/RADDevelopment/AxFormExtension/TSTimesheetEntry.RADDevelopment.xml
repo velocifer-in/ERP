@@ -107,6 +107,27 @@
 			</FormControl>
 			<Parent>LineViewHeaderDetailsTabPage</Parent>
 		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>Copykehmehqc1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormReferenceGroupControl">
+				<Name>TSTimesheetTable_Resource_Parent</Name>
+				<Type>ReferenceGroup</Type>
+				<Width>220</Width>
+				<WidthMode>Manual</WidthMode>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls />
+				<DataSource>TSTimesheetTable</DataSource>
+				<Label>Supervisor</Label>
+				<ReferenceField>SIGParentResource</ReferenceField>
+				<ReplacementFieldGroup>AutoLookup</ReplacementFieldGroup>
+				<ViewEditMode>View</ViewEditMode>
+			</FormControl>
+			<Parent>GridView</Parent>
+			<PositionType>AfterItem</PositionType>
+			<PreviousSibling>TSTimesheetTable_Resource_GridView</PreviousSibling>
+		</AxFormExtensionControl>
 	</Controls>
 	<DataSourceModifications />
 	<DataSourceReferences />

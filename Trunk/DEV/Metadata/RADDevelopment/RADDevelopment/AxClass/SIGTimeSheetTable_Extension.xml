@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGTimeSheetTable_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(tablestr(TSTimesheetTable))]
+Public final class SIGTimeSheetTable_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>initValue</Name>
+				<Source><![CDATA[
+    public void initValue()
+    {
+        next initValue();
+
+        utcdatetime _asOfDate = DateTimeUtil::utcNow();
+        HcmEmployment                   hcmEmployment;
+        ResourceRecId                   resourceRecId;
+
+       
+        HcmPositionHierarchy positionHierarchy                      = HcmPositionHierarchy::findByPosition(HcmWorkerHelper::getPrimaryPosition(HcmWorkerLookup::currentWorker(), _asOfDate), _asOfDate);
+        HcmPositionWorkerAssignment managerPositionWorkerAssignment = HcmPositionWorkerAssignment::findByPosition(positionHierarchy.ParentPosition, _asOfDate);
+        
+        this.SIGParentWorker    = managerPositionWorkerAssignment.Worker;
+            
+        select hcmEmployment where hcmEmployment.Worker == managerPositionWorkerAssignment.Worker;
+        if (hcmEmployment)
+        {
+            changecompany(CompanyInfo::findRecId(hcmEmployment.LegalEntity).DataArea)
+            {
+                resourceRecId  = ResourceFacade::findByWorker(this.SIGParentWorker);
+            }
+            this.SIGParentResource = resourceRecId;
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

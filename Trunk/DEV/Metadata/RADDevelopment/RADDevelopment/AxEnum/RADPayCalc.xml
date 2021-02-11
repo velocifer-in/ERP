@@ -2,7 +2,6 @@
 <AxEnum xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
 	<Name>RADPayCalc</Name>
 	<Label>Pay calc</Label>
-	<UseEnumValue>No</UseEnumValue>
 	<EnumValues>
 		<AxEnumValue>
 			<Name>None</Name>
@@ -29,5 +28,4 @@
 			<Value>3</Value>
 		</AxEnumValue>
 	</EnumValues>
-	<IsExtensible>true</IsExtensible>
 </AxEnum>

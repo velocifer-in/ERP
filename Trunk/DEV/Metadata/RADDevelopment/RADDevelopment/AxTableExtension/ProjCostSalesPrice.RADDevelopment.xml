@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxTableExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>ProjCostSalesPrice.RADDevelopment</Name>
+	<FieldGroupExtensions />
+	<FieldGroups />
+	<FieldModifications>
+		<AxExtensionModification>
+			<Name>ProjSalesPricing</Name>
+			<PropertyModifications>
+				<AxPropertyModification>
+					<Name>ExtendedDataType</Name>
+					<Value>RADProjectSalesPriceExpence</Value>
+				</AxPropertyModification>
+			</PropertyModifications>
+		</AxExtensionModification>
+	</FieldModifications>
+	<Fields />
+	<FullTextIndexes />
+	<Indexes />
+	<Mappings />
+	<PropertyModifications />
+	<RelationExtensions />
+	<RelationModifications />
+	<Relations />
+</AxTableExtension>

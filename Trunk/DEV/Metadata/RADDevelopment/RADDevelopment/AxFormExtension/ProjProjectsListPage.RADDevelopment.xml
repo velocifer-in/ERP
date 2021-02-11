@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxFormExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V6">
+	<Name>ProjProjectsListPage.RADDevelopment</Name>
+	<ControlModifications>
+		<AxExtensionModification xmlns="">
+			<Name>ProjTable_ProjDataSource</Name>
+			<PropertyModifications>
+				<AxPropertyModification>
+					<Name>Visible</Name>
+					<Value>No</Value>
+				</AxPropertyModification>
+			</PropertyModifications>
+		</AxExtensionModification>
+	</ControlModifications>
+	<Controls>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlrlpqciti1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormReferenceGroupControl">
+				<Name>ProjTable_WorkerResponsible</Name>
+				<Type>ReferenceGroup</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls />
+				<DataSource>ProjTable</DataSource>
+				<ReferenceField>WorkerResponsible</ReferenceField>
+			</FormControl>
+			<Parent>Grid</Parent>
+			<PositionType>AfterItem</PositionType>
+			<PreviousSibling>ProjTable_ProjDataSource</PreviousSibling>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControln4fzsuzt1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormReferenceGroupControl">
+				<Name>ProjTable_WorkerResponsibleFinancial</Name>
+				<Type>ReferenceGroup</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls />
+				<DataSource>ProjTable</DataSource>
+				<ReferenceField>WorkerResponsibleFinancial</ReferenceField>
+			</FormControl>
+			<Parent>Grid</Parent>
+			<PositionType>AfterItem</PositionType>
+			<PreviousSibling>ProjTable_ProjDataSource</PreviousSibling>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControl0dccyvds1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormDateControl">
+				<Name>ProjTable_ProjectedStartDate</Name>
+				<Type>Date</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataField>ProjectedStartDate</DataField>
+				<DataSource>ProjTable</DataSource>
+			</FormControl>
+			<Parent>Grid</Parent>
+			<PositionType>AfterItem</PositionType>
+			<PreviousSibling>ProjTable_ProjDataSource</PreviousSibling>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlrs3tl4it1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormDateControl">
+				<Name>ProjTable_ProjectedEndDate</Name>
+				<Type>Date</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataField>ProjectedEndDate</DataField>
+				<DataSource>ProjTable</DataSource>
+			</FormControl>
+			<Parent>Grid</Parent>
+			<PositionType>AfterItem</PositionType>
+			<PreviousSibling>ProjTable_ProjDataSource</PreviousSibling>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>Copynsexiddb1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormRealControl">
+				<Name>SIGOriginalBudget</Name>
+				<Type>Real</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataMethod>SIGProjTable_Extension.displayOriginalBudget</DataMethod>
+				<DataSource>ProjTable</DataSource>
+				<Label>Total original budget</Label>
+			</FormControl>
+			<Parent>Grid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>Copyt31dopuq1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormRealControl">
+				<Name>SIGApprovedRevisionBudet</Name>
+				<Type>Real</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataMethod>SIGProjTable_Extension.displayCommittedRevisionsTotal</DataMethod>
+				<DataSource>ProjTable</DataSource>
+				<Label>Total approved revisions</Label>
+			</FormControl>
+			<Parent>Grid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>Copyxdatofje1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormRealControl">
+				<Name>SIGTotalBudget</Name>
+				<Type>Real</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataMethod>SIGProjTable_Extension.displayBudgetLineTotal</DataMethod>
+				<DataSource>ProjTable</DataSource>
+				<Label>Total approved budget</Label>
+			</FormControl>
+			<Parent>Grid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>Copy4dgmyoys1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormRealControl">
+				<Name>SIGUnApprovedBudget</Name>
+				<Type>Real</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataMethod>SIGProjTable_Extension.displayUncommittedRevisionsTotal</DataMethod>
+				<DataSource>ProjTable</DataSource>
+				<Label>Total unappproved revisions</Label>
+			</FormControl>
+			<Parent>Grid</Parent>
+		</AxFormExtensionControl>
+	</Controls>
+	<DataSourceModifications />
+	<DataSourceReferences />
+	<DataSources />
+	<Parts />
+	<PropertyModifications />
+</AxFormExtension>

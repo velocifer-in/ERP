@@ -12,7 +12,9 @@
 /// <c>RADCustInvAmountYear</c>Reporting Services report.
 /// </remarks>
 [
-       SRSReportParameterAttribute(classStr(RADCustInvAmountYearContract))
+    SRSReportParameterAttribute(classStr(RADCustInvAmountYearContract)),
+    SRSReportQueryAttribute('SIGInvoiceAmountByYear')
+
 ]
 public class RADCustInvAmountYearDP extends SRSReportDataProviderBase
 {
@@ -95,19 +97,31 @@ public class RADCustInvAmountYearDP extends SRSReportDataProviderBase
         RADCustInvAmountYearContract contract = this.parmDataContract() as RADCustInvAmountYearContract;
         //CustTrans   custTrans;
         ProjInvoiceJour     projInvoiceJour;
-       
+        Query                   query;
+        QueryRun                qr;
+
+
         fromDate = contract.parmFromDate();
         toDate   = contract.parmToDate();
         
-        //while select custTrans where custTrans.TransDate >= fromDate
-        //                        &&   custTrans.TransDate <= toDate
-        while select projInvoiceJour where projInvoiceJour.InvoiceDate >= fromDate
-                                &&   projInvoiceJour.InvoiceDate <= toDate
-        
+        // Get the query from the runtime using a dynamic query.
+        query = this.parmQuery();
+
+        qr = new QueryRun(query);
+        qr.query().dataSourceName(Tablestr(ProjInvoiceJour)).addRange(fieldNum(ProjInvoiceJour,InvoiceDate)).value(queryRange(fromDate,toDate));
+        ttsbegin;
+        while(qr.next())
         {
+            projInvoiceJour = qr.get(tablenum(ProjInvoiceJour));
+        ////while select custTrans where custTrans.TransDate >= fromDate
+        ////                        &&   custTrans.TransDate <= toDate
+        //while select projInvoiceJour where projInvoiceJour.InvoiceDate >= fromDate
+        //                        &&   projInvoiceJour.InvoiceDate <= toDate
+
+        //{
            // this.getDimensionDisplayValue(custTrans.DefaultDimension);
 
-           custInvAmountYearTmp.TransDate      = projInvoiceJour.InvoiceDate;
+            custInvAmountYearTmp.TransDate      = projInvoiceJour.InvoiceDate;
             //custInvAmountYearTmp.AccountNum     = custTrans.AccountNum;
             custInvAmountYearTmp.InvoiceAmount  = projInvoiceJour.InvoiceAmount;
             custInvAmountYearTmp.Year           = year(projInvoiceJour.InvoiceDate);
@@ -120,7 +134,7 @@ public class RADCustInvAmountYearDP extends SRSReportDataProviderBase
             custInvAmountYearTmp.CompnayLogo    = FormLetter::companyLogo();
             custInvAmountYearTmp.insert();
         }
-
+        ttscommit;
        
     }
 

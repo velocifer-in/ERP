@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGEmployeeTimesheet</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+class SIGEmployeeTimesheet
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>main</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Runs the class with the specified arguments.
+    /// </summary>
+    /// <param name = "_args">The specified arguments.</param>
+    public static void main(Args _args)
+    {
+        //Info(strFmt('%1 %2',
+        //     HcmWorkerHelper::getPrimaryPosition(HcmWorker::findByPersonnelNumber('EMPL-002').RecId),
+        //    HcmWorker::findByPersonnelNumber('EMPL-002').name(),
+        //    HcmPositionHierarchyType::find( HcmWorkerHelper::getPrimaryPosition(HcmWorker::findByPersonnelNumber('EMPL-002').RecId))
+        //    ));
+
+        TSTimesheetTrans        timeSheetTrans;
+        String30                businessUnit;
+        TSTimesheetLineWeek     timesheetLineWeek;
+        TSTimesheetLine         timeSheetLine;
+        SIGProjProposalJourUpdation  prjProPosalUpdation = new SIGProjProposalJourUpdation();
+
+
+        //select  timeSheetTrans where timeSheetTrans.TransId == 'RILC-006487';
+
+        //select timesheetLineWeek where timesheetLineWeek.RecId == timeSheetTrans.TSTimesheetLineWeek;
+
+        //select timeSheetLine where timeSheetLine.RecId == timesheetLineWeek.TSTimesheetLine;
+
+
+        select DefaultDimension from timeSheetLine
+                                        join  timesheetLineWeek
+                                    where timesheetLineWeek.TSTimesheetLine == timeSheetLine.RecId
+                                        join  timeSheetTrans
+                                    where  timesheetLineWeek.TSTimesheetLine == timeSheetTrans.RecId 
+                                    && timeSheetTrans.TransId == 'RILC-003336';
+            // SysComputedColumn::returnField(tableStr(ProjPostTransView), identifierStr(ProjPostedTransTable), fieldStr(ProjPostedTransTable, TRANSID));
+        businessUnit = prjProPosalUpdation.getDisplayName(timeSheetLine.DefaultDimension,'BusinessUnit');
+        //timeSheetLineWeek = strFmt('SELECT %2 FROM %1 WHERE %1.%3 = %4',
+        //            timeSheetTrans.name(DbBackend::Sql),
+        //            timeSheetTrans.fieldName(fieldNum(TSTimesheetTrans, TSTimesheetLineWeek), DbBackend::Sql),
+        //            timeSheetTrans.fieldName(fieldNum(TSTimesheetTrans, TRANSID), DbBackend::Sql),
+        //            SysComputedColumn::returnField(tableStr(ProjPostTransView), identifierStr(ProjPostedTransTable), fieldStr(ProjPostedTransTable, TRANSID)));
+          Info(strFmt('%1',businessUnit));
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

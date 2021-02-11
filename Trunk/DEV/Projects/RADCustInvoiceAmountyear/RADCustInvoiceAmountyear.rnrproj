@@ -37,6 +37,7 @@
     <Folder Include="Menu Extensions\" />
     <Folder Include="Output Menu Items\" />
     <Folder Include="Reports\" />
+    <Folder Include="Simple Queries\" />
     <Folder Include="Tables\" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +60,11 @@
       <SubType>Content</SubType>
       <Name>RADCustInvAmountYear</Name>
       <Link>Output Menu Items\RADCustInvAmountYear</Link>
+    </Content>
+    <Content Include="AxQuery\SIGInvoiceAmountByYear">
+      <SubType>Content</SubType>
+      <Name>SIGInvoiceAmountByYear</Name>
+      <Link>Simple Queries\SIGInvoiceAmountByYear</Link>
     </Content>
     <Content Include="AxReport\RADCustInvAmtYear">
       <SubType>Content</SubType>

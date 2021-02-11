@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AxMenuItemOutput xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V1">
 	<Name>RADCustInvAmountYear</Name>
-	<Label>Customer Invoice Amounts by Year</Label>
+	<Label>Invoice Amount by Year</Label>
 	<Object>RADCustInvAmtYear</Object>
 	<ObjectType>SSRSReport</ObjectType>
 	<ReportDesign>Report</ReportDesign>

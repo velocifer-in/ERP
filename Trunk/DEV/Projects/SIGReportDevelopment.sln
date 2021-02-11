@@ -35,6 +35,8 @@ Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "SIGProjectGroupupdate (USR)
 EndProject
 Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "SIGProjectInvoiceProposalListPageModifications (USR) [SIGDevelopment]", "SIGProjectInvoiceProposalListPageModifications\SIGProjectInvoiceProposalListPageModifications.rnrproj", "{24EB4C2E-47B6-47D1-B6DA-07431FAB31C4}"
 EndProject
+Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "RADProjectSalesPriceExpence (ISV) [Fleet Management]", "RADProjectSalesPriceExpence\RADProjectSalesPriceExpence.rnrproj", "{C309E046-0D05-4C52-8DA5-830B700F0664}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,12 +74,14 @@ Global
 		{CB8EB164-4173-4FA7-8A07-ECE42FC6C921}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24EB4C2E-47B6-47D1-B6DA-07431FAB31C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{24EB4C2E-47B6-47D1-B6DA-07431FAB31C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C309E046-0D05-4C52-8DA5-830B700F0664}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C309E046-0D05-4C52-8DA5-830B700F0664}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 17
+		SccNumberOfProjects = 18
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/erpsig
 		SccLocalPath0 = .
@@ -129,5 +133,8 @@ Global
 		SccProjectUniqueName16 = SIGProjectInvoiceProposalListPageModifications\\SIGProjectInvoiceProposalListPageModifications.rnrproj
 		SccProjectName16 = SIGProjectInvoiceProposalListPageModifications
 		SccLocalPath16 = SIGProjectInvoiceProposalListPageModifications
+		SccProjectUniqueName17 = RADProjectSalesPriceExpence\\RADProjectSalesPriceExpence.rnrproj
+		SccProjectName17 = RADProjectSalesPriceExpence
+		SccLocalPath17 = RADProjectSalesPriceExpence
 	EndGlobalSection
 EndGlobal

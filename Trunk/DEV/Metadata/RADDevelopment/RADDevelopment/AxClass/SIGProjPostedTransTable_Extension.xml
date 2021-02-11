@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGProjPostedTransTable_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(tableStr(ProjPostedTransTable))]
+final public class SIGProjPostedTransTable_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>displayIntComment</Name>
+				<Source><![CDATA[
+    public display TSComment displayIntComment()
+    {
+        TSTimesheetTrans    timeSheetTrans;
+
+        select IntComment from timeSheetTrans where timeSheetTrans.TransId == this.TransId;
+
+        return timeSheetTrans.IntComment;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>displayExtComment</Name>
+				<Source><![CDATA[
+    public display TSComment displayExtComment()
+    {
+        TSTimesheetTrans    timeSheetTrans;
+
+        select ExtComment from timeSheetTrans where timeSheetTrans.TransId == this.TransId;
+
+        return timeSheetTrans.ExtComment;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

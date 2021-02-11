@@ -17,12 +17,13 @@
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
     <StartupType>Class</StartupType>
+    <StartupObject>SIGEmployeeTimesheet</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <Configuration>Debug</Configuration>
     <DBSyncInBuild>False</DBSyncInBuild>
     <GenerateFormAdaptors>False</GenerateFormAdaptors>
-    <Company>USSI</Company>
+    <Company>RILC</Company>
     <Partition>initial</Partition>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
@@ -33,6 +34,31 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="AxClass\SIGEmployeeTimesheet">
+      <SubType>Content</SubType>
+      <Name>SIGEmployeeTimesheet</Name>
+      <Link>Classes\SIGEmployeeTimesheet</Link>
+    </Content>
+    <Content Include="AxClass\SIGProjPostedTransTable_Extension">
+      <SubType>Content</SubType>
+      <Name>SIGProjPostedTransTable_Extension</Name>
+      <Link>Classes\SIGProjPostedTransTable_Extension</Link>
+    </Content>
+    <Content Include="AxClass\SIGProjPostTransView_Extension">
+      <SubType>Content</SubType>
+      <Name>SIGProjPostTransView_Extension</Name>
+      <Link>Classes\SIGProjPostTransView_Extension</Link>
+    </Content>
+    <Content Include="AxClass\SIGTimeSheetTableUpdationBatch">
+      <SubType>Content</SubType>
+      <Name>SIGTimeSheetTableUpdationBatch</Name>
+      <Link>Classes\SIGTimeSheetTableUpdationBatch</Link>
+    </Content>
+    <Content Include="AxClass\SIGTimeSheetTable_Extension">
+      <SubType>Content</SubType>
+      <Name>SIGTimeSheetTable_Extension</Name>
+      <Link>Classes\SIGTimeSheetTable_Extension</Link>
+    </Content>
     <Content Include="AxClass\SIGTSTimesheetLineWeek_Extension">
       <SubType>Content</SubType>
       <Name>SIGTSTimesheetLineWeek_Extension</Name>
@@ -43,15 +69,50 @@
       <Name>SIGTSTimesheetTable_Extension</Name>
       <Link>Classes\SIGTSTimesheetTable_Extension</Link>
     </Content>
+    <Content Include="AxFormExtension\projProjectTransactionsListPage.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>projProjectTransactionsListPage.RADDevelopment</Name>
+      <Link>Form Extensions\projProjectTransactionsListPage.RADDevelopment</Link>
+    </Content>
     <Content Include="AxFormExtension\TSTimesheetEntry.RADDevelopment">
       <SubType>Content</SubType>
       <Name>TSTimesheetEntry.RADDevelopment</Name>
       <Link>Form Extensions\TSTimesheetEntry.RADDevelopment</Link>
     </Content>
+    <Content Include="AxForm\SIGTSTimesheetEntry">
+      <SubType>Content</SubType>
+      <Name>SIGTSTimesheetEntry</Name>
+      <Link>Forms\SIGTSTimesheetEntry</Link>
+    </Content>
+    <Content Include="AxMenuItemAction\SIGTimeSheetTableUpdationBatch">
+      <SubType>Content</SubType>
+      <Name>SIGTimeSheetTableUpdationBatch</Name>
+      <Link>Action Menu Items\SIGTimeSheetTableUpdationBatch</Link>
+    </Content>
+    <Content Include="AxMenuItemDisplay\SIGTimeSheetEntry">
+      <SubType>Content</SubType>
+      <Name>SIGTimeSheetEntry</Name>
+      <Link>Display Menu Items\SIGTimeSheetEntry</Link>
+    </Content>
+    <Content Include="AxTableExtension\TSTimesheetTable.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>TSTimesheetTable.RADDevelopment</Name>
+      <Link>Table Extensions\TSTimesheetTable.RADDevelopment</Link>
+    </Content>
+    <Content Include="AxViewExtension\ProjPostTransView.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>ProjPostTransView.RADDevelopment</Name>
+      <Link>View Extensions\ProjPostTransView.RADDevelopment</Link>
+    </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Action Menu Items\" />
     <Folder Include="Classes\" />
+    <Folder Include="Display Menu Items\" />
     <Folder Include="Form Extensions\" />
+    <Folder Include="Forms\" />
+    <Folder Include="Table Extensions\" />
+    <Folder Include="View Extensions\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
   <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.targets" />

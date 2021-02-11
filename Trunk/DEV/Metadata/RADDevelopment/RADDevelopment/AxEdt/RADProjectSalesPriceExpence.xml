@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxEdt xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns=""
+	i:type="AxEdtReal">
+	<Name>RADProjectSalesPriceExpence</Name>
+	<Extends>ProjSalesPricing</Extends>
+	<Label>@SYS73780</Label>
+	<ArrayElements />
+	<Relations />
+	<TableReferences />
+	<NoOfDecimals>3</NoOfDecimals>
+</AxEdt>

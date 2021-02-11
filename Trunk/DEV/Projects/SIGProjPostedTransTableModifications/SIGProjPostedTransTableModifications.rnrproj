@@ -8,21 +8,21 @@
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <OutputPath>bin</OutputPath>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{14d07b22-b7ef-400b-aba3-889b43e3c14f}</ProjectGuid>
-    <Name>SIGProjectSalesDetailsReport</Name>
-    <RootNamespace>SIGProjectSalesDetailsReport</RootNamespace>
-    <StartupType>Class</StartupType>
+    <GenerateCrossReferences>True</GenerateCrossReferences>
+    <ProjectGuid>{bdc84160-f602-4918-9500-852cee79102e}</ProjectGuid>
+    <Name>SIGProjPostedTransTableModifications</Name>
+    <RootNamespace>SIGProjPostedTransTableModifications</RootNamespace>
     <SccProjectName>SAK</SccProjectName>
     <SccProvider>SAK</SccProvider>
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
+    <StartupType>Class</StartupType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <Configuration>Debug</Configuration>
-    <DBSyncInBuild>True</DBSyncInBuild>
+    <DBSyncInBuild>False</DBSyncInBuild>
     <GenerateFormAdaptors>False</GenerateFormAdaptors>
-    <Company>
-    </Company>
+    <Company>RILC</Company>
     <Partition>initial</Partition>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
@@ -33,49 +33,31 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="AxClass\ProjRepContract">
-      <SubType>Content</SubType>
-      <Name>ProjRepContract</Name>
-      <Link>ProjRepContract</Link>
-    </Content>
-    <Content Include="AxClass\ProjreportDP">
-      <SubType>Content</SubType>
-      <Name>ProjreportDP</Name>
-      <Link>ProjreportDP</Link>
-    </Content>
-    <Content Include="AxMenuExtension\ProjectManagementAndAccounting.Extension">
-      <SubType>Content</SubType>
-      <Name>ProjectManagementAndAccounting.Extension</Name>
-      <Link>ProjectManagementAndAccounting.Extension</Link>
-    </Content>
-    <Content Include="AxMenuExtension\ProjectManagementAndAccounting.RADDevelopment">
-      <SubType>Content</SubType>
-      <Name>ProjectManagementAndAccounting.RADDevelopment</Name>
-      <Link>Menu Extensions\ProjectManagementAndAccounting.RADDevelopment</Link>
-    </Content>
-    <Content Include="AxMenuItemDisplay\PrjSalesReport">
-      <SubType>Content</SubType>
-      <Name>PrjSalesReport</Name>
-      <Link>PrjSalesReport</Link>
-    </Content>
-    <Content Include="AxMenuItemOutput\PrjSalesOP">
-      <SubType>Content</SubType>
-      <Name>PrjSalesOP</Name>
-      <Link>PrjSalesOP</Link>
-    </Content>
-    <Content Include="AxReport\ProjSalesReport">
-      <SubType>Content</SubType>
-      <Name>ProjSalesReport</Name>
-      <Link>ProjSalesReport</Link>
-    </Content>
-    <Content Include="AxTable\ProjRepTmpTable">
-      <SubType>Content</SubType>
-      <Name>ProjRepTmpTable</Name>
-      <Link>ProjRepTmpTable</Link>
-    </Content>
+    <Folder Include="Classes\" />
+    <Folder Include="Form Extensions\" />
+    <Folder Include="View Extensions\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Menu Extensions\" />
+    <Content Include="AxClass\SIGProjPostedTransTable_Extension">
+      <SubType>Content</SubType>
+      <Name>SIGProjPostedTransTable_Extension</Name>
+      <Link>Classes\SIGProjPostedTransTable_Extension</Link>
+    </Content>
+    <Content Include="AxClass\SIGProjPostTransView_Extension">
+      <SubType>Content</SubType>
+      <Name>SIGProjPostTransView_Extension</Name>
+      <Link>Classes\SIGProjPostTransView_Extension</Link>
+    </Content>
+    <Content Include="AxFormExtension\projProjectTransactionsListPage.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>projProjectTransactionsListPage.RADDevelopment</Name>
+      <Link>Form Extensions\projProjectTransactionsListPage.RADDevelopment</Link>
+    </Content>
+    <Content Include="AxViewExtension\ProjPostTransView.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>ProjPostTransView.RADDevelopment</Name>
+      <Link>View Extensions\ProjPostTransView.RADDevelopment</Link>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
   <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.targets" />

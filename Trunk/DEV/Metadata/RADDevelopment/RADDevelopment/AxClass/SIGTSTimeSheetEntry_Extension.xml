@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGTSTimeSheetEntry_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(formStr(TSTimeSheetEntry))]
+public final class SIGTSTimeSheetEntry_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>setDates</Name>
+				<Source><![CDATA[
+    void setDates()
+    {
+        next setDates();
+
+        Array   gridDays        = TSPeriods::getLineWeekDates(ProjPeriodTable::find(projPeriodLine.PeriodId).WeekStart,  projPeriodTimesheetWeek.PeriodFrom, projPeriodTimesheetWeek.PeriodTo);
+        str     dayControlNames = strReplace(formcontrolstr(TsTimesheetEntry, TSTimeSheetHours_1),'1','%1');
+
+        for (int dayNum = 1; dayNum <= 7; dayNum++)
+        {
+            FormRealControl hoursField = this.design().controlName(strfmt(dayControlNames,dayNum));
+
+            if (any2date(gridDays.value(dayNum)) != dateNull())
+            {
+                dayLabels[dayNum] = TSPeriods::getDateCaption(any2date(gridDays.value(dayNum)));
+                hoursField.visible(true);
+                hoursField.label(dayLabels[dayNum]);
+                hoursField.allowEdit(!requireStartStopTime);
+            }
+            else
+            {
+                hoursField.visible(false);
+                hoursField.label('');
+            }
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

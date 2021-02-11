@@ -134,6 +134,11 @@ public class RADEmployeeTSAndUtilizationTmp extends common
 			<Name>UtilBaseAllHours</Name>
 			<ExtendedDataType>Qty</ExtendedDataType>
 		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>HourlySalaried</Name>
+			<ExtendedDataType>String30</ExtendedDataType>
+		</AxTableField>
 	</Fields>
 	<FullTextIndexes />
 	<Indexes />
