@@ -52,11 +52,6 @@ public class RADPayCheckUtilizationTmp extends common
 			<ExtendedDataType>ResourceId</ExtendedDataType>
 		</AxTableField>
 		<AxTableField xmlns=""
-			i:type="AxTableFieldInt">
-			<Name>Hours</Name>
-			<IsObsolete>Yes</IsObsolete>
-		</AxTableField>
-		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
 			<Name>CategoryId</Name>
 			<ExtendedDataType>String30</ExtendedDataType>
@@ -65,10 +60,6 @@ public class RADPayCheckUtilizationTmp extends common
 			i:type="AxTableFieldString">
 			<Name>ResourceName</Name>
 			<ExtendedDataType>ResourceName</ExtendedDataType>
-		</AxTableField>
-		<AxTableField xmlns=""
-			i:type="AxTableFieldInt">
-			<Name>TotalHours</Name>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
@@ -125,6 +116,16 @@ public class RADPayCheckUtilizationTmp extends common
 			<AssetClassification>Customer Content </AssetClassification>
 			<ExtendedDataType>TSTimesheetNbr</ExtendedDataType>
 			<Mandatory>Yes</Mandatory>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldReal">
+			<Name>Hours</Name>
+			<ExtendedDataType>Hours</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldReal">
+			<Name>TotalHours</Name>
+			<ExtendedDataType>Hours</ExtendedDataType>
 		</AxTableField>
 	</Fields>
 	<FullTextIndexes />

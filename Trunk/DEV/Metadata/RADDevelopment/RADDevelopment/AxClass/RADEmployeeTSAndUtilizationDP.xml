@@ -317,7 +317,7 @@ class RADEmployeeTSAndUtilizationDP extends SRSReportDataProviderBase
             otHoursSIG              = 0;
             utilizationExlHolPLSIG  = 0;
             utilizationAllHoursSIG  = 0;
-        }
+        } 
     }
 
 ]]></Source>
