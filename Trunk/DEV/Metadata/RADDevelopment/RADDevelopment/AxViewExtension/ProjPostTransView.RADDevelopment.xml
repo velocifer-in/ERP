@@ -11,6 +11,18 @@
 			<Name>SIGInternalComments</Name>
 			<ViewMethod>SIGProjPostTransView_Extension::intComment</ViewMethod>
 		</AxViewField>
+		<AxViewField xmlns=""
+			i:type="AxViewFieldBound">
+			<Name>SIGBusinessUnit</Name>
+			<DataField>SIGBusinessUnit</DataField>
+			<DataSource>ProjPostedTransTable</DataSource>
+		</AxViewField>
+		<AxViewField xmlns=""
+			i:type="AxViewFieldBound">
+			<Name>SIGCostCenter</Name>
+			<DataField>SIGCostCenter</DataField>
+			<DataSource>ProjPostedTransTable</DataSource>
+		</AxViewField>
 	</Fields>
 	<Mappings />
 	<PropertyModifications />

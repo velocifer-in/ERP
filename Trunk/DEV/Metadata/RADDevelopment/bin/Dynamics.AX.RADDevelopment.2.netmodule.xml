@@ -1,0 +1,13 @@
+<EventHandlers>
+  <BusinessEventHandlers>
+    <EventHandler delegateElementName="PrintMgmtDocType" delegateElementTypeId="ClassTypeId" delegateMethodName="getDefaultReportFormatDelegate" eventHandlerElementName="RADPrintMgtDocTypeHandlersExt" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="getDefaultReportFormatDelegate" delegateTypeId="DelegateTypeId" />
+  </BusinessEventHandlers>
+  <DataEventHandlers />
+  <FormEventHandlers />
+  <FormControlEventHandlers>
+    <FormControlEventHandler formName="ProjInvoiceTable" formControlName="SIGProjFundingSource_PSAInvoiceFormats" formControlEventType="Enter" eventHandlerElementName="SIGProjInvoiceTable_Extension" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="SIGProjFundingSource_PSAInvoiceFormats_OnEnter" />
+    <FormControlEventHandler formName="ProjInvoiceProposalCreateLines" formControlName="SIGCreateProposal" formControlEventType="GotFocus" eventHandlerElementName="SIGProjInvoiceProposalCreateLines" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="SIGCreateProposal_OnGotFocus" />
+  </FormControlEventHandlers>
+  <FormDataSourceEventHandler />
+  <FormDataFieldEventHandler />
+</EventHandlers>

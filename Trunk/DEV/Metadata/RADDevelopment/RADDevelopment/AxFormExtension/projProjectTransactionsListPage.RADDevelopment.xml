@@ -88,28 +88,28 @@
 			<Parent>Grid</Parent>
 		</AxFormExtensionControl>
 		<AxFormExtensionControl xmlns="">
-			<Name>Copyzyipaf1f1</Name>
+			<Name>FormExtensionControlbwfeuzhu1</Name>
 			<FormControl xmlns=""
 				i:type="AxFormStringControl">
-				<Name>SIGBusinessUnit</Name>
+				<Name>ProjPostTransView_1_SIGBusinessUnit</Name>
 				<Type>String</Type>
 				<FormControlExtension
 					i:nil="true" />
-				<DataMethod>SIGProjPostTransView_Extension.businessUnitSIG</DataMethod>
+				<DataField>SIGBusinessUnit</DataField>
 				<DataSource>ProjPostTransView_1</DataSource>
 				<Label>BusinessUnit</Label>
 			</FormControl>
 			<Parent>Grid</Parent>
 		</AxFormExtensionControl>
 		<AxFormExtensionControl xmlns="">
-			<Name>Copya3lvp0ti1</Name>
+			<Name>FormExtensionControl5ulock3o1</Name>
 			<FormControl xmlns=""
 				i:type="AxFormStringControl">
-				<Name>SIGCostCenter</Name>
+				<Name>ProjPostTransView_1_SIGCostCenter</Name>
 				<Type>String</Type>
 				<FormControlExtension
 					i:nil="true" />
-				<DataMethod>SIGProjPostTransView_Extension.costCenterSIG</DataMethod>
+				<DataField>SIGCostCenter</DataField>
 				<DataSource>ProjPostTransView_1</DataSource>
 				<Label>CostCenter</Label>
 			</FormControl>

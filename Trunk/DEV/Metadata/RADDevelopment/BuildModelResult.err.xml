@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Diagnostics
+  GenerationTime="2021-02-09T11:55:01.6557016+00:00">
+  <Items>
+    <Diagnostic>
+      <DiagnosticType>Metadata</DiagnosticType>
+      <Severity>Error</Severity>
+      <Path>AxViewExtension/ProjPostTransView.RADDevelopment/Fields/SIGBusinessUnit/ViewMethod</Path>
+      <Moniker>MethodDoesNotExistOnClass</Moniker>
+      <Message>Method 'businessUnit' does not exist on class 'SIGProjPostTransView_Extension'.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Metadata</DiagnosticType>
+      <Severity>Error</Severity>
+      <Path>AxViewExtension/ProjPostTransView.RADDevelopment/Fields/SIGCostCenter/ViewMethod</Path>
+      <Moniker>MethodDoesNotExistOnClass</Moniker>
+      <Message>Method 'costCenter' does not exist on class 'SIGProjPostTransView_Extension'.</Message>
+    </Diagnostic>
+  </Items>
+  <Aliases />
+</Diagnostics>

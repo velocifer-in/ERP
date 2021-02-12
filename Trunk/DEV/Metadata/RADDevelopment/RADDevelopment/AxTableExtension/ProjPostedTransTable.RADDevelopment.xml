@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxTableExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>ProjPostedTransTable.RADDevelopment</Name>
+	<FieldGroupExtensions />
+	<FieldGroups />
+	<FieldModifications />
+	<Fields>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>SIGBusinessUnit</Name>
+			<ExtendedDataType>String30</ExtendedDataType>
+			<HelpText>Project business unit</HelpText>
+			<Label>BusinessUnit</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>SIGCostCenter</Name>
+			<ExtendedDataType>String30</ExtendedDataType>
+			<HelpText>Project cost center</HelpText>
+			<Label>Cost center</Label>
+		</AxTableField>
+	</Fields>
+	<FullTextIndexes />
+	<Indexes />
+	<Mappings />
+	<PropertyModifications />
+	<RelationExtensions />
+	<RelationModifications />
+	<Relations />
+</AxTableExtension>

@@ -37,6 +37,21 @@ final public class SIGProjPostedTransTable_Extension
 
 ]]></Source>
 			</Method>
+			<Method>
+				<Name>insert</Name>
+				<Source><![CDATA[
+    public void insert()
+    {
+        ProjTable projTable = ProjTable::find(this.ProjId);
+
+        this.SIGBusinessUnit                = SIGDimensionHelper::getValueByDefaultDimension(projTable.DefaultDimension,'BusinessUnit');
+        this.SIGCostCenter                  = SIGDimensionHelper::getValueByDefaultDimension(projTable.DefaultDimension,'CostCenter');
+
+        next insert();
+    }
+
+]]></Source>
+			</Method>
 		</Methods>
 	</SourceCode>
 </AxClass>

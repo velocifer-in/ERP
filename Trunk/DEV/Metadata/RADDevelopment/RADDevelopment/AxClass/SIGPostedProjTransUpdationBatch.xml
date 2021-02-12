@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGPostedProjTransUpdationBatch</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+class SIGPostedProjTransUpdationBatch extends RunBaseBatch
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static SIGPostedProjTransUpdationBatch construct()
+    {
+        return new SIGPostedProjTransUpdationBatch();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>run</Name>
+				<Source><![CDATA[
+    public void run()
+    {
+        ProjPostedTransTable            projPostedTransTable;
+        SIGProjProposalJourUpdation     prjProPosalUpdation = new SIGProjProposalJourUpdation();
+
+        ttsbegin;
+        while select forupdate projPostedTransTable where projPostedTransTable.SIGBusinessUnit == ''
+                                                        ||  projPostedTransTable.SIGCostCenter == ''
+        {
+            ProjTable projTable = ProjTable::find(projPostedTransTable.ProjId);
+
+            projPostedTransTable.SIGBusinessUnit                = prjProPosalUpdation.getDisplayName(projTable.DefaultDimension,'BusinessUnit');//SIGDimensionHelper::getValueByDefaultDimension(projTable.DefaultDimension,'BusinessUnit');
+            projPostedTransTable.SIGCostCenter                  = prjProPosalUpdation.getDisplayName(projTable.DefaultDimension,'CostCenter');//SIGDimensionHelper::getValueByDefaultDimension(projTable.DefaultDimension,'CostCenter');
+            projPostedTransTable.doUpdate();
+        }
+        ttscommit;
+        Info('Posted Project transcations has been updated with BusinessUnit and CostCenter.');
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>main</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Runs the class with the specified arguments.
+    /// </summary>
+    /// <param name = "_args">The specified arguments.</param>
+    public static void main(Args _args)
+    {
+        SIGPostedProjTransUpdationBatch postedProjTransUpdationBatch = SIGPostedProjTransUpdationBatch::construct();
+        
+        if (postedProjTransUpdationBatch.prompt())
+        {
+            postedProjTransUpdationBatch.run();
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

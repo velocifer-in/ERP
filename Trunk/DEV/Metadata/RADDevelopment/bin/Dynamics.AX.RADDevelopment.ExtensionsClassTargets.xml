@@ -1,0 +1,22 @@
+<ExtensionClasses>
+  <ExtensionClass ExtensionClassName="SIGProjInvoiceControl_Extension" ExtensionTargetName="ProjInvoiceControl" ExtensionTargetTypeId="FormDataSourceTypeId" ExtensionNestedTargetName="General" />
+  <ExtensionClass ExtensionClassName="SIGProjTable_Extension" ExtensionTargetName="ProjTable" ExtensionTargetTypeId="TableTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="SIGTSTimesheetLineWeek_Extension" ExtensionTargetName="TSTimesheetLineWeek" ExtensionTargetTypeId="TableTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="SIGProjPostTransView_Extension" ExtensionTargetName="ProjPostTransView" ExtensionTargetTypeId="TableTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="SIGTSTimesheetTable_Extension" ExtensionTargetName="TSTimesheetTable" ExtensionTargetTypeId="TableTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="SIGPSAProjProposalProj_Extension" ExtensionTargetName="PSAProjProposalProj" ExtensionTargetTypeId="TableTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="SIGPSAProjInvoiceTmp_Extension" ExtensionTargetName="PSAProjInvoiceTmp" ExtensionTargetTypeId="TableTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="SIGTSTimeSheetEntry_Extension" ExtensionTargetName="TSTimeSheetEntry" ExtensionTargetTypeId="FormTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="SIGProjPostedTransTable_Extension" ExtensionTargetName="ProjPostedTransTable" ExtensionTargetTypeId="TableTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="RADPSAProjInvoiceDP_Extension" ExtensionTargetName="PSAProjInvoiceDP" ExtensionTargetTypeId="ClassTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="SIGProjProposalJour_Extension" ExtensionTargetName="ProjProposalJour" ExtensionTargetTypeId="TableTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="SIGCustVendCheque_Extension" ExtensionTargetName="CustVendCheque" ExtensionTargetTypeId="ClassTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="SIGCustVendChequeSlipTextCalculator_Extension" ExtensionTargetName="CustVendChequeSlipTextCalculator" ExtensionTargetTypeId="ClassTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="SIGTimeSheetTable_Extension" ExtensionTargetName="TSTimesheetTable" ExtensionTargetTypeId="TableTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="SIGTrvExpTrans_Extension" ExtensionTargetName="TrvExpTrans" ExtensionTargetTypeId="TableTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="SIGProjInvoiceTable_Extension" ExtensionTargetName="ProjInvoiceTable" ExtensionTargetTypeId="FormDataSourceTypeId" ExtensionNestedTargetName="ProjFundingSource" />
+  <ExtensionClass ExtensionClassName="SIGChequeTmp_Extension" ExtensionTargetName="ChequeTmp" ExtensionTargetTypeId="TableTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="SIGProjInvoiceJour_Extension" ExtensionTargetName="ProjInvoiceJour" ExtensionTargetTypeId="TableTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="SIGTmpChequePrintout_Extension" ExtensionTargetName="TmpChequePrintout" ExtensionTargetTypeId="TableTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="SIGChequeDP_Extension" ExtensionTargetName="ChequeDP" ExtensionTargetTypeId="ClassTypeId" ExtensionNestedTargetName="" />
+</ExtensionClasses>

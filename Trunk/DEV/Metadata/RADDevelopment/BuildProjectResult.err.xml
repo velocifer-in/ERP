@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Diagnostics
+  GenerationTime="2021-01-27T09:50:46.2006925+00:00">
+  <Items>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Error</Severity>
+      <Path>dynamics://Form/SIGTSTimesheetEntry/Method/setPeriodRangeDateFormControls</Path>
+      <ElementType>Form Method</ElementType>
+      <Moniker>TypeNotFound</Moniker>
+      <Line>375</Line>
+      <Column>9</Column>
+      <EndLine>375</EndLine>
+      <EndColumn>29</EndColumn>
+      <Message>The name 'PeriodDate' does not denote a class, a table, or an extended data type.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Error</Severity>
+      <Path>dynamics://Form/SIGTSTimesheetEntry/Method/setPeriodRangeDateFormControls</Path>
+      <ElementType>Form Method</ElementType>
+      <Moniker>TypeNotFound</Moniker>
+      <Line>376</Line>
+      <Column>9</Column>
+      <EndLine>376</EndLine>
+      <EndColumn>27</EndColumn>
+      <Message>The name 'PeriodDate' does not denote a class, a table, or an extended data type.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Error</Severity>
+      <Path>dynamics://Form/SIGTSTimesheetEntry/Method/setTimesheetWeekDates</Path>
+      <ElementType>Form Method</ElementType>
+      <Moniker>TypeNotFound</Moniker>
+      <Line>394</Line>
+      <Column>9</Column>
+      <EndLine>394</EndLine>
+      <EndColumn>29</EndColumn>
+      <Message>The name 'PeriodDate' does not denote a class, a table, or an extended data type.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Error</Severity>
+      <Path>dynamics://Form/SIGTSTimesheetEntry/Method/setTimesheetWeekDates</Path>
+      <ElementType>Form Method</ElementType>
+      <Moniker>TypeNotFound</Moniker>
+      <Line>395</Line>
+      <Column>9</Column>
+      <EndLine>395</EndLine>
+      <EndColumn>27</EndColumn>
+      <Message>The name 'PeriodDate' does not denote a class, a table, or an extended data type.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Error</Severity>
+      <Path>dynamics://Form/SIGTSTimesheetEntry/Method/setPeriodRangeDateFormControls</Path>
+      <ElementType>Form Method</ElementType>
+      <Moniker>TypeNotFound</Moniker>
+      <Line>378</Line>
+      <Column>27</Column>
+      <EndLine>378</EndLine>
+      <EndColumn>80</EndColumn>
+      <Message>The name 'PeriodDate' does not denote a class, a table, or an extended data type.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Error</Severity>
+      <Path>dynamics://Form/SIGTSTimesheetEntry/Method/setTimesheetWeekDates</Path>
+      <ElementType>Form Method</ElementType>
+      <Moniker>TypeNotFound</Moniker>
+      <Line>397</Line>
+      <Column>27</Column>
+      <EndLine>397</EndLine>
+      <EndColumn>80</EndColumn>
+      <Message>The name 'PeriodDate' does not denote a class, a table, or an extended data type.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Error</Severity>
+      <Path>dynamics://Form/SIGTSTimesheetEntry/Method/setButtonVisibility</Path>
+      <ElementType>Form Method</ElementType>
+      <Moniker>InvalidQualifier</Moniker>
+      <Line>584</Line>
+      <Column>50</Column>
+      <EndLine>584</EndLine>
+      <EndColumn>84</EndColumn>
+      <Message>The qualifier 'SysPolicyTypeEnum' is not valid for field 'TimesheetPolicy'.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Error</Severity>
+      <Path>dynamics://Form/SIGTSTimesheetEntry/Method/setButtonVisibility</Path>
+      <ElementType>Form Method</ElementType>
+      <Moniker>TypeNotFound</Moniker>
+      <Line>584</Line>
+      <Column>14</Column>
+      <EndLine>584</EndLine>
+      <EndColumn>85</EndColumn>
+      <Message>The name 'SysPolicyTypeEnum' does not denote a class, a table, or an extended data type.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Error</Severity>
+      <Path>dynamics://Form/SIGTSTimesheetEntry/Method/validateProjectExternallyManaged</Path>
+      <ElementType>Form Method</ElementType>
+      <Moniker>ClassOrTableNotFound</Moniker>
+      <Line>1225</Line>
+      <Column>17</Column>
+      <EndLine>1225</EndLine>
+      <EndColumn>61</EndColumn>
+      <Message>The name 'Project' does not designate a class or table.</Message>
+    </Diagnostic>
+  </Items>
+  <Aliases />
+</Diagnostics>

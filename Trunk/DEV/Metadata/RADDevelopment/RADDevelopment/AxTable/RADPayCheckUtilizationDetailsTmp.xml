@@ -126,6 +126,13 @@ public class RADPayCheckUtilizationDetailsTmp extends common
 			<Name>TotalHours</Name>
 			<ExtendedDataType>Hours</ExtendedDataType>
 		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>TransId</Name>
+			<AllowEdit>No</AllowEdit>
+			<AssetClassification>Customer Content</AssetClassification>
+			<ExtendedDataType>ProjTransIdBase</ExtendedDataType>
+		</AxTableField>
 	</Fields>
 	<FullTextIndexes />
 	<Indexes />

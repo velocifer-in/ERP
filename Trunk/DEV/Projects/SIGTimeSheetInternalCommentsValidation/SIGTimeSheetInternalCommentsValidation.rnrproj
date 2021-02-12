@@ -39,6 +39,11 @@
       <Name>SIGEmployeeTimesheet</Name>
       <Link>Classes\SIGEmployeeTimesheet</Link>
     </Content>
+    <Content Include="AxClass\SIGPostedProjTransUpdationBatch">
+      <SubType>Content</SubType>
+      <Name>SIGPostedProjTransUpdationBatch</Name>
+      <Link>Classes\SIGPostedProjTransUpdationBatch</Link>
+    </Content>
     <Content Include="AxClass\SIGProjPostedTransTable_Extension">
       <SubType>Content</SubType>
       <Name>SIGProjPostedTransTable_Extension</Name>
@@ -84,6 +89,16 @@
       <Name>SIGTSTimesheetEntry</Name>
       <Link>Forms\SIGTSTimesheetEntry</Link>
     </Content>
+    <Content Include="AxMenuExtension\SystemAdministration.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>SystemAdministration.RADDevelopment</Name>
+      <Link>Menu Extensions\SystemAdministration.RADDevelopment</Link>
+    </Content>
+    <Content Include="AxMenuItemAction\SIGPostedProjTransUpdationBatch">
+      <SubType>Content</SubType>
+      <Name>SIGPostedProjTransUpdationBatch</Name>
+      <Link>Action Menu Items\SIGPostedProjTransUpdationBatch</Link>
+    </Content>
     <Content Include="AxMenuItemAction\SIGTimeSheetTableUpdationBatch">
       <SubType>Content</SubType>
       <Name>SIGTimeSheetTableUpdationBatch</Name>
@@ -93,6 +108,11 @@
       <SubType>Content</SubType>
       <Name>SIGTimeSheetEntry</Name>
       <Link>Display Menu Items\SIGTimeSheetEntry</Link>
+    </Content>
+    <Content Include="AxTableExtension\ProjPostedTransTable.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>ProjPostedTransTable.RADDevelopment</Name>
+      <Link>Table Extensions\ProjPostedTransTable.RADDevelopment</Link>
     </Content>
     <Content Include="AxTableExtension\TSTimesheetTable.RADDevelopment">
       <SubType>Content</SubType>
@@ -111,6 +131,7 @@
     <Folder Include="Display Menu Items\" />
     <Folder Include="Form Extensions\" />
     <Folder Include="Forms\" />
+    <Folder Include="Menu Extensions\" />
     <Folder Include="Table Extensions\" />
     <Folder Include="View Extensions\" />
   </ItemGroup>

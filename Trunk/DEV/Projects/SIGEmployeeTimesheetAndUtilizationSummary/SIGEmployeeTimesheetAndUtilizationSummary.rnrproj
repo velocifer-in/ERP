@@ -35,8 +35,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Classes\" />
+    <Folder Include="Menu Extensions\" />
     <Folder Include="Output Menu Items\" />
     <Folder Include="Reports\" />
+    <Folder Include="Table Extensions\" />
     <Folder Include="Tables\" />
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +57,11 @@
       <Name>RADEmployeeTSAndUtilizationUIBuilder</Name>
       <Link>Classes\RADEmployeeTSAndUtilizationUIBuilder</Link>
     </Content>
+    <Content Include="AxMenuExtension\Payroll.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>Payroll.RADDevelopment</Name>
+      <Link>Menu Extensions\Payroll.RADDevelopment</Link>
+    </Content>
     <Content Include="AxMenuItemOutput\RADEmployeeTSAndUtilizationReport">
       <SubType>Content</SubType>
       <Name>RADEmployeeTSAndUtilizationReport</Name>
@@ -64,6 +71,11 @@
       <SubType>Content</SubType>
       <Name>RADEmployeeTSAndUtilizationReport</Name>
       <Link>Reports\RADEmployeeTSAndUtilizationReport</Link>
+    </Content>
+    <Content Include="AxTableExtension\ProjCategory.RADExtension">
+      <SubType>Content</SubType>
+      <Name>ProjCategory.RADExtension</Name>
+      <Link>Table Extensions\ProjCategory.RADExtension</Link>
     </Content>
     <Content Include="AxTable\RADEmployeeTSAndUtilizationTmp">
       <SubType>Content</SubType>
@@ -79,6 +91,11 @@
       <SubType>Content</SubType>
       <Name>RADPayCheckUtilizationTmp</Name>
       <Link>Tables\RADPayCheckUtilizationTmp</Link>
+    </Content>
+    <Content Include="AxTable\RADPayCheckUtilizationTransTmp">
+      <SubType>Content</SubType>
+      <Name>RADPayCheckUtilizationTransTmp</Name>
+      <Link>Tables\RADPayCheckUtilizationTransTmp</Link>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
