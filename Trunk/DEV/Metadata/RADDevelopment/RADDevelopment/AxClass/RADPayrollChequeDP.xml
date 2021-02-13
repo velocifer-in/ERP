@@ -108,7 +108,7 @@ class RADPayrollChequeDP extends SRSReportDataProviderBase
                 payCheckDetailsTmp.CategoryId              = 'Overtime';
                 payCheckDetailsTmp.Hours                   = hours;//payCheckDetailsTmp.Hours - JmgPayAgreementTable::find(JmgEmployee::find(HcmWorker::findByPersonnelNumber(hcmPersonnelNumberId).RecId).DefaultProfileId).RADDays;
                 payCheckDetailsTmp.RADPayCalc              = RADPayCalc::None;
-                payCheckDetailsTmp.dataArea                =  '18127741';
+                payCheckDetailsTmp.dataArea                =  int642Str(CompanyInfo::find().SIGPayrollCompanyId);//'18127741';
                 payCheckDetailsTmp.RADEmployeeType         = JmgPayAgreementTable::find(JmgEmployee::find(HcmWorker::findByPersonnelNumber(hcmPersonnelNumberId).RecId).DefaultProfileId).RADEmployeeType;
                 payCheckDetailsTmp.DefaultProfileId        =  JmgEmployee::find(HcmWorker::findByPersonnelNumber(hcmPersonnelNumberId).RecId).DefaultProfileId;
                 payCheckDetailsTmp.insert();

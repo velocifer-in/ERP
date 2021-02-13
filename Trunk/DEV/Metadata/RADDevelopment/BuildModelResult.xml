@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Diagnostics
-  GenerationTime="2021-02-12T13:32:23.0260202+00:00">
+  GenerationTime="2021-02-13T07:50:57.2469465+00:00">
   <Items>
-    <Diagnostic>
-      <DiagnosticType>ExternalReference</DiagnosticType>
-      <Severity>Warning</Severity>
-      <Path>dynamics://Reference/Microsoft.OData.Edm</Path>
-      <Moniker>AssemblyFileNotFound</Moniker>
-      <Message>Assembly 'System.Xml, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e' failed to load because it was not found.</Message>
-    </Diagnostic>
     <Diagnostic>
       <DiagnosticType>Compile</DiagnosticType>
       <Severity>Warning</Severity>
@@ -32,6 +25,13 @@
       <EndLine>10</EndLine>
       <EndColumn>132</EndColumn>
       <Message>Adding event handlers in extension classes is not recommended, please use instead a regular X++ class for that purpose.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>ExternalReference</DiagnosticType>
+      <Severity>Warning</Severity>
+      <Path>dynamics://Reference/Microsoft.OData.Edm</Path>
+      <Moniker>AssemblyFileNotFound</Moniker>
+      <Message>Assembly 'System.Xml, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e' failed to load because it was not found.</Message>
     </Diagnostic>
     <Diagnostic>
       <DiagnosticType>Compile</DiagnosticType>

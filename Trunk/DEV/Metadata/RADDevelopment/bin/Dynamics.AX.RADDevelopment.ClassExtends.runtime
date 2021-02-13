@@ -38,8 +38,8 @@ RADPayrollChequeWeeklyDP	SRSReportDataProviderBase
 SIGProjInvoiceTable_Extension	
 SIGCreditCardTransDeleteBatch	RunBaseBatch
 ProjreportDP	SRSReportDataProviderBase
-SIGChequeTmp_Extension	
 SIGDimensionHelper	
+SIGChequeTmp_Extension	
 SIGProjInvoiceJour_Extension	
 RADPayChequeUIBuilder	SrsReportDataContractUIBuilder
 SIGTmpChequePrintout_Extension	
