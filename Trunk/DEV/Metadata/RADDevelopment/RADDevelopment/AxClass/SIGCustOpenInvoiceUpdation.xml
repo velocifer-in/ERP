@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGCustOpenInvoiceUpdation</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+class SIGCustOpenInvoiceUpdation  extends RunBaseBatch
+{
+    DialogField             fieldDisplayMessage;
+    DialogField             dlgProjGroupId,dlgProjLedgerStatusOnAcc;
+    ProjGroupId             projGroupId;
+    ProjLedgerStatusOnAcc   projLedgerStatusOnAcc;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static SIGCustOpenInvoiceUpdation construct()
+    {
+        return new SIGCustOpenInvoiceUpdation();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>run</Name>
+				<Source><![CDATA[
+    public void run()
+    {
+        CustTransOpen       custTransOpen;
+        CustTrans           custTrans;
+        ProjInvoiceJour     projInvoiceJour;
+
+        ttsbegin;
+        while select forupdate custTransOpen 
+        {
+            
+            select  custTrans
+                    where custTrans.RecId == custTransOpen.RefRecId;
+
+           
+            projInvoiceJour = ProjInvoiceJour::find(custTrans.Invoice, custTrans.TransDate);
+
+            if (projInvoiceJour)
+            {
+                custTransOpen.SIGProjId                      = projInvoiceJour.SIGProjId;
+                custTransOpen.SIGProjType                    = projInvoiceJour.SIGProjType;
+                custTransOpen.SIGWorkerResponsible           = projInvoiceJour.SIGWorkerResponsible;
+                custTransOpen.SIGWorkerResponsibleFinancial  = projInvoiceJour.SIGWorkerResponsibleFinancial;
+                custTransOpen.SIGBusinessUnit                = projInvoiceJour.SIGBusinessUnit;
+                custTransOpen.SIGCostCenter                  = projInvoiceJour.SIGCostCenter;
+                custTransOpen.doUpdate();
+            }
+        }
+        ttscommit;
+        info("Customer open invoice has been updated");
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>main</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Runs the class with the specified arguments.
+    /// </summary>
+    /// <param name = "_args">The specified arguments.</param>
+    public static void main(Args _args)
+    {
+        SIGCustOpenInvoiceUpdation custOpenInvoiceUpdation = SIGCustOpenInvoiceUpdation::construct();
+        
+        if (custOpenInvoiceUpdation.prompt())
+        {
+            custOpenInvoiceUpdation.run();
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

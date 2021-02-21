@@ -5889,7 +5889,7 @@
         <ConnectString />
         <IntegratedSecurity>true</IntegratedSecurity>
       </ConnectionProperties>
-      <rd:DataSourceID>ca9927b7-b872-4e33-8919-07d71c58a4ba</rd:DataSourceID>
+      <rd:DataSourceID>971b8c77-88ac-43f4-8a46-c4cd34907316</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>

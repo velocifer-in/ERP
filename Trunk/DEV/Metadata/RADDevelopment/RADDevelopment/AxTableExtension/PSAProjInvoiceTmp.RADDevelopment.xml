@@ -55,6 +55,12 @@
 			<Name>CategoryName</Name>
 			<ExtendedDataType>CategoryName</ExtendedDataType>
 		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>SIGPurchId</Name>
+			<ExtendedDataType>String20</ExtendedDataType>
+			<Label>Purchase order</Label>
+		</AxTableField>
 	</Fields>
 	<FullTextIndexes />
 	<Indexes />

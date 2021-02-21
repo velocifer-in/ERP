@@ -16,8 +16,10 @@
     <SccProvider>SAK</SccProvider>
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
-    <StartupType>MenuItemOutput</StartupType>
-    <StartupObject>RADEmployeeTSAndUtilizationReport</StartupObject>
+    <StartupType>
+    </StartupType>
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <Configuration>Debug</Configuration>
@@ -35,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Classes\" />
+    <Folder Include="Form Extensions\" />
     <Folder Include="Menu Extensions\" />
     <Folder Include="Output Menu Items\" />
     <Folder Include="Reports\" />
@@ -57,6 +60,11 @@
       <Name>RADEmployeeTSAndUtilizationUIBuilder</Name>
       <Link>Classes\RADEmployeeTSAndUtilizationUIBuilder</Link>
     </Content>
+    <Content Include="AxFormExtension\JmgPayAgreementTable.Extension">
+      <SubType>Content</SubType>
+      <Name>JmgPayAgreementTable.Extension</Name>
+      <Link>Form Extensions\JmgPayAgreementTable.Extension</Link>
+    </Content>
     <Content Include="AxMenuExtension\Payroll.RADDevelopment">
       <SubType>Content</SubType>
       <Name>Payroll.RADDevelopment</Name>
@@ -71,6 +79,11 @@
       <SubType>Content</SubType>
       <Name>RADEmployeeTSAndUtilizationReport</Name>
       <Link>Reports\RADEmployeeTSAndUtilizationReport</Link>
+    </Content>
+    <Content Include="AxTableExtension\JmgPayAgreementTable.RADExtension">
+      <SubType>Content</SubType>
+      <Name>JmgPayAgreementTable.RADExtension</Name>
+      <Link>Table Extensions\JmgPayAgreementTable.RADExtension</Link>
     </Content>
     <Content Include="AxTableExtension\ProjCategory.RADExtension">
       <SubType>Content</SubType>

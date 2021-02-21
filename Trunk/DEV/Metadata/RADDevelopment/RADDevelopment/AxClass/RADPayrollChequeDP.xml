@@ -32,7 +32,7 @@ class RADPayrollChequeDP extends SRSReportDataProviderBase
     public void processReport()
     {
         RADPayChequeContract    contract = this.parmDataContract() as RADPayChequeContract;
-        CompanyInfo             Cominfo;
+        CompanyInfo             companyInfo = CompanyInfo::find();
        
         TSTimesheetTable        timesheetTable;
         TSTimesheetLineWeek     timesheetLineWeek;
@@ -59,7 +59,7 @@ class RADPayrollChequeDP extends SRSReportDataProviderBase
 
             payCheckTmp.CategoryId              =  timesheetLine.CategoryId;
             payCheckTmp.ResourceName            =  hcmWorker.name();
-            payCheckTmp.dataArea                =  '18127741';//strUpr(timesheetLine.DataAreaId);
+            payCheckTmp.dataArea                =  int642Str(companyInfo.SIGPayrollCompanyId);//'18127741';//strUpr(timesheetLine.DataAreaId);
             payCheckTmp.HcmPersonnelNumberId    =  hcmWorker.PersonnelNumber;
             payCheckTmp.RADPayCalc              =  ProjCategory::find(timesheetLine.CategoryId).RADPayCalc;
             payCheckTmp.StartDate               =  timesheetLineWeek.DayFrom;//startDate;
@@ -106,10 +106,10 @@ class RADPayrollChequeDP extends SRSReportDataProviderBase
                 payCheckDetailsTmp.EndDate                 =  periodEndDate;
                 payCheckDetailsTmp.HcmPersonnelNumberId    =  hcmPersonnelNumberId;
                 payCheckDetailsTmp.CategoryId              = 'Overtime';
-                payCheckDetailsTmp.Hours                   = hours;//payCheckDetailsTmp.Hours - JmgPayAgreementTable::find(JmgEmployee::find(HcmWorker::findByPersonnelNumber(hcmPersonnelNumberId).RecId).DefaultProfileId).RADDays;
-                payCheckDetailsTmp.RADPayCalc              = RADPayCalc::None;
-                payCheckDetailsTmp.dataArea                =  int642Str(CompanyInfo::find().SIGPayrollCompanyId);//'18127741';
-                payCheckDetailsTmp.RADEmployeeType         = JmgPayAgreementTable::find(JmgEmployee::find(HcmWorker::findByPersonnelNumber(hcmPersonnelNumberId).RecId).DefaultProfileId).RADEmployeeType;
+                payCheckDetailsTmp.Hours                   =  hours;//payCheckDetailsTmp.Hours - JmgPayAgreementTable::find(JmgEmployee::find(HcmWorker::findByPersonnelNumber(hcmPersonnelNumberId).RecId).DefaultProfileId).RADDays;
+                payCheckDetailsTmp.RADPayCalc              =  RADPayCalc::None;
+                payCheckDetailsTmp.dataArea                =  int642Str(companyInfo.SIGPayrollCompanyId);//'18127741';
+                payCheckDetailsTmp.RADEmployeeType         =  JmgPayAgreementTable::find(JmgEmployee::find(HcmWorker::findByPersonnelNumber(hcmPersonnelNumberId).RecId).DefaultProfileId).RADEmployeeType;
                 payCheckDetailsTmp.DefaultProfileId        =  JmgEmployee::find(HcmWorker::findByPersonnelNumber(hcmPersonnelNumberId).RecId).DefaultProfileId;
                 payCheckDetailsTmp.insert();
             }
@@ -137,7 +137,7 @@ class RADPayrollChequeDP extends SRSReportDataProviderBase
                 payCheckTmp.RADPayCalc              =  RADPayCalc::None;
                 payCheckTmp.ResourceName            =  HcmWorker::findByPersonnelNumber(payCheckDetailsTmp.HcmPersonnelNumberId).name();
                 payCheckTmp.RADLeaveAndAbsence      =  NoYes::Yes;
-                payCheckTmp.dataArea                =  '18127741';
+                payCheckTmp.dataArea                =  int642Str(companyInfo.SIGPayrollCompanyId);//'18127741';
                 payCheckTmp.RADEmployeeType         =  payCheckDetailsTmp.RADEmployeeType;//JmgPayAgreementTable::find(JmgEmployee::find(HcmWorker::findByPersonnelNumber(hcmPersonnelNumberId).RecId).DefaultProfileId).RADEmployeeType;
                 payCheckTmp.DefaultProfileId        =  payCheckDetailsTmp.DefaultProfileId;
                 payCheckTmp.insert();
@@ -196,7 +196,7 @@ class RADPayrollChequeDP extends SRSReportDataProviderBase
                 payCheckTmp.RADPayCalc              =  RADPayCalc::None;
                 payCheckTmp.ResourceName            =  HcmWorker::findByPersonnelNumber(payCheckDetailsTmp.HcmPersonnelNumberId).name();
                 payCheckTmp.RADLeaveAndAbsence      =  NoYes::No;
-                payCheckTmp.dataArea                =  '18127741';
+                payCheckTmp.dataArea                =  int642Str(companyInfo.SIGPayrollCompanyId);//'18127741';
                 payCheckTmp.RADEmployeeType         =  payCheckDetailsTmp.RADEmployeeType;
                 payCheckTmp.DefaultProfileId        =  payCheckDetailsTmp.DefaultProfileId;
                 payCheckTmp.insert();

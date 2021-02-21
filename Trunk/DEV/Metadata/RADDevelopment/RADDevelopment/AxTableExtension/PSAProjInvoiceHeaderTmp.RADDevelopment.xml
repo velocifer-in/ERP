@@ -36,6 +36,12 @@
 			<Label>Project mile stone details</Label>
 			<EnumType>NoYes</EnumType>
 		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>SIGPurchId</Name>
+			<ExtendedDataType>String20</ExtendedDataType>
+			<Label>Purchase order</Label>
+		</AxTableField>
 	</Fields>
 	<FullTextIndexes />
 	<Indexes />

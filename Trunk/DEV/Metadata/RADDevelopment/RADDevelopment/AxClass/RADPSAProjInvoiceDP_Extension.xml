@@ -148,9 +148,11 @@ final public class RADPSAProjInvoiceDP_Extension
         }
         projTableLocal = ProjTable::find(projInvoiceJour.ProjInvoiceProjId);
 
+        tmpPSAProjInvoiceHeader.SIGPurchId              = projTableLocal.SIGPurchId;
         tmpPSAProjInvoiceHeader.RADType                 = projTableLocal.Type;
         tmpPSAProjInvoiceHeader.RADMainProjId           = projTableLocal.ProjId;
         tmpPSAProjInvoiceHeader.RADMainProjIDProjName   = projTableLocal.Name;
+        
         noyes = tmpPSAProjInvoiceHeader.RAD_WithContractSummary;
     }
 

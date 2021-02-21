@@ -17,6 +17,12 @@
 			<ExtendedDataType>Days</ExtendedDataType>
 			<Label>Minimum hours for OT/ Week</Label>
 		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldInt">
+			<Name>RADUtilBaseDays</Name>
+			<ExtendedDataType>Days</ExtendedDataType>
+			<Label>Utili base all hours</Label>
+		</AxTableField>
 	</Fields>
 	<FullTextIndexes />
 	<Indexes />

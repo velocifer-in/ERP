@@ -49,7 +49,7 @@ public final class SIGPSAProjInvoiceTmp_Extension
 
         this.MainProjIDProjName = projTable.Name;
         this.RADType            = projTable.Type;
-        
+        this.SIGPurchId         = projTable.SIGPurchId;
         //this.CategoryName       = CategoryTable::find(this.Category).CategoryName;
         if (!this.TransTxt)
         {

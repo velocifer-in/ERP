@@ -1,6 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Diagnostics
-  GenerationTime="2021-02-12T11:37:23.1248533+00:00">
-  <Items />
+  GenerationTime="2021-02-21T15:59:59.2482813+00:00">
+  <Items>
+    <Diagnostic>
+      <DiagnosticType>ExternalReference</DiagnosticType>
+      <Severity>Warning</Severity>
+      <Path>dynamics://Reference/Microsoft.OData.Edm</Path>
+      <Moniker>AssemblyFileNotFound</Moniker>
+      <Message>Assembly 'System.Xml, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e' failed to load because it was not found.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Warning</Severity>
+      <Path>dynamics://Class/RADEmployeeTSAndUtilizationDP/Method/processReport</Path>
+      <ElementType>Class Method</ElementType>
+      <Moniker>ObsoleteEntityUsageWithReason</Moniker>
+      <Line>19</Line>
+      <Column>6</Column>
+      <EndLine>19</EndLine>
+      <EndColumn>30</EndColumn>
+      <Message>'SysEntryPointAttribute' is obsolete: '"This attribute is deprecated in AX7. "'.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Warning</Severity>
+      <Path>dynamics://Class/SIGProjInvoiceTable_Extension</Path>
+      <ElementType>Class</ElementType>
+      <Moniker>EventHandlerInClassExtension</Moniker>
+      <Line>10</Line>
+      <Column>6</Column>
+      <EndLine>10</EndLine>
+      <EndColumn>132</EndColumn>
+      <Message>Adding event handlers in extension classes is not recommended, please use instead a regular X++ class for that purpose.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Warning</Severity>
+      <Path>dynamics://Class/CustAgingReportControllerCopyCopy/Method/setRanges</Path>
+      <ElementType>Class Method</ElementType>
+      <Moniker>ExtensibleEnumInNumericalAssignment</Moniker>
+      <Line>166</Line>
+      <Column>50</Column>
+      <EndLine>166</EndLine>
+      <EndColumn>87</EndColumn>
+      <Message>Assigning a numerical value to extensible enum 'Extensible Enumeration(DateTransactionDuedate)' will yield unexpected results. Extensible enum values are not deterministically assigned to a numerical value.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Warning</Severity>
+      <Path>dynamics://Class/RADCustAgingReportControllerV1/Method/setRanges</Path>
+      <ElementType>Class Method</ElementType>
+      <Moniker>ExtensibleEnumInNumericalAssignment</Moniker>
+      <Line>166</Line>
+      <Column>50</Column>
+      <EndLine>166</EndLine>
+      <EndColumn>87</EndColumn>
+      <Message>Assigning a numerical value to extensible enum 'Extensible Enumeration(DateTransactionDuedate)' will yield unexpected results. Extensible enum values are not deterministically assigned to a numerical value.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Warning</Severity>
+      <Path>dynamics://Class/RADCustAgingReportControllerV2/Method/setRanges</Path>
+      <ElementType>Class Method</ElementType>
+      <Moniker>ExtensibleEnumInNumericalAssignment</Moniker>
+      <Line>166</Line>
+      <Column>50</Column>
+      <EndLine>166</EndLine>
+      <EndColumn>87</EndColumn>
+      <Message>Assigning a numerical value to extensible enum 'Extensible Enumeration(DateTransactionDuedate)' will yield unexpected results. Extensible enum values are not deterministically assigned to a numerical value.</Message>
+    </Diagnostic>
+  </Items>
   <Aliases />
 </Diagnostics>

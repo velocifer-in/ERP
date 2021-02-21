@@ -36,6 +36,12 @@
 		</AxClassMemberVariable>
 		<AxClassMemberVariable>
 			<Tags></Tags>
+			<Type>Class</Type>
+			<TypeName>DialogField</TypeName>
+			<Name>dlgFldDepartment</Name>
+		</AxClassMemberVariable>
+		<AxClassMemberVariable>
+			<Tags></Tags>
 			<Type>Container</Type>
 			<TypeName></TypeName>
 			<Name>payPeriodList</Name>
@@ -92,6 +98,21 @@
 		</Method>
 		<Method>
 			<Name>setLastPayPeriod</Name>
+			<ReturnType>
+				<Tags></Tags>
+				<TypeName></TypeName>
+			</ReturnType>
+		</Method>
+		<Method>
+			<Name>lookUpDepartment</Name>
+			<Parameters>
+				<AxMethodParameter>
+					<Tags></Tags>
+					<Type>Class</Type>
+					<TypeName>FormStringControl</TypeName>
+					<Name>_formStringControl</Name>
+				</AxMethodParameter>
+			</Parameters>
 			<ReturnType>
 				<Tags></Tags>
 				<TypeName></TypeName>

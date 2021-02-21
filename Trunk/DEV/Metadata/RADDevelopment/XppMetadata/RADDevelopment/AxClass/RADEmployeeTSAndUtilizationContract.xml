@@ -26,16 +26,6 @@
 						</AxAttributeParameter>
 					</AdditionalData>
 				</AxAttributeParameter>
-				<AxAttributeParameter>
-					<Type>Enum</Type>
-					<TypeValue>SysOperationDataContractProcessingMode</TypeValue>
-					<AdditionalData>
-						<AxAttributeParameter>
-							<TypeValue>CreateSeparateUIBuilderForEachContract</TypeValue>
-							<AdditionalData />
-						</AxAttributeParameter>
-					</AdditionalData>
-				</AxAttributeParameter>
 			</Parameters>
 		</AxAttribute>
 	</Attributes>
@@ -49,6 +39,11 @@
 			<Type>ExtendedDataType</Type>
 			<TypeName>PayrollPayPeriodRecId</TypeName>
 			<Name>payrollPayPeriodRecId</Name>
+		</AxClassMemberVariable>
+		<AxClassMemberVariable>
+			<Type>ExtendedDataType</Type>
+			<TypeName>OMOperatingUnitNumber</TypeName>
+			<Name>operatingUnitNumber</Name>
 		</AxClassMemberVariable>
 	</Members>
 	<Methods>
@@ -206,6 +201,84 @@
 			<ReturnType>
 				<Type>ExtendedDataType</Type>
 				<TypeName>PayrollPayPeriodRecId</TypeName>
+			</ReturnType>
+		</Method>
+		<Method>
+			<Name>parmOMOperatingUnitNumber</Name>
+			<Visibility>Public</Visibility>
+			<Attributes>
+				<AxAttribute>
+					<Name>DataMemberAttribute</Name>
+					<Parameters>
+						<AxAttributeParameter>
+							<TypeValue>'OMOperatingUnitNumber'</TypeValue>
+							<AdditionalData />
+						</AxAttributeParameter>
+					</Parameters>
+				</AxAttribute>
+				<AxAttribute>
+					<Name>SysOperationLabelAttribute</Name>
+					<Parameters>
+						<AxAttributeParameter>
+							<Type>Intrinsic</Type>
+							<TypeValue>literalStr</TypeValue>
+							<AdditionalData>
+								<AxAttributeParameter>
+									<TypeValue>Department</TypeValue>
+									<AdditionalData />
+								</AxAttributeParameter>
+								<AxAttributeParameter>
+									<AdditionalData />
+								</AxAttributeParameter>
+								<AxAttributeParameter>
+									<AdditionalData />
+								</AxAttributeParameter>
+							</AdditionalData>
+						</AxAttributeParameter>
+					</Parameters>
+				</AxAttribute>
+				<AxAttribute>
+					<Name>SysOperationHelpTextAttribute</Name>
+					<Parameters>
+						<AxAttributeParameter>
+							<Type>Intrinsic</Type>
+							<TypeValue>literalStr</TypeValue>
+							<AdditionalData>
+								<AxAttributeParameter>
+									<TypeValue>Department</TypeValue>
+									<AdditionalData />
+								</AxAttributeParameter>
+								<AxAttributeParameter>
+									<AdditionalData />
+								</AxAttributeParameter>
+								<AxAttributeParameter>
+									<AdditionalData />
+								</AxAttributeParameter>
+							</AdditionalData>
+						</AxAttributeParameter>
+					</Parameters>
+				</AxAttribute>
+				<AxAttribute>
+					<Name>SysOperationDisplayOrderAttribute</Name>
+					<Parameters>
+						<AxAttributeParameter>
+							<TypeValue>"3"</TypeValue>
+							<AdditionalData />
+						</AxAttributeParameter>
+					</Parameters>
+				</AxAttribute>
+			</Attributes>
+			<Parameters>
+				<AxMethodParameter>
+					<Type>ExtendedDataType</Type>
+					<TypeName>OMOperatingUnitNumber</TypeName>
+					<DefaultValue>operatingUnitNumber</DefaultValue>
+					<Name>_operatingUnitNumber</Name>
+				</AxMethodParameter>
+			</Parameters>
+			<ReturnType>
+				<Type>ExtendedDataType</Type>
+				<TypeName>OMOperatingUnitNumber</TypeName>
 			</ReturnType>
 		</Method>
 	</Methods>

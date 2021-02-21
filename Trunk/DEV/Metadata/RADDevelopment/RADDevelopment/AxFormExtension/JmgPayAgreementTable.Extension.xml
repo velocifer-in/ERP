@@ -34,6 +34,21 @@
 			<PositionType>AfterItem</PositionType>
 			<PreviousSibling>GridReadOnlyJmgPayAgreementTable_Desc</PreviousSibling>
 		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlskck40t31</Name>
+			<FormControl xmlns=""
+				i:type="AxFormIntegerControl">
+				<Name>JmgPayAgreementTable_RADUtilBaseDays</Name>
+				<Type>Integer</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataField>RADUtilBaseDays</DataField>
+				<DataSource>JmgPayAgreementTable</DataSource>
+			</FormControl>
+			<Parent>Grid</Parent>
+			<PositionType>AfterItem</PositionType>
+			<PreviousSibling>GridReadOnlyJmgPayAgreementTable_Desc</PreviousSibling>
+		</AxFormExtensionControl>
 	</Controls>
 	<DataSourceModifications />
 	<DataSourceReferences />

@@ -117,11 +117,6 @@ public class RADPayCheckUtilizationDetailsTmp extends common
 			<Mandatory>Yes</Mandatory>
 		</AxTableField>
 		<AxTableField xmlns=""
-			i:type="AxTableFieldReal">
-			<Name>TotalHours</Name>
-			<ExtendedDataType>Hours</ExtendedDataType>
-		</AxTableField>
-		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
 			<Name>TransId</Name>
 			<AllowEdit>No</AllowEdit>
@@ -131,6 +126,11 @@ public class RADPayCheckUtilizationDetailsTmp extends common
 		<AxTableField xmlns=""
 			i:type="AxTableFieldReal">
 			<Name>Hours</Name>
+			<ExtendedDataType>Hours</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldReal">
+			<Name>TotalHours</Name>
 			<ExtendedDataType>Hours</ExtendedDataType>
 		</AxTableField>
 	</Fields>

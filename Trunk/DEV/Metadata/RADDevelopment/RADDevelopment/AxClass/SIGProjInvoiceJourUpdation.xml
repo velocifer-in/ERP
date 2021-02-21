@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGProjInvoiceJourUpdation</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+class 
+SIGProjInvoiceJourUpdation  extends RunBaseBatch
+{
+    DialogField             fieldDisplayMessage;
+    DialogField             dlgProjGroupId,dlgProjLedgerStatusOnAcc;
+    ProjGroupId             projGroupId;
+    ProjLedgerStatusOnAcc   projLedgerStatusOnAcc;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static SIGProjInvoiceJourUpdation construct()
+    {
+        return new SIGProjInvoiceJourUpdation();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>run</Name>
+				<Source><![CDATA[
+    public void run()
+    {
+        ProjProposalJour    projProposalJour;
+        ProjInvoiceJour     projInvoiceJour;
+
+        ttsbegin;
+        while select forupdate projInvoiceJour
+        {
+
+            projProposalJour = ProjProposalJour::find(projInvoiceJour.ProposalId);
+
+            if (projProposalJour)
+            {
+                projInvoiceJour.SIGProjId                      = projProposalJour.SIGProjId;
+                projInvoiceJour.SIGProjType                    = projProposalJour.SIGProjType;
+                projInvoiceJour.SIGWorkerResponsible           = projProposalJour.SIGWorkerResponsible;
+                projInvoiceJour.SIGWorkerResponsibleFinancial  = projProposalJour.SIGWorkerResponsibleFinancial;
+                projInvoiceJour.SIGBusinessUnit                = projProposalJour.SIGBusinessUnit;
+                projInvoiceJour.SIGCostCenter                  = projProposalJour.SIGCostCenter;
+                projInvoiceJour.doUpdate();
+            }
+        }
+        ttscommit;
+        info("Project invoice journals has been updated");
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>main</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Runs the class with the specified arguments.
+    /// </summary>
+    /// <param name = "_args">The specified arguments.</param>
+    public static void main(Args _args)
+    {
+        SIGProjInvoiceJourUpdation projInvoiceJourUpdation = SIGProjInvoiceJourUpdation::construct();
+        
+        if (projInvoiceJourUpdation.prompt())
+        {
+            projInvoiceJourUpdation.run();
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

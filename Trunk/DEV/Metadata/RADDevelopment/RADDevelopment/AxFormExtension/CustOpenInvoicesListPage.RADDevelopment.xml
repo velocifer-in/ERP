@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxFormExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V6">
+	<Name>CustOpenInvoicesListPage.RADDevelopment</Name>
+	<ControlModifications />
+	<Controls>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlrgmzqlkx1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormStringControl">
+				<Name>CustTransOpen_SIGProjId</Name>
+				<Type>String</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataField>SIGProjId</DataField>
+				<DataSource>CustTransOpen</DataSource>
+			</FormControl>
+			<Parent>Grid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlv2o2ikty1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormComboBoxControl">
+				<Name>CustTransOpen_SIGProjType</Name>
+				<Type>ComboBox</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataField>SIGProjType</DataField>
+				<DataSource>CustTransOpen</DataSource>
+				<Items />
+			</FormControl>
+			<Parent>Grid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlj4m3ns5d1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormReferenceGroupControl">
+				<Name>CustTransOpen_SIGWorkerResponsible1</Name>
+				<Type>ReferenceGroup</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls />
+				<DataSource>CustTransOpen</DataSource>
+				<ReferenceField>SIGWorkerResponsible</ReferenceField>
+			</FormControl>
+			<Parent>Grid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlxp33jdr51</Name>
+			<FormControl xmlns=""
+				i:type="AxFormReferenceGroupControl">
+				<Name>CustTransOpen_SIGWorkerResponsibleFinancial1</Name>
+				<Type>ReferenceGroup</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls />
+				<DataSource>CustTransOpen</DataSource>
+				<ReferenceField>SIGWorkerResponsibleFinancial</ReferenceField>
+			</FormControl>
+			<Parent>Grid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlfxtlueth1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormStringControl">
+				<Name>CustTransOpen_SIGBusinessUnit</Name>
+				<Type>String</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataField>SIGBusinessUnit</DataField>
+				<DataSource>CustTransOpen</DataSource>
+			</FormControl>
+			<Parent>Grid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControltmx0a5la1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormStringControl">
+				<Name>CustTransOpen_SIGCostCenter</Name>
+				<Type>String</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataField>SIGCostCenter</DataField>
+				<DataSource>CustTransOpen</DataSource>
+			</FormControl>
+			<Parent>Grid</Parent>
+		</AxFormExtensionControl>
+	</Controls>
+	<DataSourceModifications />
+	<DataSourceReferences />
+	<DataSources />
+	<Parts />
+	<PropertyModifications />
+</AxFormExtension>

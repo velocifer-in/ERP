@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Diagnostics
-  GenerationTime="2021-02-13T07:50:57.2469465+00:00">
+  GenerationTime="2021-02-21T19:20:40.4158382+00:00">
   <Items>
     <Diagnostic>
-      <DiagnosticType>Compile</DiagnosticType>
+      <DiagnosticType>ExternalReference</DiagnosticType>
       <Severity>Warning</Severity>
-      <Path>dynamics://Class/RADEmployeeTSAndUtilizationDP/Method/processReport</Path>
-      <ElementType>Class Method</ElementType>
-      <Moniker>ObsoleteEntityUsageWithReason</Moniker>
-      <Line>19</Line>
-      <Column>6</Column>
-      <EndLine>19</EndLine>
-      <EndColumn>30</EndColumn>
-      <Message>'SysEntryPointAttribute' is obsolete: '"This attribute is deprecated in AX7. "'.</Message>
+      <Path>dynamics://Reference/Microsoft.OData.Edm</Path>
+      <Moniker>AssemblyFileNotFound</Moniker>
+      <Message>Assembly 'System.Xml, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e' failed to load because it was not found.</Message>
     </Diagnostic>
     <Diagnostic>
       <DiagnosticType>Compile</DiagnosticType>
@@ -27,11 +22,16 @@
       <Message>Adding event handlers in extension classes is not recommended, please use instead a regular X++ class for that purpose.</Message>
     </Diagnostic>
     <Diagnostic>
-      <DiagnosticType>ExternalReference</DiagnosticType>
+      <DiagnosticType>Compile</DiagnosticType>
       <Severity>Warning</Severity>
-      <Path>dynamics://Reference/Microsoft.OData.Edm</Path>
-      <Moniker>AssemblyFileNotFound</Moniker>
-      <Message>Assembly 'System.Xml, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e' failed to load because it was not found.</Message>
+      <Path>dynamics://Class/RADEmployeeTSAndUtilizationDP/Method/processReport</Path>
+      <ElementType>Class Method</ElementType>
+      <Moniker>ObsoleteEntityUsageWithReason</Moniker>
+      <Line>19</Line>
+      <Column>6</Column>
+      <EndLine>19</EndLine>
+      <EndColumn>30</EndColumn>
+      <Message>'SysEntryPointAttribute' is obsolete: '"This attribute is deprecated in AX7. "'.</Message>
     </Diagnostic>
     <Diagnostic>
       <DiagnosticType>Compile</DiagnosticType>

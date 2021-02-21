@@ -15,10 +15,10 @@
                   <Width>3.95806cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.61396cm</Width>
+                  <Width>2.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.73271cm</Width>
+                  <Width>1.61396cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.09771cm</Width>
@@ -36,9 +36,6 @@
                   <Width>2.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
-                </TablixColumn>
-                <TablixColumn>
                   <Width>1.75917cm</Width>
                 </TablixColumn>
                 <TablixColumn>
@@ -49,9 +46,6 @@
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.89146cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>1.94438cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.94979cm</Width>
@@ -132,6 +126,39 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="Textbox10">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Department</Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox10</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="Textbox9">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -150,39 +177,6 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox9</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox11">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Utilization All Hours</Value>
-                                  <Style>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox11</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -238,7 +232,19 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Regular</Value>
+                                  <Value>Posted timesheet hours</Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
                                   <Style>
                                     <FontSize>9pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
@@ -315,39 +321,6 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox22</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox17">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Billed Hours</Value>
-                                  <Style>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox17</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -513,39 +486,6 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox28</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Textbox26">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Util Base All Hours</Value>
-                                  <Style>
-                                    <FontSize>9pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox26</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -740,6 +680,60 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
+                        <Textbox Name="EmpDepartment">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!EmpDepartment.Value</Value>
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style />
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>EmpDepartment</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                          <CustomProperties>
+                            <CustomProperty>
+                              <Name>AXDataType</Name>
+                              <Value><![CDATA[String]]></Value>
+                            </CustomProperty>
+                            <CustomProperty>
+                              <Name>AXEDTFormat</Name>
+                              <Value><![CDATA[RADEmployeeTSAndUtilizationTmp.EmpDepartment]]></Value>
+                            </CustomProperty>
+                            <CustomProperty>
+                              <Name>AXEDTTextAlign</Name>
+                              <Value><![CDATA[RADEmployeeTSAndUtilizationTmp.EmpDepartment]]></Value>
+                            </CustomProperty>
+                            <CustomProperty>
+                              <Name>AXEDTDirection</Name>
+                              <Value><![CDATA[RADEmployeeTSAndUtilizationTmp.EmpDepartment]]></Value>
+                            </CustomProperty>
+                            <CustomProperty>
+                              <Name>AXFieldName</Name>
+                              <Value><![CDATA[EmpDepartment]]></Value>
+                            </CustomProperty>
+                          </CustomProperties>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
                         <Textbox Name="UtilizationExlHolPL">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -747,9 +741,10 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!UtilizationExlHolPL.Value</Value>
+                                  <Value>=Format(Fields!UtilizationAllHours.Value, "###,##0.0") + "  %"</Value>
                                   <Style>
                                     <FontSize>9pt</FontSize>
+                                    <Format>n2</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -762,79 +757,7 @@
                           <CustomProperties>
                             <CustomProperty>
                               <Name>AXDataType</Name>
-                              <Value><![CDATA[Float]]></Value>
-                            </CustomProperty>
-                            <CustomProperty>
-                              <Name>AXEDTFormat</Name>
-                              <Value><![CDATA[RADEmployeeTSAndUtilizationTmp.UtilizationExlHolPL]]></Value>
-                            </CustomProperty>
-                            <CustomProperty>
-                              <Name>AXEDTTextAlign</Name>
-                              <Value><![CDATA[RADEmployeeTSAndUtilizationTmp.UtilizationExlHolPL]]></Value>
-                            </CustomProperty>
-                            <CustomProperty>
-                              <Name>AXEDTDirection</Name>
-                              <Value><![CDATA[RADEmployeeTSAndUtilizationTmp.UtilizationExlHolPL]]></Value>
-                            </CustomProperty>
-                            <CustomProperty>
-                              <Name>AXFieldName</Name>
-                              <Value><![CDATA[UtilizationExlHolPL]]></Value>
-                            </CustomProperty>
-                          </CustomProperties>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="UtilizationAllHours">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!UtilizationAllHours.Value</Value>
-                                  <Style>
-                                    <FontSize>9pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>UtilizationAllHours</rd:DefaultName>
-                          <CustomProperties>
-                            <CustomProperty>
-                              <Name>AXDataType</Name>
-                              <Value><![CDATA[Float]]></Value>
-                            </CustomProperty>
-                            <CustomProperty>
-                              <Name>AXEDTFormat</Name>
-                              <Value><![CDATA[RADEmployeeTSAndUtilizationTmp.UtilizationAllHours]]></Value>
-                            </CustomProperty>
-                            <CustomProperty>
-                              <Name>AXEDTTextAlign</Name>
-                              <Value><![CDATA[RADEmployeeTSAndUtilizationTmp.UtilizationAllHours]]></Value>
-                            </CustomProperty>
-                            <CustomProperty>
-                              <Name>AXEDTDirection</Name>
-                              <Value><![CDATA[RADEmployeeTSAndUtilizationTmp.UtilizationAllHours]]></Value>
-                            </CustomProperty>
-                            <CustomProperty>
-                              <Name>AXFieldName</Name>
-                              <Value><![CDATA[UtilizationAllHours]]></Value>
+                              <Value>Float</Value>
                             </CustomProperty>
                           </CustomProperties>
                           <Style>
@@ -1076,62 +999,6 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="BilledHours">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!BilledHours.Value</Value>
-                                  <Style>
-                                    <FontSize>9pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>BilledHours</rd:DefaultName>
-                          <CustomProperties>
-                            <CustomProperty>
-                              <Name>AXDataType</Name>
-                              <Value><![CDATA[Float]]></Value>
-                            </CustomProperty>
-                            <CustomProperty>
-                              <Name>AXEDTFormat</Name>
-                              <Value><![CDATA[RADEmployeeTSAndUtilizationTmp.BilledHours]]></Value>
-                            </CustomProperty>
-                            <CustomProperty>
-                              <Name>AXEDTTextAlign</Name>
-                              <Value><![CDATA[RADEmployeeTSAndUtilizationTmp.BilledHours]]></Value>
-                            </CustomProperty>
-                            <CustomProperty>
-                              <Name>AXEDTDirection</Name>
-                              <Value><![CDATA[RADEmployeeTSAndUtilizationTmp.BilledHours]]></Value>
-                            </CustomProperty>
-                            <CustomProperty>
-                              <Name>AXFieldName</Name>
-                              <Value><![CDATA[BilledHours]]></Value>
-                            </CustomProperty>
-                          </CustomProperties>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
                         <Textbox Name="NonBillableHours">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -1151,16 +1018,6 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>NonBillableHours</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
                           <CustomProperties>
                             <CustomProperty>
                               <Name>AXDataType</Name>
@@ -1183,8 +1040,17 @@
                               <Value><![CDATA[NonBillableHours]]></Value>
                             </CustomProperty>
                           </CustomProperties>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1340,62 +1206,6 @@
                             <CustomProperty>
                               <Name>AXFieldName</Name>
                               <Value><![CDATA[WithoutPay]]></Value>
-                            </CustomProperty>
-                          </CustomProperties>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="UtilBaseExlHolPL">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!UtilBaseExlHolPL.Value</Value>
-                                  <Style>
-                                    <FontSize>9pt</FontSize>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Center</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>UtilBaseExlHolPL</rd:DefaultName>
-                          <CustomProperties>
-                            <CustomProperty>
-                              <Name>AXDataType</Name>
-                              <Value><![CDATA[Float]]></Value>
-                            </CustomProperty>
-                            <CustomProperty>
-                              <Name>AXEDTFormat</Name>
-                              <Value><![CDATA[RADEmployeeTSAndUtilizationTmp.UtilBaseExlHolPL]]></Value>
-                            </CustomProperty>
-                            <CustomProperty>
-                              <Name>AXEDTTextAlign</Name>
-                              <Value><![CDATA[RADEmployeeTSAndUtilizationTmp.UtilBaseExlHolPL]]></Value>
-                            </CustomProperty>
-                            <CustomProperty>
-                              <Name>AXEDTDirection</Name>
-                              <Value><![CDATA[RADEmployeeTSAndUtilizationTmp.UtilBaseExlHolPL]]></Value>
-                            </CustomProperty>
-                            <CustomProperty>
-                              <Name>AXFieldName</Name>
-                              <Value><![CDATA[UtilBaseExlHolPL]]></Value>
                             </CustomProperty>
                           </CustomProperties>
                           <Style>
@@ -1596,8 +1406,6 @@
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
-                <TablixMember />
-                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -1619,7 +1427,7 @@
             <Top>0.3175cm</Top>
             <Left>0cm</Left>
             <Height>1.2cm</Height>
-            <Width>33.86231cm</Width>
+            <Width>30.18522cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1630,7 +1438,7 @@
         <Height>1.5175cm</Height>
         <Style />
       </Body>
-      <Width>33.86231cm</Width>
+      <Width>30.18522cm</Width>
       <Page>
         <PageHeader>
           <Height>2.13129cm</Height>
@@ -1764,7 +1572,7 @@
         <ConnectString />
         <IntegratedSecurity>true</IntegratedSecurity>
       </ConnectionProperties>
-      <rd:DataSourceID>7c4670f0-f3ce-49c0-b8e6-ec9384aff5e8</rd:DataSourceID>
+      <rd:DataSourceID>f0af7f03-45f6-450f-a5e1-83c08d6174b8</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
@@ -1777,6 +1585,10 @@
         <Field Name="BilledHours">
           <DataField>RADEmployeeTSAndUtilizationTmp.1.BilledHours</DataField>
           <rd:TypeName>System.Double</rd:TypeName>
+        </Field>
+        <Field Name="EmpDepartment">
+          <DataField>RADEmployeeTSAndUtilizationTmp.1.EmpDepartment</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="EndDate">
           <DataField>RADEmployeeTSAndUtilizationTmp.1.EndDate</DataField>
@@ -1877,10 +1689,13 @@
           <QueryParameter Name="PayPeriod">
             <Value>=Parameters!PayPeriod.Value</Value>
           </QueryParameter>
+          <QueryParameter Name="OMOperatingUnitNumber">
+            <Value>=Parameters!OMOperatingUnitNumber.Value</Value>
+          </QueryParameter>
         </QueryParameters>
         <DataSourceName>AutoGen__ReportDataProvider</DataSourceName>
         <CommandType>Text</CommandType>
-        <CommandText>SELECT * FROM RADEmployeeTSAndUtilizationDP.RADEmployeeTSAndUtilizationTmp</CommandText>
+        <CommandText>SELECT * FROM RADEmployeeTSAndUtilizationDP.RADEmployeeTSAndUtilizationTmp </CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <rd:DataSetInfo>
@@ -1956,6 +1771,14 @@
       <Hidden>false</Hidden>
       <AllowBlank>false</AllowBlank>
       <Prompt>@Payroll:PayPeriod</Prompt>
+      <MultiValue>false</MultiValue>
+    </ReportParameter>
+    <ReportParameter Name="OMOperatingUnitNumber">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <Hidden>false</Hidden>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>Department</Prompt>
       <MultiValue>false</MultiValue>
     </ReportParameter>
   </ReportParameters>

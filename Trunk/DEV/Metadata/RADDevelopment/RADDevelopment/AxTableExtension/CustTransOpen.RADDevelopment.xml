@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxTableExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>CustTransOpen.RADDevelopment</Name>
+	<FieldGroupExtensions />
+	<FieldGroups />
+	<FieldModifications />
+	<Fields>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>SIGProjType</Name>
+			<EnumType>ProjType</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>SIGCostCenter</Name>
+			<ExtendedDataType>String30</ExtendedDataType>
+			<HelpText>Project cost center</HelpText>
+			<Label>Cost center</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>SIGBusinessUnit</Name>
+			<ExtendedDataType>String30</ExtendedDataType>
+			<HelpText>Project business unit</HelpText>
+			<Label>BusinessUnit</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldInt64">
+			<Name>SIGWorkerResponsible</Name>
+			<AssetClassification>Customer Content</AssetClassification>
+			<ExtendedDataType>ProjResponsibleWorker</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldInt64">
+			<Name>SIGWorkerResponsibleFinancial</Name>
+			<AssetClassification>Customer Content</AssetClassification>
+			<ExtendedDataType>ProjResponsibleFinancialWorker</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>SIGProjId</Name>
+			<AllowEdit>No</AllowEdit>
+			<AssetClassification>Customer Content</AssetClassification>
+			<ExtendedDataType>ProjId</ExtendedDataType>
+			<Mandatory>Yes</Mandatory>
+		</AxTableField>
+	</Fields>
+	<FullTextIndexes />
+	<Indexes />
+	<Mappings />
+	<PropertyModifications />
+	<RelationExtensions />
+	<RelationModifications />
+	<Relations>
+		<AxTableRelation>
+			<Name>SIGWorkerResponsible</Name>
+			<RelatedTable>HcmWorker</RelatedTable>
+			<Constraints>
+				<AxTableRelationConstraint xmlns=""
+					i:type="AxTableRelationConstraintField">
+					<Name>SIGWorkerResponsible</Name>
+					<Field>SIGWorkerResponsible</Field>
+					<RelatedField>RecId</RelatedField>
+				</AxTableRelationConstraint>
+			</Constraints>
+		</AxTableRelation>
+		<AxTableRelation>
+			<Name>SIGWorkerResponsibleFinancial</Name>
+			<RelatedTable>HcmWorker</RelatedTable>
+			<Constraints>
+				<AxTableRelationConstraint xmlns=""
+					i:type="AxTableRelationConstraintField">
+					<Name>SIGWorkerResponsibleFinancial</Name>
+					<Field>SIGWorkerResponsibleFinancial</Field>
+					<RelatedField>RecId</RelatedField>
+				</AxTableRelationConstraint>
+			</Constraints>
+		</AxTableRelation>
+	</Relations>
+</AxTableExtension>

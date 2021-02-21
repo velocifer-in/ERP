@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGCustTransOpen_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(tableStr(CustTransOpen))]
+final class SIGCustTransOpen_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>insert</Name>
+				<Source><![CDATA[
+    public void insert()
+    {
+        CustTrans           custTrans;
+        ProjInvoiceJour     projInvoiceJour;
+
+        select forupdate custTrans
+                    where custTrans.RecId == this.RefRecId;
+
+        projInvoiceJour = ProjInvoiceJour::find(custTrans.Invoice, custTrans.TransDate);
+
+        this.SIGProjId                      = projInvoiceJour.SIGProjId;
+        this.SIGProjType                    = projInvoiceJour.SIGProjType;
+        this.SIGWorkerResponsible           = projInvoiceJour.SIGWorkerResponsible;
+        this.SIGWorkerResponsibleFinancial  = projInvoiceJour.SIGWorkerResponsibleFinancial;
+        this.SIGBusinessUnit                = projInvoiceJour.SIGBusinessUnit;
+        this.SIGCostCenter                  = projInvoiceJour.SIGCostCenter;
+
+        next insert();
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

@@ -11,7 +11,7 @@ class RADEmployeeTSAndUtilizationUIBuilder extends SrsReportDataContractUIBuilde
     FormComboBoxControl                 cmbPayPeriod;
     DialogField                         dlgFldPayCycle;
     DialogField                         dlgFldPayPeriod;
-    //  DialogField                         dlgFldDisbursement;
+      DialogField                         dlgFldDepartment;
     container                           payPeriodList;
 
     #DEFINE.PayPeriodListControl('PayPeriodListControl')
@@ -47,8 +47,10 @@ class RADEmployeeTSAndUtilizationUIBuilder extends SrsReportDataContractUIBuilde
             cmbBuildPayPeriod.width(150);
 
             // Add disbursement field.
-            //dlgFldDisbursement = this.addDialogField(methodStr(PayrollPayStatementReportContract, parmDisbursement), rdpContract);
-            //dlgFldDisbursement.helpText("@SYS4090108");
+            dlgFldDepartment = this.addDialogField(methodStr(RADEmployeeTSAndUtilizationContract, parmOMOperatingUnitNumber), rdpContract);
+            dlgFldDepartment.helpText("Department");
+            dlgFldDepartment.registerOverrideMethod(methodStr(FormReferenceGroupControl, lookup), methodStr(RADEmployeeTSAndUtilizationUIBuilder, lookUpDepartment), this);
+
         }
     }
 
@@ -63,7 +65,11 @@ class RADEmployeeTSAndUtilizationUIBuilder extends SrsReportDataContractUIBuilde
 
         // if (ctrl.parmArgs().menuItemName() == menuitemOutputStr(PayrollPayStatementReport))
         {
+            rdpContract = this.dataContractObject();
+
             rdpContract.parmPayPeriod(conPeek(payPeriodList, cmbPayPeriod.selection() + 1));
+
+            super();
         }
     }
 
@@ -80,7 +86,8 @@ class RADEmployeeTSAndUtilizationUIBuilder extends SrsReportDataContractUIBuilde
         PayrollPayCycleRecId    payrollPayCycleRecId;
         PayrollPayPeriod        payrollPayPeriod;
         FormReferenceGroupControl control;
-
+        rdpContract = this.dataContractObject();
+        
         // Get the selected pay cycle.
         control = this.bindInfo().getDialogField(rdpContract, methodStr(RADEmployeeTSAndUtilizationContract, parmPayCycle)).control() as FormReferenceGroupControl;
         payrollPayCycleRecId = control.value();
@@ -145,6 +152,14 @@ class RADEmployeeTSAndUtilizationUIBuilder extends SrsReportDataContractUIBuilde
             cmbPayPeriod = this.dialog().dialogForm().formRun().control(cmbBuildPayPeriod.id());
             this.initPayPeriods();
             this.setLastPayPeriod();
+
+          //  FormStringControl control;
+
+          //  // Get the selected pay cycle.
+          //  control = this.bindInfo().getDialogField(rdpContract, methodStr(RADEmployeeTSAndUtilizationContract, parmOMOperatingUnitNumber)).control() as FormStringControl;
+          ////  payrollPayCycleRecId = control.value();
+          //  control.valueStr(dlgFldDepartment.value());
+            //rdpContract.parmOMOperatingUnitNumber(control.valueStr());
         }
     }
 
@@ -170,6 +185,28 @@ class RADEmployeeTSAndUtilizationUIBuilder extends SrsReportDataContractUIBuilde
                 break;
             }
         }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>lookUpDepartment</Name>
+				<Source><![CDATA[
+    private void lookUpDepartment(FormStringControl     _formStringControl)
+    {
+        Query   query = new Query();
+        QueryBuildDataSource    ds;
+        SysTableLookup  sysTableLookup;
+
+        sysTableLookup  = SysTableLookup::newParameters(tableNum(OMOperatingUnit),_formstringControl);
+        sysTableLookup.addLookupfield(fieldNum(OMOperatingUnit,Name));
+
+        ds = query.addDataSource(tableNum(OMOperatingUnit));
+        ds.addRange(fieldNum(OMOperatingUnit,omOperatingUnitType)).value(queryValue(OMOperatingUnitType::OMDepartment));
+
+        sysTableLookup.parmQuery(query);
+        sysTableLookup.performFormLookup();
+
     }
 
 ]]></Source>

@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AxTableExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
 	<Name>ProjTable.RADDevelopment</Name>
-	<FieldGroupExtensions />
+	<FieldGroupExtensions>
+		<AxTableFieldGroupExtension>
+			<Name>ProjectShort</Name>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>SIGPurchId</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroupExtension>
+	</FieldGroupExtensions>
 	<FieldGroups />
 	<FieldModifications />
 	<Fields>
@@ -11,6 +20,12 @@
 			<ExtendedDataType>Amount</ExtendedDataType>
 			<HelpText>Contract amount</HelpText>
 			<Label>Contract amount</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>SIGPurchId</Name>
+			<ExtendedDataType>String20</ExtendedDataType>
+			<Label>Purchase order</Label>
 		</AxTableField>
 	</Fields>
 	<FullTextIndexes />
