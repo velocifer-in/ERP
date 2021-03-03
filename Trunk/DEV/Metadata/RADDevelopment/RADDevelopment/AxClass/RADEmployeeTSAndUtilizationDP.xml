@@ -60,6 +60,7 @@ class RADEmployeeTSAndUtilizationDP extends SRSReportDataProviderBase
 
         while select timesheetTable
             where timesheetTable.PeriodFrom >= startDate && timesheetTable.PeriodTo <= endDate
+            && timesheetTable.ApprovalStatus    == TSAppStatus::Ledger
             join timesheetLine
             where timesheetTable.TimesheetNbr == timesheetLine.TimesheetNbr
             join timesheetLineWeek
@@ -71,10 +72,10 @@ class RADEmployeeTSAndUtilizationDP extends SRSReportDataProviderBase
             if ((HcmWorkerHelper::getPrimaryDepartment(hcmWorker.RecId).Name == contract.parmOMOperatingUnitNumber() && contract.parmOMOperatingUnitNumber() != "") || contract.parmOMOperatingUnitNumber() == "")
             {
 
-                if (timesheetLine.CategoryId ==  "Overhead")
-                {
-                    info('');// otHoursSIG += payCheckDetailsTmp.Hours;
-                }
+                //if (timesheetLine.CategoryId ==  "Overhead")
+                //{
+                //    info('');// otHoursSIG += payCheckDetailsTmp.Hours;
+                //}
                 payCheckTmp.CategoryId              =  timesheetLine.CategoryId;
                 payCheckTmp.LinePropertyId          =  timesheetLine.LinePropertyId;
                 payCheckTmp.TimesheetNbr            =  timesheetLine.TimesheetNbr;
@@ -107,6 +108,7 @@ class RADEmployeeTSAndUtilizationDP extends SRSReportDataProviderBase
                 payCheckUtilizationTransTmp.HcmPersonnelNumberId = hcmWorker.PersonnelNumber;
                 payCheckUtilizationTransTmp.TimesheetNbr         = timesheetLine.TimesheetNbr;
                 payCheckUtilizationTransTmp.Hours                = projPostedTransTable.Qty;
+                payCheckUtilizationTransTmp.TotalHours           = timesheetLineWeek.totalHours();
                 payCheckUtilizationTransTmp.insert();
             }
         }
@@ -329,12 +331,12 @@ class RADEmployeeTSAndUtilizationDP extends SRSReportDataProviderBase
             
             payCheckUtilizationTransTmp.clear();
 
-            select sum(Hours) from payCheckUtilizationTransTmp where payCheckUtilizationTransTmp.HcmPersonnelNumberId == payCheckTmp.HcmPersonnelNumberId
+            select sum(TotalHours) from payCheckUtilizationTransTmp where payCheckUtilizationTransTmp.HcmPersonnelNumberId == payCheckTmp.HcmPersonnelNumberId
                                                                 &&   payCheckUtilizationTransTmp.CategoryId == "Overhead"  
                                                                 exists join projCategory 
                                                                  where projCategory.CategoryId ==    payCheckUtilizationTransTmp.CategoryId  
                                                                     &&   projCategory.SIGOverhead ==  NoYes::Yes  ;
-            overHead = payCheckUtilizationTransTmp.Hours;
+            overHead = payCheckUtilizationTransTmp.TotalHours;
 
             employeeTSAndUtilizationTmp.Regular                 = utilizationAllHoursSIG;
             employeeTSAndUtilizationTmp.BillableHours           = utilizationAllHoursSIG -  personalLeave -  holiday - overHead - leaveWithoutPay;
