@@ -33,6 +33,36 @@
 			<Parent>CommitButtonGroup</Parent>
 			<PositionType>Begin</PositionType>
 		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlenboz4zk1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormStringControl">
+				<Name>PSATmpProjProposalTrans_SIGInternalComments</Name>
+				<Type>String</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataField>SIGInternalComments</DataField>
+				<DataSource>PSATmpProjProposalTrans</DataSource>
+			</FormControl>
+			<Parent>InvoiceTransactions</Parent>
+			<PositionType>AfterItem</PositionType>
+			<PreviousSibling>PSATmpProjProposalTrans_Txt</PreviousSibling>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControl3gg2qo0l1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormStringControl">
+				<Name>PSATmpProjProposalTrans_SIGActivityDescription</Name>
+				<Type>String</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataField>SIGActivityDescription</DataField>
+				<DataSource>PSATmpProjProposalTrans</DataSource>
+			</FormControl>
+			<Parent>InvoiceTransactions</Parent>
+			<PositionType>AfterItem</PositionType>
+			<PreviousSibling>PSATmpProjProposalTrans_Txt</PreviousSibling>
+		</AxFormExtensionControl>
 	</Controls>
 	<DataSourceModifications />
 	<DataSourceReferences />

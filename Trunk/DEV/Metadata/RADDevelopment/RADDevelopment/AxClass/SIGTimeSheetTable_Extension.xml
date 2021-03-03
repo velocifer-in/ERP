@@ -19,9 +19,10 @@ Public final class SIGTimeSheetTable_Extension
         utcdatetime _asOfDate = DateTimeUtil::utcNow();
         HcmEmployment                   hcmEmployment;
         ResourceRecId                   resourceRecId;
+        HcmWorkerRecId                  workerId;
 
-       
-        HcmPositionHierarchy positionHierarchy                      = HcmPositionHierarchy::findByPosition(HcmWorkerHelper::getPrimaryPosition(HcmWorkerLookup::currentWorker(), _asOfDate), _asOfDate);
+        workerId = ResourceFacade::getWorker(this.Resource);
+        HcmPositionHierarchy positionHierarchy                      = HcmPositionHierarchy::findByPosition(HcmWorkerHelper::getPrimaryPosition(workerId, _asOfDate), _asOfDate);
         HcmPositionWorkerAssignment managerPositionWorkerAssignment = HcmPositionWorkerAssignment::findByPosition(positionHierarchy.ParentPosition, _asOfDate);
         
         this.SIGParentWorker    = managerPositionWorkerAssignment.Worker;

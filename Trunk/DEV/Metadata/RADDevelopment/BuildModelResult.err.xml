@@ -1,120 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Diagnostics
-  GenerationTime="2021-02-20T19:12:12.1854606+00:00">
+  GenerationTime="2021-02-25T11:31:53.330083+00:00">
   <Items>
     <Diagnostic>
       <DiagnosticType>Compile</DiagnosticType>
       <Severity>Error</Severity>
-      <Path>dynamics://Class/RADEmployeeTSAndUtilizationContract</Path>
-      <ElementType>Class</ElementType>
-      <Moniker>ModelElementWithUnparsableSource</Moniker>
-      <Line>0</Line>
-      <Column>0</Column>
-      <Message>The model element was saved with unparsable source code and cannot be used. Please edit the element in Visual Studio to fix the errors.</Message>
-    </Diagnostic>
-    <Diagnostic>
-      <DiagnosticType>Compile</DiagnosticType>
-      <Severity>Fatal</Severity>
-      <Path>dynamics://Class/RADEmployeeTSAndUtilizationContract</Path>
-      <ElementType>Class</ElementType>
-      <Moniker>IllegalToken</Moniker>
-      <Line>38</Line>
-      <Column>50</Column>
-      <EndLine>38</EndLine>
-      <EndColumn>51</EndColumn>
-      <Message>Invalid token ')'.</Message>
-    </Diagnostic>
-    <Diagnostic>
-      <DiagnosticType>Compile</DiagnosticType>
-      <Severity>Error</Severity>
-      <Path>dynamics://Class/RADEmployeeTSAndUtilizationUIBuilder/Method/build</Path>
-      <ElementType>Class Method</ElementType>
-      <Moniker>IntrinsicArgInstanceMethodDoesNotExist</Moniker>
-      <Line>27</Line>
-      <Column>50</Column>
-      <EndLine>27</EndLine>
-      <EndColumn>110</EndColumn>
-      <Message>The instance method designated by argument 'parmPayCycle' does not exist.</Message>
-    </Diagnostic>
-    <Diagnostic>
-      <DiagnosticType>Compile</DiagnosticType>
-      <Severity>Error</Severity>
-      <Path>dynamics://Class/RADEmployeeTSAndUtilizationUIBuilder/Method/getFromDialog</Path>
-      <ElementType>Class Method</ElementType>
-      <Moniker>ClassDoesNotContainMethod</Moniker>
-      <Line>50</Line>
-      <Column>13</Column>
-      <EndLine>50</EndLine>
-      <EndColumn>92</EndColumn>
-      <Message>ClassDoesNotContainMethod: Class 'RADEmployeeTSAndUtilizationContract' does not contain a definition for method 'parmPayPeriod' and no extension method 'parmPayPeriod' accepting a first argument of type 'RADEmployeeTSAndUtilizationContract' is found on any extension class.</Message>
-      <ItemSpecific>
-        <OriginatorType
-          alias="0">ClassDoesNotContainMethod</OriginatorType>
-        <Fields>
-          <elementTypeName>Class</elementTypeName>
-          <elementName>RADEmployeeTSAndUtilizationContract</elementName>
-          <methodName>parmPayPeriod</methodName>
-        </Fields>
-      </ItemSpecific>
-    </Diagnostic>
-    <Diagnostic>
-      <DiagnosticType>Compile</DiagnosticType>
-      <Severity>Error</Severity>
-      <Path>dynamics://Class/RADEmployeeTSAndUtilizationUIBuilder/Method/initPayPeriods</Path>
-      <ElementType>Class Method</ElementType>
-      <Moniker>IntrinsicArgInstanceMethodDoesNotExist</Moniker>
-      <Line>64</Line>
-      <Column>63</Column>
-      <EndLine>64</EndLine>
-      <EndColumn>123</EndColumn>
-      <Message>The instance method designated by argument 'parmPayCycle' does not exist.</Message>
-    </Diagnostic>
-    <Diagnostic>
-      <DiagnosticType>Compile</DiagnosticType>
-      <Severity>Error</Severity>
-      <Path>dynamics://Class/RADEmployeeTSAndUtilizationUIBuilder/Method/setLastPayPeriod</Path>
-      <ElementType>Class Method</ElementType>
-      <Moniker>ClassDoesNotContainMethod</Moniker>
-      <Line>125</Line>
-      <Column>57</Column>
-      <EndLine>125</EndLine>
-      <EndColumn>84</EndColumn>
-      <Message>ClassDoesNotContainMethod: Class 'RADEmployeeTSAndUtilizationContract' does not contain a definition for method 'parmPayPeriod' and no extension method 'parmPayPeriod' accepting a first argument of type 'RADEmployeeTSAndUtilizationContract' is found on any extension class.</Message>
-      <ItemSpecific>
-        <OriginatorType
-          alias="0">ClassDoesNotContainMethod</OriginatorType>
-        <Fields>
-          <elementTypeName>Class</elementTypeName>
-          <elementName>RADEmployeeTSAndUtilizationContract</elementName>
-          <methodName>parmPayPeriod</methodName>
-        </Fields>
-      </ItemSpecific>
-    </Diagnostic>
-    <Diagnostic>
-      <DiagnosticType>Compile</DiagnosticType>
-      <Severity>Error</Severity>
-      <Path>dynamics://Class/RADEmployeeTSAndUtilizationDP/Method/processReport</Path>
-      <ElementType>Class Method</ElementType>
-      <Moniker>ClassDoesNotContainMethod</Moniker>
-      <Line>38</Line>
-      <Column>54</Column>
-      <EndLine>38</EndLine>
-      <EndColumn>78</EndColumn>
-      <Message>ClassDoesNotContainMethod: Class 'RADEmployeeTSAndUtilizationContract' does not contain a definition for method 'parmPayPeriod' and no extension method 'parmPayPeriod' accepting a first argument of type 'RADEmployeeTSAndUtilizationContract' is found on any extension class.</Message>
-      <ItemSpecific>
-        <OriginatorType
-          alias="0">ClassDoesNotContainMethod</OriginatorType>
-        <Fields>
-          <elementTypeName>Class</elementTypeName>
-          <elementName>RADEmployeeTSAndUtilizationContract</elementName>
-          <methodName>parmPayPeriod</methodName>
-        </Fields>
-      </ItemSpecific>
+      <Path>dynamics://Form/SIGTSTimesheetEntry/FormDataSourceRoot/TSTimesheetTable/Method/executeQuery</Path>
+      <ElementType>Form DataSource Method</ElementType>
+      <Moniker>ExpectedToken</Moniker>
+      <Line>1399</Line>
+      <Column>105</Column>
+      <EndLine>1399</EndLine>
+      <EndColumn>106</EndColumn>
+      <Message>')' expected.</Message>
     </Diagnostic>
   </Items>
-  <Aliases>
-    <Alias
-      assembly="Microsoft.Dynamics.AX.Framework.Xlnt.XppParser.Pass2, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
-      ns="Microsoft.Dynamics.AX.Framework.Xlnt.XppParser.Pass2">0</Alias>
-  </Aliases>
+  <Aliases />
 </Diagnostics>

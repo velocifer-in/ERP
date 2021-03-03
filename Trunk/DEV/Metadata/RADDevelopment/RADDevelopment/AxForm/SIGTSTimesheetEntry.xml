@@ -1694,6 +1694,9 @@ public class SIGTSTimesheetEntry extends FormRun implements TSITimesheetEntry, T
                     //queryBuildDataSource.clearRange(fieldNum(TSTimesheetTable, SIGParentWorker));
                     //queryBuildRange = queryBuildDataSource.addRange(fieldNum(TSTimesheetTable, SIGParentWorker));
                     queryBuildRange.status(RangeStatus::Hidden);
+                  //  queryBuildRange.value(queryValue(strFmt('%1 && %2',ResourceFacade::findByWorker(HcmWorkerLookup::currentWorker()),SysQuery::valueNot(0))));
+
+                    //queryBuildRange.value(strFmt('((SIGParentResource == %1) )', ResourceFacade::findByWorker(HcmWorkerLookup::currentWorker()), queryValue("0")));
                     queryBuildRange.value(queryValue(ResourceFacade::findByWorker(HcmWorkerLookup::currentWorker())));
                 }
             }

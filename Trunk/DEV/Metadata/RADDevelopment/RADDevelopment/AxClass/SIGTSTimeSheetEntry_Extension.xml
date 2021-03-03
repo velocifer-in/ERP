@@ -40,6 +40,36 @@ public final class SIGTSTimeSheetEntry_Extension
 
 ]]></Source>
 			</Method>
+			<Method>
+				<Name>init</Name>
+				<Source><![CDATA[
+    public void init()
+    {
+        xArgs args                   = this.args();
+        var menuItemName			 = args.menuItemName();
+
+        if (menuItemName == menuItemDisplayStr(SIGTSTimesheetEntryGridViewTimesheetsForMyReview))
+        {
+            this.form().design().showNewButton(0);
+            this.form().design().showDeleteButton(0);
+            this.form().design().viewEditMode(0);
+            this.form().design().workflowEnabled(0);
+       //     this.design().viewEditMode(ViewEditMode::View);//viewEditModeHelper().EditModeSwitching(FormRunServiceArgs:
+          //  this.viewEditModeHelper().setViewEditMode(ViewEditMode::View);
+            //TSTimesheetLine_ds.allowCreate(false);
+            //TSTimesheetLine_ds.allowCreate(false);
+            //TSTimesheetTable_ds.allowCreate(false);
+           // TSTimesheetTableWorkflowDropDialog.enabled(false);
+        }
+
+        next init();
+
+      
+       
+    }
+
+]]></Source>
+			</Method>
 		</Methods>
 	</SourceCode>
 </AxClass>

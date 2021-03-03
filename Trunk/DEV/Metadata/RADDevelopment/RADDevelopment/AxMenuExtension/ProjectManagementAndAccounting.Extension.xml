@@ -2,7 +2,16 @@
 <AxMenuExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V1">
 	<Name>ProjectManagementAndAccounting.Extension</Name>
 	<Customizations />
-	<Elements />
+	<Elements>
+		<AxMenuExtensionElement xmlns="">
+			<Parent>Timesheets</Parent>
+			<MenuElement xmlns=""
+				i:type="AxMenuElementMenuItem">
+				<Name>SIGTSTimesheetEntryGridViewTimesheetsForMyReview</Name>
+				<MenuItemName>SIGTSTimesheetEntryGridViewTimesheetsForMyReview</MenuItemName>
+			</MenuElement>
+		</AxMenuExtensionElement>
+	</Elements>
 	<MenuElementModifications />
 	<PropertyModifications />
 </AxMenuExtension>

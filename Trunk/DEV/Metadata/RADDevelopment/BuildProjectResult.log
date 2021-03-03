@@ -1,10 +1,2 @@
-==================================
-ExternalReference Warning: dynamics://Reference/Microsoft.OData.Edm: Assembly 'System.Xml, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e' failed to load because it was not found.
-Compile Warning: Class Method dynamics://Class/RADEmployeeTSAndUtilizationDP/Method/processReport: [(19,6),(19,30)]: 'SysEntryPointAttribute' is obsolete: '"This attribute is deprecated in AX7. "'.
-Compile Warning: Class dynamics://Class/SIGProjInvoiceTable_Extension: [(10,6),(10,132)]: Adding event handlers in extension classes is not recommended, please use instead a regular X++ class for that purpose.
-Compile Warning: Class Method dynamics://Class/CustAgingReportControllerCopyCopy/Method/setRanges: [(166,50),(166,87)]: Assigning a numerical value to extensible enum 'Extensible Enumeration(DateTransactionDuedate)' will yield unexpected results. Extensible enum values are not deterministically assigned to a numerical value.
-Compile Warning: Class Method dynamics://Class/RADCustAgingReportControllerV1/Method/setRanges: [(166,50),(166,87)]: Assigning a numerical value to extensible enum 'Extensible Enumeration(DateTransactionDuedate)' will yield unexpected results. Extensible enum values are not deterministically assigned to a numerical value.
-Compile Warning: Class Method dynamics://Class/RADCustAgingReportControllerV2/Method/setRanges: [(166,50),(166,87)]: Assigning a numerical value to extensible enum 'Extensible Enumeration(DateTransactionDuedate)' will yield unexpected results. Extensible enum values are not deterministically assigned to a numerical value.
-==================================
 Errors: 0
-Warnings: 6
+Warnings: 0
