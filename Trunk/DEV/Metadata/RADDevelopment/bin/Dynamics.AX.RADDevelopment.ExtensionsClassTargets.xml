@@ -16,6 +16,7 @@
   <ExtensionClass ExtensionClassName="SIGTrvExpTrans_Extension" ExtensionTargetName="TrvExpTrans" ExtensionTargetTypeId="TableTypeId" ExtensionNestedTargetName="" />
   <ExtensionClass ExtensionClassName="SIGProjInvoiceTable_Extension" ExtensionTargetName="ProjInvoiceTable" ExtensionTargetTypeId="FormDataSourceTypeId" ExtensionNestedTargetName="ProjFundingSource" />
   <ExtensionClass ExtensionClassName="SIGChequeTmp_Extension" ExtensionTargetName="ChequeTmp" ExtensionTargetTypeId="TableTypeId" ExtensionNestedTargetName="" />
+  <ExtensionClass ExtensionClassName="SIGCustTransOpen_Extension" ExtensionTargetName="CustTransOpen" ExtensionTargetTypeId="TableTypeId" ExtensionNestedTargetName="" />
   <ExtensionClass ExtensionClassName="SIGProjInvoiceJour_Extension" ExtensionTargetName="ProjInvoiceJour" ExtensionTargetTypeId="TableTypeId" ExtensionNestedTargetName="" />
   <ExtensionClass ExtensionClassName="SIGTmpChequePrintout_Extension" ExtensionTargetName="TmpChequePrintout" ExtensionTargetTypeId="TableTypeId" ExtensionNestedTargetName="" />
   <ExtensionClass ExtensionClassName="SIGChequeDP_Extension" ExtensionTargetName="ChequeDP" ExtensionTargetTypeId="ClassTypeId" ExtensionNestedTargetName="" />

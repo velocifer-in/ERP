@@ -5,6 +5,9 @@
   <ExtensionClass Name="SIGTSTimesheetLineWeek_Extension" ExtensionTarget="TSTimesheetLineWeek" ExtensionTargetType="TableTypeId">
     <Method ActualExtensionTarget="TSTimesheetLineWeek" IsStatic="False" CocMethodDelegateElementOwner="TSTimesheetLineWeek" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">validateWrite</Method>
   </ExtensionClass>
+  <ExtensionClass Name="SIGCustTransOpen_Extension" ExtensionTarget="CustTransOpen" ExtensionTargetType="TableTypeId">
+    <Method ActualExtensionTarget="CustTransOpen" IsStatic="False" CocMethodDelegateElementOwner="CustTransOpen" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">insert</Method>
+  </ExtensionClass>
   <ExtensionClass Name="SIGProjTable_Extension" ExtensionTarget="ProjTable" ExtensionTargetType="TableTypeId">
     <Method ActualExtensionTarget="ProjTable" IsStatic="False" CocMethodDelegateElementOwner="ProjTable" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">validateWrite</Method>
   </ExtensionClass>
@@ -19,9 +22,6 @@
     <Method ActualExtensionTarget="CustVendChequeSlipTextCalculator" IsStatic="False" CocMethodDelegateElementOwner="CustVendChequeSlipTextCalculator" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">determineSlipTextTitleAndEndLinesForSubTotalOrTotal</Method>
     <Method ActualExtensionTarget="CustVendChequeSlipTextCalculator" IsStatic="False" CocMethodDelegateElementOwner="CustVendChequeSlipTextCalculator" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">determineSlipTextAndEndLinesAdjustmentForBankChequePaymTrans</Method>
   </ExtensionClass>
-  <ExtensionClass Name="SIGChequeTmp_Extension" ExtensionTarget="ChequeTmp" ExtensionTargetType="TableTypeId">
-    <Method ActualExtensionTarget="ChequeTmp" IsStatic="False" CocMethodDelegateElementOwner="ChequeTmp" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="True" IsReplacementMethod="False">insert</Method>
-  </ExtensionClass>
   <ExtensionClass Name="RADPSAProjInvoiceDP_Extension" ExtensionTarget="PsaProjInvoiceDP" ExtensionTargetType="ClassTypeId">
     <Method ActualExtensionTarget="PsaProjInvoiceDP" IsStatic="False" CocMethodDelegateElementOwner="PsaProjInvoiceDP" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">initFromProjProposalOnAcc</Method>
     <Method ActualExtensionTarget="PsaProjInvoiceDP" IsStatic="False" CocMethodDelegateElementOwner="PsaProjInvoiceDP" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">initFromProjProposalEmpl</Method>
@@ -34,6 +34,9 @@
     <Method ActualExtensionTarget="PsaProjInvoiceDP" IsStatic="False" CocMethodDelegateElementOwner="PsaProjInvoiceDP" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">populatePSAProjInvoiceHeaderTmp</Method>
     <Method ActualExtensionTarget="PsaProjInvoiceDP" IsStatic="False" CocMethodDelegateElementOwner="PsaProjInvoiceDP" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">initFromProjInvoiceCost</Method>
     <Method ActualExtensionTarget="PsaProjInvoiceDP" IsStatic="False" CocMethodDelegateElementOwner="PsaProjInvoiceDP" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">initFromProjProposalCost</Method>
+  </ExtensionClass>
+  <ExtensionClass Name="SIGChequeTmp_Extension" ExtensionTarget="ChequeTmp" ExtensionTargetType="TableTypeId">
+    <Method ActualExtensionTarget="ChequeTmp" IsStatic="False" CocMethodDelegateElementOwner="ChequeTmp" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="True" IsReplacementMethod="False">insert</Method>
   </ExtensionClass>
   <ExtensionClass Name="SIGProjInvoiceControl_Extension" ExtensionTarget="General" ExtensionTargetType="ClassTypeId">
     <Method ActualExtensionTarget="General" IsStatic="False" CocMethodDelegateElementOwner="FormDataSource" IsFormNestedTargetConcept="True" CoCRootFormName="ProjInvoiceControl" CoCNestedElementKind="FormDataSource" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">displayContractAmount</Method>
@@ -63,6 +66,7 @@
   </ExtensionClass>
   <ExtensionClass Name="SIGTSTimeSheetEntry_Extension" ExtensionTarget="Form.TSTimesheetEntry" ExtensionTargetType="FormTypeId">
     <Method ActualExtensionTarget="Form.TSTimesheetEntry" IsStatic="False" CocMethodDelegateElementOwner="TSTimesheetEntry" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">setDates</Method>
+    <Method ActualExtensionTarget="Form.TSTimesheetEntry" IsStatic="False" CocMethodDelegateElementOwner="TSTimesheetEntry" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">init</Method>
   </ExtensionClass>
   <ExtensionClass Name="SIGProjInvoiceJour_Extension" ExtensionTarget="ProjInvoiceJour" ExtensionTargetType="TableTypeId">
     <Method ActualExtensionTarget="ProjInvoiceJour" IsStatic="False" CocMethodDelegateElementOwner="ProjInvoiceJour" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">insert</Method>

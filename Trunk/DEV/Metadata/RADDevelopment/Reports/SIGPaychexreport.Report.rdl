@@ -731,7 +731,7 @@
         <ConnectString />
         <IntegratedSecurity>true</IntegratedSecurity>
       </ConnectionProperties>
-      <rd:DataSourceID>e5f099f1-c378-4884-a31d-60c663e2b67a</rd:DataSourceID>
+      <rd:DataSourceID>c4ce6860-5742-412e-a93a-99832e655ea7</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>

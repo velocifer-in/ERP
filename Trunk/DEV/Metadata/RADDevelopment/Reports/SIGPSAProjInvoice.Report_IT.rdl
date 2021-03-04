@@ -12519,7 +12519,7 @@
         <ConnectString />
         <IntegratedSecurity>true</IntegratedSecurity>
       </ConnectionProperties>
-      <rd:DataSourceID>64076f10-fddc-4697-aaf7-9e82d5b37cbc</rd:DataSourceID>
+      <rd:DataSourceID>b487f242-fb0f-401e-8cc1-6ab7d46f4f07</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
