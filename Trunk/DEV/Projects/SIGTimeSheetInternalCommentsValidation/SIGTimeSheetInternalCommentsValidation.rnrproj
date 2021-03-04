@@ -74,6 +74,11 @@
       <Name>SIGTSTimesheetTable_Extension</Name>
       <Link>Classes\SIGTSTimesheetTable_Extension</Link>
     </Content>
+    <Content Include="AxClass\SIGTsWorkflowActionManager_Extension">
+      <SubType>Content</SubType>
+      <Name>SIGTsWorkflowActionManager_Extension</Name>
+      <Link>Classes\SIGTsWorkflowActionManager_Extension</Link>
+    </Content>
     <Content Include="AxFormExtension\projProjectTransactionsListPage.RADDevelopment">
       <SubType>Content</SubType>
       <Name>projProjectTransactionsListPage.RADDevelopment</Name>

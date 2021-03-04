@@ -18,13 +18,14 @@ public final class SIGTSTimesheetLineWeek_Extension
         boolean     ret;
         int             idx    = 1;
 
-        next validateWrite();
+         next validateWrite();
         
         while (idx <= #daysPerWeek)
         {
             if (this.Hours[idx] && this.InternalComments[idx] == "")
             {
                ret = checkFailed(strFmt('Internal notes should not be blank for %1',(this.DayFrom + idx -1))) ;
+              // throw error(strFmt('Internal notes should not be blank for %1',(this.DayFrom + idx -1)));
             }
             else
             {
