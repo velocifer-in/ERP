@@ -129,6 +129,11 @@
       <Name>ProjPostedTransTable.RADDevelopment</Name>
       <Link>Table Extensions\ProjPostedTransTable.RADDevelopment</Link>
     </Content>
+    <Content Include="AxTableExtension\PSATmpProjProposalTrans.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>PSATmpProjProposalTrans.RADDevelopment</Name>
+      <Link>Table Extensions\PSATmpProjProposalTrans.RADDevelopment</Link>
+    </Content>
     <Content Include="AxTableExtension\TSTimesheetTable.RADDevelopment">
       <SubType>Content</SubType>
       <Name>TSTimesheetTable.RADDevelopment</Name>

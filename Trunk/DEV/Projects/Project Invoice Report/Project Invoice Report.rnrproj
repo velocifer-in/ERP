@@ -36,6 +36,7 @@
     <Folder Include="Classes\" />
     <Folder Include="EDT Extensions\" />
     <Folder Include="Form Extensions\" />
+    <Folder Include="Menu Extensions\" />
     <Folder Include="Output Menu Item Extensions\" />
     <Folder Include="Reports\" />
     <Folder Include="Simple Query Extensions\" />
@@ -106,6 +107,16 @@
       <SubType>Content</SubType>
       <Name>ProjInvoiceProposalListPage.RADDevelopment</Name>
       <Link>Form Extensions\ProjInvoiceProposalListPage.RADDevelopment</Link>
+    </Content>
+    <Content Include="AxMenuExtension\ProjectManagementAndAccounting.Extension">
+      <SubType>Content</SubType>
+      <Name>ProjectManagementAndAccounting.Extension</Name>
+      <Link>Menu Extensions\ProjectManagementAndAccounting.Extension</Link>
+    </Content>
+    <Content Include="AxMenuExtension\ProjectManagementAndAccounting.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>ProjectManagementAndAccounting.RADDevelopment</Name>
+      <Link>Menu Extensions\ProjectManagementAndAccounting.RADDevelopment</Link>
     </Content>
     <Content Include="AxMenuItemOutputExtension\PSAProjInvoice.Extension">
       <SubType>Content</SubType>

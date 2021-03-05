@@ -12,15 +12,6 @@
 				<MenuItemType>Output</MenuItemType>
 			</MenuElement>
 		</AxMenuExtensionElement>
-		<AxMenuExtensionElement xmlns="">
-			<Parent>InquiriesAndReports</Parent>
-			<MenuElement xmlns=""
-				i:type="AxMenuElementMenuItem">
-				<Name>RADEmployeeTSAndUtilizationReport</Name>
-				<MenuItemName>RADEmployeeTSAndUtilizationReport</MenuItemName>
-				<MenuItemType>Output</MenuItemType>
-			</MenuElement>
-		</AxMenuExtensionElement>
 	</Elements>
 	<MenuElementModifications />
 	<PropertyModifications />

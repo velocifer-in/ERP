@@ -70,6 +70,11 @@
       <Name>Payroll.RADDevelopment</Name>
       <Link>Menu Extensions\Payroll.RADDevelopment</Link>
     </Content>
+    <Content Include="AxMenuExtension\ProjectManagementAndAccounting.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>ProjectManagementAndAccounting.RADDevelopment</Name>
+      <Link>Menu Extensions\ProjectManagementAndAccounting.RADDevelopment</Link>
+    </Content>
     <Content Include="AxMenuItemOutput\RADEmployeeTSAndUtilizationReport">
       <SubType>Content</SubType>
       <Name>RADEmployeeTSAndUtilizationReport</Name>
