@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SIGTsWorkflowActionManager_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[ExtensionOf(classStr(TsWorkflowActionManager))]
+final class SIGTsWorkflowActionManager_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>run</Name>
+				<Source><![CDATA[
+    public void run(Args _args)
+    {
+        TSTimesheetTable tsTimesheetTable;
+        Common callerRecord = _args.record();
+        tsTimesheetTable = callerRecord as TSTimesheetTable;
+        TSTimesheetLineWeek     timeSheetLineWeek;
+       
+        #TimeConstants
+
+        while select timeSheetLineWeek where timeSheetLineWeek.TimesheetNbr == tsTimesheetTable.TimesheetNbr
+        {
+            int             idx    = 1;
+            while (idx <= #daysPerWeek)
+            {
+                if (timeSheetLineWeek.Hours[idx] && timeSheetLineWeek.InternalComments[idx] == "")
+                {
+                    throw Error(strFmt('Internal notes should not be blank for %1 ',(timeSheetLineWeek.DayFrom + idx -1))) ;
+                    
+                }
+               
+                idx++;
+            }
+        }
+
+        next run(_args);
+
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>
