@@ -44,6 +44,13 @@
 			<ExtendedDataType>ProjId</ExtendedDataType>
 			<Mandatory>Yes</Mandatory>
 		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>SIGProjectName</Name>
+			<AliasFor>ProjId</AliasFor>
+			<AssetClassification>Customer Content</AssetClassification>
+			<ExtendedDataType>ProjName</ExtendedDataType>
+		</AxTableField>
 	</Fields>
 	<FullTextIndexes />
 	<Indexes />

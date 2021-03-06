@@ -17,6 +17,19 @@
 			<Parent>Grid</Parent>
 		</AxFormExtensionControl>
 		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControludue3c3f1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormStringControl">
+				<Name>CustTransOpen_SIGProjectName</Name>
+				<Type>String</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<DataField>SIGProjectName</DataField>
+				<DataSource>CustTransOpen</DataSource>
+			</FormControl>
+			<Parent>Grid</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
 			<Name>FormExtensionControlv2o2ikty1</Name>
 			<FormControl xmlns=""
 				i:type="AxFormComboBoxControl">

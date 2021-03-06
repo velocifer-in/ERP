@@ -35,7 +35,9 @@
   <ItemGroup>
     <Folder Include="Action Menu Items\" />
     <Folder Include="Classes\" />
+    <Folder Include="Form Extensions\" />
     <Folder Include="Menu Extensions\" />
+    <Folder Include="Table Extensions\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AxClass\SIGCustOpenInvoiceUpdation">
@@ -53,6 +55,11 @@
       <Name>SIGProjInvoiceJourUpdation</Name>
       <Link>Classes\SIGProjInvoiceJourUpdation</Link>
     </Content>
+    <Content Include="AxFormExtension\CustOpenInvoicesListPage.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>CustOpenInvoicesListPage.RADDevelopment</Name>
+      <Link>Form Extensions\CustOpenInvoicesListPage.RADDevelopment</Link>
+    </Content>
     <Content Include="AxMenuExtension\SystemAdministration.RADDevelopment">
       <SubType>Content</SubType>
       <Name>SystemAdministration.RADDevelopment</Name>
@@ -62,6 +69,11 @@
       <SubType>Content</SubType>
       <Name>SIGProjInvoiceJourUpdation</Name>
       <Link>Action Menu Items\SIGProjInvoiceJourUpdation</Link>
+    </Content>
+    <Content Include="AxTableExtension\CustTransOpen.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>CustTransOpen.RADDevelopment</Name>
+      <Link>Table Extensions\CustTransOpen.RADDevelopment</Link>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />

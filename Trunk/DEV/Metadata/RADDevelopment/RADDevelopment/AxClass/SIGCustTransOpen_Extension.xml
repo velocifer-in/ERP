@@ -23,6 +23,7 @@ final class SIGCustTransOpen_Extension
         projInvoiceJour = ProjInvoiceJour::find(custTrans.Invoice, custTrans.TransDate);
 
         this.SIGProjId                      = projInvoiceJour.SIGProjId;
+        this.SIGProjectName                 = projInvoiceJour.SIGProjectName;
         this.SIGProjType                    = projInvoiceJour.SIGProjType;
         this.SIGWorkerResponsible           = projInvoiceJour.SIGWorkerResponsible;
         this.SIGWorkerResponsibleFinancial  = projInvoiceJour.SIGWorkerResponsibleFinancial;

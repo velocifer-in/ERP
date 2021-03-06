@@ -2,7 +2,7 @@
 <AxModelInfo xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
 	<AppliedUpdates xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
 	<Customization>Allow</Customization>
-	<Description>SIGDevelopment Build number : 10.0.13.44</Description>
+	<Description>SIGDevelopment Build number : 10.0.13.45</Description>
 	<DisplayName>SIGDevelopment</DisplayName>
 	<Id>895972580</Id>
 	<InternalsVisibleTo xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
@@ -41,5 +41,5 @@
 	<VersionBuild>13</VersionBuild>
 	<VersionMajor>10</VersionMajor>
 	<VersionMinor>0</VersionMinor>
-	<VersionRevision>44</VersionRevision>
+	<VersionRevision>45</VersionRevision>
 </AxModelInfo>

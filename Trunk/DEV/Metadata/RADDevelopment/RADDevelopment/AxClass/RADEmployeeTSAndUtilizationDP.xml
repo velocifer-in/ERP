@@ -257,7 +257,7 @@ class RADEmployeeTSAndUtilizationDP extends SRSReportDataProviderBase
         insert_recordset payCheckDetailsTmp(Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence,LinePropertyId,TimesheetNbr,TransId )
             select Resource,ResourceName,CategoryId,Hours,TotalHours,HcmPersonnelNumberId,StartDate,EndDate,RADPayCalc,DefaultProfileId,RADEmployeeType,RADLeaveAndAbsence,LinePropertyId,TimesheetNbr,TransId  from payCheckTmp;
 
-        TSHoursTotal        otHoursSIG, utilizationExlHolPLSIG , utilizationAllHoursSIG,personalLeave,holiday,leaveWithoutPay,overHead;
+        TSHoursTotal        otHoursSIG, utilizationExlHolPLSIG , utilizationAllHoursSIG,personalLeave,holiday,leaveWithoutPay,overHead,utilBaseHours;
         TSTimesheetTrans    timeSheetTrans;
         ProjJournalTrans    projJournalTrans;
         TSHoursTotal        billableHours,nonBillableHours,invoicedAmount;
@@ -276,6 +276,7 @@ class RADEmployeeTSAndUtilizationDP extends SRSReportDataProviderBase
             leaveWithoutPay         = 0;
             invoicedAmount          = 0;
             overHead                = 0;
+            utilBaseHours           = 0;
 
             while select payCheckDetailsTmp where payCheckDetailsTmp.HcmPersonnelNumberId == payCheckTmp.HcmPersonnelNumberId
             {
@@ -350,7 +351,18 @@ class RADEmployeeTSAndUtilizationDP extends SRSReportDataProviderBase
             }
             else
             {
-                employeeTSAndUtilizationTmp.UtilBaseAllHours            = JmgPayAgreementTable::find( employeeTSAndUtilizationTmp.HourlySalaried).RADUtilBaseDays;
+                utilBaseHours = JmgPayAgreementTable::find( employeeTSAndUtilizationTmp.HourlySalaried).RADUtilBaseDays;
+
+                if(utilizationAllHoursSIG < 40)
+                {
+                    utilBaseHours = utilizationAllHoursSIG  - personalLeave -  holiday - leaveWithoutPay;
+                }
+                else
+                {
+                    utilBaseHours = utilBaseHours - personalLeave -  holiday - leaveWithoutPay;
+                }
+
+                employeeTSAndUtilizationTmp.UtilBaseAllHours            = utilBaseHours;
                 //employeeTSAndUtilizationTmp.Regular                     = employeeTSAndUtilizationTmp.UtilBaseAllHours;
                 employeeTSAndUtilizationTmp.UtilBaseExlHolPL            = employeeTSAndUtilizationTmp.Regular  -  personalLeave -  holiday;
             }
@@ -369,7 +381,7 @@ class RADEmployeeTSAndUtilizationDP extends SRSReportDataProviderBase
             employeeTSAndUtilizationTmp.Holiday                 = holiday;
             employeeTSAndUtilizationTmp.WithoutPay              = leaveWithoutPay;
             employeeTSAndUtilizationTmp.StartDate               = parmStartDate;//payCheckDetailsTmp.StartDate;
-            employeeTSAndUtilizationTmp.Total                   = employeeTSAndUtilizationTmp.BillableHours + personalLeave +  holiday + leaveWithoutPay;;
+            employeeTSAndUtilizationTmp.Total                   = employeeTSAndUtilizationTmp.BillableHours + personalLeave +  holiday + leaveWithoutPay;
             employeeTSAndUtilizationTmp.EndDate                 = parmEndDate;//payCheckDetailsTmp.EndDate;
             employeeTSAndUtilizationTmp.insert();
 

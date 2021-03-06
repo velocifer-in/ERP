@@ -45,6 +45,7 @@ class SIGCustOpenInvoiceUpdation  extends RunBaseBatch
             if (projInvoiceJour)
             {
                 custTransOpen.SIGProjId                      = projInvoiceJour.SIGProjId;
+                custTransOpen.SIGProjectName                 = projInvoiceJour.SIGProjectName;
                 custTransOpen.SIGProjType                    = projInvoiceJour.SIGProjType;
                 custTransOpen.SIGWorkerResponsible           = projInvoiceJour.SIGWorkerResponsible;
                 custTransOpen.SIGWorkerResponsibleFinancial  = projInvoiceJour.SIGWorkerResponsibleFinancial;
