@@ -277,7 +277,7 @@ class RADEmployeeTSAndUtilizationDP extends SRSReportDataProviderBase
             invoicedAmount          = 0;
             overHead                = 0;
             utilBaseHours           = 0;
-
+            employeeTSAndUtilizationTmp.UtilizationAllHours = 0;
             while select payCheckDetailsTmp where payCheckDetailsTmp.HcmPersonnelNumberId == payCheckTmp.HcmPersonnelNumberId
             {
                 
@@ -345,7 +345,7 @@ class RADEmployeeTSAndUtilizationDP extends SRSReportDataProviderBase
 
             if (JmgPayAgreementTable::find( employeeTSAndUtilizationTmp.HourlySalaried).RADEmployeeType == RADEmployeeType::Hourly)
             {
-                employeeTSAndUtilizationTmp.UtilBaseAllHours            = utilizationAllHoursSIG;//JmgPayAgreementTable::find( employeeTSAndUtilizationTmp.HourlySalaried).RADUtilBaseDays;
+                employeeTSAndUtilizationTmp.UtilBaseAllHours            = utilizationAllHoursSIG  - personalLeave -  holiday - leaveWithoutPay;//JmgPayAgreementTable::find( employeeTSAndUtilizationTmp.HourlySalaried).RADUtilBaseDays;
                 //employeeTSAndUtilizationTmp.Regular                     = utilizationAllHoursSIG;
                 employeeTSAndUtilizationTmp.UtilBaseExlHolPL            = employeeTSAndUtilizationTmp.Regular + otHoursSIG  -  personalLeave -  holiday - leaveWithoutPay;
             }
