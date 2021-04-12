@@ -39,6 +39,8 @@ Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "RADProjectSalesPriceExpence
 EndProject
 Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "SIGCustOpenInvoice (USR) [SIGDevelopment]", "SIGCustOpenInvoice\SIGCustOpenInvoice.rnrproj", "{963EF8C6-37D5-40D5-A7F9-9F5EC54A800B}"
 EndProject
+Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "SIGTimeSheetDetails (USR) [SIGDevelopment]", "SIGTimeSheetDetails\SIGTimeSheetDetails.rnrproj", "{046ED5E8-6127-4611-A0F7-7BAA41DCABE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,12 +82,14 @@ Global
 		{C309E046-0D05-4C52-8DA5-830B700F0664}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{963EF8C6-37D5-40D5-A7F9-9F5EC54A800B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{963EF8C6-37D5-40D5-A7F9-9F5EC54A800B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{046ED5E8-6127-4611-A0F7-7BAA41DCABE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{046ED5E8-6127-4611-A0F7-7BAA41DCABE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 19
+		SccNumberOfProjects = 20
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/erpsig
 		SccLocalPath0 = .
@@ -143,5 +147,8 @@ Global
 		SccProjectUniqueName18 = SIGCustOpenInvoice\\SIGCustOpenInvoice.rnrproj
 		SccProjectName18 = SIGCustOpenInvoice
 		SccLocalPath18 = SIGCustOpenInvoice
+		SccProjectUniqueName19 = SIGTimeSheetDetails\\SIGTimeSheetDetails.rnrproj
+		SccProjectName19 = SIGTimeSheetDetails
+		SccLocalPath19 = SIGTimeSheetDetails
 	EndGlobalSection
 EndGlobal

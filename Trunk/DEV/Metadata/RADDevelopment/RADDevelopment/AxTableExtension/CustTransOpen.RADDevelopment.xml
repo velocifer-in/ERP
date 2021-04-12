@@ -39,10 +39,8 @@
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">
 			<Name>SIGProjId</Name>
-			<AllowEdit>No</AllowEdit>
 			<AssetClassification>Customer Content</AssetClassification>
 			<ExtendedDataType>ProjId</ExtendedDataType>
-			<Mandatory>Yes</Mandatory>
 		</AxTableField>
 		<AxTableField xmlns=""
 			i:type="AxTableFieldString">

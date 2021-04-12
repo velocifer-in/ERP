@@ -75,6 +75,15 @@
 				<MenuItemType>Action</MenuItemType>
 			</MenuElement>
 		</AxMenuExtensionElement>
+		<AxMenuExtensionElement xmlns="">
+			<Parent>Periodic</Parent>
+			<MenuElement xmlns=""
+				i:type="AxMenuElementMenuItem">
+				<Name>SIGTimeSheetLineUpdationBatch</Name>
+				<MenuItemName>SIGTimeSheetLineUpdationBatch</MenuItemName>
+				<MenuItemType>Action</MenuItemType>
+			</MenuElement>
+		</AxMenuExtensionElement>
 	</Elements>
 	<MenuElementModifications />
 	<PropertyModifications />

@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <BuildTasksDirectory Condition=" '$(BuildTasksDirectory)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Dynamics\AX</BuildTasksDirectory>
+    <Model>RADDevelopment</Model>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <OutputPath>bin</OutputPath>
+    <SchemaVersion>2.0</SchemaVersion>
+    <GenerateCrossReferences>True</GenerateCrossReferences>
+    <ProjectGuid>{046ed5e8-6127-4611-a0f7-7baa41dcabe6}</ProjectGuid>
+    <Name>SIGTimeSheetDetails</Name>
+    <RootNamespace>SIGTimeSheetDetails</RootNamespace>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+    <StartupType>MenuItemOutput</StartupType>
+    <StartupObject>SIGTimeSheetDetailsReport</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Configuration>Debug</Configuration>
+    <DBSyncInBuild>False</DBSyncInBuild>
+    <GenerateFormAdaptors>False</GenerateFormAdaptors>
+    <Company>RILC</Company>
+    <Partition>initial</Partition>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
+    <DataEntityUseLabelTextAsFieldName>False</DataEntityUseLabelTextAsFieldName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Action Menu Items\" />
+    <Folder Include="Classes\" />
+    <Folder Include="Menu Extensions\" />
+    <Folder Include="Output Menu Items\" />
+    <Folder Include="Reports\" />
+    <Folder Include="Tables\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AxClass\SIGTimeSheetDetailsContract">
+      <SubType>Content</SubType>
+      <Name>SIGTimeSheetDetailsContract</Name>
+      <Link>Classes\SIGTimeSheetDetailsContract</Link>
+    </Content>
+    <Content Include="AxClass\SIGTimeSheetDetailsDP">
+      <SubType>Content</SubType>
+      <Name>SIGTimeSheetDetailsDP</Name>
+      <Link>Classes\SIGTimeSheetDetailsDP</Link>
+    </Content>
+    <Content Include="AxClass\SIGTimeSheetDetailsUIBuilder">
+      <SubType>Content</SubType>
+      <Name>SIGTimeSheetDetailsUIBuilder</Name>
+      <Link>Classes\SIGTimeSheetDetailsUIBuilder</Link>
+    </Content>
+    <Content Include="AxClass\SIGTimeSheetLineUpdationBatch">
+      <SubType>Content</SubType>
+      <Name>SIGTimeSheetLineUpdationBatch</Name>
+      <Link>Classes\SIGTimeSheetLineUpdationBatch</Link>
+    </Content>
+    <Content Include="AxMenuExtension\SystemAdministration.RADDevelopment">
+      <SubType>Content</SubType>
+      <Name>SystemAdministration.RADDevelopment</Name>
+      <Link>Menu Extensions\SystemAdministration.RADDevelopment</Link>
+    </Content>
+    <Content Include="AxMenuItemAction\SIGTimeSheetLineUpdationBatch">
+      <SubType>Content</SubType>
+      <Name>SIGTimeSheetLineUpdationBatch</Name>
+      <Link>Action Menu Items\SIGTimeSheetLineUpdationBatch</Link>
+    </Content>
+    <Content Include="AxMenuItemOutput\SIGTimeSheetDetailsReport">
+      <SubType>Content</SubType>
+      <Name>SIGTimeSheetDetailsReport</Name>
+      <Link>Output Menu Items\SIGTimeSheetDetailsReport</Link>
+    </Content>
+    <Content Include="AxReport\SIGTimeSheetDetailsReport">
+      <SubType>Content</SubType>
+      <Name>SIGTimeSheetDetailsReport</Name>
+      <Link>Reports\SIGTimeSheetDetailsReport</Link>
+    </Content>
+    <Content Include="AxTable\SIGTimeSheetDetailsTmp">
+      <SubType>Content</SubType>
+      <Name>SIGTimeSheetDetailsTmp</Name>
+      <Link>Tables\SIGTimeSheetDetailsTmp</Link>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
+  <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.targets" />
+</Project>

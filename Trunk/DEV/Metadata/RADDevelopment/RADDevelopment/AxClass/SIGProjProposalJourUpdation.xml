@@ -34,7 +34,7 @@ class SIGProjProposalJourUpdation extends RunBaseBatch
             projProposalJour   = ProjProposalJour::find(psaProjProposalProj.ProjProposalId,true);
             projTable          = ProjTable::find(psaProjProposalProj.ProjId);
 
-            if (!projProposalJour.SIGProjId || (projProposalJour.SIGProjId != '' && ProjTable::getRootProjId(projProposalJour.SIGProjId) != projProposalJour.SIGProjId))
+           // if (!projProposalJour.SIGProjId || (projProposalJour.SIGProjId != '' && ProjTable::getRootProjId(projProposalJour.SIGProjId) != projProposalJour.SIGProjId))
             {
                 ttsbegin;
                 projProposalJour.SIGProjId                      = psaProjProposalProj.ProjId;

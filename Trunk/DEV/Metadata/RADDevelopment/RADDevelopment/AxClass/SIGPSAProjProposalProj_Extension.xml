@@ -31,14 +31,35 @@ public final class SIGPSAProjProposalProj_Extension
             projProposalJour.SIGProjType                    = projTable.Type;
             projProposalJour.SIGWorkerResponsible           = projTable.WorkerResponsible;
             projProposalJour.SIGWorkerResponsibleFinancial  = projTable.WorkerResponsibleFinancial;
-            projProposalJour.SIGBusinessUnit                = SIGDimensionHelper::getValueByDefaultDimension(projTable.DefaultDimension,'BusinessUnit');
-            projProposalJour.SIGCostCenter                  = SIGDimensionHelper::getValueByDefaultDimension(projTable.DefaultDimension,'CostCenter');
+            projProposalJour.SIGBusinessUnit                = this.getDisplayName(projTable.DefaultDimension,'BusinessUnit');//SIGDimensionHelper::getValueByDefaultDimension(projTable.DefaultDimension,'BusinessUnit');
+            projProposalJour.SIGCostCenter                  = this.getDisplayName(projTable.DefaultDimension,'CostCenter');//SIGDimensionHelper::getValueByDefaultDimension(projTable.DefaultDimension,'CostCenter');
             
             //if (projProposalJour.SIGProjectedEndDate > this.sig)
 
             projProposalJour.doUpdate();
             ttscommit;
         }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getDisplayName</Name>
+				<Source><![CDATA[
+    public Description getDisplayName(DimensionDefault  _dimensionDefault, Name _dimensionName)
+    {
+        DimensionAttributeValueSetItem  dimensionAttributeValueSetItem;
+        DimensionAttributeValue         dimensionAttributeValue;
+        DimensionAttribute              dimensionAttribute;
+        
+
+        select firstonly dimensionAttributeValueSetItem
+        where dimensionAttributeValueSetItem.DimensionAttributeValueSet == _dimensionDefault
+        join dimensionAttributeValue where dimensionAttributeValue.RecId == dimensionAttributeValueSetItem.DimensionAttributeValue
+        join dimensionAttribute where dimensionAttribute.RecId == dimensionAttributeValue.DimensionAttribute &&
+        dimensionAttribute.Name Like _dimensionName;//"BusinessUnit";
+       
+        return dimensionAttributeValue.getName();//Info(strFmt("%1 %2",dimensionAttributeValue.getName()));
     }
 
 ]]></Source>
