@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxSecurityPolicy xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>RADProductsIncomeFinancialPolicy</Name>
+	<ConstrainedTable>Yes</ConstrainedTable>
+	<ContextString>RADProductsIncomeFinancialReport</ContextString>
+	<ContextType>RoleProperty</ContextType>
+	<Label>RAD Products Income Financial Report</Label>
+	<PrimaryTable>FinancialReports</PrimaryTable>
+	<Query>RADProductsIncomeFinancialReport</Query>
+	<ConstrainedTables />
+</AxSecurityPolicy>

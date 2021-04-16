@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxSecurityRole xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>RADCMTIncomeFinancialMaintain</Name>
+	<ContextString>RADCMTIncomeFinancialReport</ContextString>
+	<Label>RAD CMT Income Financial Maintain</Label>
+	<DirectAccessPermissions />
+	<Duties />
+	<Privileges>
+		<AxSecurityPrivilegeReference>
+			<Name>FinancialReportsView</Name>
+		</AxSecurityPrivilegeReference>
+	</Privileges>
+	<SubRoles />
+</AxSecurityRole>

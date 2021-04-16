@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxSecurityPrivilege xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>RADFinancialReportNoAccess</Name>
+	<DataEntityPermissions />
+	<DirectAccessPermissions />
+	<EntryPoints>
+		<AxSecurityEntryPointReference>
+			<Name>FinancialReports</Name>
+			<Grant>
+				<Correct>Deny</Correct>
+				<Create>Deny</Create>
+				<Delete>Deny</Delete>
+				<Invoke>Deny</Invoke>
+				<Read>Deny</Read>
+				<Update>Deny</Update>
+			</Grant>
+			<GrantCurrentData>
+				<Correct>Deny</Correct>
+				<Create>Deny</Create>
+				<Delete>Deny</Delete>
+				<Invoke>Deny</Invoke>
+				<Read>Deny</Read>
+				<Update>Deny</Update>
+			</GrantCurrentData>
+			<GrantFutureData>
+				<Correct>Deny</Correct>
+				<Create>Deny</Create>
+				<Delete>Deny</Delete>
+				<Invoke>Deny</Invoke>
+				<Read>Deny</Read>
+				<Update>Deny</Update>
+			</GrantFutureData>
+			<GrantPastData>
+				<Correct>Deny</Correct>
+				<Create>Deny</Create>
+				<Delete>Deny</Delete>
+				<Invoke>Deny</Invoke>
+				<Read>Deny</Read>
+				<Update>Deny</Update>
+			</GrantPastData>
+			<ObjectName>FinancialReports</ObjectName>
+			<ObjectType>MenuItemDisplay</ObjectType>
+			<Forms>
+				<AxSecurityEntryPointReferenceForm>
+					<Name>FinancialReports</Name>
+					<Controls />
+					<DataSources />
+				</AxSecurityEntryPointReferenceForm>
+			</Forms>
+		</AxSecurityEntryPointReference>
+	</EntryPoints>
+	<FormControlOverrides />
+</AxSecurityPrivilege>
