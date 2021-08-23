@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1525
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "RADCustInvoiceAmountyear (USR) [SIGDevelopment]", "RADCustInvoiceAmountyear\RADCustInvoiceAmountyear.rnrproj", "{FF6D6451-D92E-4D83-8F57-0052466E65C4}"
 EndProject
@@ -40,6 +40,8 @@ EndProject
 Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "SIGCustOpenInvoice (USR) [SIGDevelopment]", "SIGCustOpenInvoice\SIGCustOpenInvoice.rnrproj", "{963EF8C6-37D5-40D5-A7F9-9F5EC54A800B}"
 EndProject
 Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "SIGTimeSheetDetails (USR) [SIGDevelopment]", "SIGTimeSheetDetails\SIGTimeSheetDetails.rnrproj", "{046ED5E8-6127-4611-A0F7-7BAA41DCABE6}"
+EndProject
+Project("{FC65038C-1B2F-41E1-A629-BED71D161FFF}") = "ESS_FA_CodeCorrection (VAR) [ESSFA]", "ESS_FA_CodeCorrection\ESS_FA_CodeCorrection.rnrproj", "{326813AB-646B-42CD-B1B4-BC99C2958A33}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,12 +86,17 @@ Global
 		{963EF8C6-37D5-40D5-A7F9-9F5EC54A800B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{046ED5E8-6127-4611-A0F7-7BAA41DCABE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{046ED5E8-6127-4611-A0F7-7BAA41DCABE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{326813AB-646B-42CD-B1B4-BC99C2958A33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{326813AB-646B-42CD-B1B4-BC99C2958A33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4226926B-74FB-4E67-9CCE-517C0B9C3E7C}
+	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 20
+		SccNumberOfProjects = 21
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://dev.azure.com/erpsig
 		SccLocalPath0 = .
@@ -150,5 +157,8 @@ Global
 		SccProjectUniqueName19 = SIGTimeSheetDetails\\SIGTimeSheetDetails.rnrproj
 		SccProjectName19 = SIGTimeSheetDetails
 		SccLocalPath19 = SIGTimeSheetDetails
+		SccProjectUniqueName20 = ESS_FA_CodeCorrection\\ESS_FA_CodeCorrection.rnrproj
+		SccProjectName20 = ESS_FA_CodeCorrection
+		SccLocalPath20 = ESS_FA_CodeCorrection
 	EndGlobalSection
 EndGlobal
