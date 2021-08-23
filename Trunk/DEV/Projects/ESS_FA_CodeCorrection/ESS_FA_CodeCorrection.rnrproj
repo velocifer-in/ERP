@@ -1,0 +1,389 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <BuildTasksDirectory Condition=" '$(BuildTasksDirectory)' == ''">$(MSBuildProgramFiles32)\MSBuild\Microsoft\Dynamics\AX</BuildTasksDirectory>
+    <Model>ESSFA</Model>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <OutputPath>bin</OutputPath>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{326813ab-646b-42cd-b1b4-bc99c2958a33}</ProjectGuid>
+    <Name>ESS_FA_CodeCorrection</Name>
+    <RootNamespace>ESS_FA_CodeCorrection</RootNamespace>
+    <StartupType>Class</StartupType>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <Configuration>Debug</Configuration>
+    <DBSyncInBuild>True</DBSyncInBuild>
+    <GenerateFormAdaptors>False</GenerateFormAdaptors>
+    <Company>
+    </Company>
+    <Partition>initial</Partition>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DataEntityExpandParentChildRelations>False</DataEntityExpandParentChildRelations>
+    <DataEntityUseLabelTextAsFieldName>False</DataEntityUseLabelTextAsFieldName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Action Menu Items\" />
+    <Folder Include="Base Enum Extensions\" />
+    <Folder Include="Base Enums\" />
+    <Folder Include="Classes\" />
+    <Folder Include="Display Menu Items\" />
+    <Folder Include="EDT Extensions\" />
+    <Folder Include="Extended Data Types\" />
+    <Folder Include="Form Extensions\" />
+    <Folder Include="Forms\" />
+    <Folder Include="Menu Extensions\" />
+    <Folder Include="Table Extensions\" />
+    <Folder Include="Tables\" />
+    <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AxClass\AssetBookTbl_Extension">
+      <SubType>Content</SubType>
+      <Name>AssetBookTbl_Extension</Name>
+      <Link>Classes\AssetBookTbl_Extension</Link>
+    </Content>
+    <Content Include="AxClass\AssetMgmt_ExtensionES">
+      <SubType>Content</SubType>
+      <Name>AssetMgmt_ExtensionES</Name>
+      <Link>Classes\AssetMgmt_ExtensionES</Link>
+    </Content>
+    <Content Include="AxClass\AssetProposalDepreciationSplit_ES">
+      <SubType>Content</SubType>
+      <Name>AssetProposalDepreciationSplit_ES</Name>
+      <Link>Classes\AssetProposalDepreciationSplit_ES</Link>
+    </Content>
+    <Content Include="AxClass\clearDimensionCache">
+      <SubType>Content</SubType>
+      <Name>clearDimensionCache</Name>
+      <Link>Classes\clearDimensionCache</Link>
+    </Content>
+    <Content Include="AxClass\CommonMethods_ES">
+      <SubType>Content</SubType>
+      <Name>CommonMethods_ES</Name>
+      <Link>Classes\CommonMethods_ES</Link>
+    </Content>
+    <Content Include="AxClass\ESS_AssetMove">
+      <SubType>Content</SubType>
+      <Name>ESS_AssetMove</Name>
+      <Link>Classes\ESS_AssetMove</Link>
+    </Content>
+    <Content Include="AxClass\ESS_AssetParameters">
+      <SubType>Content</SubType>
+      <Name>ESS_AssetParameters</Name>
+      <Link>Classes\ESS_AssetParameters</Link>
+    </Content>
+    <Content Include="AxClass\ESS_AssetProposalDepreciationSplit">
+      <SubType>Content</SubType>
+      <Name>ESS_AssetProposalDepreciationSplit</Name>
+      <Link>Classes\ESS_AssetProposalDepreciationSplit</Link>
+    </Content>
+    <Content Include="AxClass\ESS_AssetStockJournalCheckPost">
+      <SubType>Content</SubType>
+      <Name>ESS_AssetStockJournalCheckPost</Name>
+      <Link>Classes\ESS_AssetStockJournalCheckPost</Link>
+    </Content>
+    <Content Include="AxClass\ESS_AssetTransferJournalCheckPost">
+      <SubType>Content</SubType>
+      <Name>ESS_AssetTransferJournalCheckPost</Name>
+      <Link>Classes\ESS_AssetTransferJournalCheckPost</Link>
+    </Content>
+    <Content Include="AxClass\LedgerJournalTablefrm_Extension">
+      <SubType>Content</SubType>
+      <Name>LedgerJournalTablefrm_Extension</Name>
+      <Link>Classes\LedgerJournalTablefrm_Extension</Link>
+    </Content>
+    <Content Include="AxClass\LedgerJournalTable_EventHandler">
+      <SubType>Content</SubType>
+      <Name>LedgerJournalTable_EventHandler</Name>
+      <Link>Classes\LedgerJournalTable_EventHandler</Link>
+    </Content>
+    <Content Include="AxClass\SMAServiceObjectRelationEvtHdlrClass">
+      <SubType>Content</SubType>
+      <Name>SMAServiceObjectRelationEvtHdlrClass</Name>
+      <Link>Classes\SMAServiceObjectRelationEvtHdlrClass</Link>
+    </Content>
+    <Content Include="AxClass\SMAServiceObjectRelationFormExtensionOverrides">
+      <SubType>Content</SubType>
+      <Name>SMAServiceObjectRelationFormExtensionOverrides</Name>
+      <Link>Classes\SMAServiceObjectRelationFormExtensionOverrides</Link>
+    </Content>
+    <Content Include="AxEdtExtension\AssetLocationId.ESSFA">
+      <SubType>Content</SubType>
+      <Name>AssetLocationId.ESSFA</Name>
+      <Link>EDT Extensions\AssetLocationId.ESSFA</Link>
+    </Content>
+    <Content Include="AxEdt\AssetListId_ES">
+      <SubType>Content</SubType>
+      <Name>AssetListId_ES</Name>
+      <Link>Extended Data Types\AssetListId_ES</Link>
+    </Content>
+    <Content Include="AxEdt\AssetLocId_ES">
+      <SubType>Content</SubType>
+      <Name>AssetLocId_ES</Name>
+      <Link>Extended Data Types\AssetLocId_ES</Link>
+    </Content>
+    <Content Include="AxEdt\AssetSiteId_ES">
+      <SubType>Content</SubType>
+      <Name>AssetSiteId_ES</Name>
+      <Link>Extended Data Types\AssetSiteId_ES</Link>
+    </Content>
+    <Content Include="AxEdt\AssetSuffix_ES">
+      <SubType>Content</SubType>
+      <Name>AssetSuffix_ES</Name>
+      <Link>Extended Data Types\AssetSuffix_ES</Link>
+    </Content>
+    <Content Include="AxEdt\AssetTransJourId_ES">
+      <SubType>Content</SubType>
+      <Name>AssetTransJourId_ES</Name>
+      <Link>Extended Data Types\AssetTransJourId_ES</Link>
+    </Content>
+    <Content Include="AxEnumExtension\LedgerJournalType.ESSFA">
+      <SubType>Content</SubType>
+      <Name>LedgerJournalType.ESSFA</Name>
+      <Link>Base Enum Extensions\LedgerJournalType.ESSFA</Link>
+    </Content>
+    <Content Include="AxEnum\AssetLocationType_ES">
+      <SubType>Content</SubType>
+      <Name>AssetLocationType_ES</Name>
+      <Link>Base Enums\AssetLocationType_ES</Link>
+    </Content>
+    <Content Include="AxEnum\AssetLocType_ES">
+      <SubType>Content</SubType>
+      <Name>AssetLocType_ES</Name>
+      <Link>Base Enums\AssetLocType_ES</Link>
+    </Content>
+    <Content Include="AxEnum\AssetStatus_ES">
+      <SubType>Content</SubType>
+      <Name>AssetStatus_ES</Name>
+      <Link>Base Enums\AssetStatus_ES</Link>
+    </Content>
+    <Content Include="AxEnum\AssetTransType_ES">
+      <SubType>Content</SubType>
+      <Name>AssetTransType_ES</Name>
+      <Link>Base Enums\AssetTransType_ES</Link>
+    </Content>
+    <Content Include="AxFormExtension\AssetParameters.ESSFA">
+      <SubType>Content</SubType>
+      <Name>AssetParameters.ESSFA</Name>
+      <Link>Form Extensions\AssetParameters.ESSFA</Link>
+    </Content>
+    <Content Include="AxFormExtension\AssetTable.ESSFA">
+      <SubType>Content</SubType>
+      <Name>AssetTable.ESSFA</Name>
+      <Link>Form Extensions\AssetTable.ESSFA</Link>
+    </Content>
+    <Content Include="AxFormExtension\LedgerJournalTable.ESSFA">
+      <SubType>Content</SubType>
+      <Name>LedgerJournalTable.ESSFA</Name>
+      <Link>Form Extensions\LedgerJournalTable.ESSFA</Link>
+    </Content>
+    <Content Include="AxFormExtension\LedgerJournalTransDaily.ESSFA">
+      <SubType>Content</SubType>
+      <Name>LedgerJournalTransDaily.ESSFA</Name>
+      <Link>Form Extensions\LedgerJournalTransDaily.ESSFA</Link>
+    </Content>
+    <Content Include="AxFormExtension\SMAServiceObjectRelation.ESSFA">
+      <SubType>Content</SubType>
+      <Name>SMAServiceObjectRelation.ESSFA</Name>
+      <Link>Form Extensions\SMAServiceObjectRelation.ESSFA</Link>
+    </Content>
+    <Content Include="AxForm\AssetJourTransLocTransfer_ES">
+      <SubType>Content</SubType>
+      <Name>AssetJourTransLocTransfer_ES</Name>
+      <Link>Forms\AssetJourTransLocTransfer_ES</Link>
+    </Content>
+    <Content Include="AxForm\AssetJourTransStock_ES">
+      <SubType>Content</SubType>
+      <Name>AssetJourTransStock_ES</Name>
+      <Link>Forms\AssetJourTransStock_ES</Link>
+    </Content>
+    <Content Include="AxForm\AssetTransferJourTrans_ES">
+      <SubType>Content</SubType>
+      <Name>AssetTransferJourTrans_ES</Name>
+      <Link>Forms\AssetTransferJourTrans_ES</Link>
+    </Content>
+    <Content Include="AxForm\ESS_AssetList">
+      <SubType>Content</SubType>
+      <Name>ESS_AssetList</Name>
+      <Link>Forms\ESS_AssetList</Link>
+    </Content>
+    <Content Include="AxForm\ESS_AssetLocationTable">
+      <SubType>Content</SubType>
+      <Name>ESS_AssetLocationTable</Name>
+      <Link>Forms\ESS_AssetLocationTable</Link>
+    </Content>
+    <Content Include="AxForm\ESS_FAssetStockHistory">
+      <SubType>Content</SubType>
+      <Name>ESS_FAssetStockHistory</Name>
+      <Link>Forms\ESS_FAssetStockHistory</Link>
+    </Content>
+    <Content Include="AxForm\ESS_FAssetTransferHistory">
+      <SubType>Content</SubType>
+      <Name>ESS_FAssetTransferHistory</Name>
+      <Link>Forms\ESS_FAssetTransferHistory</Link>
+    </Content>
+    <Content Include="AxForm\ES_AssetLocationTableLookUp">
+      <SubType>Content</SubType>
+      <Name>ES_AssetLocationTableLookUp</Name>
+      <Link>Forms\ES_AssetLocationTableLookUp</Link>
+    </Content>
+    <Content Include="AxMenuExtension\FixedAssets.ESSFA">
+      <SubType>Content</SubType>
+      <Name>FixedAssets.ESSFA</Name>
+      <Link>Menu Extensions\FixedAssets.ESSFA</Link>
+    </Content>
+    <Content Include="AxMenuItemAction\AssetStockJourCheck_ES">
+      <SubType>Content</SubType>
+      <Name>AssetStockJourCheck_ES</Name>
+      <Link>Action Menu Items\AssetStockJourCheck_ES</Link>
+    </Content>
+    <Content Include="AxMenuItemAction\AssetStockJourPost_ES">
+      <SubType>Content</SubType>
+      <Name>AssetStockJourPost_ES</Name>
+      <Link>Action Menu Items\AssetStockJourPost_ES</Link>
+    </Content>
+    <Content Include="AxMenuItemAction\AssetTransferJourCheck_ES">
+      <SubType>Content</SubType>
+      <Name>AssetTransferJourCheck_ES</Name>
+      <Link>Action Menu Items\AssetTransferJourCheck_ES</Link>
+    </Content>
+    <Content Include="AxMenuItemAction\AssetTransferJourPost_ES">
+      <SubType>Content</SubType>
+      <Name>AssetTransferJourPost_ES</Name>
+      <Link>Action Menu Items\AssetTransferJourPost_ES</Link>
+    </Content>
+    <Content Include="AxMenuItemAction\ESS_AssetCreateDepreciationSplit">
+      <SubType>Content</SubType>
+      <Name>ESS_AssetCreateDepreciationSplit</Name>
+      <Link>Action Menu Items\ESS_AssetCreateDepreciationSplit</Link>
+    </Content>
+    <Content Include="AxMenuItemAction\ESS_AssetMove">
+      <SubType>Content</SubType>
+      <Name>ESS_AssetMove</Name>
+      <Link>Action Menu Items\ESS_AssetMove</Link>
+    </Content>
+    <Content Include="AxMenuItemDisplay\AssetJourTransLocTrans_ES">
+      <SubType>Content</SubType>
+      <Name>AssetJourTransLocTrans_ES</Name>
+      <Link>Display Menu Items\AssetJourTransLocTrans_ES</Link>
+    </Content>
+    <Content Include="AxMenuItemDisplay\AssetJourTransStock_ES">
+      <SubType>Content</SubType>
+      <Name>AssetJourTransStock_ES</Name>
+      <Link>Display Menu Items\AssetJourTransStock_ES</Link>
+    </Content>
+    <Content Include="AxMenuItemDisplay\ESS_AssetList">
+      <SubType>Content</SubType>
+      <Name>ESS_AssetList</Name>
+      <Link>Display Menu Items\ESS_AssetList</Link>
+    </Content>
+    <Content Include="AxMenuItemDisplay\ESS_AssetLocationTable">
+      <SubType>Content</SubType>
+      <Name>ESS_AssetLocationTable</Name>
+      <Link>Display Menu Items\ESS_AssetLocationTable</Link>
+    </Content>
+    <Content Include="AxMenuItemDisplay\ESS_FAssetStockHistory">
+      <SubType>Content</SubType>
+      <Name>ESS_FAssetStockHistory</Name>
+      <Link>Display Menu Items\ESS_FAssetStockHistory</Link>
+    </Content>
+    <Content Include="AxMenuItemDisplay\ESS_FAssetTransferHistory">
+      <SubType>Content</SubType>
+      <Name>ESS_FAssetTransferHistory</Name>
+      <Link>Display Menu Items\ESS_FAssetTransferHistory</Link>
+    </Content>
+    <Content Include="AxMenuItemDisplay\ESS_LedgerJournalTableAssetStock">
+      <SubType>Content</SubType>
+      <Name>ESS_LedgerJournalTableAssetStock</Name>
+      <Link>Display Menu Items\ESS_LedgerJournalTableAssetStock</Link>
+    </Content>
+    <Content Include="AxMenuItemDisplay\ESS_LedgerJournalTableAssetTransferLoc">
+      <SubType>Content</SubType>
+      <Name>ESS_LedgerJournalTableAssetTransferLoc</Name>
+      <Link>Display Menu Items\ESS_LedgerJournalTableAssetTransferLoc</Link>
+    </Content>
+    <Content Include="AxTableExtension\AssetGroup.ESSFA">
+      <SubType>Content</SubType>
+      <Name>AssetGroup.ESSFA</Name>
+      <Link>Table Extensions\AssetGroup.ESSFA</Link>
+    </Content>
+    <Content Include="AxTableExtension\AssetParameters.ESSFA">
+      <SubType>Content</SubType>
+      <Name>AssetParameters.ESSFA</Name>
+      <Link>Table Extensions\AssetParameters.ESSFA</Link>
+    </Content>
+    <Content Include="AxTableExtension\AssetTable.ESSFA">
+      <SubType>Content</SubType>
+      <Name>AssetTable.ESSFA</Name>
+      <Link>Table Extensions\AssetTable.ESSFA</Link>
+    </Content>
+    <Content Include="AxTableExtension\AssetTrans.ESSFA">
+      <SubType>Content</SubType>
+      <Name>AssetTrans.ESSFA</Name>
+      <Link>Table Extensions\AssetTrans.ESSFA</Link>
+    </Content>
+    <Content Include="AxTableExtension\LedgerJournalTable.ESSFA">
+      <SubType>Content</SubType>
+      <Name>LedgerJournalTable.ESSFA</Name>
+      <Link>Table Extensions\LedgerJournalTable.ESSFA</Link>
+    </Content>
+    <Content Include="AxTableExtension\LedgerJournalTrans.ESSFA">
+      <SubType>Content</SubType>
+      <Name>LedgerJournalTrans.ESSFA</Name>
+      <Link>Table Extensions\LedgerJournalTrans.ESSFA</Link>
+    </Content>
+    <Content Include="AxTableExtension\ProjTable.ESSFA">
+      <SubType>Content</SubType>
+      <Name>ProjTable.ESSFA</Name>
+      <Link>Table Extensions\ProjTable.ESSFA</Link>
+    </Content>
+    <Content Include="AxTableExtension\SMAServiceObjectRelation.ESSFA">
+      <SubType>Content</SubType>
+      <Name>SMAServiceObjectRelation.ESSFA</Name>
+      <Link>Table Extensions\SMAServiceObjectRelation.ESSFA</Link>
+    </Content>
+    <Content Include="AxTable\AssetList_ES">
+      <SubType>Content</SubType>
+      <Name>AssetList_ES</Name>
+      <Link>Tables\AssetList_ES</Link>
+    </Content>
+    <Content Include="AxTable\AssetLocation_ES">
+      <SubType>Content</SubType>
+      <Name>AssetLocation_ES</Name>
+      <Link>Tables\AssetLocation_ES</Link>
+    </Content>
+    <Content Include="AxTable\AssetSite_ES">
+      <SubType>Content</SubType>
+      <Name>AssetSite_ES</Name>
+      <Link>Tables\AssetSite_ES</Link>
+    </Content>
+    <Content Include="AxTable\AssetTransferJourPost_ES">
+      <SubType>Content</SubType>
+      <Name>AssetTransferJourPost_ES</Name>
+      <Link>Tables\AssetTransferJourPost_ES</Link>
+    </Content>
+    <Content Include="AxTable\AssetTransferJourTrans_ES">
+      <SubType>Content</SubType>
+      <Name>AssetTransferJourTrans_ES</Name>
+      <Link>Tables\AssetTransferJourTrans_ES</Link>
+    </Content>
+    <Content Include="AxView\DimAttributeAssetList">
+      <SubType>Content</SubType>
+      <Name>DimAttributeAssetList</Name>
+      <Link>Views\DimAttributeAssetList</Link>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.Common.targets" />
+  <Import Project="$(BuildTasksDirectory)\Microsoft.Dynamics.Framework.Tools.BuildTasks.targets" />
+</Project>
