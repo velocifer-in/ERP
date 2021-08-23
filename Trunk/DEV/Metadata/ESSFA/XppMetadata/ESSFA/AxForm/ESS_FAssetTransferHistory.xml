@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<z:anyType xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns=""
+	i:type="AxFormPropertyCollection" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/">
+	<Methods>
+		<Method>
+			<Name>classDeclaration</Name>
+			<ReturnType />
+		</Method>
+		<Method>
+			<Name>enableFields</Name>
+			<Visibility>Public</Visibility>
+			<ReturnType>
+				<TypeName></TypeName>
+			</ReturnType>
+		</Method>
+	</Methods>
+	<DataSources>
+		<DataSource>
+			<Name>AssetTransferJourPost_ES</Name>
+			<Methods>
+				<Method>
+					<Name>active</Name>
+					<Visibility>Public</Visibility>
+					<ReturnType>
+						<Type>Int32</Type>
+						<TypeName></TypeName>
+					</ReturnType>
+				</Method>
+				<Method>
+					<Name>executeQuery</Name>
+					<Visibility>Public</Visibility>
+					<ReturnType>
+						<TypeName></TypeName>
+					</ReturnType>
+				</Method>
+			</Methods>
+			<Fields />
+		</DataSource>
+	</DataSources>
+	<DataControls />
+	<Members>
+		<AxClassMemberVariable>
+			<Type>Record</Type>
+			<TypeName>ProjTable</TypeName>
+			<Name>projTable</Name>
+		</AxClassMemberVariable>
+		<AxClassMemberVariable>
+			<Type>Class</Type>
+			<TypeName>QueryBuildDataSource</TypeName>
+			<Name>qbds</Name>
+		</AxClassMemberVariable>
+		<AxClassMemberVariable>
+			<Type>Class</Type>
+			<TypeName>QueryBuildRange</TypeName>
+			<Name>qbr</Name>
+		</AxClassMemberVariable>
+	</Members>
+</z:anyType>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxTable xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>AssetLocation_ES</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public class AssetLocation_ES extends common
+{
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>find</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    public static AssetLocation_ES find(AssetLocId_ES _location, boolean _forUpdate)
+    {
+        AssetLocation_ES assetLocationTable;
+        if(_forUpdate)
+        {
+            assetLocationTable.selectForUpdate(_forUpdate);
+        }
+        select firstonly assetLocationTable where assetLocationTable.AssetLocId == _location;
+        return assetLocationTable;
+
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>lookupAssetLocationId</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    public static void lookupAssetLocationId(FormControl _Ctrl,Common _buffer)
+    {
+        FormSegmentedEntryControl formSegmentedEntryControl;
+        FormStringControl   formStringControl;
+        Args                args = new Args();
+        FormRun             formRun;
+
+
+        args.name(formStr(ES_AssetLocationTableLookUp));
+        args.caller(_Ctrl);
+        args.record(_buffer);
+
+        formRun = classFactory.formRunClass(args);
+        formRun.init();
+
+        if(_Ctrl is FormStringControl)
+        {
+            formStringControl = _Ctrl as FormStringControl;
+            formStringControl.performFormLookup(formRun);
+        }
+        else if(_Ctrl is FormSegmentedEntryControl)
+        {
+            formSegmentedEntryControl = _Ctrl as FormSegmentedEntryControl;
+            formSegmentedEntryControl.performFormLookup(formRun);
+        }
+        else
+        {
+            throw Error(Error::wrongUseOfFunction(funcName()));
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+	<Label>Asset location</Label>
+	<SubscriberAccessLevel>
+		<Read>Allow</Read>
+	</SubscriberAccessLevel>
+	<TableGroup>Main</TableGroup>
+	<TitleField1>AssetLocId</TitleField1>
+	<TitleField2>Description</TitleField2>
+	<DeleteActions />
+	<FieldGroups>
+		<AxTableFieldGroup>
+			<Name>AutoReport</Name>
+			<Fields>
+				<AxTableFieldGroupField>
+					<DataField>AssetLocId</DataField>
+				</AxTableFieldGroupField>
+				<AxTableFieldGroupField>
+					<DataField>Description</DataField>
+				</AxTableFieldGroupField>
+			</Fields>
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoLookup</Name>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoIdentification</Name>
+			<AutoPopulate>Yes</AutoPopulate>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoSummary</Name>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoBrowse</Name>
+			<Fields />
+		</AxTableFieldGroup>
+	</FieldGroups>
+	<Fields>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>ActivityNumber</Name>
+			<ExtendedDataType>ProjActivityNumber</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>AssetLocId</Name>
+			<AllowEdit>No</AllowEdit>
+			<ExtendedDataType>AssetLocId_ES</ExtendedDataType>
+			<Mandatory>Yes</Mandatory>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>Description</Name>
+			<ExtendedDataType>Description</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldInt64">
+			<Name>DimensionDefault</Name>
+			<ExtendedDataType>DimensionDefault</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>LocationType</Name>
+			<Label>Location Type</Label>
+			<EnumType>AssetLocType_ES</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>Value</Name>
+			<StringSize>100</StringSize>
+		</AxTableField>
+	</Fields>
+	<FullTextIndexes />
+	<Indexes>
+		<AxTableIndex>
+			<Name>AssetLocIdx</Name>
+			<Fields>
+				<AxTableIndexField>
+					<DataField>AssetLocId</DataField>
+				</AxTableIndexField>
+			</Fields>
+		</AxTableIndex>
+	</Indexes>
+	<Mappings />
+	<Relations />
+	<StateMachines />
+</AxTable>

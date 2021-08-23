@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>LedgerJournalTable_EventHandler</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+class LedgerJournalTable_EventHandler
+{
+    
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>LedgerJournalTable_onUpdated</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    [DataEventHandler(tableStr(LedgerJournalTable), DataEventType::Updated)]
+    public static void LedgerJournalTable_onUpdated(Common sender, DataEventArgs e)
+    {
+        LedgerJournalTable ledgerJournalTable = sender as LedgerJournalTable;
+        AssetTrans   updateAssetTrans;
+ 
+        ttsbegin;
+        while select forupdate updateAssetTrans
+            where  updateAssetTrans.FAMgmtJournal_ES == ledgerJournalTable.JournalNum
+            && updateAssetTrans.FAMgmtCreated_ES == NoYes::Yes
+            && updateAssetTrans.FAMgmtPosted  == NoYes::No
+        {
+            updateAssetTrans.FAMgmtPosted = NoYes::Yes;
+            updateAssetTrans.update();
+        }
+        ttscommit;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>LedgerJournalTable_Post_init</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="args"></param>
+    [PostHandlerFor(formStr(LedgerJournalTable), formMethodStr(LedgerJournalTable, init))]
+    public static void LedgerJournalTable_Post_init(XppPrePostArgs args)
+    {
+        FormRun                 caller              =   args.getThis();
+        LedgerJournalFormTable    journalFormTable    =   caller.journalForm();
+        
+        if (journalFormTable.journalTypeId() == LedgerJournalType::AssetLocTransfer_ES)
+        {
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, Validation))).visible(false);
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, PostJournal))).visible(false);
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, Course))).visible(false);
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, PrintMenu))).visible(false);
+
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, AssetTransferJourCheck_ES))).visible(true);
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, AssetTransferJourPost_ES))).visible(true);
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, ESS_Import))).visible(true);
+        }
+
+        if (journalFormTable.journalTypeId() == LedgerJournalType::AssetCounting_ES)
+        {
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, Validation))).visible(false);
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, PostJournal))).visible(false);
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, Course))).visible(false);
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, PrintMenu))).visible(false);
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, Setup))).visible(false);
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, TabFinancialDimensions))).visible(false);
+            
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, AssetTransferJourCheck_ES))).visible(true);
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, AssetTransferJourPost_ES))).visible(true);
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, ESS_Import))).visible(true);
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, AssetDefaults))).visible(true);
+        }
+
+        if (journalFormTable.journalTypeId() == LedgerJournalType::AssetAllocation_ES)
+        {
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, Validation))).visible(false);
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, PostJournal))).visible(false);
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, Course))).visible(false);
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, PrintMenu))).visible(false);
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, Setup))).visible(false);
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, TabFinancialDimensions))).visible(false);
+
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, AssetTransferJourCheck_ES))).visible(true);
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, AssetTransferJourPost_ES))).visible(true);
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, ESS_Import))).visible(true);
+            caller.control(caller.controlId(formControlStr(LedgerJournalTable, AssetDefaults))).visible(true);
+        }
+        
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>AssetLocType_ES_OnModified</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    [FormDataFieldEventHandler(formDataFieldStr(LedgerJournalTable, LedgerJournalTable, AssetLocType_ES), FormDataFieldEventType::Modified)]
+    public static void AssetLocType_ES_OnModified(FormDataObject sender, FormDataFieldEventArgs e)
+    {
+        FormDataSource   ledgerJournalTable_ds = sender.datasource();
+        FormRun    formRun = sender.datasource().formRun();
+        LedgerJournalTable  ledgerJournalTable = ledgerJournalTable_ds.cursor();
+        ledgerJournalTable.ESS_AssetLocId = "";
+        ledgerJournalTable.ESS_ProjId = "";
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>LedgerJournalTable_OnInitValue</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    [FormDataSourceEventHandler(formDataSourceStr(LedgerJournalTable, LedgerJournalTable), FormDataSourceEventType::InitValue)]
+    public static void LedgerJournalTable_OnInitValue(FormDataSource sender, FormDataSourceEventArgs e)
+    {
+        FormRun    formRun  = sender.formRun();
+        FormDataSource    LedgerJournalTable_ds =formRun.dataSource("LedgerJournalTable");
+        LedgerJournalTable      journaltable = LedgerJournalTable_ds.cursor();
+
+        journaltable.AssetLocType_ES = AssetLocationType_ES::FALocation;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>Asset_Defaults_ESS_AssetLocId_OnLookup</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    [FormControlEventHandler(formControlStr(LedgerJournalTable, Asset_Defaults_ESS_AssetLocId), FormControlEventType::Lookup)]
+    public static void Asset_Defaults_ESS_AssetLocId_OnLookup(FormControl sender, FormControlEventArgs e)
+    {
+        QueryBuildDataSource    qbds;
+        Query                   query = new Query();
+
+        LedgerJournalTable  ledgerJournalTable;
+
+        SysTableLookup sysTableLookup = SysTableLookup::newParameters(tableNum(AssetLocation_ES), sender);
+
+        sysTableLookup.addLookupfield(fieldNum(AssetLocation_ES, AssetLocId));
+        sysTableLookup.addLookupfield(fieldNum(AssetLocation_ES, Description));
+
+        qbds = query.addDataSource(tableNum(AssetLocation_ES));
+        qbds.addRange(fieldNum(AssetLocation_ES, LocationType)).value(enum2Str(ledgerJournalTable.ESS_LocationType));
+
+        sysTableLookup.parmQuery(query);
+        sysTableLookup.performFormLookup();
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

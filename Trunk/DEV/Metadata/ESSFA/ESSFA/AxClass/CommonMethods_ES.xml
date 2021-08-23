@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>CommonMethods_ES</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+///    The <c>CommonMethods_ES</c> class provides common static methods for asset management functionality.
+/// </summary>
+public class CommonMethods_ES
+{
+   
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>replaceDefaultDimensions</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Replace the existing dimension with newly added dimension value.
+    /// </summary>
+    /// <param name = "_defaultDimension">
+    /// Default Dimension
+    /// </param>
+    /// <param name = "_backEntityType">
+    /// Dimension table number
+    /// </param>
+    /// <param name = "_key">
+    /// Dimension RecId
+    /// </param>
+    /// <param name = "_value">
+    /// Dimension Value
+    /// </param>
+    /// <param name = "_dimName">
+    /// Dimension Name
+    /// </param>
+    /// <returns>
+    /// New dimension value
+    /// </returns>
+    static DimensionDefault replaceDefaultDimensions(DimensionDefault _defaultDimension, TableId _backEntityType, RecId _key, str _value, str _dimName = '')
+    {
+        DimensionSHA1Hash               hash; //To store the calculated hash for DimensionAttributeValueSet
+        DimensionAttribute              dimAttr; // Contains the financial dimensions records
+        DimensionDefault                defaultDimension;
+        DimensionEnumeration            dimensionSetId; //Record id for table that contains active dimensions for current ledger
+        DimensionAttributeValue         dimAttrValue; // Contains used financial dimension values
+        DimensionAttributeValueSet      dimAttrValueSet; //Contains default dimension records
+        DimensionAttributeValueSetItem  dimAttrValueSetItem; //Contains individual records for default dimensions
+        DimensionAttributeSetItem       dimAttrSetItem; // Contains the number of dimensions active for a account structure ledger
+
+        HashKey valueKeyHashArray[]; //To store the hash key of dimension in question
+        Map     dimAttrIdx, dimAttrRecId; //to store the dimension index and backing entity type
+        int     dimAttrCount, i;
+        int     backEntityType; //Stores the backing entity type for _backEntityTYpe type dimension
+
+        backEntityType = _backEntityType;
+
+        //Initialize the map to store the backing entity types
+        dimAttrIdx = new Map(Types::Integer, Types::Integer);
+        dimAttrRecId = new Map(Types::Integer, Types::Int64);
+
+        //Get the record Id (dimension set id) for current ledger to find active dimensions
+        dimensionSetId = DimensionCache::getDimensionAttributeSetForLedger();
+
+
+        //Find all the active dimensions for current ledger except main account and store there
+
+        //backing entity type in the map
+
+        while select * from dimAttr
+            order by Name
+            where dimAttr.Type != DimensionAttributeType::MainAccount
+        join RecId from dimAttrSetItem
+            where dimAttrSetItem.DimensionAttribute == dimAttr.RecId &&
+                dimAttrSetItem.DimensionAttributeSet == dimensionSetId
+        {
+
+            dimAttrCount++;
+            dimAttrIdx.insert(dimAttr.BackingEntityType, dimAttrCount);
+            dimAttrRecId.insert(dimAttr.BackingEntityType, dimAttr.RecId);
+        }
+
+        //initialize hash key array to null
+        for (i = 1; i<= dimAttrCount; i++)
+        {
+            valueKeyHashArray[i] = emptyGuid();
+        }
+        //Find the Dimension attribute record for the dimension to work on, in our case it is VendGroup
+        if (_dimName)
+        {
+            dimAttr = DimensionAttribute::findByName(_dimName);
+        }
+        else
+        {
+            dimAttr = DimensionAttribute::find(dimAttrRecId.lookup(backEntityType));
+        }
+
+        //Find the required Dimension Attribute Value record
+
+        //Create if necessary
+        dimAttrValue = DimensionAttributeValue::findByDimensionAttributeAndEntityInst(dimAttr.RecId, _key, false, true);
+
+
+        //Replace the required combination hash keys and other value arrays
+        i = dimAttrIdx.lookup(backEntityType);
+        valueKeyHashArray[i]    = dimAttrValue.HashKey;
+
+
+
+        //Calculate the hash for the current values
+        hash = DimensionAttributeValueSetStorage::getHashFromArray(valueKeyHashArray, dimAttrCount);
+
+        // Search for existing value set
+        dimAttrValueSet = DimensionAttributeValueSet::findByHash(hash);
+
+        // This value set does not exist, so it must be persisted
+        if (!dimAttrValueSet)
+        {
+
+            ttsbegin;
+
+            // Insert the value set with appropriate hash
+            dimAttrValueSet.Hash = hash;
+            dimAttrValueSet.insert();
+
+
+            // Insert only specified set items use this
+            dimAttrValueSetItem.clear();
+            dimAttrValueSetItem.DimensionAttributeValueSet = dimAttrValueSet.RecId;
+            dimAttrValueSetItem.DimensionAttributeValue = dimAttrValue.RecId;
+            dimAttrValueSetItem.DisplayValue = _value;
+            dimAttrValueSetItem.insert();
+
+            ttscommit;
+
+        }
+
+        defaultDimension = CommonMethods_ES::serviceReplaceAttributeValue(_defaultDimension, dimAttrValueSet.RecId, dimAttr.RecId);
+
+        return defaultDimension;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>serviceReplaceAttributeValue</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///    Replaces the value of the specified dimension attribute in the target set with the value from the
+    ///    source set.
+    /// </summary>
+    /// <param name="_target">
+    ///    The target set in which a value is replaced.
+    /// </param>
+    /// <param name="_source">
+    ///    The source of the value from which a replacement is retrieved.
+    /// </param>
+    /// <param name="_dimensionAttributeId">
+    ///    The ID of the dimension attribute to replace.
+    /// </param>
+    /// <returns>
+    ///    The ID of the <c>DimensionAttributeValueSet</c> record with the replacement value.
+    /// </returns>
+    client server public static DimensionDefault serviceReplaceAttributeValue(
+    DimensionDefault _target,
+    DimensionDefault _source,
+    RecId _dimensionAttributeId)
+    {
+        container cachedResult;
+        DimensionDefault replacedDimDefault;
+
+        // Short circuit if possible
+        if (_dimensionAttributeId == 0)
+        {
+            replacedDimDefault = _target;
+        }
+        else if (_target == 0 && _source == 0)
+        {
+            replacedDimDefault = 0;
+        }
+        else
+        {
+            cachedResult = DimensionCache::getValue(
+            DimensionCacheScope::DefaultingReplaceAttributeValue,
+            [_target, _source, _dimensionAttributeId]);
+
+            if (cachedResult == connull())
+            {
+                cachedResult = [CommonMethods_ES::serverReplaceAttributeValue(_target, _source, _dimensionAttributeId)];
+
+                DimensionCache::insertValue(
+                DimensionCacheScope::DefaultingReplaceAttributeValue,
+                [_target, _source, _dimensionAttributeId],
+                cachedResult);
+            }
+
+            replacedDimDefault = conpeek(cachedResult, 1);
+        }
+
+        return replacedDimDefault;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>serverReplaceAttributeValue</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Replaces the value of the specified dimension attribute in the target set with the value from the
+    /// source set.
+    /// </summary>
+    /// <param name="_target">
+    /// The target set in which a value is replaced.
+    /// </param>
+    /// <param name="_source">
+    /// The source of the value from which a replacement is retrieved.
+    /// </param>
+    /// <param name="_dimensionAttributeId">
+    /// The ID of the dimension attribute to replace.
+    /// </param>
+    /// <returns>
+    /// The record ID of the <c>DimensionAttributeValueSet</c> record with the replacement value.
+    /// </returns>
+    /// <remarks>
+    /// This method mirrors the <c>DimensionDefaultingService ::ServiceReplaceAttributeValue</c> method but
+    /// it is guaranteed to run on the server. Therefore, it will check the <c>DimensionCache</c> object on
+    /// the server in case the client did not have it cached.
+    /// </remarks>
+    server private static DimensionDefault serverReplaceAttributeValue(
+    DimensionDefault _target,
+    DimensionDefault _source,
+    RecId _dimensionAttributeId)
+    {
+        container               cachedResult;
+        
+        cachedResult = DimensionCache::getValue(
+        DimensionCacheScope::DefaultingReplaceAttributeValue,
+        [_target, _source, _dimensionAttributeId]);
+
+        if (cachedResult == connull())
+        {
+            // Main API should have already short-circuited
+            Debug::assert((_dimensionAttributeId != 0) && ((_target != 0) || (_source != 0)));
+
+            cachedResult = CommonMethods_ES::replaceAttributeValue([_target, _source, _dimensionAttributeId]);
+
+            DimensionCache::insertValue(
+            DimensionCacheScope::DefaultingReplaceAttributeValue,
+            [_target, _source, _dimensionAttributeId],
+            cachedResult);
+        }
+
+        return conpeek(cachedResult, 1);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>replaceAttributeValue</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Replaces the value of the specified dimension attribute in the target set with the value from the
+    /// source set.
+    /// </summary>
+    /// <param name="_parms">
+    /// A container that contains the target set in which a value is replaced, the source of the value from
+    /// which a replacement is retrieved, and the ID of the dimension attribute to replace.
+    /// </param>
+    /// <returns>
+    /// A container that contains the ID of the <c>DimensionAttributeValueSet</c> record with the
+    /// replacement value.
+    /// </returns>
+    private static container replaceAttributeValue(container _parms)
+    {
+        DimensionAttributeValueSetStorage   setStorage;
+        DimensionAttributeValueSetItem      sourceItem;
+        DimensionAttributeValue             dimAttrValue;
+        container                           replacedValues;
+
+        // Input parameters packed in the container
+        DimensionDefault target;
+        DimensionDefault source;
+        RecId dimensionAttributeId;
+
+        // Unpack incoming parameters
+        [target, source, dimensionAttributeId] = _parms;
+
+        // Short circuit if possible
+        if (dimensionAttributeId == 0)
+        {
+            replacedValues = [target];
+        }
+        else if (target == 0 && source == 0)
+        {
+            replacedValues = [0];
+        }
+        else
+        {
+            setStorage = new DimensionAttributeValueSetStorage();
+
+            // Do the load and merge as a single SQL select
+            while select DimensionAttributeValueSet from sourceItem
+            join * from dimAttrValue where
+                dimAttrValue.RecId == sourceItem.DimensionAttributeValue &&
+                ((sourceItem.DimensionAttributeValueSet == target &&
+                    dimAttrValue.DimensionAttribute != dimensionAttributeId) ||
+                (sourceItem.DimensionAttributeValueSet == source &&
+                    dimAttrValue.DimensionAttribute == dimensionAttributeId))
+            {
+                setStorage.addItem(dimAttrValue);
+            }
+
+            // Get the recid of the updated set and return it
+            replacedValues = [setStorage.save()];
+        }
+
+        return replacedValues;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>findByAssetId</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Finding AssetBook based on Fixed Asset.
+    /// </summary>
+    /// <param name = "_assetId">
+    /// Fixed Asset Number.
+    /// </param>
+    /// <param name = "_forupdate">
+    /// Updation is True/False, Optional.
+    /// </param>
+    /// <returns>
+    /// The value of AssetBook Buffer.
+    /// </returns>
+    public static AssetBook findByAssetId(AssetId   _assetId, boolean _forupdate = false)
+    {
+        AssetBook   assetBook;
+        AssetBookTable  assetBookTable;
+        ;
+
+        assetBook.selectForUpdate(_forupdate);
+        
+        if (_assetId != '')
+        {
+            select firstonly assetBook join assetBookTable
+            where assetBook.AssetId == _assetId
+            && assetBookTable.BookId == assetBook.BookId
+            && assetBookTable.CurrentOperationsTax  == CurrentOperationsTax::Current;
+        }
+
+        return assetBook;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

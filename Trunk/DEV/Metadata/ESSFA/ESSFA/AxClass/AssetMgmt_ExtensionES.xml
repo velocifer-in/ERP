@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>AssetMgmt_ExtensionES</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+/// The extensions for the <c>AssetMgmt_ES</c> module.
+/// </summary>
+public static class AssetMgmt_ExtensionES
+{
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>LedgerJournalTable_Post_init</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Post initialization of LedgerJournalTable form
+    /// </summary>
+    /// <param name = "args">
+    /// Xpp Arguments.
+    /// </param>
+    [PostHandlerFor(formStr(LedgerJournalTable), formMethodStr(LedgerJournalTable, init))]
+    public static void LedgerJournalTable_Post_init(XppPrePostArgs args)
+    {
+        FormRun             sender = args.getThis();
+        LedgerJournalType   journalType = sender.args().parmEnum();
+        if (journalType == LedgerJournalType::AssetCounting_ES || journalType == LedgerJournalType::AssetLocTransfer_ES
+            || journalType == LedgerJournalType::AssetAllocation_ES)
+        {
+            sender.control(sender.controlId(formControlStr(LedgerJournalTable, AssetDefaults_ES))).visible(true);
+            sender.control(sender.controlId(formControlStr(LedgerJournalTable, AssetTransferJourCheck_ES))).visible(true);
+            sender.control(sender.controlId(formControlStr(LedgerJournalTable, AssetTransferJourPost_ES))).visible(true);
+
+            sender.control(sender.controlId(formControlStr(LedgerJournalTable, CheckJournal))).visible(false);
+            sender.control(sender.controlId(formControlStr(LedgerJournalTable, Post))).visible(false);
+            sender.control(sender.controlId(formControlStr(LedgerJournalTable, Course))).visible(false);
+            sender.control(sender.controlId(formControlStr(LedgerJournalTable, PrintMenu))).visible(false);
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>LedgerJournalTable_OnActivated</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// On Active record of LedgerJournalTable.
+    /// </summary>
+    /// <param name = "sender">
+    /// LedgerJournalTable
+    /// </param>
+    /// <param name = "e">
+    /// FormDataSourceEventArgs
+    /// </param>
+    [FormDataSourceEventHandler(formDataSourceStr(LedgerJournalTable, LedgerJournalTable), FormDataSourceEventType::Activated)]
+    public static void LedgerJournalTable_OnActivated(FormDataSource sender, FormDataSourceEventArgs e)
+    {
+        LedgerJournalTable ledgerJournalTable = sender.cursor();
+        if (ledgerJournalTable.Posted)
+        {
+            sender.formRun().control(sender.formRun().controlId(formControlStr(LedgerJournalTable, AssetTransferJourCheck_ES))).visible(false);
+            sender.formRun().control(sender.formRun().controlId(formControlStr(LedgerJournalTable, AssetTransferJourPost_ES))).visible(false);
+
+        }
+        else if (ledgerJournalTable.JournalType == LedgerJournalType::AssetCounting_ES || ledgerJournalTable.JournalType == LedgerJournalType::AssetLocTransfer_ES
+            || ledgerJournalTable.JournalType == LedgerJournalType::AssetAllocation_ES)
+        {
+            sender.formRun().control(sender.formRun().controlId(formControlStr(LedgerJournalTable, AssetDefaults_ES))).visible(true);
+            sender.formRun().control(sender.formRun().controlId(formControlStr(LedgerJournalTable, AssetTransferJourCheck_ES))).visible(true);
+            sender.formRun().control(sender.formRun().controlId(formControlStr(LedgerJournalTable, AssetTransferJourPost_ES))).visible(true);
+        }
+
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>AssetTrans_onInserted</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Insertion of AssetTrans Record.
+    /// </summary>
+    /// <param name = "sender">
+    /// AssetTrans Record
+    /// </param>
+    /// <param name = "e">
+    /// Data event arguments.
+    /// </param>
+    [DataEventHandler(tableStr(AssetTrans), DataEventType::Inserted)]
+    public static void AssetTrans_onInserted(Common sender, DataEventArgs e)
+    {
+        AssetTrans assetTrans = sender;
+
+        Assetlist_ES            assetListInc,assetListIns;
+        LedgerJournalTrans      ledgerTrans;
+        DimensionAttributeValueCombination davc;
+        
+        ttsBegin;
+
+        update_recordSet assetListInc
+              setting Stopped = NoYes::Yes
+              join ledgerTrans
+              where assetListInc.MovementRef == ledgerTrans.JournalNum &&
+                    assetListInc.Status == AssetStatus_ES::Moved &&
+                    assetListInc.AssetId == assetTrans.AssetId &&
+                    ledgerTrans.Voucher == assetTrans.Voucher &&
+                        assetTrans.TransType == AssetTransType::AcquisitionAdj;
+        select firstonly davc where davc.DisplayValue == assetTrans.AssetId;
+        while select assetListIns
+        join ledgerTrans
+              where assetListIns.MovementRef == ledgerTrans.JournalNum &&
+                    assetListIns.Status == AssetStatus_ES::Moved &&
+                    assetListIns.ToAssetId == assetTrans.AssetId &&
+                    ledgerTrans.Voucher == assetTrans.Voucher &&
+                    assetTrans.TransType == AssetTransType::Acquisition &&
+                            ledgerTrans.LedgerDimension == davc.RecId
+        {
+            assetListIns.createAssetList(assetTable::find(assetTrans.AssetId), 1, assetListIns.UnitCost);
+        }
+        ttsCommit;
+
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>acquisitionValue</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Asset Acquisition Value
+    /// </summary>
+    /// <param name = "_this">
+    /// AssetTable Record
+    /// </param>
+    /// <returns>
+    /// The value of Acquisition.
+    /// </returns>
+    public static AssetAcquisitionValue  acquisitionValue(AssetTable _this)
+    {
+        return AssetMgmt_ExtensionES::assetSumCalc(_this).acquisitionValueAll();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>assetSumCalc</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Asset value calculation.
+    /// </summary>
+    /// <param name = "_this">
+    /// AssetTable Record.
+    /// </param>
+    /// <returns>
+    /// The value of Acquisition.
+    /// </returns>
+    public static AssetSumCalc assetSumCalc(AssetTable _this)
+    {
+        AssetSumCalc    assetSumCalc;
+        AssetBookMerge  AssetBookMerge;
+
+        select firstonly AssetBookMerge
+            where  AssetBookMerge.AssetId == _this.AssetId;
+
+        if(AssetBookMerge.BookType == AssetBookType::DepreciationBook)
+        {
+            assetSumCalc = AssetSumCalc_DepBookTrans::newAssetYear(_this.AssetId,AssetBookMerge.BookId);
+        }
+        else
+        {
+            assetSumCalc = AssetSumCalc_Trans::newAssetYear(_this.AssetId,AssetBookMerge.BookId);
+        }
+
+        return assetSumCalc;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>depreciationValue</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Calculation of Depreciation value for Asset.
+    /// </summary>
+    /// <param name = "_this">
+    /// AssetTable Record.
+    /// </param>
+    /// <returns>
+    /// The value of Depreciation.
+    /// </returns>
+    public static AssetDepreciation depreciationValue(AssetTable _this)
+    {
+        return AssetMgmt_ExtensionES::assetSumCalc(_this).depreciationValueAll() +
+                AssetMgmt_ExtensionES::assetSumCalc(_this).extraDepreciationValue();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>LedgerJournalStatic_Post_menuItemStrLines</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Setting MenuItem based on Journal Type.
+    /// </summary>
+    /// <param name = "args">
+    /// Xpp Event Arguments.
+    /// </param>
+    [PostHandlerFor(classStr(LedgerJournalStatic), methodStr(LedgerJournalStatic, menuItemStrLines))]
+    public static void LedgerJournalStatic_Post_menuItemStrLines(XppPrePostArgs args)
+    {
+        LedgerJournalType journalType = args.getArg(identifierStr(_journalType));
+
+        switch (journalType)
+        {
+            case LedgerJournalType::AssetCounting_ES :
+                args.setReturnValue(menuitemdisplaystr(AssetJourTransStock_ES));
+                break;
+            case LedgerJournalType::AssetLocTransfer_ES:
+                args.setReturnValue(menuitemdisplaystr(AssetJourTransLocTrans_ES));
+                break;
+
+
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>LedgerJournalFormTable_Post_datasourceCreatePost</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Post Creation of LedgerJournalFormTable.
+    /// </summary>
+    /// <param name = "args">
+    /// Xpp Event Arguments.
+    /// </param>
+    [PostHandlerFor(classStr(LedgerJournalFormTable), methodStr(LedgerJournalFormTable, datasourceCreatePost))]
+    public static void LedgerJournalFormTable_Post_datasourceCreatePost(XppPrePostArgs args)
+    {
+        AssetParameters         assetParameters;
+        LedgerJournalFormTable  journalFormTable    =   args.getThis();
+        JournalTableMap         journalTable        =   journalFormTable.journalTable();
+
+        if (journalFormTable.journalTypeId() == LedgerJournalType::AssetLocTransfer_ES)
+        {
+            assetParameters =   AssetParameters::find();
+            journalTable.JournalNameId  = assetParameters.AssetTransJourName_ES;
+        }
+        else if (journalFormTable.journalTypeId() == LedgerJournalType::AssetCounting_ES)
+        {
+            assetParameters =   AssetParameters::find();
+            journalTable.JournalNameId  = assetParameters.AssetAllocJourName_ES; // TODO
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>numRefAssetTransferJourSequence</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Number sequence referenece for the AssetTransJourId_ES
+    /// </summary>
+    /// <returns>
+    /// The value of Number sequence reference.
+    /// </returns>
+    public static NumberSequenceReference  numRefAssetTransferJourSequence()
+    {
+        return NumberSeqReference::findReference(extendedTypeNum(AssetTransJourId_ES));
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>AssetParameters_Post_numberSeqPreInit</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Number Sequence extension for Fixed Asset Module.
+    /// </summary>
+    /// <param name = "args">
+    /// Xpp Event Arguments.
+    /// </param>
+    [PostHandlerFor(formStr(AssetParameters), formMethodStr(AssetParameters, numberSeqPreInit))]
+    public static void AssetParameters_Post_numberSeqPreInit(XppPrePostArgs args)
+    {
+        TmpIdRef                                tmpIdRef;
+        NumberSeqScope                          scope;
+        NumberSeqApplicationModule              numberSeqApplicationModule;
+        container                               numberSequenceModules;
+
+        numberSequenceModules = [NumberSeqModule::Asset];
+        scope = NumberSeqScopeFactory::createDataAreaScope();
+        NumberSeqApplicationModule::createReferencesMulti(numberSequenceModules, scope);
+        tmpIdRef.setTmpData(NumberSequenceReference::configurationKeyTableMulti(numberSequenceModules));
+
+        args.setArg('tmpIdRef',tmpIdRef);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>LedgerJournalTrans_onDeleted</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// On Deletion of LedgerJournalTrans.
+    /// </summary>
+    /// <param name = "sender">
+    /// LedgerJournalTable record.
+    /// </param>
+    /// <param name = "e">
+    /// Delete Event Arguments.
+    /// </param>
+    [DataEventHandler(tableStr(LedgerJournalTrans), DataEventType::Deleted)]
+    public static void LedgerJournalTrans_onDeleted(Common sender, DataEventArgs e)
+    {
+        AssetTrans              assetTrans;
+        LedgerJournalTrans      ledgerJournalTrans = sender;
+
+        if (!ledgerJournalTrans.ledgerJournalTable().Posted)
+        {
+            update_recordset assetTrans
+                setting FAMgmtCreated_ES = false,
+                FAMgmtJournal_ES = ''
+            where assetTrans.FAMgmtJournal_ES == ledgerJournalTrans.JournalNum;
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

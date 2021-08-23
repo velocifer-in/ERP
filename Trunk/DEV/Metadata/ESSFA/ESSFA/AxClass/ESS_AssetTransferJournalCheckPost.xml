@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>ESS_AssetTransferJournalCheckPost</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+class ESS_AssetTransferJournalCheckPost extends RunBase
+{
+
+    LedgerJournalTable                ledgerJournalTable;
+    AssetTransferJourTrans_ES         assetTransferJourTrans;
+    FormDataSource                    formDataSource;
+    TableId                           journalTableId;
+    Common                            record;
+    JournalCheckPostType              journalCheckPostType;
+    Counter                           progressCounter;
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>checkJournal</Name>
+				<Source><![CDATA[
+    public boolean checkJournal(JournalId _journalId)
+    {
+        boolean ret = true;
+        AssetTransferJourTrans_ES  assetTransferJourTransCheck;
+        AssetTransferJourPost_ES   assetTransferJourPostCheck;
+        AssetBook                  assetBook;
+        ;
+
+        while select forUpdate assetTransferJourTransCheck
+        where assetTransferJourTransCheck.JournalNum == _journalId
+        {
+            assetBook = CommonMethods_ES::findByAssetId(AssetList_ES::findByAssetList(assetTransferJourTransCheck.AssetListId).AssetId);
+
+            if( assetBook && assetBook.Status != AssetStatus::Open)
+            ret = checkFailed("Asset List " + assetTransferJourTransCheck.AssetListId + " should be in Open Status");
+
+            select assetTransferJourPostCheck order by RecId desc
+               where assetTransferjourPostCheck.AssetListId == assetTransferJourTransCheck.AssetListId;
+            if (assetTransferJourPostCheck && assetTransferJourPostCheck.TransDate > assetTransferJourTransCheck.TransDate)
+            {
+                ret = checkFailed(strFmt("Transaction exists before the date specified for the asset list %1", assetTransferJourTransCheck.AssetListId));
+            }
+            if (assetTransferJourTransCheck.FromAssetLocationType == assetTransferJourTransCheck.ToAssetLocationType)
+            {
+                switch(assetTransferJourTransCheck.FromAssetLocationType)
+                {
+                    case AssetLocationType_ES::Project :
+                        if (assetTransferJourTransCheck.FromProjectId == assetTransferJourTransCheck.ToProjectId &&
+                    LedgerJournalName::find(LedgerJournalTable::find(_journalId).JournalName).JournalType != LedgerJournalType::AssetCounting_ES)
+                        {
+                            ret = checkFailed("The 'From project' and 'To project' cannot be same for the asset list %1", assetTransferJourTransCheck.AssetListId);
+                        }
+                        break;
+                    case AssetLocationType_ES::FALocation :
+                        if (assetTransferJourTransCheck.FromAssetLocId == assetTransferJourTransCheck.ToAssetLocId &&
+                    LedgerJournalName::find(LedgerJournalTable::find(_journalId).JournalName).JournalType != LedgerJournalType::AssetCounting_ES)
+                        {
+                            ret = checkFailed("The 'From location' and 'To location' cannot be same for the asset list %1", assetTransferJourTransCheck.AssetListId);
+                        }
+                        break;
+                }
+            }
+        }
+
+        return ret;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>missedJournalLines</Name>
+				<Source><![CDATA[
+    public void missedJournalLines(AssetTransferJourTrans_ES assetTransferJourTransIns)
+    {
+        AssetTransferJourPost_ES       assetTransferJourPost;
+        AssetLocation_ES               assetLocationTable;
+        ;
+
+        assetTransferJourPost.clear();
+        assetTransferJourPost.TransDate        =   assetTransferJourTransIns.TransDate;
+        assetTransferJourPost.ActivityNumber      =   assetTransferJourTransIns.ActivityNumber;
+        assetTransferJourPost.JournalNum          =   assetTransferJourTransIns.JournalNum;
+        assetTransferJourPost.FromAssetId         =   assetTransferJourTransIns.FromAssetId;
+        assetTransferJourPost.FromProjectId       =   assetTransferJourTransIns.FromProjectId;
+        assetTransferJourPost.FromAssetLocId      =   assetTransferJourTransIns.FromAssetLocId;
+        assetTransferJourPost.Txt                 =   assetTransferJourTransIns.Txt;
+        assetTransferJourPost.Qty                 =   assetTransferJourTransIns.Qty;
+        assetTransferJourPost.ToAssetId           =   assetTransferJourTransIns.ToAssetId;
+        assetTransferJourPost.ToProjectId         =   assetTransferJourTransIns.ToProjectId;
+        assetTransferJourPost.ToAssetLocId        =   assetTransferJourTransIns.ToAssetLocId;
+        assetTransferJourPost.AssetEmployee       =   assetTransferJourTransIns.AssetEmployee;
+        assetTransferJourPost.AssetListId         =   assetTransferJourTransIns.AssetListId;
+        assetTransferJourPost.AssetTransactionType=   AssetTransType_ES::LocationTransfer;
+        assetTransferJourPost.PostedDateTime      =   DateTimeUtil::getSystemDateTime();
+        assetTransferJourPost.PostedBy            =   curUserId();
+        assetTransferJourPost.TransLine           =   assetTransferJourTransIns.RecID;
+        assetTransferJourPost.JournalType         =   LedgerJournalType::AssetLocTransfer_ES;
+        //assetTransferJourPost.JournalType         =   LedgerJournalName::find(ledgerJournalTable.JournalName).JournalType;
+
+        select assetLocationTable where assetLocationTable.AssetLocId == assetTransferJourTransIns.ToAssetLocId;
+
+        assetTransferJourPost.DefaultDimension       = assetLocationTable ? assetLocationTable.DimensionDefault : assetTransferJourTransIns.DefaultDimension;//AssetMgmt_Prem
+        //assetTransferJourPost.DefaultDimension    =   assetTransferJourTransIns.DefaultDimension;
+
+        assetTransferJourPost.FromAssetLocationType  = assetTransferJourTransIns.FromAssetLocationType;
+        assetTransferJourPost.ToAssetLocationType    = assetTransferJourTransIns.ToAssetLocationType;
+        assetTransferJourPost.ToLocType         = assetTransferJourTransIns.ToLocType;
+        assetTransferJourPost.FromLocType       = assetTransferJourTransIns.FromLocType;
+
+        assetTransferJourPost.insert();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>numOfLines</Name>
+				<Source><![CDATA[
+    int numOfLines()
+    {
+        return any2int((select count(RecID) from AssetTransferJourTrans_ES
+                   where AssetTransferJourTrans_ES.JournalNum == ledgerJournalTable.JournalNum).RecID);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmJournalCheckPostType</Name>
+				<Source><![CDATA[
+    public JournalCheckPostType parmJournalCheckPostType(JournalCheckPostType _journalCheckPostType = journalCheckPostType)
+    {
+        journalCheckPostType = _journalCheckPostType;
+        return journalCheckPostType;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmJournalDataSource</Name>
+				<Source><![CDATA[
+    public FormDataSource parmJournalDataSource(FormDataSource _formDataSource = formDataSource)
+    {
+        formDataSource = _formDataSource;
+        return formDataSource;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmJournalRecord</Name>
+				<Source><![CDATA[
+    public common parmJournalRecord(Common _record = record)
+    {
+        record = _record;
+        return record;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmJournalTableId</Name>
+				<Source><![CDATA[
+    public TableId parmJournalTableId(TableId _tableId = journalTableId)
+    {
+        journalTableId = _tableId;
+        return journalTableId;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>postJournal</Name>
+				<Source><![CDATA[
+    boolean postJournal()
+    {
+        AssetTransferJourTrans_ES      assetTransferJourTransIns;
+        AssetTransferJourPost_ES       assetTransferJourPost;
+        AssetList_ES                   assetListUD;
+        AssetLocation_ES          assetLocationTable;
+        boolean                     ret;
+
+        ttsBegin;
+        while select assetTransferJourTransIns
+          where assetTransferJourTransIns.JournalNum == ledgerJournalTable.JournalNum
+        {
+            ret = false;
+            assetTransferJourPost.clear();
+            assetTransferJourPost.TransDate        =   assetTransferJourTransIns.TransDate;
+            assetTransferJourPost.ActivityNumber      =   assetTransferJourTransIns.ActivityNumber;
+            assetTransferJourPost.JournalNum          =   assetTransferJourTransIns.JournalNum;
+            assetTransferJourPost.FromAssetId         =   assetTransferJourTransIns.FromAssetId;
+            assetTransferJourPost.FromProjectId       =   assetTransferJourTransIns.FromProjectId;
+            assetTransferJourPost.FromAssetLocId      =   assetTransferJourTransIns.FromAssetLocId;
+            assetTransferJourPost.Txt                 =   assetTransferJourTransIns.Txt;
+            assetTransferJourPost.Qty                 =   assetTransferJourTransIns.Qty;
+            assetTransferJourPost.ToAssetId           =   assetTransferJourTransIns.ToAssetId;
+            assetTransferJourPost.ToProjectId         =   assetTransferJourTransIns.ToProjectId;
+            assetTransferJourPost.ToAssetLocId        =   assetTransferJourTransIns.ToAssetLocId;
+            assetTransferJourPost.AssetEmployee       =   assetTransferJourTransIns.AssetEmployee;
+            assetTransferJourPost.AssetListId         =   assetTransferJourTransIns.AssetListId;
+            assetTransferJourPost.AssetTransactionType=   AssetTransType_ES::LocationTransfer;
+            assetTransferJourPost.PostedDateTime      =   DateTimeUtil::getSystemDateTime();
+            assetTransferJourPost.PostedBy            =   curUserId();
+            assetTransferJourPost.TransLine           =   assetTransferJourTransIns.RecID;
+            assetTransferJourPost.JournalType         =   LedgerJournalName::find(ledgerJournalTable.JournalName).JournalType;
+            if(assetTransferJourPost.JournalType == LedgerJournalType::AssetCounting_ES)
+                assetTransferJourPost.AssetTransactionType=   AssetTransType_ES::AssetCounting;
+
+            select assetLocationTable where assetLocationTable.AssetLocId == assetTransferJourTransIns.ToAssetLocId;
+
+            assetTransferJourPost.DefaultDimension       = assetLocationTable ? assetLocationTable.DimensionDefault : assetTransferJourTransIns.DefaultDimension;//AssetMgmt_Prem
+
+            assetTransferJourPost.FromAssetLocationType  = assetTransferJourTransIns.FromAssetLocationType;
+            assetTransferJourPost.ToAssetLocationType    = assetTransferJourTransIns.ToAssetLocationType;
+
+            assetTransferJourPost.FromLocType       = assetTransferJourTransIns.FromLocType;
+            assetTransferJourPost.ToLocType         = assetTransferJourTransIns.ToLocType;
+
+            assetTransferJourPost.insert();
+
+            if (assetTransferJourPost)
+            {
+                assetListUD = AssetList_ES::findByAssetList(assetTransferJourTransIns.AssetListId,true);
+                assetListUD.ProjId = assetTransferJourPost.ToProjectId;
+                assetListUD.LocType = assetTransferJourTransIns.ToLocType;
+                assetListUD.LocId = assetTransferJourPost.ToAssetLocId;
+                assetListUD.DefaultDimension = assetTransferJourPost.DefaultDimension;//AssetMgmt_Prem
+
+                assetListUD.update();
+                ret = true;
+            }
+
+            if(assetTransferJourTransIns.FromAssetLocId != assetTransferJourTransIns.ToAssetLocId &&  assetTransferJourPost.JournalType == LedgerJournalType::AssetCounting_ES)
+            this.missedJournalLines(assetTransferJourTransIns);
+        }
+        ttsCommit;
+        return ret;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>progressUpdate</Name>
+				<Source><![CDATA[
+    public void progressUpdate(str _text)
+    {
+        progressCounter++;
+        progress.setCount(progressCounter);
+        progress.setText(_text);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>run</Name>
+				<Source><![CDATA[
+    public void run()
+    {
+        #OCCRetryCount
+        AssetTransferJourPost_ES            assetTransferJourPost;
+        AssetTransferJourTrans_ES           assetTransferJourTransSELE;
+        LedgerJournalTable               ledgerJournalTableUpd;
+        LedgerJournalId                  journalId;
+        boolean                          validateSuccess, postingSuccess;
+        Counter                          progressTotal;
+
+        switch (journalTableId)
+        {
+            case tableNum(LedgerJournalTable):
+                ledgerJournalTable = record;
+                break;
+            case tableNum(AssetTransferJourTrans_ES):
+                assetTransferJourTrans = record;
+                ledgerJournalTable = assetTransferJourTrans.ledgerJournalTable();
+                break;
+            default:
+                throw error ('Invalid parameter call. Update has been cancelled');
+        }
+
+        progressTotal = this.numOfLines();
+        journalId     = ledgerJournalTable.JournalNum;
+
+        try
+        {
+            ttsBegin;
+            if (! this.validate())
+            {
+                throw error(strFmt("Validate journal has been cancelled"));
+            }
+
+            if (! ledgerJournalTable.checkNotSystemBlocked() ||
+            ! ledgerJournalTable.checkNotGroupBlocked()  ||
+            ! ledgerJournalTable.checkNotUserBlocked())
+            {
+                throw error(strFmt("Validate journal has been cancelled"));
+            }
+            ttsCommit;
+        }
+        catch (Exception::UpdateConflict)
+        {
+            if (appl.ttsLevel() == 0)
+            {
+                if (xSession::currentRetryCount() >= #RetryNum)
+                {
+                    throw Exception::UpdateConflictNotRecovered;
+                }
+                else
+                {
+                    retry;
+                }
+            }
+            else
+            {
+                throw Exception::UpdateConflict;
+            }
+        }
+
+        try
+        {
+            ttsBegin;
+            if (progressTotal)
+            {
+                if (!ledgerJournalTable.Posted)
+                {
+                    if (!progress)
+                    {
+                        this.progressInit("Checking", progressTotal, #AviFindFile);
+                        progress.setText("Initializing");
+                    }
+
+                    validateSuccess = this.checkJournal(journalId);
+
+                    if (journalCheckPostType == JournalCheckPostType::Check)
+                    {
+                        if (validateSuccess)
+                        info (strFmt('The journal %1 has no errors',journalId));
+                        else
+                        error(strFmt("The journal %1 has validation errors",journalId));
+                    }
+
+                    if (journalCheckPostType == JournalCheckPostType::Post)
+                    {
+                        if(!validateSuccess)
+                        throw error(strFmt("The journal %1 has validation errors",journalId));
+
+                        postingSuccess = this.postJournal();
+
+                        if (postingSuccess)
+                        {
+                            select forupdate ledgerJournalTableUpd where ledgerJournalTableUpd.RecId == ledgerJournalTable.RecId;
+                            if (ledgerJournalTableUpd)
+                            {
+                                ledgerJournalTableUpd.Posted = NoYes::Yes;
+                                ledgerJournalTableUpd.PostedDateTime = DateTimeUtil::getSystemDateTime();
+                                ledgerJournalTableUpd.update();
+                                info (strFmt('The journal %1 is posted',ledgerJournalTable.JournalNum));
+                            }
+                            else
+                            {
+                                error(strFmt("The journal %1 has errors and cannot be posted" +
+                            '\n' + "Update has been cancelled",journalId));
+                            }
+                        }
+                    }
+                }
+            }
+            ttsCommit;
+        }
+        catch (Exception::Deadlock)
+        {
+            retry;
+        }
+        catch (Exception::UpdateConflict)
+        {
+            if (appl.ttsLevel() == 0)
+            {
+                if (xSession::currentRetryCount() >= #RetryNum)
+                {
+                    ttsbegin;
+                    ledgerJournalTable = LedgerJournalTable::find(journalId, true);
+                    this.updateSystemBlock(ledgerJournalTable, false);
+                    ttscommit;
+                    throw Exception::UpdateConflictNotRecovered;
+                }
+                else
+                {
+                    retry;
+                }
+            }
+            else
+            {
+                ttsbegin;
+                ledgerJournalTable = LedgerJournalTable::find(journalId, true);
+                this.updateSystemBlock(ledgerJournalTable, false);
+                ttscommit;
+                throw Exception::UpdateConflict;
+            }
+        }
+        catch (Exception::Error)
+        {
+            ttsbegin;
+            ledgerJournalTable = LedgerJournalTable::find(journalId, true);
+            this.updateSystemBlock(ledgerJournalTable, false);
+            ttscommit;
+            throw Exception::Error;
+        }
+        catch (Exception::Info)
+        {
+            ttsbegin;
+            ledgerJournalTable = LedgerJournalTable::find(journalId, true);
+            this.updateSystemBlock(ledgerJournalTable, false);
+            ttscommit;
+            throw Exception::Error;
+        }
+
+
+
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>updateSystemBlock</Name>
+				<Source><![CDATA[
+    protected void updateSystemBlock(LedgerJournalTable _ledgerJournalTable, boolean set = true)
+    {
+        if (set)
+        {
+            _ledgerJournalTable.SystemBlocked = NoYes::Yes;
+        }
+        else
+        {
+            _ledgerJournalTable.SystemBlocked = NoYes::No;
+        }
+
+        _ledgerJournalTable.update();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>validate</Name>
+				<Source><![CDATA[
+    public boolean validate(Object _calledFrom = null)
+    {
+        boolean isValid = true;
+
+        if (! ledgerJournalTable.JournalNum)
+        {
+            isValid = checkFailed(strFmt("Journal %1 does not exist", ledgerJournalTable.JournalNum));
+        }
+
+        isValid = isValid && JournalTableData::newTable(ledgerJournalTable).checkOpen();
+
+        return isValid;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>main</Name>
+				<Source><![CDATA[
+    static void main(Args _args)
+    {
+        ESS_AssetTransferJournalCheckPost   assetTransferJournalCheckPost;
+        Common                          record;
+        FormDataSource                  recordDataSource;
+        TableId                         tableID;
+        JournalCheckPostType            journalCheckPostType;
+
+        record                          = _args.record();
+        recordDataSource                = _args.caller().dataSource();
+        journalCheckPostType            = _args.parmEnum();
+
+        tableId                         = record.TableId;
+
+        assetTransferJournalCheckPost   = new ESS_AssetTransferJournalCheckPost();
+        assetTransferJournalCheckPost.parmJournalTableId(tableId);
+        assetTransferJournalCheckPost.parmJournalRecord(record);
+        assetTransferJournalCheckPost.parmJournalDataSource(recordDataSource);
+        assetTransferJournalCheckPost.parmJournalCheckPostType(journalCheckPostType);
+        assetTransferJournalCheckPost.run();
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

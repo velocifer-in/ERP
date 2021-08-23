@@ -1,0 +1,980 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>AssetProposalDepreciationSplit_ES</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+/// <summary>
+///    The <c>AssetProposalDepreciationSplit_ES</c> class provides functionality for depreciation split.
+/// </summary>
+public class AssetProposalDepreciationSplit_ES extends RunBase
+{
+    AssetTable              getAssetTable;
+    QueryRun                queryRun;
+    AssetTransDate          assetTransDate;
+    AssetTransDate          deprecPostDate;
+
+    DialogField             dialogDepDate;
+    DialogField             dialogPostDate;
+
+    DimensionDisplayValue   journalNum;
+    JournalNameId           journalNameId;
+    JournalNameId           JournalName;
+    Voucher                 voucher;
+    LedgerJournalId         ledgerJournalId;
+    ProjId                  projectId;
+    
+    #define.CurrentVersion(1)
+    #define.version(1)
+
+    #localmacro.CurrentList
+        assetTransDate,
+        deprecPostDate
+    #endmacro
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>adjustment</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Adjument of remaining amount in journal line.
+    /// </summary>
+    public void adjustment()
+    {
+        LedgerJournalTrans  ledgerJournalTransDbt, ledgerJournalTransCrt, ledgerJournalTransUpdate;
+        LedgerJournalTrans_Project    ledgerJournalTrans_Project;
+        ;
+
+        ttsbegin;
+        select sum(AmountCurDebit) from ledgerJournalTransDbt where ledgerJournalTransDbt.JournalNum == this.parmJournalNum();
+
+        if(ledgerJournalTransDbt.AmountCurDebit < 0)
+        {
+            return;
+        }
+
+        select sum(AmountCurCredit) from ledgerJournalTransCrt where ledgerJournalTransCrt.JournalNum == this.parmJournalNum();
+
+        if(ledgerJournalTransCrt.AmountCurCredit != ledgerJournalTransDbt.AmountCurDebit)
+        {
+            
+            select  forUpdate ledgerJournalTransUpdate
+                order by RecId desc
+                where ledgerJournalTransUpdate.JournalNum == this.parmJournalNum();
+
+            ledgerJournalTransUpdate.AmountCurDebit  +=  ledgerJournalTransCrt.AmountCurCredit - ledgerJournalTransDbt.AmountCurDebit;
+            ledgerJournalTransUpdate.doUpdate();
+
+            if(ledgerJournalTransUpdate.AccountType == LedgerJournalACType::Project)
+            {
+                select forupdate ledgerJournalTrans_Project
+                    where ledgerJournalTrans_Project.RefRecId == ledgerJournalTransUpdate.RecId;
+                if(ledgerJournalTrans_Project)
+                {
+                    ledgerJournalTrans_Project.CostPrice =  ledgerJournalTransUpdate.AmountCurDebit;
+                    ledgerJournalTrans_Project.doUpdate();
+                }
+            }
+           
+        }
+        ttscommit;
+
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>createJounalLines</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Creation of ledgerJournalTrans records.
+    /// </summary>
+    /// <param name = "_voucher">
+    /// Voucher Id
+    /// </param>
+    /// <param name = "_accountType">
+    /// AccountType
+    /// </param>
+    /// <param name = "_ledgerAcc">
+    /// Account
+    /// </param>
+    /// <param name = "_amountCur">
+    /// Split Amount
+    /// </param>
+    /// <param name = "isDebit">
+    /// Is Debit Amount?
+    /// </param>
+    /// <param name = "_dimension">
+    /// Dimension combination
+    /// </param>
+    /// <param name = "_transDate">
+    /// Transaction date
+    /// </param>
+    /// <param name = "_txt">
+    /// Tansaction Text
+    /// </param>
+    /// <param name = "activityNumber">
+    /// Project activity number
+    /// </param>
+    /// <param name = "defaultDimension">
+    /// Default dimension
+    ///</param>
+    protected void createJounalLines(AssetTrans             _assetTrans,
+                                 AssetList_ES               _AsserList,
+                                 AssetTransferJourPost_ES      _AssetTransferJourPost,
+                                 Voucher                    _voucher,
+                                 LedgerJournalACType            _accountType,
+                                 LedgerDimensionDefaultAccount  _ledgerAcc,
+                                 Amount                         _amountCur,
+                                 boolean                        isDebit,
+                                 DimensionDefault               _dimension,
+                                 TransDate                      _transDate,
+                                 LedgerJournalTransTxt          _txt = '',
+                                 ProjActivityNumber             activityNumber = "",
+                                 DimensionDefault               defaultDimension = 0)
+    {
+        LedgerJournalTrans  ledgerJournalTrans;
+        LedgerJournalTrans_Project  ledgerJournalTrans_Project;
+        ;
+        ttsbegin;
+        ledgerJournalTrans.initValue();
+        ledgerJournalTrans.Voucher                  =   _voucher;
+        ledgerJournalTrans.JournalNum               =   this.parmJournalNum();
+        ledgerJournalTrans.CurrencyCode             =   Ledger::find(Ledger::current()).AccountingCurrency;
+        ledgerJournalTrans.ExchRate                 =   ExchangeRateHelper::getExchangeRate1_Static(Ledger::current(),ledgerJournalTrans.CurrencyCode,_transDate);
+        ledgerJournalTrans.DefaultDimension         =   _dimension;
+        ledgerJournalTrans.AccountType              =   _accountType;
+        ledgerJournalTrans.LedgerDimension          =   _ledgerAcc;
+        if(isDebit)
+        {
+            ledgerJournalTrans.AmountCurDebit       =   CurrencyExchangeHelper::amount(_amountCur, ledgerJournalTrans.CurrencyCode);
+        }
+        else
+        {
+            ledgerJournalTrans.AmountCurCredit      =   CurrencyExchangeHelper::amount(_amountCur, ledgerJournalTrans.CurrencyCode);
+        }
+
+        ledgerJournalTrans.TransDate                =   _transDate;
+        ledgerJournalTrans.TransactionType          =   LedgerTransType::GeneralJournal;
+        ledgerJournalTrans.Txt                      =   _txt;
+        ledgerJournalTrans.DefaultDimension         =   defaultDimension;
+        ledgerJournalTrans.AssetTrans               = _assetTrans.RecId;
+        ledgerJournalTrans.ReasonRefRecID           = _assetTrans.RecId;
+        ledgerJournalTrans.AssetList                = _AsserList.RecId;
+        ledgerJournalTrans.AssetTransferJourPost    = _AssetTransferJourPost.RecId;
+
+        ledgerJournalTrans.insert();
+
+        if(_accountType == LedgerJournalACType::Project)
+        {
+            ledgerJournalTrans_Project.initValue();
+            ledgerJournalTrans_Project.RefRecId         =   LedgerJournalTrans.RecId;
+            ledgerJournalTrans_Project.ProjId           =   this.parmProjId();
+            ledgerJournalTrans_Project.CategoryId       =   AssetParameters::find().ProjCategoryId_ES;
+            ledgerJournalTrans_Project.ActivityNumber   =   activityNumber;
+            ledgerJournalTrans_Project.Qty              =   1;
+            ledgerJournalTrans_Project.CostPrice        =   LedgerJournalTrans.AmountCurDebit;
+            ledgerJournalTrans_Project.SalesCurrencyId        =   LedgerJournalTrans.CurrencyCode;
+            
+            if(!ledgerJournalTrans_Project.LinePropertyId)
+            {
+                ledgerJournalTrans_Project.LinePropertyId   =   ProjCategory::find(AssetParameters::find().ProjCategoryId_ES).projLinePropertyId();
+            }
+            if(!ledgerJournalTrans_Project.LinePropertyId)
+            {
+                ledgerJournalTrans_Project.LinePropertyId   =   AssetParameters::find().ProjLinePropertyId_ES;
+            }
+            ledgerJournalTrans_Project.insert();
+        }
+
+        ttscommit;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>createJournal</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Creation of Depreciation Split for Asset Lists of the Fixed Asset.
+    /// </summary>
+    protected void createJournal()
+    {
+        LedgerJournalTable      ledgerJournalTable;
+        ;
+
+        ledgerJournalTable.initValue();
+        ledgerJournalTable.JournalName = this.getJournalName();
+        ledgerJournalTable.initFromLedgerJournalName();
+
+        ledgerJournalTable.Name = strfmt("Depreciation split - %1", date2str(assetTransDate,2,2,2,2,2,4));
+
+        ledgerJournalTable.WorkflowApprovalStatus = LedgerJournalWFApprovalStatus::NotSubmitted;
+
+        ledgerJournalTable.insert();
+        this.parmJournalNum(ledgerJournalTable.JournalNum);
+        this.parmJournalNameId(ledgerJournalTable.JournalName);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>dialog</Name>
+				<Source><![CDATA[
+    Object dialog()
+    {
+        DialogRunbase dialog = super();
+        ;
+
+        dialog.caption("Depreciation split");
+
+        dialog.addGroup("@SYS80056");
+
+        dialogDepDate = dialog.addFieldValue(extendedTypeStr(AssetTransDate), assetTransDate, "@SYS14656","Create depreciation split through this date");
+        dialogPostDate = dialog.addFieldValue(extendedTypeStr(AssetTransDate), assetTransDate, "@SYS14475","@SYS16658");
+
+        return dialog;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getFromDialog</Name>
+				<Source><![CDATA[
+    boolean getFromDialog()
+    {
+        boolean ret;
+
+        ret = super();
+
+        assetTransDate = dialogDepDate.value();
+        deprecPostDate = dialogPostDate.value();
+
+        return ret;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getJournalName</Name>
+				<Source><![CDATA[
+    protected JournalNameId getJournalName()
+    {
+        ;
+        return AssetParameters::find().AssetAllocJourName_ES;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getLedgerAcc</Name>
+				<Source><![CDATA[
+    protected LedgerDimensionDefaultAccount getLedgerAcc(AssetTrans             assetTrans,
+                                                     AssetTransferJourPost_ES  assetTransferJourPost)
+    {
+        LedgerDimensionDefaultAccount       ledgerAcc;
+        AssetParameters                     assetParameters = AssetParameters::find();
+        GeneralJournalAccountEntry          generalJournalAccountEntry;
+        GeneralJournalEntry                 generalJournalEntry;
+        SubledgerVoucherGeneralJournalEntry subledgerVoucherGeneralJournalEntry;
+        ;
+
+        if(assetTransferJourPost && assetTransferJourPost.ToLocType != AssetLocType_ES::Project)
+        {
+            if(assetParameters.AssetLedgerSource_ES == NoYes::Yes)
+            {
+                select firstonly * from generalJournalAccountEntry
+                exists join generalJournalEntry
+                    where generalJournalEntry.RecId == generalJournalAccountEntry.GeneralJournalEntry
+                && generalJournalEntry.Ledger == Ledger::current()
+                exists join subledgerVoucherGeneralJournalEntry
+                    where subledgerVoucherGeneralJournalEntry.GeneralJournalEntry == generalJournalEntry.RecId
+                && subledgerVoucherGeneralJournalEntry.Voucher == assetTrans.Voucher
+                && subledgerVoucherGeneralJournalEntry.AccountingDate == assetTrans.TransDate;
+
+                ledgerAcc = generalJournalAccountEntry.LedgerDimension;
+            }
+            else
+            {
+                ledgerAcc = assetParameters.AssetLedgerAcct_ES;
+            }
+        }
+
+        if(assetTransferJourPost && assetTransferJourPost.ToLocType == AssetLocType_ES::Project)
+        {
+            ledgerAcc = LedgerDynamicAccountHelper::getDynamicAccountFromAccountNumber(assetTransferJourPost.ToAssetLocId, LedgerJournalACType::Project);
+        }
+
+        if(!ledgerAcc)
+        {
+            ledgerAcc = assetParameters.AssetLedgerAcct_ES;
+        }
+
+        return ledgerAcc;
+
+       
+
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmJournalNameId</Name>
+				<Source><![CDATA[
+    protected JournalNameId parmJournalNameId(JournalNameId _journalNameId = journalNameId)
+    {
+        ;
+        journalNameId = _journalNameId;
+
+        return journalNameId;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmJournalNum</Name>
+				<Source><![CDATA[
+    protected DimensionDisplayValue parmJournalNum(DimensionDisplayValue _journalNum = journalNum)
+    {
+        ;
+        journalNum = _journalNum;
+
+        return journalNum;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmProjId</Name>
+				<Source><![CDATA[
+    protected ProjId parmProjId(ProjId _projId = projectId)
+    {
+        ;
+        projectId = _projId;
+
+        return projectId;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getLedgerAcc_Default</Name>
+				<Source><![CDATA[
+    protected LedgerDimensionDefaultAccount getLedgerAcc_Default(AssetTrans _assetTrans, AssetLocType_ES _locType,
+                                                                AssetLocId_ES _locId)
+    {
+        LedgerDimensionDefaultAccount       ledgerAcc;
+        AssetParameters                     assetParameters = AssetParameters::find();
+        GeneralJournalAccountEntry          generalJournalAccountEntry;
+        GeneralJournalEntry                 generalJournalEntry;
+        SubledgerVoucherGeneralJournalEntry subledgerVoucherGeneralJournalEntry;
+        ;
+
+        if(_locType == AssetLocType_ES::Location)
+        {
+            if(assetParameters.AssetLedgerSource_ES)
+            {
+                select firstonly * from generalJournalAccountEntry
+                exists join generalJournalEntry
+                    where generalJournalEntry.RecId == generalJournalAccountEntry.GeneralJournalEntry
+                && generalJournalEntry.Ledger == Ledger::current()
+                exists join subledgerVoucherGeneralJournalEntry
+                    where subledgerVoucherGeneralJournalEntry.GeneralJournalEntry == generalJournalEntry.RecId
+                && subledgerVoucherGeneralJournalEntry.Voucher == _assetTrans.Voucher
+                && subledgerVoucherGeneralJournalEntry.AccountingDate == _assetTrans.TransDate;
+
+                ledgerAcc = generalJournalAccountEntry.LedgerDimension;
+            }
+            else
+            {
+                ledgerAcc = assetParameters.AssetLedgerAcct_ES;
+            }
+        }
+
+        if(_locType == AssetLocType_ES::Project)
+        {
+            ledgerAcc = LedgerDynamicAccountHelper::getDynamicAccountFromAccountNumber(_locId, LedgerJournalACType::Project);
+        }
+
+        if(!ledgerAcc)
+        {
+            ledgerAcc = assetParameters.AssetLedgerAcct_ES;
+        }
+
+        return ledgerAcc;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getLedgerType</Name>
+				<Source><![CDATA[
+    protected LedgerJournalACType getLedgerType(AssetTransferJourPost_ES assetTransferJourPost)
+    {
+        LedgerJournalACType         accountType;
+        ;
+
+        if(assetTransferJourPost.ToLocType == AssetLocType_ES::Project)
+        {
+            accountType = LedgerJournalACType::Project;
+        }
+        else
+        {
+            accountType = LedgerJournalACType::Ledger;
+        }
+
+        return accountType;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getOffsetAcc</Name>
+				<Source><![CDATA[
+    protected LedgerDimensionDefaultAccount getOffsetAcc(AssetTrans assetTrans)
+    {
+        LedgerDimensionDefaultAccount       offsetAcc;
+        AssetParameters                     assetParameters = AssetParameters::find();
+        GeneralJournalAccountEntry          generalJournalAccountEntry;
+        GeneralJournalEntry                 generalJournalEntry;
+        SubledgerVoucherGeneralJournalEntry subledgerVoucherGeneralJournalEntry;
+        ;
+
+        if(assetParameters.AssetOffSource_ES)
+        {
+            select firstonly * from generalJournalAccountEntry
+                exists join generalJournalEntry
+                    where generalJournalEntry.RecId == generalJournalAccountEntry.GeneralJournalEntry
+                && generalJournalEntry.Ledger == Ledger::current()
+                exists join subledgerVoucherGeneralJournalEntry
+                    where subledgerVoucherGeneralJournalEntry.GeneralJournalEntry == generalJournalEntry.RecId
+                && subledgerVoucherGeneralJournalEntry.Voucher == assetTrans.Voucher
+                && subledgerVoucherGeneralJournalEntry.AccountingDate == assetTrans.TransDate;
+
+            offsetAcc = generalJournalAccountEntry.LedgerDimension;
+        }
+        else
+        {
+            offsetAcc = assetParameters.AssetOffsetAcct_ES;
+        }
+        
+
+        if(!offsetAcc)
+        {
+            offsetAcc = assetParameters.AssetOffsetAcct_ES;
+        }
+
+        return offsetAcc;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getProjId</Name>
+				<Source><![CDATA[
+    protected ProjId getProjId(AssetTransferJourTrans_ES assetTransferJourTrans)
+    {
+        ProjId   projId;
+        ;
+
+        if(assetTransferJourTrans.ToLocType == AssetLocType_ES::Project)
+        {
+            projId = assetTransferJourTrans.ToProjectId;
+        }
+
+        return projId;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>gettingLedgerDimensionAll</Name>
+				<Source><![CDATA[
+    private LedgerDimensionDefaultAccount gettingLedgerDimensionAll(LedgerDimensionDefaultAccount   _ledgerJournalId,
+                                                                AssetId                         _assetId,
+                                                                AssetListId_ES                  _assetListId,
+                                                                DimensionDefault                defaultDimension)
+    {
+        DimensionAttributeValueSetItem  DimensionAttributeValueSetItem;
+        RefRecId                        dimAttrRecId;
+        LedgerDimensionAccount          ledgerDimension;
+        RefRecId                        dimensionRecId;
+        LedgerDimensionAccount          mainAccDimension;
+        DimensionValue                  MainAccount;
+        ;
+
+        MainAccount = this.gettingMainAccount(_ledgerJournalId);
+
+        dimensionRecId  =   defaultDimension;
+        if(!defaultDimension)
+        {
+            dimensionRecId  =   AssetList_ES::findByAssetList(_assetListId).DefaultDimension;
+        }
+        if(!dimensionRecId)
+        {
+            dimensionRecId  =   CommonMethods_ES::findByAssetId(_assetId).DefaultDimension;
+        }
+
+        select firstonly DimensionAttributeValueSetItem
+        where DimensionAttributeValueSetItem.DimensionAttributeValueSet == dimensionRecId;
+
+        dimAttrRecId        =   DimensionAttributeValueSetItem.DimensionAttributeValueSet;
+        mainAccDimension    =   LedgerDefaultAccountHelper::getDefaultAccountFromMainAccountId(MainAccount);
+        ledgerDimension     =   LedgerDimensionFacade::serviceCreateLedgerDimension(mainAccDimension, dimensionRecId, dimAttrRecId);
+
+        return ledgerDimension;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>gettingMainAccount</Name>
+				<Source><![CDATA[
+    private DimensionValue gettingMainAccount(LedgerDimensionDefaultAccount _defaultAccount)
+    {
+        DimensionAttributeValueCombination      DimensionAttributeValueCombination;
+        DimensionAttributeValueGroupCombination DimensionAttributeValueGroupCombination;
+        DimensionAttributeValueGroup            DimensionAttributeValueGroup;
+        DimensionHierarchyLevel                 DimensionHierarchyLevel;
+        DimensionAttribute                      DimensionAttribute;
+        DimensionAttributeLevelValueAllView     DimensionAttributeLevelValueAllView;
+        DimensionValue                          MainAccount = '';
+        ;
+
+        select firstonly DimensionAttributeValueCombination
+            where DimensionAttributeValueCombination.RecId == _defaultAccount;
+        while select * from DimensionAttributeValueGroupCombination
+        where DimensionAttributeValueGroupCombination.DimensionAttributeValueCombination == DimensionAttributeValueCombination.RecId
+            join DimensionAttributeValueGroup
+            where DimensionAttributeValueGroup.RecId == DimensionAttributeValueGroupCombination.DimensionAttributeValueGroup
+            join DimensionHierarchyLevel
+                where DimensionHierarchyLevel.DimensionHierarchy == DimensionAttributeValueGroup.DimensionHierarchy
+                && DimensionHierarchyLevel.Level==1
+            join DimensionAttribute
+                    where DimensionAttribute.RecId==DimensionHierarchyLevel.DimensionAttribute
+                    && DimensionAttribute.Type == DimensionAttributeType::MainAccount
+            join  DimensionAttributeLevelValueAllView
+                        where DimensionAttributeLevelValueAllView.DimensionAttribute == DimensionAttribute.RecId
+                        && DimensionAttributeLevelValueAllView.DimensionAttributeValueGroup == DimensionAttributeValueGroupCombination.DimensionAttributeValueGroup
+        {
+            
+            MainAccount = DimensionAttributeLevelValueAllView.DisplayValue;
+        }
+
+        return MainAccount;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>initInstance</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Initialization
+    /// </summary>
+    /// <param name = "_ledgerJournalTrans">
+    /// LedgerJournalTrans Record.
+    /// </param>
+    protected void initInstance(LedgerJournalTrans _ledgerJournalTrans)
+    {
+        ;
+        ledgerJournalId = _ledgerJournalTrans.JournalNum;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>initParmDefault</Name>
+				<Source><![CDATA[
+    public void initParmDefault()
+    {
+        Query                   query;
+        QueryBuildDataSource    qbd;
+        QueryBuildRange         qbr;
+        ;
+
+        super();
+
+        query = new Query(queryStr(AssetTable));
+
+        qbd = query.dataSourceTable(tableNum(AssetTable));
+
+        qbr = qbd.addRange(fieldNum(AssetTable, Allocation_ES));
+        qbr.value(queryValue(NoYes::Yes));
+        
+        queryRun = new QueryRun(query);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>pack</Name>
+				<Source><![CDATA[
+    public container pack()
+    {
+        ;
+
+        return [#CurrentVersion, #CurrentList, queryRun.pack()];
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmVoucher</Name>
+				<Source><![CDATA[
+    protected Voucher parmVoucher(Voucher _voucher = voucher)
+    {
+        ;
+        voucher = _voucher;
+
+        return _voucher;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>queryRun</Name>
+				<Source><![CDATA[
+    public QueryRun queryRun()
+    {
+        ;
+        return queryRun;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>setVoucher</Name>
+				<Source><![CDATA[
+    protected void setVoucher()
+    {
+        NumberSeq           numberseq;
+        NumberSequenceCode  NumberSequenceCode;
+        ;
+
+        NumberSequenceCode = NumberSequenceTable::find(LedgerJournalName::find(this.parmJournalNameId()).NumberSequenceTable).NumberSequence;
+        numberseq = NumberSeq::newGetVoucherFromCode(NumberSequenceCode, NumberSeqScopeFactory::createDefaultScope(), true);
+        this.parmVoucher(numberseq.voucher());
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>showQueryValues</Name>
+				<Source><![CDATA[
+    boolean showQueryValues()
+    {
+        ;
+        return true;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>unpack</Name>
+				<Source><![CDATA[
+    public boolean unpack(container _packedClass)
+    {
+        Version     version = runbase::getVersion(_packedClass);
+        container   packedQuery;
+        ;
+
+        switch (version)
+        {
+            case #CurrentVersion:
+                [version, #CurrentList, packedQuery] = _packedClass;
+                if (packedQuery)
+                {
+                    queryRun = new QueryRun(packedQuery);
+                }
+                break;
+
+            default:
+                return false;
+        }
+        return true;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>updateAssetTrans</Name>
+				<Source><![CDATA[
+    private void updateAssetTrans(AssetTrans    assetTrans)
+    {
+        AssetTrans  updateAssetTrans;
+        ;
+
+        if(assetTrans.RecId)
+        {
+            ttsBegin;
+            updateAssetTrans = AssetTrans::find(assetTrans.RecId, true);
+            updateAssetTrans.FAMgmtJournal_ES = this.parmJournalNum();
+            updateAssetTrans.FAMgmtCreated_ES = NoYes::Yes;
+            updateAssetTrans.update();
+            ttsCommit;
+        }
+        
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>run</Name>
+				<Source><![CDATA[
+    public void run()
+    {
+        AssetTable                      assetTable;
+        AssetTrans                      assetTrans, assetTransD, assetTransA;
+        AssetBook                       assetBook;
+        AssetBookTable                  assetBookTable;
+        AssetList_ES                    assetList;
+        AssetTransferJourPost_ES        assetTransferJourPost;
+        Amount                          depAmount, sumDepAmount;
+        boolean                         createJournal,defaultLine;
+        LedgerJournalACType             accountType;
+        LedgerDimensionDefaultAccount   ledgerAcc;
+        AssetLocId_ES                     locationId;
+        ProjId                          projId;
+        date                            depStart, depEnd, startDt, endDt;
+        int                             depDays, mthDays;
+        Voucher                         _voucher;
+        ProjActivityNumber              activityNumber;
+        DimensionDefault                defaultDimension;
+        /* boolean                         transExists;
+        AssetLocType_ES                 toLocType;
+        AssetLocId_ES                   toLocId;*/
+        container                       transJourPost;
+        int                             counter;
+        ;
+
+        super();
+
+        this.parmJournalNum(ledgerJournalId);
+        this.parmJournalNameId(LedgerJournalTable::find(ledgerJournalId).JournalName);
+
+        while(queryRun.next())
+        {
+            getAssetTable = queryRun.get(tableNum(AssetTable));
+
+            while select assetTable
+                where assetTable.Allocation_ES == NoYes::Yes
+                && assetTable.AssetId  == getAssetTable.AssetId
+                && assetTable.AssetGroup == getAssetTable.AssetGroup
+            {
+                sumDepAmount = 0;
+                while select assetTrans
+                where assetTrans.AssetId == assetTable.AssetId
+                && assetTrans.TransType == AssetTransType::Depreciation
+                && assetTrans.TransDate <= assetTransDate
+                    && assetTrans.FAMgmtCreated_ES  == NoYes::No
+                {
+                    depStart = mkDate(1, mthOfYr(assetTrans.TransDate), year(assetTrans.TransDate));
+                    assetBook = CommonMethods_ES::findByAssetId(assetTable.AssetId);
+                    if(depStart < assetBook.AcquisitionDate)
+                    {
+                        depStart = assetBook.AcquisitionDate;
+                    }
+
+                    depEnd = assetTrans.TransDate;
+                    depDays = depEnd - depStart + 1;
+
+                    select sum (AmountMST) from assetTransA join assetBook join assetBookTable
+                    where assetTransA.AssetId == assetTable.AssetId
+                    && (assetTransA.TransType == AssetTransType::Acquisition ||
+                        assetTransA.TransType == AssetTransType::AcquisitionAdj)
+                    && assetTransA.BookId == assetBook.BookId
+                    && assetBook.AssetId == assetTable.AssetId
+                    && assetBookTable.BookId == assetBook.BookId
+                    && assetBookTable.CurrentOperationsTax == CurrentOperationsTax::Current
+                    //&& assetTransA.TransDate >= depStart
+                    && assetTransA.TransDate <= depEnd;
+
+                    select sum (AmountMST) from assetTransD
+                    where assetTransD.AssetId == assetTable.AssetId
+                    && (assetTransD.TransType == AssetTransType::Depreciation ||
+                        assetTransD.TransType == AssetTransType::DepreciationAdj)
+                    && assetTransD.TransDate >= depStart
+                    && assetTransD.TransDate <= depEnd
+                    && !assetTransD.FAMgmtCreated_ES;
+
+                    ledgerAcc = this.getOffsetAcc(assetTrans);
+                    ledgerAcc = this.gettingLedgerDimensionAll(ledgerAcc, assetTable.AssetId, "", 0);
+
+                    this.setVoucher();
+                    _voucher = this.parmVoucher();
+
+                    this.createJounalLines(assetTrans, assetList, assetTransferJourPost, _voucher, LedgerJournalACType::Ledger, ledgerAcc, (assetTransD.AmountMST * -1), false, 0, deprecPostDate,
+                                        strfmt("Depreciation -%1 - %2", assetTable.AssetId, date2str(assetTrans.TransDate,2,2,2,2,2,4)), "", 0);
+
+                    while select assetList
+                        order by ListId
+                    where assetList.AssetId == assetTable.AssetId
+                    {
+
+                        // startDt = depStart;
+                        // transExists = false;
+                        locationId = "";
+                        projId = "";
+                        activityNumber = "";
+                        defaultDimension = 0;
+                        transJourPost  = conNull();
+                        counter = 0;
+                        assetTransferJourPost = AssetTransferJourPost_ES::findTrans(assetList.ListId,depStart,depEnd);
+
+                        if(!AssetTransferJourPost_ES::existTrans(assetList.ListId,depStart,depEnd))
+                        {
+                            if(AssetTransferJourPost_ES::findPreviousLine(assetList.ListId,depStart,depEnd).TransDate)
+                            {
+                                startDt = depStart;
+                                endDt = depEnd;
+                                mthDays = endDt - startDt +1;
+
+                                if(AssetTransferJourTrans_ES::find(AssetTransferJourPost_ES::findPreviousLine(assetList.ListId, depStart, depEnd).TransLine,false).ToLocType != AssetLocType_ES::Project)
+                                {
+                                    locationId = AssetTransferJourPost_ES::findPreviousLine(assetList.ListId, depStart, depEnd).ToAssetLocId;
+                                    accountType =LedgerJournalACType::Ledger;
+                                }
+                                else
+                                {
+                                    projId = AssetTransferJourPost_ES::findPreviousLine(assetList.ListId, depStart, depEnd).ToProjectId;
+                                    accountType =LedgerJournalACType::Project;
+                                }
+                                ledgerAcc = this.getLedgerAcc(assetTrans, AssetTransferJourPost_ES::findPreviousLine(assetList.ListId,depStart,depEnd));
+                                if(accountType == LedgerJournalACType::Ledger)
+                                {
+                                    ledgerAcc = this.gettingLedgerDimensionAll(ledgerAcc,assetTable.AssetId,assetList.ListId,AssetTransferJourPost_ES::findPreviousLine(assetList.ListId, depStart, depEnd).DefaultDimension);
+                                    activityNumber = AssetTransferJourPost_ES::findPreviousLine(assetList.ListId,depStart,depEnd).ActivityNumber;
+                                    
+                                }
+                                if(accountType == LedgerJournalACType::Project)
+                                {
+                                    defaultDimension = AssetTransferJourPost_ES::findPreviousLine(assetList.ListId,depStart,depEnd).DefaultDimension;
+                                }
+                                      
+
+                                depAmount = ((assetTransD.AmountMST/assetTransA.AmountMST/depDays)*assetList.UnitCost)*(assetTransferJourPost.Qty*mthDays*-1);
+
+                                this.parmProjId(projId);
+                                this.createJounalLines(assetTrans,assetList,assetTransferJourPost,_voucher, accountType, ledgerAcc, depAmount, true, 0, deprecPostDate,
+                                                strfmt("%1 -Days: %2 @ %3%4", assetList.ListId, int2str(mthDays), locationId, projId), activityNumber, defaultDimension);
+                        
+                            }
+                            else
+                            {
+                                ledgerAcc = this.getLedgerAcc(assetTrans,AssetTransferJourPost_ES::findTrans(assetList.ListId,depStart,depEnd));
+                                ledgerAcc = this.gettingLedgerDimensionAll(ledgerAcc,assetTable.AssetId,assetList.ListId,0);
+
+                                assetTransferJourPost = AssetTransferJourPost_ES::findPreviousLine(assetList.ListId,depStart,depEnd);
+
+
+                                depAmount = ((assetTransD.AmountMST/assetTransA.AmountMST/depDays)* assetList.UnitCost) * (assetTransferJourPost.Qty*mthDays*-1);
+
+                                this.createJounalLines(assetTrans,assetList,assetTransferJourPost, _voucher,LedgerJournalACType::Ledger, ledgerAcc,depAmount,true,0,deprecPostDate,strFmt("%1 - Days: %2", assetList.ListId,int2Str(depDays)),"",0);
+                            }
+                        }
+                      
+                        while select assetTransferJourPost
+                        where assetTransferJourPost.AssetListId == assetList.ListId
+                        && assetTransferJourPost.TransDate >= depStart
+                        && assetTransferJourPost.TransDate <= depEnd
+                        && assetTransferJourPost.AssetTransactionType == AssetTransType_ES::LocationTransfer
+                        {
+                            locationId = ""; projId = ""; activityNumber = ""; defaultDimension = 0;
+
+                            startDt = assetTransferJourPost.TransDate;
+                            if(startDt < depStart)
+                            startDt = depStart;
+
+                            endDt = AssetTransferJourPost_ES::findNextLine(assetList.ListId, assetTransferJourPost, depEnd, transJourPost).TransDate -1;
+
+                            if(!endDt || (endDt > assetTrans.TransDate))
+                            endDt = assetTrans.TransDate;
+
+                            mthDays = endDt - startDt + 1;
+
+                            if(AssetTransferJourTrans_ES::find(assetTransferJourPost.TransLine,false).ToLocType != AssetLocType_ES::Project)
+                            locationId = assetTransferJourPost.ToAssetLocId;
+                            else
+                            projId = assetTransferJourPost.ToProjectId;
+
+                            accountType = this.getLedgerType(assetTransferJourPost);
+
+                            ledgerAcc = this.getLedgerAcc(assetTrans, assetTransferJourPost);
+                            if(accountType == LedgerJournalACType::Ledger)
+                            ledgerAcc = this.gettingLedgerDimensionAll(ledgerAcc, assetTable.AssetId, assetList.ListId, assetTransferJourPost.DefaultDimension);
+
+                            activityNumber = assetTransferJourPost.ActivityNumber;
+
+                            if(accountType == LedgerJournalACType::Project)
+                            defaultDimension = assetTransferJourPost.DefaultDimension;
+
+                            depAmount = ((assetTransD.AmountMST/assetTransA.AmountMST/depDays) * assetList.UnitCost) *(assetTransferJourPost.Qty*mthDays*-1);
+
+                            this.parmProjId(projId);
+
+                            if(depAmount > 0)
+                            this.createJounalLines(assetTrans, assetList, assetTransferJourPost, _voucher, accountType, ledgerAcc, depAmount, true, 0, deprecPostDate,
+                                                   strfmt("%1 - Days: %2 @ %3%4", assetList.ListId, int2str(mthDays), locationId, projId), activityNumber, defaultDimension);
+
+                            counter++;
+                            transJourPost = conIns(transJourPost, counter, assetTransferJourPost.RecId);
+                        }
+                    }
+                    this.updateAssetTrans(assetTrans);
+
+                    
+                }
+            }
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>main</Name>
+				<Source><![CDATA[
+    public static void main (Args _args)
+    {
+        AssetProposalDepreciationSplit_ES   assetProposalDepreciationSplit;
+        FormRun                             callerForm;
+        ;
+
+        assetProposalDepreciationSplit = new AssetProposalDepreciationSplit_ES();
+
+        assetProposalDepreciationSplit.initInstance(_args.record());
+
+        if(assetProposalDepreciationSplit.prompt())
+        {
+            assetProposalDepreciationSplit.run();
+            assetProposalDepreciationSplit.adjustment();
+        }
+
+        callerForm = _args.caller();
+        
+        if (callerForm)
+        {
+            callerForm.dataSource().refresh();
+            callerForm.dataSource().reread();
+            callerForm.dataSource().research();
+           
+          
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>canRunInNewSession</Name>
+				<Source><![CDATA[
+    protected boolean canRunInNewSession()
+    {
+        return false;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

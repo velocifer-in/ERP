@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxFormExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V6">
+	<Name>LedgerJournalTable.ESSFA</Name>
+	<ControlModifications />
+	<Controls>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControl4d4sujfn1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormMenuFunctionButtonControl">
+				<Name>AssetTransferJourCheck_ES</Name>
+				<AutoDeclaration>Yes</AutoDeclaration>
+				<Type>MenuFunctionButton</Type>
+				<Visible>No</Visible>
+				<FormControlExtension
+					i:nil="true" />
+				<DataSource>LedgerJournalTable</DataSource>
+				<MultiSelect>No</MultiSelect>
+				<Text>Validate</Text>
+			</FormControl>
+			<Parent>ButtonGroup</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControl1lda444a1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormMenuFunctionButtonControl">
+				<Name>AssetTransferJourPost_ES</Name>
+				<AutoDeclaration>Yes</AutoDeclaration>
+				<Type>MenuFunctionButton</Type>
+				<Visible>No</Visible>
+				<FormControlExtension
+					i:nil="true" />
+				<DataSource>LedgerJournalTable</DataSource>
+				<MultiSelect>No</MultiSelect>
+				<Text>Post</Text>
+			</FormControl>
+			<Parent>ButtonGroup</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControl1l5cp4sf1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormMenuFunctionButtonControl">
+				<Name>AssetDefaults_ES</Name>
+				<AutoDeclaration>Yes</AutoDeclaration>
+				<Type>MenuFunctionButton</Type>
+				<Visible>No</Visible>
+				<FormControlExtension
+					i:nil="true" />
+				<DataSource>LedgerJournalTable</DataSource>
+				<MultiSelect>No</MultiSelect>
+				<Text>Import</Text>
+			</FormControl>
+			<Parent>ButtonGroup</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlzbv1ncom1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormMenuFunctionButtonControl">
+				<Name>ESS_Import</Name>
+				<Type>MenuFunctionButton</Type>
+				<Visible>No</Visible>
+				<FormControlExtension
+					i:nil="true" />
+				<Text>Import</Text>
+			</FormControl>
+			<Parent>ButtonGroup</Parent>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlfjvlj4su1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormTabPageControl">
+				<Name>AssetDefaults</Name>
+				<AutoDeclaration>Yes</AutoDeclaration>
+				<Pattern>FieldsFieldGroups</Pattern>
+				<PatternVersion>1.1</PatternVersion>
+				<Type>TabPage</Type>
+				<Visible>No</Visible>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl xmlns=""
+						i:type="AxFormGroupControl">
+						<Name>Asset_Defaults</Name>
+						<Type>Group</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<Controls>
+							<AxFormControl xmlns=""
+								i:type="AxFormDateControl">
+								<Name>Asset_Defaults_AssetDate_ES</Name>
+								<Type>Date</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<DataField>AssetDate_ES</DataField>
+								<DataSource>LedgerJournalTable</DataSource>
+							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormComboBoxControl">
+								<Name>Asset_Defaults_AssetLocType_ES</Name>
+								<Type>ComboBox</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<DataField>AssetLocType_ES</DataField>
+								<DataSource>LedgerJournalTable</DataSource>
+								<Items />
+							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormReferenceGroupControl">
+								<Name>Asset_Defaults_ESS_AssetEmployee</Name>
+								<Type>ReferenceGroup</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<Controls />
+								<DataSource>LedgerJournalTable</DataSource>
+								<ReferenceField>ESS_AssetEmployee</ReferenceField>
+							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormStringControl">
+								<Name>Asset_Defaults_ESS_AssetLocId</Name>
+								<Type>String</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<DataField>ESS_AssetLocId</DataField>
+								<DataSource>LedgerJournalTable</DataSource>
+							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormStringControl">
+								<Name>Asset_Defaults_ESS_Description</Name>
+								<Type>String</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<DataField>ESS_Description</DataField>
+								<DataSource>LedgerJournalTable</DataSource>
+							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormStringControl">
+								<Name>Asset_Defaults_ESS_ProjId</Name>
+								<Type>String</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<DataField>ESS_ProjId</DataField>
+								<DataSource>LedgerJournalTable</DataSource>
+							</AxFormControl>
+						</Controls>
+						<Caption>Defaults</Caption>
+						<DataGroup>ESS_AssetDefaults</DataGroup>
+						<DataSource>LedgerJournalTable</DataSource>
+					</AxFormControl>
+				</Controls>
+				<ColumnsMode>Fill</ColumnsMode>
+				<Caption>Asset defaults</Caption>
+				<DataSource>LedgerJournalTable</DataSource>
+			</FormControl>
+			<Parent>Tab</Parent>
+		</AxFormExtensionControl>
+	</Controls>
+	<DataSourceModifications />
+	<DataSourceReferences />
+	<DataSources />
+	<Parts />
+	<PropertyModifications />
+</AxFormExtension>

@@ -1,0 +1,35 @@
+<EventHandlers>
+  <BusinessEventHandlers>
+    <EventHandler delegateElementName="LedgerJournalTable" delegateElementTypeId="FormTypeId" delegateMethodName="init" eventHandlerElementName="AssetMgmt_ExtensionES" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="LedgerJournalTable_Post_init" delegateTypeId="PostDelegateTypeId" />
+    <EventHandler delegateElementName="LedgerJournalStatic" delegateElementTypeId="ClassTypeId" delegateMethodName="menuItemStrLines" eventHandlerElementName="AssetMgmt_ExtensionES" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="LedgerJournalStatic_Post_menuItemStrLines" delegateTypeId="PostDelegateTypeId" />
+    <EventHandler delegateElementName="LedgerJournalFormTable" delegateElementTypeId="ClassTypeId" delegateMethodName="datasourceCreatePost" eventHandlerElementName="AssetMgmt_ExtensionES" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="LedgerJournalFormTable_Post_datasourceCreatePost" delegateTypeId="PostDelegateTypeId" />
+    <EventHandler delegateElementName="AssetParameters" delegateElementTypeId="FormTypeId" delegateMethodName="numberSeqPreInit" eventHandlerElementName="AssetMgmt_ExtensionES" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="AssetParameters_Post_numberSeqPreInit" delegateTypeId="PostDelegateTypeId" />
+    <EventHandler delegateElementName="DimensionEnabledType" delegateElementTypeId="ClassTypeId" delegateMethodName="registerDimensionEnabledTypeIdentifiersDelegate" eventHandlerElementName="DimAttributeAssetList" eventHandlerElementTypeId="TableTypeId" eventHandlerMethodName="registerDimensionEnabledTypeIdentifier" delegateTypeId="DelegateTypeId" />
+    <EventHandler delegateElementName="LedgerJournalTable" delegateElementTypeId="FormTypeId" delegateMethodName="init" eventHandlerElementName="LedgerJournalTable_EventHandler" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="LedgerJournalTable_Post_init" delegateTypeId="PostDelegateTypeId" />
+  </BusinessEventHandlers>
+  <DataEventHandlers>
+    <DataEventHandler tableName="AssetTrans" dataEventType="Inserted" eventHandlerElementName="AssetMgmt_ExtensionES" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="AssetTrans_onInserted" />
+    <DataEventHandler tableName="LedgerJournalTrans" dataEventType="Deleted" eventHandlerElementName="AssetMgmt_ExtensionES" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="LedgerJournalTrans_onDeleted" />
+    <DataEventHandler tableName="LedgerJournalTable" dataEventType="Updated" eventHandlerElementName="LedgerJournalTable_EventHandler" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="LedgerJournalTable_onUpdated" />
+  </DataEventHandlers>
+  <FormEventHandlers />
+  <FormControlEventHandlers>
+    <FormControlEventHandler formName="AssetParameters" formControlName="AssetParameters_AssetTransJourName_ES" formControlEventType="Lookup" eventHandlerElementName="ESS_AssetParameters" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="AssetParameters_AssetTransJourName_ES_OnLookup" />
+    <FormControlEventHandler formName="AssetParameters" formControlName="AssetParameters_AssetAllocJourName_ES" formControlEventType="Lookup" eventHandlerElementName="ESS_AssetParameters" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="AssetParameters_AssetAllocJourName_ES_OnLookup" />
+    <FormControlEventHandler formName="AssetParameters" formControlName="AssetParameters_AssetMoveJournalName_ES" formControlEventType="Lookup" eventHandlerElementName="ESS_AssetParameters" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="AssetParameters_AssetMoveJournalName_ES_OnLookup" />
+    <FormControlEventHandler formName="AssetParameters" formControlName="AssetParameters_AssetMgmtProjExpCatId" formControlEventType="Lookup" eventHandlerElementName="ESS_AssetParameters" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="AssetParameters_AssetMgmtProjExpCatId_OnLookup" />
+    <FormControlEventHandler formName="LedgerJournalTable" formControlName="Asset_Defaults_ESS_AssetLocId" formControlEventType="Lookup" eventHandlerElementName="LedgerJournalTable_EventHandler" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="Asset_Defaults_ESS_AssetLocId_OnLookup" />
+  </FormControlEventHandlers>
+  <FormDataSourceEventHandler>
+    <FormDataSourceEventHandler formName="LedgerJournalTable" formDataSourceName="LedgerJournalTable" formDataSourceEventType="Activated" eventHandlerElementName="AssetMgmt_ExtensionES" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="LedgerJournalTable_OnActivated" />
+    <FormDataSourceEventHandler formName="AssetParameters" formDataSourceName="AssetParameters" formDataSourceEventType="Activated" eventHandlerElementName="ESS_AssetParameters" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="AssetParameters_OnActivated" />
+    <FormDataSourceEventHandler formName="SMAServiceObjectRelation" formDataSourceName="SMAServiceObjectRelation" formDataSourceEventType="Initialized" eventHandlerElementName="SMAServiceObjectRelationEvtHdlrClass" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="SMAServiceObjectRelation_OnInitialized" />
+    <FormDataSourceEventHandler formName="LedgerJournalTable" formDataSourceName="LedgerJournalTable" formDataSourceEventType="InitValue" eventHandlerElementName="LedgerJournalTable_EventHandler" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="LedgerJournalTable_OnInitValue" />
+  </FormDataSourceEventHandler>
+  <FormDataFieldEventHandler>
+    <FormControlEventHandler formName="AssetParameters" formDataSourceName="AssetParameters" formDataFieldName="AssetOffSource_ES" formDataFieldEventType="Modified" eventHandlerElementName="ESS_AssetParameters" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="AssetOffsetAcct_ES_OnModified" />
+    <FormControlEventHandler formName="AssetParameters" formDataSourceName="AssetParameters" formDataFieldName="AssetLedgerSource_ES" formDataFieldEventType="Modified" eventHandlerElementName="ESS_AssetParameters" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="AssetLedgerSource_ES_OnModified" />
+    <FormControlEventHandler formName="SMAServiceObjectRelation" formDataSourceName="SMAServiceObjectRelation" formDataFieldName="ESS_AssetListId" formDataFieldEventType="Modified" eventHandlerElementName="SMAServiceObjectRelationEvtHdlrClass" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="ESS_AssetListId_OnModified" />
+    <FormControlEventHandler formName="LedgerJournalTable" formDataSourceName="LedgerJournalTable" formDataFieldName="AssetLocType_ES" formDataFieldEventType="Modified" eventHandlerElementName="LedgerJournalTable_EventHandler" eventHandlerElementTypeId="ClassTypeId" eventHandlerMethodName="AssetLocType_ES_OnModified" />
+  </FormDataFieldEventHandler>
+</EventHandlers>

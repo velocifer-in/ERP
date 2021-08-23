@@ -1,0 +1,4 @@
+﻿VERSION=1; HeaderTable   LineTable1  LineRelation1 LineDeleteAction1   LineTable2  LineRelation2 LineDeleteAction2   ...
+HcmWorker	AssetTransferJourTrans_ES	HcmWorker	R	
+DimensionAttributeValueSet	AssetTransferJourTrans_ES	DimensionAttributeValueSet	R	
+AssetSite_ES	AssetTransferJourTrans_ES	AssetSite_ES	R	

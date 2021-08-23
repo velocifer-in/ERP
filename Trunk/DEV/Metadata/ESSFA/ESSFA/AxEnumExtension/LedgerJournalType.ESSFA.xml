@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxEnumExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>LedgerJournalType.ESSFA</Name>
+	<EnumValues>
+		<AxEnumValue>
+			<Name>AssetCounting_ES</Name>
+			<Label>Asset stock</Label>
+		</AxEnumValue>
+		<AxEnumValue>
+			<Name>AssetLocTransfer_ES</Name>
+			<Label>Asset location transfer</Label>
+		</AxEnumValue>
+		<AxEnumValue>
+			<Name>AssetAllocation_ES</Name>
+			<Label>Asset allocation</Label>
+		</AxEnumValue>
+	</EnumValues>
+	<PropertyModifications />
+	<ValueModifications />
+</AxEnumExtension>

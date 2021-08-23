@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxMenuItemDisplay xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V1">
+	<Name>ESS_LedgerJournalTableAssetStock</Name>
+	<EnumParameter>AssetCounting_ES</EnumParameter>
+	<EnumTypeParameter>LedgerJournalType</EnumTypeParameter>
+	<HelpText>Open asset location transfer journals</HelpText>
+	<Label>Asset physical stock</Label>
+	<Object>LedgerJournalTable</Object>
+	<SubscriberAccessLevel>
+		<Read xmlns="">Allow</Read>
+	</SubscriberAccessLevel>
+</AxMenuItemDisplay>

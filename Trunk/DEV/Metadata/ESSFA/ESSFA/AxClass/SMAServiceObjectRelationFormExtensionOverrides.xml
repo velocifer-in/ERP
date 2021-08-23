@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SMAServiceObjectRelationFormExtensionOverrides</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public class SMAServiceObjectRelationFormExtensionOverrides
+{
+   
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>new</Name>
+				<Source><![CDATA[
+    protected void new()
+    {
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>construct</Name>
+				<Source><![CDATA[
+    public static SMAServiceObjectRelationFormExtensionOverrides construct()
+    {
+        return new SMAServiceObjectRelationFormExtensionOverrides();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>ESS_AssetListId_OnLookup</Name>
+				<Source><![CDATA[
+    public void ESS_AssetListId_OnLookup (FormStringControl  _callingControl)
+    {
+        SMAAgreementTable       sMAAgreementTable;
+        ProjTable               projTable;
+        SMAServiceOrderTable    sMAServiceOrderTable;
+        ProjId                  projId;
+        Query                   query = new Query();
+        QueryBuildDataSource    qBDS;
+        QueryBuildDataSource    qbdsJoin;
+        QueryBuildRange         qBR, qBRProject;
+        FormRun                 form = _callingControl.formRun();
+        FormDataSource          sMAServiceObjectRelation_ds = form.dataSource(formDataSourceStr(SMAServiceObjectRelation,SMAServiceObjectRelation )) as FormDataSource;
+        
+        SMAServiceObjectRelation  sMAServiceObjectRelation = sMAServiceObjectRelation_ds.cursor();
+
+        SysTableLookup          sysTableLookup = sysTableLookup::newParameters(tableNum(AssetList_ES), _callingControl);
+        ;
+
+        if(sMAServiceObjectRelation.showRelationOrigin() == SMARelationType::Agreement) //element.args().dataset() == tableNum(SMAAgreementTable))
+        {
+            select sMAAgreementTable
+            where SMAAgreementTable.AgreementId == sMAServiceObjectRelation.RelKeyId
+                && SMAAgreementTable.TableId == sMAServiceObjectRelation.RelTableId;
+
+            select projTable where projTable.AgreementId == SMAAgreementTable.AgreementId;
+
+
+            projId = projTable.ProjId;
+        }
+
+        if(sMAServiceObjectRelation.showRelationOrigin() == SMARelationType::ServiceOrder) //element.args().dataset() == tableNum(SMAServiceOrderTable))
+        {
+            select sMAServiceOrderTable
+            where sMAServiceOrderTable.ServiceOrderId == sMAServiceObjectRelation.RelKeyId
+                && sMAServiceOrderTable.TableId == sMAServiceObjectRelation.RelTableId;
+
+            projId = sMAServiceOrderTable.ProjId;
+        }
+
+        qBDS= query.addDataSource(tableNum(AssetList_ES));
+
+        qBRProject = qBDS.addRange(fieldNum(AssetList_ES, LocId));
+        qBRProject.value(projId);
+
+        qbdsJoin= qBDS.addDataSource(tableNum(AssetTable));
+        qbdsJoin.relations(true);
+
+        qBR = qbdsJoin.addRange(fieldNum(AssetTable, ServiceObjectId));
+        qBR.value(SMAServiceObjectRelation.ServiceObjectId);
+
+        sysTableLookup.parmQuery(query); //info(query.toString());
+        sysTableLookup.addLookupfield( fieldNum(AssetList_ES, ListId));
+        sysTableLookup.addLookupfield( fieldNum(AssetList_ES, Name));
+        sysTableLookup.performFormLookup();
+
+
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

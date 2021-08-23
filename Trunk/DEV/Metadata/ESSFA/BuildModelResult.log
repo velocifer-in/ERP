@@ -1,0 +1,10 @@
+==================================
+TaskListItem Information: Class Method dynamics://Class/AssetMgmt_ExtensionES/Method/LedgerJournalFormTable_Post_datasourceCreatePost: [(208,82),(208,89)]: TODO
+ExternalReference Warning: dynamics://Reference/Microsoft.Commerce.Flighting.Common: Assembly 'Microsoft.Xbox.Experimentation.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d91bba2b903dc20f' failed to load because it was not found.
+Compile Warning: Class Method dynamics://Class/AssetMgmt_ExtensionES/Method/assetSumCalc: [(138,28),(138,104)]: 'AssetSumCalc_DepBookTrans' is obsolete: ''Depreciation books are not used anymore. Use value models instead.''.
+Metadata Warning: AxView/DimAttributeAssetList: You have added an index to a view, but AX7 views do not support indexing: No index will be added to the view in SQL server. We suggest removing the index.
+BestPractices Warning: AxForm/ESS_AssetLocationTable/Design/Controls/FormTabControl1/TabFinancialDimensions: 'AxForm/ESS_AssetLocationTable/Design/Controls/FormTabControl1/TabFinancialDimensions' has not specified a pattern. Please apply one of the available patterns.
+Compile Warning: Form Method dynamics://Form/ES_AssetLocationTableLookUp/Method/run: [(34,28),(34,148)]: 'filterSegmentedLookupPreRun' is obsolete: ''This method is obsolete, SegmentedEntryControl should use SegmentedEntryTableLookup::filterSegmentedLookupPreRun().''.
+==================================
+Errors: 0
+Warnings: 5

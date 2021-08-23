@@ -1,0 +1,703 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxForm xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V6">
+	<Name>AssetJourTransStock_ES</Name>
+	<SourceCode>
+		<Methods xmlns="">
+			<Method>
+				<Name>classDeclaration</Name>
+				<Source><![CDATA[
+[Form]
+public class AssetJourTransStock_ES extends FormRun
+{
+    LedgerJournalTable                  ledgerJournalTable;
+    LedgerJournalEngine                 ledgerJournalEngine;
+    
+}
+]]></Source>
+			</Method>
+			<Method>
+				<Name>init</Name>
+				<Source><![CDATA[
+    public void init()
+    {
+        if (element.args().dataset() == tableNum(LedgerJournalTable))
+        {
+            ledgerJournalTable = element.args().record();
+        }
+        
+        super();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>checkJournal</Name>
+				<Source><![CDATA[
+    void checkJournal()
+    {
+        if (AssetTransferJourTrans_ES.FromAssetLocationType == AssetTransferJourTrans_ES.ToAssetLocationType)
+        {
+            switch(AssetTransferJourTrans_ES.FromAssetLocationType)
+            {
+                case AssetLocationType_ES::Project :
+                    if(AssetTransferJourTrans_ES.FromProjectId == AssetTransferJourTrans_ES.ToProjectId)
+                    {
+                        checkFailed("the 'From project' and 'To project' cannot be same ");
+                    }
+                    break;
+                default:
+                    break;
+                
+            }
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>validate</Name>
+				<Source><![CDATA[
+    void validate()
+    {
+
+        AssetTransferJourTrans_ES  _AssetTransferJourTrans,AssetJourTrans;
+        AssetTransferJourPost_ES    assetTransferJourPost;
+
+        while select AssetJourTrans
+            where AssetJourTrans.TransJourId    == AssetTransferJourTrans_ES.TransJourId
+        {
+
+                if (AssetJourTrans.FromAssetLocationType == AssetJourTrans.ToAssetLocationType)
+            {
+                switch(AssetJourTrans.FromAssetLocationType)
+                {
+                    case AssetLocationType_ES::Project :
+                        if(AssetJourTrans.FromProjectId == AssetJourTrans.ToProjectId)
+                        {
+                            checkFailed("the 'From project' and 'To project' cannot be same ");
+                        }
+                        break;
+                    default:
+                        break;
+                
+                }
+            }
+
+            select assetTransferJourPost order by TransDate desc
+                where assetTransferJourPost.AssetListId == AssetJourTrans.AssetListId;
+
+            if(assetTransferJourPost.TransDate < AssetJourTrans.TransDate)
+                throw Error(strFmt("Transaction date should not be earlier than last transaction date - %1 in %2", date2Str(assetTransferJourPost.TransDate,2,2,2,2,2,4,321),AssetJourTrans.AssetListId));
+        }
+
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>assetFromLookup</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    private void assetFromLookup(FormControl  _formControl, AssetTransferJourTrans_ES  _assetTransferJourTrans)
+    {
+        switch(_assetTransferJourTrans.FromAssetLocationType)
+        {
+            case AssetLocationType_ES::Project:
+                ProjTable::lookupProjId(_formControl,_assetTransferJourTrans);
+                break;
+            default:
+                break;
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>assetToLookup</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    private void assetToLookup(FormControl  _formControl, AssetTransferJourTrans_ES  _assetTransferJourTrans)
+    {
+        switch(_assetTransferJourTrans.ToAssetLocationType)
+        {
+            case AssetLocationType_ES::Project:
+                ProjTable::lookupProjId(_formControl,_assetTransferJourTrans);
+                break;
+            default:
+                break;
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>RefreshDS</Name>
+				<Source><![CDATA[
+    public void RefreshDS()
+    {
+        ledgerJournalTable  _ledgerJournalTable;
+
+        select _ledgerJournalTable
+        where _ledgerJournalTable.JournalNum == ledgerJournalTable.journalnum;
+
+        if(_ledgerJournalTable.Posted)
+        {
+            AssetTransferJourTrans_ES_ds.allowCreate(false);
+            AssetTransferJourTrans_ES_ds.allowDelete(false);
+            AssetTransferJourTrans_ES_ds.allowEdit(false);
+           // Validate.enabled(false);
+           // Post.enabled(false);
+
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+		<DataSources xmlns="">
+			<DataSource>
+				<Name>AssetTransferJourTrans_ES</Name>
+				<Methods>
+					<Method>
+						<Name>initValue</Name>
+						<Source><![CDATA[
+        public void initValue()
+        {
+            
+            super();
+            AssetTransferJourTrans_ES.JournalNum            =   ledgerJournalTable.JournalNum;
+           
+                AssetTransferJourTrans_ES.TransDate         =   ledgerJournalTable.AssetDate_ES;
+            
+            AssetTransferJourTrans_ES.AssetEmployee         = ledgerJournalTable.ESS_AssetEmployee;
+            AssetTransferJourTrans_ES.FromAssetLocationType           =   ledgerJournalTable.AssetLocType_ES;
+                
+
+            
+        }
+
+]]></Source>
+					</Method>
+					<Method>
+						<Name>active</Name>
+						<Source><![CDATA[
+        public int active()
+        {
+            int ret;
+        
+            ret = super();
+            if(AssetTransferJourTrans_ES.Posted == NoYes::Yes)
+            {
+                AssetTransferJourTrans_ES_ds.allowEdit(false);
+            }
+            else
+            {
+                AssetTransferJourTrans_ES_ds.allowEdit(true);
+            }
+
+            if(ledgerJournalTable.Posted)
+            {
+                 AssetTransferJourTrans_ES_ds.allowCreate(False);
+                AssetTransferJourTrans_ES_ds.allowEdit(false);
+                AssetTransferJourTrans_ES_ds.allowDelete(false);
+                FunctionsBtnGroup.enabled(false);
+            }
+                        
+            return ret;
+        }
+
+]]></Source>
+					</Method>
+					<Method>
+						<Name>executeQuery</Name>
+						<Source><![CDATA[
+        /// <summary>
+        ///
+        /// </summary>
+        public void executeQuery()
+        {
+            this.query().dataSourceTable(tableNum(AssetTransferJourTrans_ES)).addrange(fieldNum(AssetTransferJourTrans_ES, TransDate)).value(queryValue(NoYes::No));
+            
+            super();
+        }
+
+]]></Source>
+					</Method>
+				</Methods>
+				<Fields>
+					<Field>
+						<DataField>AssetListId</DataField>
+						<Methods>
+							<Method>
+								<Name>lookup</Name>
+								<Source><![CDATA[
+            public void lookup(FormControl _formControl, str _filterStr)
+            {
+                QueryBuildDataSource    qbds;
+                Query                   query = new Query();
+
+                SysTableLookup sysTableLookup = SysTableLookup::newParameters(tableNum(AssetList_ES), _formControl);
+
+                sysTableLookup.addLookupfield(fieldNum(AssetList_ES, ListId));
+                sysTableLookup.addLookupfield(fieldNum(AssetList_ES, Name));
+                sysTableLookup.addLookupfield(fieldNum(AssetList_ES, Status));
+
+                qbds = query.addDataSource(tableNum(AssetList_ES));
+                qbds.addRange(fieldNum(AssetList_ES, Status)).value(SysQuery::valueNot(AssetStatus::Closed));
+                qbds.addRange(fieldNum(AssetList_ES, Stopped)).value(SysQuery::value(NoYes::No));
+
+                sysTableLookup.parmQuery(query);
+                sysTableLookup.performFormLookup();
+            }
+
+]]></Source>
+							</Method>
+							<Method>
+								<Name>modified</Name>
+								<Source><![CDATA[
+            public void modified()
+            {
+                AssetTransferJourPost_ES   assetTransferJourPost;
+
+                super();
+
+                select assetTransferJourPost order by RecId desc
+                   where assetTransferJourPost.AssetListId == AssetTransferJourTrans_ES.AssetListId;
+                if (assetTransferJourPost)
+                {
+                    if(assetTransferJourPost.ToAssetLocId)
+                    {
+                        AssetTransferJourTrans_ES.FromAssetLocId = assetTransferJourPost.ToAssetLocId;
+                    
+                    }
+                    else if(assetTransferJourPost.ToProjectId)
+                    {
+                        AssetTransferJourTrans_ES.FromAssetLocationType = AssetLocationType_ES::Project;
+                        AssetTransferJourTrans_ES.FromProjectId = assetTransferJourPost.ToProjectId;
+                        AssetTransferJourTrans_ES_ds.object(fieldNum(AssetTransferJourTrans_ES,FromAssetLocationType)).modified();
+                    }
+
+                }
+                else
+                {
+                    AssetTransferJourTrans_ES.FromAssetLocId = AssetParameters::find().AssetLocId_ES;
+                    AssetTransferJourTrans_ES.ToAssetLocationType = ledgerJournalTable.AssetLocType_ES;
+                    AssetTransferJourTrans_ES.ToAssetLocId = ledgerJournalTable.ESS_AssetLocId;
+                    AssetTransferJourTrans_ES.ToProjectId = ledgerJournalTable.ESS_ProjId;
+                    AssetTransferJourTrans_ES_ds.object(fieldNum(AssetTransferJourTrans_ES,ToAssetLocationType)).modified();
+                }
+
+            }
+
+]]></Source>
+							</Method>
+						</Methods>
+					</Field>
+					<Field>
+						<DataField>FromAssetLocId</DataField>
+						<Methods>
+							<Method>
+								<Name>lookup</Name>
+								<Source><![CDATA[
+            /// <summary>
+            ///
+            /// </summary>
+            /// <param name = "_formControl"></param>
+            /// <param name = "_filterStr"></param>
+            public void lookup(FormControl _formControl, str _filterStr)
+            {
+                QueryBuildDataSource    qbds;
+                Query                   query = new Query();
+
+                SysTableLookup sysTableLookup = SysTableLookup::newParameters(tableNum(AssetLocation_ES), _formControl);
+
+                sysTableLookup.addLookupfield(fieldNum(AssetLocation_ES, AssetLocId));
+                sysTableLookup.addLookupfield(fieldNum(AssetLocation_ES, Description));
+
+                qbds = query.addDataSource(tableNum(AssetLocation_ES));
+                
+                qbds.addRange(fieldNum(AssetLocation_ES, LocationType)).value(enum2str(AssetTransferJourTrans_ES.FromLocType));
+
+                sysTableLookup.parmQuery(query);
+                sysTableLookup.performFormLookup();
+            }
+
+]]></Source>
+							</Method>
+						</Methods>
+					</Field>
+					<Field>
+						<DataField>ToAssetLocId</DataField>
+						<Methods>
+							<Method>
+								<Name>lookup</Name>
+								<Source><![CDATA[
+            public void lookup(FormControl _formControl, str _filterStr)
+            {
+                QueryBuildDataSource    qbds;
+                Query                   query = new Query();
+
+                SysTableLookup sysTableLookup = SysTableLookup::newParameters(tableNum(AssetLocation_ES), _formControl);
+
+                sysTableLookup.addLookupfield(fieldNum(AssetLocation_ES, AssetLocId));
+                sysTableLookup.addLookupfield(fieldNum(AssetLocation_ES, Description));
+
+                qbds = query.addDataSource(tableNum(AssetLocation_ES));
+
+                qbds.addRange(fieldNum(AssetLocation_ES, LocationType)).value(enum2str(AssetTransferJourTrans_ES.ToLocType));
+
+                sysTableLookup.parmQuery(query);
+                sysTableLookup.performFormLookup();
+            }
+
+]]></Source>
+							</Method>
+						</Methods>
+					</Field>
+				</Fields>
+			</DataSource>
+		</DataSources>
+		<DataControls xmlns="" />
+		<Members xmlns="" />
+	</SourceCode>
+	<DataSources>
+		<AxFormDataSource xmlns="">
+			<Name>AssetTransferJourTrans_ES</Name>
+			<Table>AssetTransferJourTrans_ES</Table>
+			<Fields>
+				<AxFormDataSourceField>
+					<DataField>AccountValue</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>ActivityNumber</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>AssetEmployee</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>AssetListId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>AssetTransType</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>DataAreaId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>DefaultDimension</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>EndDate</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>FromAssetId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>FromAssetLocationType</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>FromAssetLocId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>FromLocType</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>FromProjectId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>JournalNum</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>LineNum</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>Partition</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>Posted</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>Qty</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>RecId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>Reversed</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>Site</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>TableId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>ToAssetId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>ToAssetLocationType</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>ToAssetLocId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>ToLocType</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>ToProjectId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>TransDate</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>TransJourId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>Txt</DataField>
+				</AxFormDataSourceField>
+			</Fields>
+			<ReferencedDataSources />
+			<DataSourceLinks />
+			<DerivedDataSources />
+		</AxFormDataSource>
+	</DataSources>
+	<Design>
+		<Caption xmlns="">Physical stock for assets</Caption>
+		<DataSource xmlns="">AssetTransferJourTrans_ES</DataSource>
+		<Pattern xmlns="">SimpleList</Pattern>
+		<PatternVersion xmlns="">1.1</PatternVersion>
+		<Style xmlns="">SimpleList</Style>
+		<Controls xmlns="">
+			<AxFormControl xmlns=""
+				i:type="AxFormActionPaneControl">
+				<Name>FormActionPane</Name>
+				<Type>ActionPane</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl xmlns=""
+						i:type="AxFormActionPaneTabControl">
+						<Name>ActionPaneTab</Name>
+						<Type>ActionPaneTab</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<Controls>
+							<AxFormControl xmlns=""
+								i:type="AxFormButtonGroupControl">
+								<Name>FunctionsBtnGroup</Name>
+								<AutoDeclaration>Yes</AutoDeclaration>
+								<Type>ButtonGroup</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<Controls>
+									<AxFormControl xmlns=""
+										i:type="AxFormMenuFunctionButtonControl">
+										<Name>AssetStockJourCheck_ES</Name>
+										<Type>MenuFunctionButton</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<DataSource>AssetTransferJourTrans_ES</DataSource>
+										<MenuItemName>AssetStockJourCheck_ES</MenuItemName>
+										<MenuItemType>Action</MenuItemType>
+										<MultiSelect>No</MultiSelect>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormMenuFunctionButtonControl">
+										<Name>AssetStockJourPost_ES</Name>
+										<Type>MenuFunctionButton</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<DataSource>AssetTransferJourTrans_ES</DataSource>
+										<MenuItemName>AssetStockJourPost_ES</MenuItemName>
+										<MenuItemType>Action</MenuItemType>
+										<MultiSelect>No</MultiSelect>
+									</AxFormControl>
+								</Controls>
+								<DataSource>AssetTransferJourTrans_ES</DataSource>
+							</AxFormControl>
+						</Controls>
+						<Caption>@SYS10340</Caption>
+						<DataSource>AssetTransferJourTrans_ES</DataSource>
+					</AxFormControl>
+				</Controls>
+			</AxFormControl>
+			<AxFormControl xmlns=""
+				i:type="AxFormGroupControl">
+				<Name>FormGroup</Name>
+				<Pattern>CustomAndQuickFilters</Pattern>
+				<PatternVersion>1.1</PatternVersion>
+				<Type>Group</Type>
+				<WidthMode>SizeToAvailable</WidthMode>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl>
+						<Name>QuickFilterControlListStyleGrid</Name>
+						<Tags>Grid</Tags>
+						<WidthMode>SizeToAvailable</WidthMode>
+						<FormControlExtension>
+							<Name>QuickFilterControl</Name>
+							<ExtensionComponents />
+							<ExtensionProperties>
+								<AxFormControlExtensionProperty>
+									<Name>targetControlName</Name>
+									<Type>String</Type>
+								</AxFormControlExtensionProperty>
+								<AxFormControlExtensionProperty>
+									<Name>placeholderText</Name>
+									<Type>String</Type>
+								</AxFormControlExtensionProperty>
+								<AxFormControlExtensionProperty>
+									<Name>defaultColumnName</Name>
+									<Type>String</Type>
+								</AxFormControlExtensionProperty>
+							</ExtensionProperties>
+						</FormControlExtension>
+					</AxFormControl>
+				</Controls>
+				<ArrangeMethod>HorizontalLeft</ArrangeMethod>
+				<FrameType>None</FrameType>
+				<Style>CustomFilter</Style>
+				<ViewEditMode>Edit</ViewEditMode>
+			</AxFormControl>
+			<AxFormControl xmlns=""
+				i:type="AxFormGridControl">
+				<Name>Overview</Name>
+				<Type>Grid</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl xmlns=""
+						i:type="AxFormDateControl">
+						<Name>AssetTransferJourTrans_ES_TransDate</Name>
+						<Type>Date</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>TransDate</DataField>
+						<DataSource>AssetTransferJourTrans_ES</DataSource>
+						<Label>Stock Date</Label>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormStringControl">
+						<Name>AssetTransferJourTrans_ES_AssetListId</Name>
+						<Type>String</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>AssetListId</DataField>
+						<DataSource>AssetTransferJourTrans_ES</DataSource>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormComboBoxControl">
+						<Name>AssetTransferJourTrans_ES_FromAssetLocationType</Name>
+						<Type>ComboBox</Type>
+						<Visible>No</Visible>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>FromAssetLocationType</DataField>
+						<DataSource>AssetTransferJourTrans_ES</DataSource>
+						<Items />
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormStringControl">
+						<Name>AssetTransferJourTrans_ES_FromProjectId</Name>
+						<Type>String</Type>
+						<Visible>No</Visible>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>FromProjectId</DataField>
+						<DataSource>AssetTransferJourTrans_ES</DataSource>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormComboBoxControl">
+						<Name>AssetTransferJourTrans_ES_FromLocType</Name>
+						<Type>ComboBox</Type>
+						<Visible>No</Visible>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>FromLocType</DataField>
+						<DataSource>AssetTransferJourTrans_ES</DataSource>
+						<Items />
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormStringControl">
+						<Name>AssetTransferJourTrans_ES_FromAssetLocId</Name>
+						<Type>String</Type>
+						<Visible>No</Visible>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>FromAssetLocId</DataField>
+						<DataSource>AssetTransferJourTrans_ES</DataSource>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormStringControl">
+						<Name>AssetTransferJourTrans_ES_Txt</Name>
+						<Type>String</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>Txt</DataField>
+						<DataSource>AssetTransferJourTrans_ES</DataSource>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormComboBoxControl">
+						<Name>AssetTransferJourTrans_ES_ToAssetLocationType</Name>
+						<Type>ComboBox</Type>
+						<Visible>No</Visible>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>ToAssetLocationType</DataField>
+						<DataSource>AssetTransferJourTrans_ES</DataSource>
+						<Items />
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormStringControl">
+						<Name>AssetTransferJourTrans_ES_ToProjectId</Name>
+						<Type>String</Type>
+						<Visible>No</Visible>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>ToProjectId</DataField>
+						<DataSource>AssetTransferJourTrans_ES</DataSource>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormComboBoxControl">
+						<Name>AssetTransferJourTrans_ES_ToLocType</Name>
+						<Type>ComboBox</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>ToLocType</DataField>
+						<DataSource>AssetTransferJourTrans_ES</DataSource>
+						<Label>Location type</Label>
+						<Items />
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormStringControl">
+						<Name>AssetTransferJourTrans_ES_ToAssetLocId</Name>
+						<Type>String</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>ToAssetLocId</DataField>
+						<DataSource>AssetTransferJourTrans_ES</DataSource>
+						<Label>Location</Label>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormReferenceGroupControl">
+						<Name>AssetTransferJourTrans_ES_AssetEmployee</Name>
+						<Type>ReferenceGroup</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<Controls />
+						<DataSource>AssetTransferJourTrans_ES</DataSource>
+						<ReferenceField>AssetEmployee</ReferenceField>
+					</AxFormControl>
+				</Controls>
+				<DataSource>AssetTransferJourTrans_ES</DataSource>
+				<Style>Tabular</Style>
+			</AxFormControl>
+		</Controls>
+	</Design>
+	<Parts />
+</AxForm>

@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>LedgerJournalTablefrm_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+[extensionof(formStr(LedgerJournalTable))]
+final class LedgerJournalTablefrm_Extension
+{
+     
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>AssetLocationTypeModified</Name>
+				<Source><![CDATA[
+    public void AssetLocationTypeModified()
+    {
+        if(LedgerJournalTable.AssetLocType_ES == AssetLocationType_ES::FALocation)
+        {
+            LedgerJournalTable_ds.object(fieldNum(LedgerJournalTable,ESS_AssetLocId)).visible(true);
+            LedgerJournalTable_ds.object(fieldNum(LedgerJournalTable,ESS_ProjId)).visible(false);
+        }
+        else if(LedgerJournalTable.AssetLocType_ES == AssetLocationType_ES::Project)
+        {
+            LedgerJournalTable_ds.object(fieldNum(LedgerJournalTable,ESS_AssetLocId)).visible(false);
+            LedgerJournalTable_ds.object(fieldNum(LedgerJournalTable,ESS_ProjId)).visible(true);
+        }
+        else
+        {
+            LedgerJournalTable_ds.object(fieldNum(LedgerJournalTable,ESS_AssetLocId)).visible(false);
+            LedgerJournalTable_ds.object(fieldNum(LedgerJournalTable,ESS_ProjId)).visible(false);
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>enableButtonsActive</Name>
+				<Source><![CDATA[
+    public void enableButtonsActive()
+    {
+
+        next enableButtonsActive();
+        LedgerJournalType journalType = journalFormTable.journalTypeId();
+        UserGroupId approveGroupId = ledgerJournalTable.ledgerJournalName().ApproveGroupId;
+
+        #ISOCountryRegionCodes
+
+        printMenu.enabled(ledgerJournalTable.RecId != 0);
+
+        // Set the lines button's display menu item to point to the correct lines form.
+        journalLines.menuItemName(journalFormTable.journalTableData().journalStatic().menuItemStrLines(enum2int(journalType)));
+
+        openLinesInExcel.visible(journalFormTable.isOpenLinesInExcelEnabled());
+
+        SimulatePosting.visible(false);
+
+        switch (journalType)
+        {
+            case LedgerJournalType::Periodic :
+                checkJournal.visible(false);
+                postJournal.visible(false);
+                course.visible(false);
+                break;
+
+            case LedgerJournalType::PurchaseLedger :
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransInvoiceRegister));
+                ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransInvoiceRegister));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLJTransInvoiceRegister));
+                SimulatePosting.visible(true);
+                break;
+
+            case LedgerJournalType::Daily :
+            if (LedgerParameters::isChineseVoucher_CN())
+                {
+                    if (isSimpleMethod)
+                    {
+                        simpleMethod_CN.visible(false);
+                        advanced_CN.visible(true);
+                    }
+                    else
+                    {
+                        simpleMethod_CN.visible(true);
+                        advanced_CN.visible(false);
+                    }
+                }
+                checkJournal.visible(true);
+                SimulatePosting.visible(true);
+                postJournal.visible(true);
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransDaily));
+                ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransDaily));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLedgerJourTransDaily));
+                sadFinanceTable_PL.visible(true);
+                break;
+
+            case LedgerJournalType::Allocation :
+                checkJournal.visible(true);
+                SimulatePosting.visible(true);
+                postJournal.visible(true);
+
+                // only posting supported not post and transfer
+                ledgerJournalPostTransfer.visible(false);
+
+                // dimensions are not editable
+                tabFinancialDimensions.enabled(false);
+
+                balanceControl.visible(false);
+
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransAllocation));
+                ledgerJournalPostTransfer.enabled(false);
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLJTransAllocation));
+
+                ProcessAllocationRequest.visible(true);
+
+                break;
+
+            case LedgerJournalType::Elimination :
+                checkJournal.visible(true);
+                SimulatePosting.visible(true);
+                postJournal.visible(true);
+
+                // only posting supported not post and transfer
+                ledgerJournalPostTransfer.visible(false);
+
+                // dimensions are not editable
+                tabFinancialDimensions.enabled(false);
+
+                balanceControl.visible(false);
+
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransElimination));
+                ledgerJournalPostTransfer.enabled(false);
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLJTransElimination));
+                break;
+
+            case LedgerJournalType::Approval :
+                checkJournal.visible(true);
+                SimulatePosting.visible(true);
+                postJournal.visible(true);
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransApprove));
+                ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransApprove));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLJTransInvApprove));
+                break;
+
+            case LedgerJournalType::Payment :
+                checkJournal.visible(true);
+                SimulatePosting.visible(true);
+                if ((bankAccount_IT) &&
+                    (!ledgerJournalTable.allowPosting_IT()))
+                {
+                    postJournal.visible(false);
+                }
+                else
+                {
+                    postJournal.visible(true);
+                }
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransVendPaym));
+                ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransVendPaym));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLedgerJourTransVendPaym));
+                break;
+
+            case LedgerJournalType::CustPayment :
+                // this is specific to CustPayment
+                custPaymEntryButton.visible(true);
+
+                checkJournal.visible(true);
+                SimulatePosting.visible(true);
+                postJournal.visible(true);
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransCustPaym));
+                ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransCustPaym));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLJTransCustPaym));
+                break;
+
+            case LedgerJournalType::Netting :
+                checkJournal.visible(false);
+                postJournal.visible(true);
+                post.menuItemName(menuItemActionStr(LedgerJourPostLJTransNetting));
+                ledgerJournalPostTransfer.enabled(false);
+                break;
+
+            case LedgerJournalType::Cost :
+                checkJournal.visible(true);
+                SimulatePosting.visible(true);
+                postJournal.visible(true);
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransCost));
+                ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransCost));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkCOSJournalTable));
+                break;
+
+            case LedgerJournalType::VendInvoiceRegister :
+                checkJournal.visible(true);
+                SimulatePosting.visible(true);
+                postJournal.visible(true);
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransVendInvoice));
+                ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransVendInvoice));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLedgerJourTransVendInvoice));
+                break;
+
+            case LedgerJournalType::Assets :
+                checkJournal.visible(true);
+                SimulatePosting.visible(true);
+                postJournal.visible(true);
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransAsset));
+                ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransAsset));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLedgerJourTransAsset));
+                openLinesInExcel.visible(true);
+                break;
+
+            case LedgerJournalType::AssetBudgets :
+                checkJournal.visible(true);
+                SimulatePosting.visible(true);
+                postJournal.visible(false);
+                post.enabled(false);
+                ledgerJournalPostTransfer.enabled(false);
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLedgerJourTransAssetBudget));
+                break;
+
+            case LedgerJournalType::CustPaymRemittance :
+                journalLines.enabled(ledgerJournalTable.BankAccountId ? true : false);
+
+                if (!journalLines.enabled() &&
+                    ledgerJournalTable.numOfLines() > 0)
+                {
+                    journalLines.enabled(true);
+                }
+
+                checkJournal.visible(true);
+                postJournal.visible(true);
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransCustBOERemit));
+                ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransCustBOERemit));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLJTransCustBOERemit));
+                break;
+
+            case LedgerJournalType::VendPaymRemittance :
+                journalLines.enabled(ledgerJournalTable.BankAccountId ? true : false);
+
+                if (!journalLines.enabled() &&
+                    ledgerJournaltable.numOfLines() > 0)
+                {
+                    journalLines.enabled(true);
+                }
+
+                checkJournal.visible(true);
+                if ((bankAccount_IT) &&
+                    (!ledgerJournalTable.allowPosting_IT()))
+                {
+                    postJournal.visible(false);
+                }
+                else
+                {
+                    postJournal.visible(true);
+                }
+
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransVendPrNoteRemit));
+                ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransVendPrNoteRemit));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLJTransPrNtRemit));
+                break;
+
+            case LedgerJournalType::CustBillOfExchangeDraw :
+                checkJournal.visible(true);
+                SimulatePosting.visible(true);
+                postJournal.visible(true);
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransCustBOEDraw));
+                ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransCustBOEDraw));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLJTransCustBOEDraw));
+                break;
+
+            case LedgerJournalType::CustBillOfExchangeProtest :
+                checkJournal.visible(true);
+                SimulatePosting.visible(true);
+                postJournal.visible(true);
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransCustBOEProtest));
+                ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransCustBOEProtest));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLJTransCustBOEProtest));
+                break;
+
+            case LedgerJournalType::CustBillOfExchangeRedraw :
+                checkJournal.visible(true);
+                SimulatePosting.visible(true);
+                postJournal.visible(true);
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransCustBOERedraw));
+                ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransCustBOERedraw));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLJTransCustBOERedraw));
+                break;
+
+            case LedgerJournalType::CustBillOfExchangeSettle :
+                checkJournal.visible(true);
+                SimulatePosting.visible(true);
+                postJournal.visible(true);
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransCustBOESettle));
+                ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransCustBOESettle));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLJTransCustBOESettle));
+                break;
+
+            case LedgerJournalType::VendPromissoryNoteDraw :
+                checkJournal.visible(true);
+                SimulatePosting.visible(true);
+                postJournal.visible(true);
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransVendPrNoteDraw));
+                ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransVendPrNoteDraw));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLJTransPrNtDraw));
+                break;
+
+            case LedgerJournalType::VendPromissoryNoteRedraw :
+                checkJournal.visible(true);
+                SimulatePosting.visible(true);
+                postJournal.visible(true);
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransVendPrNoteRedraw));
+                ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransVendPrNoteRedraw));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLJTransPrNtRedraw));
+                break;
+
+            case LedgerJournalType::VendPromissoryNoteSettle :
+                checkJournal.visible(true);
+                postJournal.visible(true);
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransVendPrNoteSettle));
+                ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransVendPrNoteSettle));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLJTransPrNtSettle));
+                break;
+
+            case LedgerJournalType::BankChequeReversal :
+                SimulatePosting.visible(true);
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransBankChequeRev));
+                ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransBankChequeRev));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLdgrJourTransBankChequeRev));
+                break;
+
+            case LedgerJournalType::BankDepositPaymCancel :
+                checkJournal.visible(true);
+                SimulatePosting.visible(true);
+                postJournal.visible(true);
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransBankDepPaymCanc));
+                ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransBankDepPaymCanc));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLdgrJrTransBnkDepPayCancel));
+                break;
+
+            case LedgerJournalType::PayrollDisbursement :
+                postJournal.visible(true);
+                ledgerJournalPostTransfer.visible(false);
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTPayrolLDisbursement));
+                checkJournal.visible(true);
+                SimulatePosting.visible(true);
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkJourPayrollDisbursement));
+
+                balanceControl.visible(false);
+                break;
+
+            case LedgerJournalType::Payroll_RU:
+            if (SysCountryRegionCode::isLegalEntityInCountryRegion([#isoRU]))
+                {
+                    checkJournal.visible(true);
+                    checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLedgerJourTransRPay));
+                    postJournal.visible(true);
+                    post.menuItemName(menuitemActionStr(LedgerJourPostLJTransRPay));
+                    ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransRPay));
+                    periodControl_RU.visible(true);
+                    reverse_RU.visible(true);
+                    reverseType_RU.visible(true);
+                    ledgerJournalTable_ds.allowCreate(false);
+                    ledgerJournalTable_ds.startPosition(1);
+
+                    journalCreate_RU.visible(true);
+                    journalCreate_RU.configurationKey(configurationKeyNum(RPayroll));
+                    journalCreate_RU.neededPermission(AccessType::Add);
+
+                    ledgerJournalCreate_RU.enabled(RPayController::canCreateJournal(false));
+                    ledgerJournalCreateStorno_RU.enabled(RPayController::canCreateReverseJournal(false));
+                }
+                break;
+
+            case LedgerJournalType::Assets_RU :
+            if (SysCountryRegionCode::isLegalEntityInCountryRegion([#isoRU]))
+                {
+                    checkJournal.visible(true);
+                    postJournal.visible(true);
+
+                    if (ledgerJournalTable.Posted)
+                    {
+                        rAssetReportMB4.visible(true);
+                        rAssetReportMB8.visible(true);
+                    }
+                    else
+                    {
+                        rAssetReportMB4.visible(false);
+                        rAssetReportMB8.visible(false);
+                    }
+                    post.menuItemName(menuitemActionStr(LedgerJourPostLJTransAsset_RU));
+                    ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransAsset_RU));
+                    checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLJTransAsset_RU));
+                }
+                break;
+
+            case LedgerJournalType::AssetBudgets_RU :
+            if (SysCountryRegionCode::isLegalEntityInCountryRegion([#isoRU]))
+                {
+                    checkJournal.visible(true);
+                    postJournal.visible(false);
+                    post.enabled(false);
+                    ledgerJournalPostTransfer.enabled(false);
+                    checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLJTransAssetBudget_RU));
+                }
+                break;
+
+            case LedgerJournalType::RDeferrals:
+            if (SysCountryRegionCode::isLegalEntityInCountryRegion([#isoRU]))
+                {
+                    checkJournal.visible(true);
+                    postJournal.visible(true);
+                    currency.allowEdit(false);
+                    post.menuItemName(menuitemActionStr(LedgerJourPostLJTransRDeferrals));
+                    ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransRDeferrals));
+                    checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLJTransRDefferals));
+                }
+                break;
+            case LedgerJournalType::RCash :
+            if (RCashParameters::isCashModuleEnabled())
+                {
+                    checkJournal.visible(true);
+                    postJournal.visible(true);
+                    post.menuItemName(menuitemActionStr(LedgerJourPostLJTransRCash));
+                    ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransRCash));
+                    checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLJTransRCash));
+                }
+                break;
+            case LedgerJournalType::RTax25,
+            LedgerJournalType::RAssetAssessedTax,
+                 LedgerJournalType::RAssetTransportTax,
+                 LedgerJournalType::RAssetLandTax,
+                 LedgerJournalType::RTax25TaxRemainGoods:
+                RTax25Version.visible(true);
+            //no break
+            case LedgerJournalType::RTax25AmountDifference,
+            LedgerJournalType::RTax25ExchDifference,
+                 LedgerJournalType::RTax25DebtDebitReserve:
+                if (SysCountryRegionCode::isLegalEntityInCountryRegion([#isoRU]))
+                {
+                    checkJournal.visible(true);
+                    postJournal.visible(true);
+                    periodControl_RU.visible(true);
+                    reverse_RU.visible(true);
+                    reverseType_RU.visible(true);
+                    ledgerJournalTable_ds.allowCreate(false);
+                    ledgerJournalTable_ds.startPosition(1);
+
+                    journalCreate_RU.visible(true);
+                    journalCreate_RU.neededPermission(NeededPermission::Create);
+
+                    if (journalFormTable.journalTypeId() != LedgerJournalType::RTax25
+                        && journalFormTable.journalTypeId() != LedgerJournalType::RTax25AmountDifference
+                        && journalFormTable.journalTypeId() != LedgerJournalType::RTax25ExchDifference
+                        && journalFormTable.journalTypeId() != LedgerJournalType::RTax25TaxRemainGoods
+                        && journalFormTable.journalTypeId() != LedgerJournalType::RTax25DebtDebitReserve)
+                    {
+                        journalCreate_RU.configurationKey(configurationKeyNum(RAsset));
+                    }
+                    ledgerJournalCreate_RU.enabled(this.args().dataset() == tableNum(RTax25RegisterJournalTable) &&
+                                                   LedgerJournalCreate_Tax25_RU::canCreateJournalStatic(this.args().record(),
+                                                                                                        journalFormTable.journalTypeId(),
+                                                                                                        false));
+                    ledgerJournalCreateStorno_RU.enabled(this.args().dataset() == tableNum(RTax25RegisterJournalTable) &&
+                                                         LedgerJournalCreate_Tax25_RU::canCreateReverseJournalStatic(this.args().record(),
+                                                                                                                     journalFormTable.journalTypeId(),
+                                                                                                                     false));
+                    post.menuItemName(menuitemActionStr(LedgerJourPostLJTransDaily));
+                    ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransDaily));
+                    checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLedgerJourTransDaily));
+                }
+                break;
+
+            case LedgerJournalType::FBTaxAssessmentAdjustments_BR :
+                checkJournal.visible(true);
+                postJournal.visible(true);
+                post.menuItemName(menuitemActionStr(FBLedgerJourPostLJTransTaxAssessAdj_BR));
+                ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransDaily));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLedgerJourTransDaily));
+                this.enableFBTaxAssessmentAdjustFields_BR();
+                break;
+
+            case LedgerJournalType::CustomsDeclaration_IT:
+                checkJournal.visible(true);
+                postJournal.visible(true);
+                balanceControl.visible(false);
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransDaily));
+                ledgerJournalPostTransfer.menuItemName(menuitemActionStr(LedgerJourPostTrLJTransDaily));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLedgerJourTransDaily));
+                break;
+
+            case LedgerJournalType::ReportingCurrencyAdjustment :
+                checkJournal.visible(true);
+                SimulatePosting.visible(true);
+                postJournal.visible(true);
+                Course.visible(false);
+                ledgerJournalPostTransfer.visible(false);
+                tabFinancialDimensions.enabled(true);
+                balanceControl.visible(false);
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransReportingCurrencyAdjustment));
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLJTransReportingCurrencyAdjustment));
+                NewGlobalJournal.menuItemName(menuitemDisplayStr(LedgerJournalTableAddReportingCurrencyAdjustmentJournal));
+                sadFinanceTable_PL.visible(true);
+                this.enableFieldsForReportingCurrencyAdjustment();
+                break;
+
+            //custom
+            case LedgerJournalType::AssetLocTransfer_ES :
+                checkJournal.visible(False);
+                postJournal.visible(false);
+                Course.visible(false);
+                PrintMenu.visible(false);
+                Setup.visible(true);
+                AssetDefaults.visible(True);
+                tabFinancialDimensions.enabled(false);
+
+                AssetTransferJourPost_ES.visible(true);
+                AssetTransferJourCheck_ES.visible(true);
+                ESS_Import.visible(true);
+                break;
+
+            case LedgerJournalType::AssetCounting_ES :
+                checkJournal.visible(False);
+                postJournal.visible(false);
+                Course.visible(false);
+                PrintMenu.visible(false);
+                Setup.visible(true);
+                AssetDefaults.visible(True);
+                tabFinancialDimensions.enabled(false);
+
+                AssetTransferJourPost_ES.visible(true);
+                AssetTransferJourCheck_ES.visible(true);
+                ESS_Import.visible(true);
+                break;
+
+            case LedgerJournalType::AssetAllocation_ES :
+                checkJournal.visible(False);
+                postJournal.visible(false);
+                Course.visible(false);
+                PrintMenu.visible(false);
+                Setup.visible(true);
+                AssetDefaults.visible(True);
+                tabFinancialDimensions.enabled(false);
+
+                AssetTransferJourPost_ES.visible(true);
+                AssetTransferJourCheck_ES.visible(true);
+                ESS_Import.visible(true);
+                break;
+            //custom
+
+            default :
+                journalLines.visible(false);
+
+                postJournal.visible(true);
+                post.enabled(false);
+                post.menuItemName(menuitemActionStr(LedgerJourPostLJTransDaily));
+                AssetTransferJourPost_ES.visible(false);
+                ledgerJournalPostTransfer.enabled(false);
+
+                checkJournal.enabled(false);
+                checkJournal.menuItemName(menuitemActionStr(LedgerJourChkLedgerJourTransDaily));
+                AssetTransferJourCheck_ES.visible(False);
+        }
+
+        if ((ledgerJournalTable.JournalType == LedgerJournalType::VendInvoicePool) ||
+            (ledgerJournalTable.JournalType == LedgerJournalType::RCash && !ledgerJournalTable.canDeleteJournal()))
+        {
+            LedgerJournalTable_DS.allowDelete(false);
+        }
+
+        if (SysCountryRegionCode::isLegalEntityInCountryRegion([#isoCN])
+            && (LedgerParameters::isJournalApproval_CN() == NoYes::No
+                || journalFormTable.journalTypeId() != LedgerJournalType::Daily))
+        {
+            ledgerJournalTable_ApprovalStatus_CN.visible(false);
+        }
+
+        if (ledgerJournalTable.reportedAsReady())
+        {
+            reportAsReady.enabled(false);
+            approve.enabled(!ledgerJournalTable.approved() || ledgerJournalTable.rejected());
+            reject.enabled(!ledgerJournalTable.rejected());
+        }
+        else
+        {
+            reportAsReady.enabled(true);
+            approve.enabled(false);
+            reject.enabled(false);
+        }
+
+        if (ledgerJournalTable.ledgerJournalName().ApproveActive)
+        {
+            if (!UserInfoHelp::userInUserGroup(curUserId(), approveGroupId))
+            {
+                approve.enabled(false);
+                reject.enabled(false);
+            }
+        }
+
+        if (SysCountryRegionCode::isLegalEntityInCountryRegion([#isoCZ, #isoEE, #isoHU, #isoLT, #isoLV, #isoPL, #isoRU]))
+        {
+            ledgerJournalPreview.enabled(ledgerJournalTable.Posted);
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

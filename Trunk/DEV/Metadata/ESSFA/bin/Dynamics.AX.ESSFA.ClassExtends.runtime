@@ -1,0 +1,14 @@
+﻿ESS_AssetProposalDepreciationSplit	RunBase
+LedgerJournalTable_EventHandler	
+AssetProposalDepreciationSplit_ES	RunBase
+clearDimensionCache	
+ESS_AssetTransferJournalCheckPost	RunBase
+ESS_AssetStockJournalCheckPost	RunBase
+SMAServiceObjectRelationFormExtensionOverrides	
+AssetMgmt_ExtensionES	
+CommonMethods_ES	
+LedgerJournalTablefrm_Extension	
+AssetBookTbl_Extension	
+ESS_AssetMove	AssetSplit
+SMAServiceObjectRelationEvtHdlrClass	
+ESS_AssetParameters	

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxFormExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V6">
+	<Name>AssetTable.ESSFA</Name>
+	<ControlModifications />
+	<Controls>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlvhg2btuj1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormButtonGroupControl">
+				<Name>AssetList</Name>
+				<AutoDeclaration>Yes</AutoDeclaration>
+				<Type>ButtonGroup</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl xmlns=""
+						i:type="AxFormMenuFunctionButtonControl">
+						<Name>AssetListMenu</Name>
+						<Type>MenuFunctionButton</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<MenuItemName>ESS_AssetList</MenuItemName>
+						<MultiSelect>No</MultiSelect>
+					</AxFormControl>
+				</Controls>
+				<Caption>Fixed asset additions</Caption>
+			</FormControl>
+			<Parent>FixedAsset</Parent>
+			<PositionType>AfterItem</PositionType>
+			<PreviousSibling>Components</PreviousSibling>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlvw0dlocm1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormGroupControl">
+				<Name>ESSAMgmtGroup</Name>
+				<Type>Group</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl xmlns=""
+						i:type="AxFormCheckBoxControl">
+						<Name>AssetTable_Allocation_ES</Name>
+						<Type>CheckBox</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>Allocation_ES</DataField>
+						<DataSource>AssetTable</DataSource>
+						<Label>Allocation</Label>
+					</AxFormControl>
+				</Controls>
+				<Caption>Asset management</Caption>
+				<DataSource>AssetTable</DataSource>
+			</FormControl>
+			<Parent>General</Parent>
+			<PositionType>AfterItem</PositionType>
+			<PreviousSibling>ReductionEntry_JP</PreviousSibling>
+		</AxFormExtensionControl>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControltfaytahh1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormGroupControl">
+				<Name>AssetTable_ServiceObjectId</Name>
+				<Type>Group</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl xmlns=""
+						i:type="AxFormStringControl">
+						<Name>AssetTable_ServiceObjectId1</Name>
+						<Type>String</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<DataField>ServiceObjectId</DataField>
+						<DataSource>AssetTable</DataSource>
+					</AxFormControl>
+				</Controls>
+				<Caption>Service objects</Caption>
+				<DataSource>AssetTable</DataSource>
+			</FormControl>
+			<Parent>TabMisc</Parent>
+		</AxFormExtensionControl>
+	</Controls>
+	<DataSourceModifications />
+	<DataSourceReferences />
+	<DataSources />
+	<Parts />
+	<PropertyModifications />
+</AxFormExtension>

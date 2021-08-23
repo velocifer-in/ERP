@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<z:anyType xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns=""
+	i:type="AxCompilerMetadata" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/">
+	<IsPublic>true</IsPublic>
+	<IsStatic>true</IsStatic>
+	<Methods>
+		<Method>
+			<Name>findByAssetId</Name>
+			<IsStatic>true</IsStatic>
+			<Visibility>Public</Visibility>
+			<Parameters>
+				<AxMethodParameter>
+					<Type>ExtendedDataType</Type>
+					<TypeName>AssetId</TypeName>
+					<Name>_assetId</Name>
+				</AxMethodParameter>
+				<AxMethodParameter>
+					<Type>Enum</Type>
+					<TypeName>boolean</TypeName>
+					<DefaultValue>false</DefaultValue>
+					<Name>_forupdate</Name>
+				</AxMethodParameter>
+				<AxMethodParameter>
+					<Type>Enum</Type>
+					<TypeName>ConcurrencyModel</TypeName>
+					<DefaultValue>ConcurrencyModel::Auto</DefaultValue>
+					<Name>_concurrencyModel</Name>
+				</AxMethodParameter>
+			</Parameters>
+			<ReturnType>
+				<Type>Record</Type>
+				<TypeName>AssetBook</TypeName>
+			</ReturnType>
+			<Variables>
+				<AxMethodVariable>
+					<Type>Record</Type>
+					<TypeName>AssetBook</TypeName>
+					<Name>assetBook</Name>
+				</AxMethodVariable>
+				<AxMethodVariable>
+					<Type>Record</Type>
+					<TypeName>AssetBookTable</TypeName>
+					<Name>assetBookTable</Name>
+				</AxMethodVariable>
+			</Variables>
+		</Method>
+	</Methods>
+</z:anyType>

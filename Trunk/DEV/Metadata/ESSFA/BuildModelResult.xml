@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Diagnostics
+  GenerationTime="2021-08-22T15:11:16.3950065+00:00">
+  <Items>
+    <Diagnostic>
+      <DiagnosticType>TaskListItem</DiagnosticType>
+      <Severity>Informational</Severity>
+      <Path>dynamics://Class/AssetMgmt_ExtensionES/Method/LedgerJournalFormTable_Post_datasourceCreatePost</Path>
+      <ElementType>Class Method</ElementType>
+      <Moniker>TaskListItem</Moniker>
+      <Line>208</Line>
+      <Column>82</Column>
+      <EndLine>208</EndLine>
+      <EndColumn>89</EndColumn>
+      <Message>TODO</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>ExternalReference</DiagnosticType>
+      <Severity>Warning</Severity>
+      <Path>dynamics://Reference/Microsoft.Commerce.Flighting.Common</Path>
+      <Moniker>AssemblyFileNotFound</Moniker>
+      <Message>Assembly 'Microsoft.Xbox.Experimentation.Contracts, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d91bba2b903dc20f' failed to load because it was not found.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Warning</Severity>
+      <Path>dynamics://Class/AssetMgmt_ExtensionES/Method/assetSumCalc</Path>
+      <ElementType>Class Method</ElementType>
+      <Moniker>ObsoleteEntityUsageWithReason</Moniker>
+      <Line>138</Line>
+      <Column>28</Column>
+      <EndLine>138</EndLine>
+      <EndColumn>104</EndColumn>
+      <Message>'AssetSumCalc_DepBookTrans' is obsolete: ''Depreciation books are not used anymore. Use value models instead.''.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Metadata</DiagnosticType>
+      <Severity>Warning</Severity>
+      <Path>AxView/DimAttributeAssetList</Path>
+      <Moniker>ViewWithIndexes</Moniker>
+      <Message>You have added an index to a view, but AX7 views do not support indexing: No index will be added to the view in SQL server. We suggest removing the index.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>BestPractices</DiagnosticType>
+      <Severity>Warning</Severity>
+      <Path>AxForm/ESS_AssetLocationTable/Design/Controls/FormTabControl1/TabFinancialDimensions</Path>
+      <Moniker>BPErrorFormControlPatternUnspecified</Moniker>
+      <Message>'AxForm/ESS_AssetLocationTable/Design/Controls/FormTabControl1/TabFinancialDimensions' has not specified a pattern. Please apply one of the available patterns.</Message>
+    </Diagnostic>
+    <Diagnostic>
+      <DiagnosticType>Compile</DiagnosticType>
+      <Severity>Warning</Severity>
+      <Path>dynamics://Form/ES_AssetLocationTableLookUp/Method/run</Path>
+      <ElementType>Form Method</ElementType>
+      <Moniker>ObsoleteEntityUsageWithReason</Moniker>
+      <Line>34</Line>
+      <Column>28</Column>
+      <EndLine>34</EndLine>
+      <EndColumn>148</EndColumn>
+      <Message>'filterSegmentedLookupPreRun' is obsolete: ''This method is obsolete, SegmentedEntryControl should use SegmentedEntryTableLookup::filterSegmentedLookupPreRun().''.</Message>
+    </Diagnostic>
+  </Items>
+  <Aliases />
+</Diagnostics>

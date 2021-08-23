@@ -1,0 +1,3 @@
+<ExtensionClasses>
+  <ExtensionClass ExtensionClassName="LedgerJournalTablefrm_Extension" ExtensionTargetName="LedgerJournalTable" ExtensionTargetTypeId="FormTypeId" ExtensionNestedTargetName="" />
+</ExtensionClasses>

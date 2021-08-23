@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxTable xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>AssetTransferJourPost_ES</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public class AssetTransferJourPost_ES extends common
+{
+
+
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>exists</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    public static boolean exists(AssetListId_ES _assetListId)
+    {
+        return ((select AssetTransferJourPost_ES where AssetTransferJourPost_ES.AssetListId ==_assetListId).RecId);
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>findTrans</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    public static AssetTransferJourPost_ES  findTrans(AssetListId_ES _assetlistId, TransDate startDate, TransDate  endDate, boolean _forUpdate = false, ConcurrencyModel _concurrencyModel = ConcurrencyModel::Auto)
+    {
+        AssetTransferJourPost_ES assetTransferJourPost;
+
+        assetTransferJourPost.selectForUpdate(_forUpdate);
+        if(_forUpdate && _concurrencyModel != ConcurrencyModel::Auto)
+        {
+            assetTransferJourPost.concurrencyModel(_concurrencyModel);
+        }
+
+        select firstonly assetTransferJourPost
+            where assetTransferJourPost.AssetListId == _assetlistId
+            && assetTransferJourPost.TransDate >= startDate
+            && assetTransferJourPost.TransDate <= endDate
+            && assetTransferJourPost.AssetTransactionType == AssetTransType_ES::LocationTransfer;
+
+        return assetTransferJourPost;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>existTrans</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    public static boolean existTrans(AssetListId_ES   assetListId, TransDate startDate, TransDate  endDate)
+    {
+        AssetTransferJourPost_ES    assetTransferJourPost;
+        AssetListId_ES              assetListIdLoc = strLRTrim(assetListId);
+        
+        if(assetListIdLoc)
+        {
+            select assetTransferJourPost
+                where assetTransferJourPost.AssetListId == assetListIdLoc;
+
+            select assetTransferJourPost
+                where assetTransferJourPost.AssetListId == assetListIdLoc
+                && assetTransferJourPost.AssetTransactionType == AssetTransType_ES::LocationTransfer;
+
+            select assetTransferJourPost
+                where assetTransferJourPost.AssetListId == assetListIdLoc
+                && assetTransferJourPost.TransDate  >= startDate
+                && assetTransferJourPost.TransDate <= endDate;
+
+            select assetTransferJourPost
+                where assetTransferJourPost.AssetListId == assetListIdLoc
+                && assetTransferJourPost.TransDate  >= startDate
+                && assetTransferJourPost.TransDate <= endDate
+                && assetTransferJourPost.AssetTransactionType == AssetTransType_ES::LocationTransfer;
+        }
+        
+        return assetTransferJourPost.RecId != 0 ? true : false;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>findPreviousLine</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    public static AssetTransferJourPost_ES   findPreviousLine(AssetListId_ES _assetlistId, TransDate _transdate, TransDate  endDate, boolean _forUpdate = false, ConcurrencyModel _concurrencyModel = ConcurrencyModel::Auto)
+    {
+        AssetTransferJourPost_ES assetTransferJourPost;
+
+        assetTransferJourPost.selectForUpdate(_forUpdate);
+        if(_forUpdate && _concurrencyModel != ConcurrencyModel::Auto)
+        {
+            assetTransferJourPost.concurrencyModel(_concurrencyModel);
+        }
+
+        select  assetTransferJourPost
+            order by TransDate  desc
+            where assetTransferJourPost.AssetListId == _assetlistId
+            && assetTransferJourPost.TransDate < _transdate
+            //&& assetTransferJourPost.TransDate <= endDate
+            && assetTransferJourPost.AssetTransactionType == AssetTransType_ES::LocationTransfer;
+
+        return assetTransferJourPost;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>findNextLine</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    
+    public static AssetTransferJourPost_ES findNextLine(AssetListId_ES                _assetListId,
+                                                  AssetTransferJourPost_ES     _assetTransferJourPost,
+                                                  TransDate                 endDate,
+                                                  Container                 transJourPost,
+                                                  boolean                   _forUpdate = false,
+                                                  ConcurrencyModel          _concurrencyModel = ConcurrencyModel::Auto)
+    {
+        AssetTransferJourPost_ES assetTransferJourPost;
+        ;
+
+        assetTransferJourPost.selectForUpdate(_forUpdate);
+        if (_forUpdate && _concurrencyModel != ConcurrencyModel::Auto)
+        {
+            assetTransferJourPost.concurrencyModel(_concurrencyModel);
+        }
+
+        select firstOnly assetTransferJourPost
+        where assetTransferJourPost.AssetListId == _assetListId
+        && assetTransferJourPost.TransDate >= _assetTransferJourPost.TransDate
+        && assetTransferJourPost.TransDate <= endDate
+        && assetTransferJourPost.RecId != _assetTransferJourPost.RecId
+        && assetTransferJourPost.AssetTransactionType == AssetTransType_ES::LocationTransfer;
+
+        if(conFind(transJourPost, assetTransferJourPost.RecId) != 0)
+        {
+            select firstOnly assetTransferJourPost
+            where assetTransferJourPost.AssetListId == _assetListId
+            && assetTransferJourPost.TransDate > _assetTransferJourPost.TransDate
+            && assetTransferJourPost.TransDate <= endDate
+            && assetTransferJourPost.RecId != _assetTransferJourPost.RecId
+            && assetTransferJourPost.AssetTransactionType == AssetTransType_ES::LocationTransfer;
+        }
+
+        return assetTransferJourPost;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+	<SubscriberAccessLevel>
+		<Read>Allow</Read>
+	</SubscriberAccessLevel>
+	<DeleteActions />
+	<FieldGroups>
+		<AxTableFieldGroup>
+			<Name>AutoReport</Name>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoLookup</Name>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoIdentification</Name>
+			<AutoPopulate>Yes</AutoPopulate>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoSummary</Name>
+			<Fields />
+		</AxTableFieldGroup>
+		<AxTableFieldGroup>
+			<Name>AutoBrowse</Name>
+			<Fields />
+		</AxTableFieldGroup>
+	</FieldGroups>
+	<Fields>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldDate">
+			<Name>TransDate</Name>
+			<ExtendedDataType>TransDate</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>ToLocType</Name>
+			<Label>To Location type</Label>
+			<EnumType>AssetLocType_ES</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>ToAssetLocId</Name>
+			<ExtendedDataType>AssetLocId_ES</ExtendedDataType>
+			<Label>To location</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>FromAssetLocId</Name>
+			<ExtendedDataType>AssetLocId_ES</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>FromLocType</Name>
+			<Label>From Location Type</Label>
+			<EnumType>AssetLocType_ES</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldInt64">
+			<Name>DefaultDimension</Name>
+			<ExtendedDataType>DimensionDefault</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>ActivityNumber</Name>
+			<AllowEdit>No</AllowEdit>
+			<ExtendedDataType>ProjActivityNumber</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>AssetListId</Name>
+			<ExtendedDataType>AssetListId_ES</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>JournalType</Name>
+			<EnumType>LedgerJournalType</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>AssetTransJourID</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<ExtendedDataType>AssetTransJourId_ES</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>AssetTransactionType</Name>
+			<EnumType>AssetTransType_ES</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>FromProjectId</Name>
+			<ExtendedDataType>ProjId</ExtendedDataType>
+			<Label>From Project</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>ToProjectId</Name>
+			<ExtendedDataType>ProjId</ExtendedDataType>
+			<Label>To Project</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldReal">
+			<Name>Qty</Name>
+			<ExtendedDataType>QtyStatistical</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>Posted</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<ExtendedDataType>JournalPosted</ExtendedDataType>
+			<EnumType>NoYes</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldDate">
+			<Name>EndDate</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<ExtendedDataType>TransDate</ExtendedDataType>
+			<Label>End date</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>FromAssetId</Name>
+			<ExtendedDataType>AssetId</ExtendedDataType>
+			<Label>From asset</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>JournalNum</Name>
+			<AllowEdit>No</AllowEdit>
+			<AllowEditOnCreate>No</AllowEditOnCreate>
+			<ExtendedDataType>LedgerJournalId</ExtendedDataType>
+			<Mandatory>Yes</Mandatory>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>Txt</Name>
+			<ExtendedDataType>Description</ExtendedDataType>
+			<Label>@SYS105215</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>ToAssetId</Name>
+			<ExtendedDataType>AssetId</ExtendedDataType>
+			<Label>@ESS:ToAsset</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldInt64">
+			<Name>AssetEmployee</Name>
+			<ExtendedDataType>HcmWorkerRecId</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldUtcDateTime">
+			<Name>PostedDateTime</Name>
+			<ExtendedDataType>JournalPostedDateTime</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>PostedBy</Name>
+			<ExtendedDataType>UserName</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldInt64">
+			<Name>TransLine</Name>
+			<ExtendedDataType>RefRecId</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>FromAssetLocationType</Name>
+			<Label>Type</Label>
+			<EnumType>AssetLocationType_ES</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>ToAssetLocationType</Name>
+			<Label>Type</Label>
+			<EnumType>AssetLocationType_ES</EnumType>
+		</AxTableField>
+	</Fields>
+	<FullTextIndexes />
+	<Indexes />
+	<Mappings />
+	<Relations />
+	<StateMachines />
+</AxTable>

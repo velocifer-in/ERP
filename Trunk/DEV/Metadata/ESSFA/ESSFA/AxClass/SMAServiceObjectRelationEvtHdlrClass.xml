@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>SMAServiceObjectRelationEvtHdlrClass</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+class SMAServiceObjectRelationEvtHdlrClass
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>ESS_AssetListId_OnModified</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    [FormDataFieldEventHandler(formDataFieldStr(SMAServiceObjectRelation, SMAServiceObjectRelation, ESS_AssetListId), FormDataFieldEventType::Modified)]
+    public static void ESS_AssetListId_OnModified(FormDataObject sender, FormDataFieldEventArgs e)
+    {
+        FormDataSource   sMAServiceObjectRelation_ds = sender.datasource();
+        FormRun    formRun = sender.datasource().formRun();
+        SMAServiceObjectRelation  sMAServiceObjectRelation = sMAServiceObjectRelation_ds.cursor();
+        sMAServiceObjectRelation.ServiceObjectRef = AssetList_ES::findByAssetList(sMAServiceObjectRelation.ESS_AssetListId).Name;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>SMAServiceObjectRelation_OnInitialized</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    [FormDataSourceEventHandler(formDataSourceStr(SMAServiceObjectRelation, SMAServiceObjectRelation), FormDataSourceEventType::Initialized)]
+    public static void SMAServiceObjectRelation_OnInitialized(FormDataSource sender, FormDataSourceEventArgs e)
+    {
+        var overrides  = SMAServiceObjectRelationFormExtensionOverrides::construct();
+        sender.object(fieldNum(SMAServiceObjectRelation, ESS_AssetListId)).registerOverrideMethod(methodStr(FormDataObject, lookup),methodStr(SMAServiceObjectRelationFormExtensionOverrides,ESS_AssetListId_OnLookup ),overrides);
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxFormExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V6">
+	<Name>AssetParameters.ESSFA</Name>
+	<ControlModifications />
+	<Controls>
+		<AxFormExtensionControl xmlns="">
+			<Name>FormExtensionControlqtdz13wn1</Name>
+			<FormControl xmlns=""
+				i:type="AxFormTabPageControl">
+				<Name>AssetManagementTab</Name>
+				<Type>TabPage</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl xmlns=""
+						i:type="AxFormGroupControl">
+						<Name>AssetMgmtTile</Name>
+						<Skip>Yes</Skip>
+						<Type>Group</Type>
+						<WidthMode>SizeToAvailable</WidthMode>
+						<FormControlExtension
+							i:nil="true" />
+						<Controls>
+							<AxFormControl xmlns=""
+								i:type="AxFormStaticTextControl">
+								<Name>AssetMgmtStaticText</Name>
+								<Skip>Yes</Skip>
+								<Type>StaticText</Type>
+								<WidthMode>SizeToAvailable</WidthMode>
+								<FormControlExtension
+									i:nil="true" />
+								<Style>MainInstruction</Style>
+								<Text>Set up fixed asset management information</Text>
+							</AxFormControl>
+						</Controls>
+						<AllowUserSetup>No</AllowUserSetup>
+						<FrameType>None</FrameType>
+						<Style>TOCTitleContainer</Style>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormTabControl">
+						<Name>AssetMgmtFastTab</Name>
+						<Type>Tab</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<Controls>
+							<AxFormControl xmlns=""
+								i:type="AxFormTabPageControl">
+								<Name>LocationTabPage</Name>
+								<Pattern>FieldsFieldGroups</Pattern>
+								<PatternVersion>1.1</PatternVersion>
+								<Type>TabPage</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<Controls>
+									<AxFormControl xmlns=""
+										i:type="AxFormStringControl">
+										<Name>AssetParameters_AssetTransJourName_ES</Name>
+										<Type>String</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<DataField>AssetTransJourName_ES</DataField>
+										<DataSource>AssetParameters</DataSource>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormStringControl">
+										<Name>AssetParameters_AssetMoveJournalName_ES</Name>
+										<Type>String</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<DataField>AssetMoveJournalName_ES</DataField>
+										<DataSource>AssetParameters</DataSource>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormStringControl">
+										<Name>AssetParameters_AssetAllocJourName_ES</Name>
+										<Type>String</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<DataField>AssetAllocJourName_ES</DataField>
+										<DataSource>AssetParameters</DataSource>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormStringControl">
+										<Name>AssetParameters_AssetLocId_ES</Name>
+										<Type>String</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<DataField>AssetLocId_ES</DataField>
+										<DataSource>AssetParameters</DataSource>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormStringControl">
+										<Name>AssetParameters_AssetSuffix_ES</Name>
+										<Type>String</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<DataField>AssetSuffix_ES</DataField>
+										<DataSource>AssetParameters</DataSource>
+									</AxFormControl>
+								</Controls>
+								<ColumnsMode>Fill</ColumnsMode>
+								<Caption>Asset location defaults</Caption>
+								<DataSource>AssetParameters</DataSource>
+							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormTabPageControl">
+								<Name>ProjectTabPage_ES</Name>
+								<Pattern>FieldsFieldGroups</Pattern>
+								<PatternVersion>1.1</PatternVersion>
+								<Type>TabPage</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<Controls>
+									<AxFormControl xmlns=""
+										i:type="AxFormStringControl">
+										<Name>AssetParameters_AssetMgmtProjExpCatId</Name>
+										<Type>String</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<DataField>AssetMgmtProjExpCatId</DataField>
+										<DataSource>AssetParameters</DataSource>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormStringControl">
+										<Name>AssetParameters_ProjLinePropertyId_ES</Name>
+										<Type>String</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<DataField>ProjLinePropertyId_ES</DataField>
+										<DataSource>AssetParameters</DataSource>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormGroupControl">
+										<Name>LedgerGroup</Name>
+										<Type>Group</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<Controls>
+											<AxFormControl xmlns=""
+												i:type="AxFormCheckBoxControl">
+												<Name>AssetParameters_AssetLedgerSource_ES</Name>
+												<AutoDeclaration>Yes</AutoDeclaration>
+												<Type>CheckBox</Type>
+												<FormControlExtension
+													i:nil="true" />
+												<DataField>AssetLedgerSource_ES</DataField>
+												<DataSource>AssetParameters</DataSource>
+											</AxFormControl>
+											<AxFormControl xmlns=""
+												i:type="AxFormSegmentedEntryControl">
+												<Name>AssetParameters_AssetLedgerAcct_ES</Name>
+												<AutoDeclaration>Yes</AutoDeclaration>
+												<Type>SegmentedEntry</Type>
+												<FormControlExtension>
+													<Name>SegmentedEntryControl</Name>
+													<ExtensionComponents />
+													<ExtensionProperties>
+														<AxFormControlExtensionProperty>
+															<Name>parmControllerClassName</Name>
+															<Type>String</Type>
+															<Value>LedgerDimensionDefaultAccountController</Value>
+														</AxFormControlExtensionProperty>
+														<AxFormControlExtensionProperty>
+															<Name>parmAccountTypeEnumName</Name>
+															<Type>String</Type>
+														</AxFormControlExtensionProperty>
+														<AxFormControlExtensionProperty>
+															<Name>parmIsDefaultAccount</Name>
+															<Type>Enum</Type>
+															<TypeName>boolean</TypeName>
+															<Value>False</Value>
+														</AxFormControlExtensionProperty>
+														<AxFormControlExtensionProperty>
+															<Name>parmValidateBlockedForManualEntry</Name>
+															<Type>Enum</Type>
+															<TypeName>NoYes</TypeName>
+														</AxFormControlExtensionProperty>
+														<AxFormControlExtensionProperty>
+															<Name>parmLockMainAccountSegment</Name>
+															<Type>Enum</Type>
+															<TypeName>NoYes</TypeName>
+														</AxFormControlExtensionProperty>
+														<AxFormControlExtensionProperty>
+															<Name>parmPostingType</Name>
+															<Type>Enum</Type>
+															<TypeName>LedgerPostingType</TypeName>
+														</AxFormControlExtensionProperty>
+														<AxFormControlExtensionProperty>
+															<Name>parmIncludeTotalAccounts</Name>
+															<Type>Enum</Type>
+															<TypeName>NoYes</TypeName>
+														</AxFormControlExtensionProperty>
+														<AxFormControlExtensionProperty>
+															<Name>parmIncludeFinancialAccounts</Name>
+															<Type>Enum</Type>
+															<TypeName>NoYes</TypeName>
+														</AxFormControlExtensionProperty>
+													</ExtensionProperties>
+												</FormControlExtension>
+												<DataSource>AssetParameters</DataSource>
+												<ReferenceField>AssetLedgerAcct_ES</ReferenceField>
+											</AxFormControl>
+										</Controls>
+										<Caption>Ledger account</Caption>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormGroupControl">
+										<Name>OffsetGroup</Name>
+										<Type>Group</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<Controls>
+											<AxFormControl xmlns=""
+												i:type="AxFormSegmentedEntryControl">
+												<Name>AssetParameters_AssetOffsetAcct_ES</Name>
+												<AutoDeclaration>Yes</AutoDeclaration>
+												<Type>SegmentedEntry</Type>
+												<FormControlExtension>
+													<Name>SegmentedEntryControl</Name>
+													<ExtensionComponents />
+													<ExtensionProperties>
+														<AxFormControlExtensionProperty>
+															<Name>parmControllerClassName</Name>
+															<Type>String</Type>
+															<Value>LedgerDimensionDefaultAccountController</Value>
+														</AxFormControlExtensionProperty>
+														<AxFormControlExtensionProperty>
+															<Name>parmAccountTypeEnumName</Name>
+															<Type>String</Type>
+														</AxFormControlExtensionProperty>
+														<AxFormControlExtensionProperty>
+															<Name>parmIsDefaultAccount</Name>
+															<Type>Enum</Type>
+															<TypeName>boolean</TypeName>
+															<Value>False</Value>
+														</AxFormControlExtensionProperty>
+														<AxFormControlExtensionProperty>
+															<Name>parmValidateBlockedForManualEntry</Name>
+															<Type>Enum</Type>
+															<TypeName>NoYes</TypeName>
+														</AxFormControlExtensionProperty>
+														<AxFormControlExtensionProperty>
+															<Name>parmLockMainAccountSegment</Name>
+															<Type>Enum</Type>
+															<TypeName>NoYes</TypeName>
+														</AxFormControlExtensionProperty>
+														<AxFormControlExtensionProperty>
+															<Name>parmPostingType</Name>
+															<Type>Enum</Type>
+															<TypeName>LedgerPostingType</TypeName>
+														</AxFormControlExtensionProperty>
+														<AxFormControlExtensionProperty>
+															<Name>parmIncludeTotalAccounts</Name>
+															<Type>Enum</Type>
+															<TypeName>NoYes</TypeName>
+														</AxFormControlExtensionProperty>
+														<AxFormControlExtensionProperty>
+															<Name>parmIncludeFinancialAccounts</Name>
+															<Type>Enum</Type>
+															<TypeName>NoYes</TypeName>
+														</AxFormControlExtensionProperty>
+													</ExtensionProperties>
+												</FormControlExtension>
+												<DataSource>AssetParameters</DataSource>
+												<ReferenceField>AssetOffsetAcct_ES</ReferenceField>
+											</AxFormControl>
+											<AxFormControl xmlns=""
+												i:type="AxFormCheckBoxControl">
+												<Name>AssetParameters_AssetOffSource_ES</Name>
+												<AutoDeclaration>Yes</AutoDeclaration>
+												<Type>CheckBox</Type>
+												<FormControlExtension
+													i:nil="true" />
+												<DataField>AssetOffSource_ES</DataField>
+												<DataSource>AssetParameters</DataSource>
+											</AxFormControl>
+										</Controls>
+										<Caption>Offset account</Caption>
+									</AxFormControl>
+								</Controls>
+								<ColumnsMode>Fill</ColumnsMode>
+								<Caption>Asset project defaults</Caption>
+								<DataSource>AssetParameters</DataSource>
+							</AxFormControl>
+						</Controls>
+						<Style>FastTabs</Style>
+					</AxFormControl>
+				</Controls>
+				<Caption>Asset management</Caption>
+				<DataSource>AssetParameters</DataSource>
+			</FormControl>
+			<Parent>Tab</Parent>
+			<PositionType>AfterItem</PositionType>
+			<PreviousSibling>AssetTab</PreviousSibling>
+		</AxFormExtensionControl>
+	</Controls>
+	<DataSourceModifications />
+	<DataSourceReferences />
+	<DataSources />
+	<Parts />
+	<PropertyModifications />
+</AxFormExtension>

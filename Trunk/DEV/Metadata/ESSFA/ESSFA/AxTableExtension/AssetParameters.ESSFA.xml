@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxTableExtension xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>AssetParameters.ESSFA</Name>
+	<FieldGroupExtensions />
+	<FieldGroups />
+	<FieldModifications />
+	<Fields>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>AssetLedgerSource_ES</Name>
+			<Label>Source</Label>
+			<EnumType>NoYes</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>AssetAllocJourName_ES</Name>
+			<ExtendedDataType>LedgerJournalNameId</ExtendedDataType>
+			<Label>Allocation journal name</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldInt64">
+			<Name>AssetLedgerAcct_ES</Name>
+			<ExtendedDataType>LedgerDimensionDefaultAccount</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>AssetLocId_ES</Name>
+			<ExtendedDataType>AssetLocationId</ExtendedDataType>
+			<Label>Default location</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldInt64">
+			<Name>AssetOffsetAcct_ES</Name>
+			<ExtendedDataType>LedgerDimensionDefaultAccount</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldEnum">
+			<Name>AssetOffSource_ES</Name>
+			<Label>Source</Label>
+			<EnumType>NoYes</EnumType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>ProjCategoryId_ES</Name>
+			<ExtendedDataType>ProjCategoryId</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>ProjLinePropertyId_ES</Name>
+			<ExtendedDataType>ProjLinePropertyId</ExtendedDataType>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>AssetTransJourName_ES</Name>
+			<ExtendedDataType>LedgerJournalNameId</ExtendedDataType>
+			<Label>Transfer journal name</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>AssetMoveJournalName_ES</Name>
+			<ExtendedDataType>LedgerJournalNameId</ExtendedDataType>
+			<Label>Movement Journal</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>AssetSuffix_ES</Name>
+			<ExtendedDataType>AssetSuffix_ES</ExtendedDataType>
+			<HelpText>Suffix for the asset copy</HelpText>
+			<Label>Asser suffic</Label>
+		</AxTableField>
+		<AxTableField xmlns=""
+			i:type="AxTableFieldString">
+			<Name>AssetMgmtProjExpCatId</Name>
+			<ExtendedDataType>ProjCategoryId</ExtendedDataType>
+		</AxTableField>
+	</Fields>
+	<FullTextIndexes />
+	<Indexes />
+	<Mappings />
+	<PropertyModifications />
+	<RelationExtensions />
+	<RelationModifications />
+	<Relations>
+		<AxTableRelation>
+			<Name>AssetMgmtLedgerAccount</Name>
+			<Cardinality>ZeroMore</Cardinality>
+			<RelatedTable>DimensionAttributeValueCombination</RelatedTable>
+			<RelatedTableCardinality>ZeroOne</RelatedTableCardinality>
+			<RelationshipType>Association</RelationshipType>
+			<Constraints>
+				<AxTableRelationConstraint xmlns=""
+					i:type="AxTableRelationConstraintField">
+					<Name>AssetLedgerAcct_ES</Name>
+					<Field>AssetLedgerAcct_ES</Field>
+					<RelatedField>RecId</RelatedField>
+				</AxTableRelationConstraint>
+			</Constraints>
+		</AxTableRelation>
+		<AxTableRelation>
+			<Name>AssetMgmtOffsetAccount</Name>
+			<Cardinality>ZeroMore</Cardinality>
+			<RelatedTable>DimensionAttributeValueCombination</RelatedTable>
+			<RelatedTableCardinality>ZeroOne</RelatedTableCardinality>
+			<RelationshipType>Association</RelationshipType>
+			<Constraints>
+				<AxTableRelationConstraint xmlns=""
+					i:type="AxTableRelationConstraintField">
+					<Name>AssetOffsetAcct_ES</Name>
+					<Field>AssetOffsetAcct_ES</Field>
+					<RelatedField>RecId</RelatedField>
+				</AxTableRelationConstraint>
+			</Constraints>
+		</AxTableRelation>
+	</Relations>
+</AxTableExtension>

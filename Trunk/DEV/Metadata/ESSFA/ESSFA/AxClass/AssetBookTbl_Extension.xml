@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>AssetBookTbl_Extension</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+static class AssetBookTbl_Extension
+{
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>findByAssetId</Name>
+				<Source><![CDATA[
+    public static AssetBook findByAssetId(AssetId _assetId,boolean _forupdate = false,ConcurrencyModel _concurrencyModel = ConcurrencyModel::Auto)
+    {
+        AssetBook    assetBook;
+        AssetBookTable   assetBookTable;
+
+
+        assetBook.selectForUpdate(_forupdate);
+        if(_forupdate && _concurrencyModel != ConcurrencyModel::Auto)
+        {
+            assetBook.concurrencyModel(_concurrencyModel);
+        }
+
+        if(_assetId !='')
+        {
+            select firstonly assetBook join assetBookTable
+                where assetBook.AssetId == _assetId
+                && assetBookTable.BookId == assetBook.BookId
+                && assetBookTable.CurrentOperationsTax == CurrentOperationsTax::Current;
+        }
+        return assetBook;
+
+
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<z:anyType xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns=""
+	i:type="AxCompilerMetadata" xmlns:z="http://schemas.microsoft.com/2003/10/Serialization/">
+	<IsFinal>true</IsFinal>
+	<IsPublic>true</IsPublic>
+	<Attributes>
+		<AxAttribute>
+			<Name>extensionof</Name>
+			<Parameters>
+				<AxAttributeParameter>
+					<Type>Intrinsic</Type>
+					<TypeValue>formStr</TypeValue>
+					<AdditionalData>
+						<AxAttributeParameter>
+							<TypeValue>LedgerJournalTable</TypeValue>
+							<AdditionalData />
+						</AxAttributeParameter>
+						<AxAttributeParameter>
+							<AdditionalData />
+						</AxAttributeParameter>
+						<AxAttributeParameter>
+							<AdditionalData />
+						</AxAttributeParameter>
+					</AdditionalData>
+				</AxAttributeParameter>
+			</Parameters>
+		</AxAttribute>
+	</Attributes>
+	<Methods>
+		<Method>
+			<Name>AssetLocationTypeModified</Name>
+			<Visibility>Public</Visibility>
+			<ReturnType>
+				<TypeName></TypeName>
+			</ReturnType>
+		</Method>
+		<Method>
+			<Name>enableButtonsActive</Name>
+			<Visibility>Public</Visibility>
+			<ReturnType>
+				<TypeName></TypeName>
+			</ReturnType>
+			<Variables>
+				<AxMethodVariable>
+					<Type>Enum</Type>
+					<TypeName>LedgerJournalType</TypeName>
+					<Name>journalType</Name>
+				</AxMethodVariable>
+				<AxMethodVariable>
+					<Type>ExtendedDataType</Type>
+					<TypeName>UserGroupId</TypeName>
+					<Name>approveGroupId</Name>
+				</AxMethodVariable>
+			</Variables>
+		</Method>
+	</Methods>
+</z:anyType>

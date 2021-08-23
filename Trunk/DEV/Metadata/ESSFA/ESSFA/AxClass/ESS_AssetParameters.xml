@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>ESS_AssetParameters</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+public static class ESS_AssetParameters
+{
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>AssetOffsetAcct_ES_OnModified</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// On modification of AssetOffSource_ES field in AssetParameters.Extension Table
+    /// </summary>
+    /// <param name = "sender">
+    /// AssetParameters Record
+    /// </param>
+    /// <param name = "e">
+    /// FormDataFieldEventArgs
+    /// </param>
+    [FormDataFieldEventHandler(formDataFieldStr(AssetParameters, AssetParameters, AssetOffSource_ES), FormDataFieldEventType::Modified)]
+    public static void AssetOffsetAcct_ES_OnModified(FormDataObject sender, FormDataFieldEventArgs e)
+    {
+        AssetParameters assetParameters = sender.datasource().cursor();
+        if (assetParameters.AssetOffSource_ES)
+        {
+            sender.datasource().object(fieldNum(AssetParameters, AssetOffsetAcct_ES)).allowEdit(false);
+        }
+        else
+        {
+            sender.datasource().object(fieldNum(AssetParameters, AssetOffsetAcct_ES)).allowEdit(true);
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>AssetLedgerSource_ES_OnModified</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// On modification of AssetLedgerSource_ES field in AssetParameters.Extension Table
+    /// </summary>
+    /// <param name = "sender">
+    /// AssetParameters Record
+    /// </param>
+    /// <param name = "e">
+    /// FormDataFieldEventArgs
+    /// </param>
+    [FormDataFieldEventHandler(formDataFieldStr(AssetParameters, AssetParameters, AssetLedgerSource_ES), FormDataFieldEventType::Modified)]
+    public static void AssetLedgerSource_ES_OnModified(FormDataObject sender, FormDataFieldEventArgs e)
+    {
+        AssetParameters assetParameters = sender.datasource().cursor();
+        if (assetParameters.AssetLedgerSource_ES)
+        {
+            sender.datasource().object(fieldNum(AssetParameters, AssetLedgerAcct_ES)).allowEdit(false);
+        }
+        else
+        {
+            sender.datasource().object(fieldNum(AssetParameters, AssetLedgerAcct_ES)).allowEdit(true);
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>AssetParameters_OnActivated</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Asset Parameters Form Datasource Active method
+    /// </summary>
+    /// <param name = "sender">
+    /// FormDatasource value
+    /// </param>
+    /// <param name = "e">
+    /// Event arguments.
+    /// </param>
+    [FormDataSourceEventHandler(formDataSourceStr(AssetParameters, AssetParameters), FormDataSourceEventType::Activated)]
+    public static void AssetParameters_OnActivated(FormDataSource sender, FormDataSourceEventArgs e)
+    {
+        AssetParameters assetParameters = sender.cursor();
+        if (assetParameters.AssetLedgerSource_ES)
+        {
+            sender.object(fieldNum(AssetParameters, AssetLedgerAcct_ES)).allowEdit(false);
+        }
+        else
+        {
+            sender.object(fieldNum(AssetParameters, AssetLedgerAcct_ES)).allowEdit(true);
+        }
+        
+        if (assetParameters.AssetOffSource_ES)
+        {
+            sender.object(fieldNum(AssetParameters, AssetOffsetAcct_ES)).allowEdit(false);
+        }
+        else
+        {
+            sender.object(fieldNum(AssetParameters, AssetOffsetAcct_ES)).allowEdit(true);
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>AssetParameters_AssetTransJourName_ES_OnLookup</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    [FormControlEventHandler(formControlStr(AssetParameters, AssetParameters_AssetTransJourName_ES), FormControlEventType::Lookup)]
+    public static void AssetParameters_AssetTransJourName_ES_OnLookup(FormControl sender, FormControlEventArgs e)
+    {
+        
+        QueryBuildDataSource    qbds;
+        Query                   query = new Query();
+
+        SysTableLookup sysTableLookup = SysTableLookup::newParameters(tableNum(LedgerJournalName), sender);
+
+        sysTableLookup.addLookupfield(fieldNum(LedgerJournalName, JournalName));
+        sysTableLookup.addLookupfield(fieldNum(LedgerJournalName, Name));
+
+        qbds = query.addDataSource(tableNum(LedgerJournalName));
+        qbds.addRange(fieldNum(LedgerJournalName, JournalType)).value(queryValue(LedgerJournalType::AssetLocTransfer_ES));
+
+        sysTableLookup.parmQuery(query);
+        sysTableLookup.performFormLookup();
+        
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>AssetParameters_AssetAllocJourName_ES_OnLookup</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    [FormControlEventHandler(formControlStr(AssetParameters, AssetParameters_AssetAllocJourName_ES), FormControlEventType::Lookup)]
+    public static void AssetParameters_AssetAllocJourName_ES_OnLookup(FormControl sender, FormControlEventArgs e)
+    {
+       
+        QueryBuildDataSource    qbds;
+        Query                   query = new Query();
+
+        SysTableLookup sysTableLookup = SysTableLookup::newParameters(tableNum(LedgerJournalName), sender);
+
+        sysTableLookup.addLookupfield(fieldNum(LedgerJournalName, JournalName));
+        sysTableLookup.addLookupfield(fieldNum(LedgerJournalName, Name));
+
+        qbds = query.addDataSource(tableNum(LedgerJournalName));
+        qbds.addRange(fieldNum(LedgerJournalName, JournalType)).value(queryValue(LedgerJournalType::Daily));
+
+        sysTableLookup.parmQuery(query);
+        sysTableLookup.performFormLookup();
+        
+        
+
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>AssetParameters_AssetMoveJournalName_ES_OnLookup</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    [FormControlEventHandler(formControlStr(AssetParameters, AssetParameters_AssetMoveJournalName_ES), FormControlEventType::Lookup)]
+    public static void AssetParameters_AssetMoveJournalName_ES_OnLookup(FormControl sender, FormControlEventArgs e)
+    {
+        QueryBuildDataSource    qbds;
+        Query                   query = new Query();
+
+        SysTableLookup sysTableLookup = SysTableLookup::newParameters(tableNum(LedgerJournalName), sender);
+
+        sysTableLookup.addLookupfield(fieldNum(LedgerJournalName, JournalName));
+        sysTableLookup.addLookupfield(fieldNum(LedgerJournalName, Name));
+
+        qbds = query.addDataSource(tableNum(LedgerJournalName));
+        qbds.addRange(fieldNum(LedgerJournalName, JournalType)).value(queryValue(LedgerJournalType::Assets));
+
+        sysTableLookup.parmQuery(query);
+        sysTableLookup.performFormLookup();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>AssetParameters_AssetMgmtProjExpCatId_OnLookup</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="e"></param>
+    [FormControlEventHandler(formControlStr(AssetParameters, AssetParameters_AssetMgmtProjExpCatId), FormControlEventType::Lookup)]
+    public static void AssetParameters_AssetMgmtProjExpCatId_OnLookup(FormControl sender, FormControlEventArgs e)
+    {
+       
+        QueryBuildDataSource    qbds;
+        Query                   query = new Query();
+
+        SysTableLookup sysTableLookup = SysTableLookup::newParameters(tableNum(ProjCategory), sender);
+
+        sysTableLookup.addLookupfield(fieldNum(ProjCategory, CategoryId));
+        sysTableLookup.addLookupfield(fieldNum(ProjCategory, CategoryGroupId));
+        sysTableLookup.addLookupfield(fieldNum(ProjCategory, CategoryType));
+
+        qbds = query.addDataSource(tableNum(ProjCategory));
+        qbds.addRange(fieldNum(ProjCategory, CategoryType)).value(queryValue(ProjCategoryType::Cost));
+
+        sysTableLookup.parmQuery(query);
+        sysTableLookup.performFormLookup();
+        
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

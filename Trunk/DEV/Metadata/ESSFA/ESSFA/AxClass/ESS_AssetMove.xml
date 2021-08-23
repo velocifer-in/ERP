@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxClass xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+	<Name>ESS_AssetMove</Name>
+	<SourceCode>
+		<Declaration><![CDATA[
+class  ESS_AssetMove extends AssetSplit
+{
+    AssetId         assetIdMove;
+    TransDate       assetDate;
+    ReasonComment   assetComment;
+
+    DialogField     dialogAssetId;
+    DialogField     dialogAssetDate;
+    DialogField     dialogAssetReason;
+
+    boolean         promptAssetId;
+
+    AssetTable      assetTable;
+    AssetTable      assetTableNew;
+
+    FormDataSource  assetListSource;
+    AssetList_ES       assetList;
+    Amount          selectedAmt;
+
+
+}
+]]></Declaration>
+		<Methods>
+			<Method>
+				<Name>assetTableNew</Name>
+				<Source><![CDATA[
+    AssetTable assetTableNew()
+    {
+        return assetTableNew;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>dialog</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///    Creates and instance of a class that contains the methods that are described by the
+    ///    <c>RunBaseDialogable</c> interface.
+    /// </summary>
+    /// <returns>
+    ///    A class that contains the methods that are described by the <c>RunBaseDialogable</c> interface.
+    /// </returns>
+    /// <remarks>
+    ///    A dialog box can be either built by using the <c>Dialog</c> class or by using a class that is
+    ///    created in the AOT.
+    /// </remarks>
+    Object dialog()
+    {
+        Dialog              dialog;
+        dialog              = new DialogRunbase("Move fixed asset",this);                 // Move asset
+        dialogAssetId       = dialog.addField(extendedTypeStr(AssetId),"@SYS67468");      // new asset account
+        dialogAssetDate     = dialog.addField(extendedTypeStr(TransDate), "Date");        // new asset date
+        dialogAssetReason   = dialog.addField(extendedTypeStr(ReasonComment), "Reason");  // new reason code
+
+        return dialog;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>getFromDialog</Name>
+				<Source><![CDATA[
+    boolean getFromDialog()
+    {
+        assetId = dialogAssetId.value();
+        assetDate = dialogAssetDate.value();
+        assetComment = dialogAssetReason.value();
+
+        return true;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>pack</Name>
+				<Source><![CDATA[
+    public container pack()
+    {
+        return conNull();
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmAssetList</Name>
+				<Source><![CDATA[
+    public AssetList_ES parmAssetList(AssetList_ES _assetList = assetList)
+    {
+        assetList = _assetList;
+
+        return assetList;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmAssetListSource</Name>
+				<Source><![CDATA[
+    public FormDataSource parmAssetListSource(FormDataSource _assetListSource)
+    {
+        assetListSource = _assetListSource;
+
+        return assetListSource;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmAssetTable</Name>
+				<Source><![CDATA[
+    public AssetTable parmAssetTable(AssetTable _assetTable = assetTable)
+    {
+        assetTable = _assetTable;
+
+        return assetTable;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>run</Name>
+				<Source><![CDATA[
+    /// <summary>
+    ///    Contains the code that does the actual job of the class.
+    /// </summary>
+    void run()
+    {
+        AssetList_ES               assetListSum;
+        AssetList_ES               assetListInc;
+        AssetTrans              assetTrans;
+        MenuFunction            menuFunction;
+        FormRun                 formRun;
+        MultiSelectionHelper    helper;
+        Counter                 i;
+        Args                    assetArgs;
+        Amount                  totalValue;
+        AssetSplit              assetSplit;
+        #DEFINE.Val("Move")
+
+        ttsbegin;
+        helper = MultiSelectionHelper::construct();
+        helper.parmDatasource(assetListSource);
+
+        assetListInc = helper.getFirst();
+
+        while (assetListInc)
+        {
+            i++;
+            if(!assetListInc.Stopped)
+        selectedAmt += assetListInc.totalCost();
+
+            assetListInc = helper.getNext();
+        }
+
+        totalValue = AssetList_ES::totalAssetListValue(assetTable.AssetId);
+
+        assetSplit = new AssetSplit();
+        assetSplit.initParmDefault();//need to rectify din error(assetTable.assetBookCurrent());
+        assetSplit.parmAssetId(assetId);
+        assetSplit.parmBookId(AssetTable::find(assetId).assetBookCurrent().BookId);
+        assetSplit.parmJournalName(AssetParameters::find().AssetTransJourName_ES);
+        assetSplit.parmPercent((selectedAmt/totalValue)*100);
+        assetSplit.parmTransDate(assetDate);
+        assetSplit.run();
+        //  journalNum = assetSplit.getLedgerJournalId();(need to rectify)
+
+        if (journalNum)
+        {
+            assetListInc = helper.getFirst();
+
+            while (assetListInc)
+            {
+                i++;
+                if(!assetListInc.Stopped)
+                {
+                    assetListInc.selectForUpdate(true);
+                    assetListInc.Status          = AssetStatus_ES::Moved;
+                    assetListInc.TransferReason       = assetComment;
+                    assetListInc.ToAssetId              = assetId;
+
+                    assetListInc.MovementRef = journalNum;
+                    assetListInc.update();
+                }
+                assetListInc = helper.getNext();
+            
+            }
+        }
+
+        ttscommit;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>unpack</Name>
+				<Source><![CDATA[
+    public boolean unpack(container packedClass)
+    {
+        return true;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>validate</Name>
+				<Source><![CDATA[
+    boolean validate(Object _calledFrom = null)
+    {
+        boolean     ret = true;
+        AssetTrans  assetTrans;
+
+        if (!assetId)
+        {
+            ret = checkFailed("@SYS67760");
+        }
+
+        if (assetId == assetTable.AssetId)
+        {
+            ret = checkFailed(strFmt("@SYS67761",assetId));
+        }
+
+        select reverse assetTrans where assetTrans.AssetId == assetTable.AssetId;
+
+        if (assetTrans.TransDate > systemDateGet())
+        {
+            ret = checkFailed(strFmt("Transaction exists in a later date for asset %1", assetTable.AssetId));
+        }
+        return ret;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>description</Name>
+				<Source><![CDATA[
+    client server static public ClassDescription description()
+    {
+        return "Move fixed asset";
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>main</Name>
+				<Source><![CDATA[
+    // AOSRunMode::Client
+    client static void main(Args args)
+    {
+        ESS_AssetMove       assetMove;
+        FormDataSource  formDataSource;
+        FormRun         callerForm;
+        AssetList_ES       assetList;
+
+        if (!args || args.dataset() != tableNum(AssetList_ES))
+        throw error(strFmt("@SYS25516",AssetCopy::description()));
+
+        assetMove = new ESS_AssetMove();
+
+        if (args.record().TableId == tableNum(AssetList_ES))
+        {
+            assetList = args.record();
+        }
+
+        if (assetMove.prompt())
+        {
+            assetMove.parmAssetListSource(args.record().dataSource());
+            assetMove.parmAssetTable(AssetTable::find(assetList.AssetId));
+            assetMove.run();
+
+            callerForm = args.caller() as FormRun;
+
+            if (callerForm != null && callerForm.args() != null)
+            {
+                callerForm.args().lookupRecord(assetMove.assetTableNew());
+            }
+
+            formDataSource = args.record().dataSource();
+            formDataSource.research(false);
+        }
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+	</SourceCode>
+</AxClass>

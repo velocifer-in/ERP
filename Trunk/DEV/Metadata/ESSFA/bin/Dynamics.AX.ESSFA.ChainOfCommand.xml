@@ -1,0 +1,5 @@
+<ChainOfCommand>
+  <ExtensionClass Name="LedgerJournalTablefrm_Extension" ExtensionTarget="Form.LedgerJournalTable" ExtensionTargetType="FormTypeId">
+    <Method ActualExtensionTarget="Form.LedgerJournalTable" IsStatic="False" CocMethodDelegateElementOwner="LedgerJournalTable" IsFormNestedTargetConcept="False" CoCRootFormName="" CoCNestedElementKind="Class" IsCommonBaseMethodTarget="False" IsReplacementMethod="False">enableButtonsActive</Method>
+  </ExtensionClass>
+</ChainOfCommand>

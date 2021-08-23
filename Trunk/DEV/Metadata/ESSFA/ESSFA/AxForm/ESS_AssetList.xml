@@ -1,0 +1,1412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AxForm xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="Microsoft.Dynamics.AX.Metadata.V6">
+	<Name>ESS_AssetList</Name>
+	<SourceCode>
+		<Methods xmlns="">
+			<Method>
+				<Name>classDeclaration</Name>
+				<Source><![CDATA[
+[Form]
+public class ESS_AssetList extends FormRun
+{
+    AssetTable                      assetTable;
+    boolean                         isWritten;
+    AssetAdditionNum                newAdditionNumber;
+
+    AssetTable                      assetTableSelect;
+
+    //DimensionDefaultingController   dimensionDefaultingController;
+
+
+   
+
+   
+
+}
+]]></Source>
+			</Method>
+			<Method>
+				<Name>canClose</Name>
+				<Source><![CDATA[
+    public boolean canClose()
+    {
+        boolean ret;
+        if(AssetList_ES.RecId != 0)
+        {
+            AssetList_ES_ds.executeQuery();
+        }
+        if (AssetList_ES_ds.remainingBalance() == 0 || AssetList_ES.RecId == 0)
+        {
+             ret = super();
+        }
+
+        return ret;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>init</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Checks whether the form is called from the <c>AssetTable</c> form.
+    /// </summary>
+    /// <exception cref="Exception::Error">
+    /// This method requires an active buffer.
+    /// </exception>
+
+    public void init()
+    {
+        ;
+        assetTableSelect    = element.args().record();
+
+
+        if (element.args().record())
+        {
+            if (!element.args() || element.args().dataset() != tablenum(AssetTable))
+            throw error(strfmt("@SYS25516", element.name()));
+        }
+
+        super();
+        this.UpdateDelJournalId();
+        //commented by din
+       // dimensionDefaultingController = DimensionDefaultingController::constructInTabWithValues(true, true, true, 0, this, TabFinancialDimensions, "@SYS138487");
+       // dimensionDefaultingController.parmAttributeValueSetDataSource(AssetList_ds, fieldStr(AssetList, DefaultDimension));
+        //dimensionDefaultingController.pageActivated();
+        //commented by din
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmAssetTable</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Assigns or retrieves the <c>AssetTable</c> table buffer.
+    /// </summary>
+    /// <param name="_assetTable">
+    /// The <c>AssetTable</c> buffer to initialize the associated variable; optional.
+    /// </param>
+    /// <returns>
+    /// The current value of the associated variable.
+    /// </returns>
+
+    public AssetTable parmAssetTable(AssetTable _assetTable = assetTable)
+    {
+        ;
+        assetTable = _assetTable;
+        return assetTable;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmIsWritten</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Assigns or retrieves the variable <c>isWritten</c>.
+    /// </summary>
+    /// <param name="_isWritten">
+    /// The Boolean variable to initialize the associated <c>isWritten</c> variable; optional.
+    /// </param>
+    /// <returns>
+    /// The current value of the assocated variable.
+    /// </returns>
+
+    public boolean parmIsWritten(boolean _isWritten = isWritten)
+    {
+        ;
+        isWritten = _isWritten;
+        return isWritten;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>parmNewAdditionNumber</Name>
+				<Source><![CDATA[
+    /// <summary>
+    /// Assigns or retrieves the variable <c>newAdditionNumber</c>.
+    /// </summary>
+    /// <param name="_newAdditionNumber">
+    /// The <c>AssetAdditionNum</c> extended data type to initialize the associated <c>newAdditionNumber</c> variable; optional.
+    /// </param>
+    /// <returns>
+    /// The current value of the associated variable.
+    /// </returns>
+
+
+    public AssetAdditionNum parmNewAdditionNumber(AssetAdditionNum _newAdditionNumber = newAdditionNumber)
+    {
+        ;
+        newAdditionNumber = _newAdditionNumber;
+        return newAdditionNumber;
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>populateAssetLists</Name>
+				<Source><![CDATA[
+    void populateAssetLists()
+    {
+        Dialog                  dialog = new Dialog("Asset lists creation");
+        DialogField             dialogQty, dialogValue;
+        int                     listQty, assetPrice, i;
+
+        AssetList_ES               assetListIns;
+
+        dialogQty   = dialog.addFieldValue(extendedTypeStr(PurchQty), listQty,   'Quantity');
+        dialogValue = dialog.addFieldValue(extendedTypeStr(Price),    assetPrice,'Asset value');
+        if (dialog.run())
+        {
+            listQty    = dialogQty.value();
+            assetPrice = dialogValue.value();
+        }
+
+        if (listQty != 0)
+        {
+            assetListIns.createAssetList(assetTableSelect, listQty, assetPrice);
+        }
+    }
+
+]]></Source>
+			</Method>
+			<Method>
+				<Name>UpdateDelJournalId</Name>
+				<Source><![CDATA[
+    private void UpdateDelJournalId()
+    {
+        AssetList_ES AssetListloc;
+        LedgerJournalTable LedgerJournalTable;
+        ttsBegin;
+        update_recordSet AssetListloc setting MovementRef = ''
+    notExists join LedgerJournalTable where LedgerJournalTable.JournalNum == AssetListloc.MovementRef;
+        ttsCommit;
+    }
+
+]]></Source>
+			</Method>
+		</Methods>
+		<DataSources xmlns="">
+			<DataSource>
+				<Name>AssetList_ES</Name>
+				<Methods>
+					<Method>
+						<Name>remainingQty</Name>
+						<Source><![CDATA[
+        display AssetAdditionQty remainingQty()
+        {
+            return this.totalAssetQty() - this.totalListQty();
+        }
+
+]]></Source>
+					</Method>
+					<Method>
+						<Name>totalAssetQty</Name>
+						<Source><![CDATA[
+        display AssetAdditionQty totalAssetQty()
+        {
+            AssetTable   _AssetTable;
+
+            select _AssetTable
+        where _AssetTable.AssetId == AssetList_ES.AssetId;
+
+            return _AssetTable.Quantity;
+        }
+
+]]></Source>
+					</Method>
+					<Method>
+						<Name>totalListQty</Name>
+						<Source><![CDATA[
+        display AssetAdditionQty totalListQty()
+        {
+            AssetList_ES           assetListValue;
+            AssetAdditionQty    totalValue;
+
+            while select AssetId, Quantity, UnitCost from assetListValue
+          where assetListValue.AssetId == AssetList_ES.AssetId &&
+                assetListValue.Status != AssetStatus_ES::Closed &&
+                assetListValue.Stopped == NoYes::No
+            {
+                totalValue += assetListValue.Quantity;
+            }
+            return totalValue;
+        }
+
+]]></Source>
+					</Method>
+					<Method>
+						<Name>validateWrite</Name>
+						<Source><![CDATA[
+        public boolean validateWrite()
+        {
+            AssetList_ES   _AssetList;
+            AssetTable  _AssetTable = AssetTable::find(AssetList_ES.AssetId);
+            boolean     ret;
+
+            ret = super();
+
+            select sum(Quantity) from _AssetList
+        where _AssetList.AssetId == AssetList_ES.AssetId
+            && _AssetList.RecId    != AssetList_ES.RecId;
+
+            if((_AssetList.Quantity + AssetList_ES.Quantity) > _AssetTable.Quantity)
+        ret = ret && checkFailed(strFmt("Total Asset List Quantity Should not exceed Asset Quantity : %1", _AssetTable.Quantity));
+
+
+            return ret;
+        }
+
+]]></Source>
+					</Method>
+					<Method>
+						<Name>active</Name>
+						<Source><![CDATA[
+        public int active()
+        {
+            int ret;
+
+            ret = super();
+            if(AssetList_ES.LocId != AssetParameters::find().AssetLocId_ES || AssetList_ES.MovementRef != '')
+        //commented by din
+          ///      AssetMove.enabled(false);//AssetMgmt_Prem
+         //  else
+       // AssetMove.enabled(true);
+            //commented by din
+            /*EditRecordButton.enabled((AssetList.DefaultLocation == AssetTransferJourPost::currentAssetLocation(AssetList.AssetListId)) ?
+                              true : false);*/
+            if(AssetList_ES.Stopped || AssetParameters::find().AssetLocId_ES != AssetList_ES.LocId)
+        AssetList_ES_ds.allowEdit(false);
+            else
+        AssetList_ES_ds.allowEdit(true);
+
+            return ret;
+        }
+
+]]></Source>
+					</Method>
+					<Method>
+						<Name>remainingBalance</Name>
+						<Source><![CDATA[
+        display AmountMST remainingBalance()
+        {
+            return this.totalAcquisitionValue() - this.totalAssetValue();
+        }
+
+]]></Source>
+					</Method>
+					<Method>
+						<Name>totalAssetValue</Name>
+						<Source><![CDATA[
+        display AmountMST totalAssetValue()
+        {
+            AssetList_ES       assetListValue;
+            AmountMST       totalValue;
+
+            while select AssetId, Quantity, UnitCost from assetListValue
+          where assetListValue.AssetId == AssetList_ES.AssetId &&
+                assetListValue.Status != AssetStatus_ES::Closed &&
+                assetListValue.Stopped == NoYes::No
+            {
+                totalValue += assetListValue.Quantity * assetListValue.UnitCost;
+            }
+            return totalValue;
+        }
+
+]]></Source>
+					</Method>
+					<Method>
+						<Name>totalAcquisitionValue</Name>
+						<Source><![CDATA[
+        // BP deviation documented
+        display AmountMST totalAcquisitionValue()
+        {
+            AssetTrans      assetTransValue;
+            AssetBook       assetBook;
+            AssetBookTable  assetBookTable;
+
+            select AssetId, BookId from assetBook
+                where assetBook.AssetId == AssetList_ES.AssetId
+           join BookId, CurrentOperationsTax from assetBookTable
+                where assetBookTable.BookId == assetBook.BookId &&
+                      assetBookTable.CurrentOperationsTax == CurrentOperationsTax::Current
+            join sum(AmountMST) from assetTransValue
+                where assetTransValue.AssetId == AssetList_ES.AssetId &&
+                      assetTransValue.BookId  == assetBookTable.BookId &&
+                      (assetTransValue.TransType == AssetTransType::Acquisition ||
+                      assetTransValue.TransType == assetTransType::AcquisitionAdj);
+
+            return assetTransValue.AmountMST;
+        }
+
+]]></Source>
+					</Method>
+					<Method>
+						<Name>init</Name>
+						<Source><![CDATA[
+        /// <summary>
+        /// Initializes the <c>AssetTable</c> and <c>isWritten</c> variables.
+        /// </summary>
+
+        public void init()
+        {
+            ;
+            super();
+
+            // Set class variable assetTable by calling its parm method
+            // and passing record args.
+            element.parmAssetTable(element.args().record());
+
+            // Set isWritten flag to false at the time of initialization
+            element.parmIsWritten(false);
+        }
+
+]]></Source>
+					</Method>
+					<Method>
+						<Name>initValue</Name>
+						<Source><![CDATA[
+        /// <summary>
+        /// Generates new addition number for the selected fixed asset and sets its value.
+        /// </summary>
+        /// <remarks>
+        /// The super method calls the initValue method of the data source table.
+        /// </remarks>
+        public void initValue()
+        {
+            
+            super();
+            AssetList_ES.ListId = AssetList_ES.getNextListId();
+            AssetList_ES.Name = AssetTable::find(AssetList_ES.AssetId).Name + subStr(AssetList_ES.ListId,strLen(AssetList_ES.ListId)-3,4);
+            //AssetMgmt_Prem
+            AssetList_ES.AcquisitionDate = AssetBookTbl_Extension::findByAssetId(AssetList_ES.AssetId).AcquisitionDate;
+            AssetList_ES.DefaultLocation = AssetParameters::find().AssetLocId_ES;
+            AssetList_ES.LocType  = AssetLocType_ES::Location;
+            if(AssetBookTbl_Extension::findByAssetId(AssetList_ES.AssetId).DefaultDimension &&
+       AssetLocation_ES::find(AssetList_ES.DefaultLocation, false).DimensionDefault)
+        AssetList_ES.DefaultDimension = AssetList_ES::mergeDimension(AssetBookTbl_Extension::findByAssetId(AssetList_ES.AssetId).DefaultDimension,
+                                                               AssetLocation_ES::find(AssetList_ES.DefaultLocation, false).DimensionDefault);
+
+            if(!AssetBookTbl_Extension::findByAssetId(AssetList_ES.AssetId).DefaultDimension &&
+       AssetLocation_ES::find(AssetList_ES.DefaultLocation, false).DimensionDefault)
+        AssetList_ES.DefaultDimension = AssetLocation_ES::find(AssetList_ES.DefaultLocation, false).DimensionDefault;
+
+            if(AssetBookTbl_Extension::findByAssetId(AssetList_ES.AssetId).DefaultDimension &&
+       !AssetLocation_ES::find(AssetList_ES.DefaultLocation, false).DimensionDefault)
+        AssetList_ES.DefaultDimension = AssetBookTbl_Extension::findByAssetId(AssetList_ES.AssetId).DefaultDimension;
+            //
+        }
+
+]]></Source>
+					</Method>
+					<Method>
+						<Name>write</Name>
+						<Source><![CDATA[
+        /// <summary>
+        /// Assigns the <c>isWritten</c> variable to false and the <c>newAdditionNumber</c> to an empty string.
+        /// </summary>
+        /// <remarks>
+        /// This method executes when the record is saved.
+        /// </remarks>
+
+        public void write()
+        {
+            ;
+            super();
+            // set the flags
+            element.parmIsWritten(false);
+            element.parmNewAdditionNumber('');
+        }
+
+]]></Source>
+					</Method>
+					<Method>
+						<Name>create</Name>
+						<Source><![CDATA[
+        /// <summary>
+        /// Validates whether the new row should be created.
+        /// </summary>
+        /// <param name="_append">
+        /// A Boolean variable that specifies whether the row should be inserted.
+        /// If true insert after the current record. if false insert before the current record.
+        /// </param>
+        /// <remarks>
+        /// This method throws an error message if the new record should not be created.
+        /// </remarks>
+
+        public void create(boolean _append = false)
+        {
+            ;
+            if(element.parmIsWritten() || element.parmNewAdditionNumber())
+        checkFailed("@SYS114942");
+            else
+        super(_append);
+        }
+
+]]></Source>
+					</Method>
+					<Method>
+						<Name>delete</Name>
+						<Source><![CDATA[
+        /// <summary>
+        /// Assigns the <c>isWritten</c> to false and the <c>newAdditionNumber</c> variable to empty string.
+        /// </summary>
+        /// <remarks>
+        /// Executes every time when the record is deleted.
+        /// This method is overridden because all flags should be cleared if the user deletes the new record without saving it.
+        /// </remarks>
+
+        public void delete()
+        {
+
+            if (!AssetTransferJourPost_ES::exists(AssetList_ES.ListId))
+            {
+                super();
+
+                // Set the flags
+                element.parmIsWritten(false);
+                element.parmNewAdditionNumber('');
+            }
+            else
+            {
+                error("Transactions exists againt the asset list and hence cannot be deleted");
+            }
+        }
+
+]]></Source>
+					</Method>
+				</Methods>
+				<Fields />
+			</DataSource>
+		</DataSources>
+		<DataControls xmlns="">
+			<Control>
+				<Name>NewButton</Name>
+				<Type>CommandButton</Type>
+				<Methods>
+					<Method>
+						<Name>clicked</Name>
+						<Source><![CDATA[
+        /// <summary>
+        ///
+        /// </summary>
+        public void clicked()
+        {
+            super();
+            AssetList_ES_ds.write();
+            AssetList_ES_ds.research(true);
+            element.reload();
+        }
+
+]]></Source>
+					</Method>
+				</Methods>
+			</Control>
+		</DataControls>
+		<Members xmlns="" />
+	</SourceCode>
+	<DataSources>
+		<AxFormDataSource xmlns="">
+			<Name>AssetList_ES</Name>
+			<Table>AssetList_ES</Table>
+			<Fields>
+				<AxFormDataSourceField>
+					<DataField>AcquisitionDate</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>Allocation</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>AssetId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>AssetSuspended</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>AssetUserGroup</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>BarCode</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>Comments</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>DataAreaId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>DefaultDimension</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>DefaultLocation</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>EmployeeResponsible</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>FATransferFate</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>FATransferJournal</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>ListId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>LocId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>LocType</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>Make</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>Model</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>ModelYear</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>MovementRef</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>Name</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>Partition</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>PaymentDate</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>PaymentId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>PODate</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>PostingDate</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>ProjId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>Quantity</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>RecId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>Serial</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>Status</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>Stopped</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>TableId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>TechnicalInfo</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>ToAssetId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>TransferReason</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>TransferRefId</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>UnitCost</DataField>
+				</AxFormDataSourceField>
+				<AxFormDataSourceField>
+					<DataField>UOM</DataField>
+				</AxFormDataSourceField>
+			</Fields>
+			<ReferencedDataSources />
+			<InsertIfEmpty>No</InsertIfEmpty>
+			<DataSourceLinks />
+			<DerivedDataSources />
+		</AxFormDataSource>
+	</DataSources>
+	<Design>
+		<Pattern xmlns="">SimpleListDetails</Pattern>
+		<PatternVersion xmlns="">1.3</PatternVersion>
+		<Style xmlns="">SimpleListDetails</Style>
+		<Controls xmlns="">
+			<AxFormControl xmlns=""
+				i:type="AxFormActionPaneControl">
+				<Name>FormActionPaneControl1</Name>
+				<Type>ActionPane</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl xmlns=""
+						i:type="AxFormActionPaneTabControl">
+						<Name>ActionPaneHeader</Name>
+						<Type>ActionPaneTab</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<Controls>
+							<AxFormControl xmlns=""
+								i:type="AxFormButtonGroupControl">
+								<Name>MaintainGroup</Name>
+								<Type>ButtonGroup</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<Controls>
+									<AxFormControl xmlns=""
+										i:type="AxFormCommandButtonControl">
+										<Name>EditRecordButton</Name>
+										<AutoDeclaration>Yes</AutoDeclaration>
+										<HelpText>Edit the Selected fixed asset list</HelpText>
+										<NeededPermission>Update</NeededPermission>
+										<Type>CommandButton</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<Command>EditRecord</Command>
+										<Text>Edit</Text>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormMenuFunctionButtonControl">
+										<Name>EditDetailsButton</Name>
+										<AutoDeclaration>Yes</AutoDeclaration>
+										<HelpText>Eit the selected fixed asset list</HelpText>
+										<Type>MenuFunctionButton</Type>
+										<Visible>No</Visible>
+										<FormControlExtension
+											i:nil="true" />
+										<CopyCallerQuery>Yes</CopyCallerQuery>
+										<FormViewOption>Details</FormViewOption>
+										<OpenMode>Edit</OpenMode>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormCommandButtonControl">
+										<Name>DeleteButton</Name>
+										<HelpText>Delete the selected fixed asset list</HelpText>
+										<NeededPermission>Delete</NeededPermission>
+										<Type>CommandButton</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<Command>Delete</Command>
+										<MultiSelect>Yes</MultiSelect>
+										<SaveRecord>No</SaveRecord>
+										<Text>Delete</Text>
+									</AxFormControl>
+								</Controls>
+								<Caption>Maintain</Caption>
+							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormButtonGroupControl">
+								<Name>NewGroup</Name>
+								<Type>ButtonGroup</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<Controls>
+									<AxFormControl xmlns=""
+										i:type="AxFormCommandButtonControl">
+										<Name>NewButton</Name>
+										<Type>CommandButton</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<Command>New</Command>
+										<Text>New</Text>
+									</AxFormControl>
+								</Controls>
+								<Caption>New</Caption>
+								<DataSource>AssetList_ES</DataSource>
+							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormButtonGroupControl">
+								<Name>FunctionsGroup</Name>
+								<Type>ButtonGroup</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<Controls>
+									<AxFormControl xmlns=""
+										i:type="AxFormButtonControl">
+										<Name>GenerateAssetList</Name>
+										<Type>Button</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<MultiSelect>No</MultiSelect>
+										<Text>Populate Asset Lit</Text>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormMenuFunctionButtonControl">
+										<Name>AssetMove</Name>
+										<AutoDeclaration>Yes</AutoDeclaration>
+										<Type>MenuFunctionButton</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<MenuItemName>ESS_AssetMove</MenuItemName>
+										<MenuItemType>Action</MenuItemType>
+										<MultiSelect>Yes</MultiSelect>
+										<Text>Move asset</Text>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormMenuButtonControl">
+										<Name>Copy</Name>
+										<Type>MenuButton</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<Controls>
+											<AxFormControl xmlns=""
+												i:type="AxFormButtonControl">
+												<Name>AssetCopy</Name>
+												<Type>Button</Type>
+												<FormControlExtension
+													i:nil="true" />
+												<Text>Asset</Text>
+											</AxFormControl>
+											<AxFormControl xmlns=""
+												i:type="AxFormButtonControl">
+												<Name>AssetListCopy</Name>
+												<Type>Button</Type>
+												<FormControlExtension
+													i:nil="true" />
+												<Text>Asset list</Text>
+											</AxFormControl>
+										</Controls>
+										<MultiSelect>No</MultiSelect>
+										<Text>Copy</Text>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormButtonControl">
+										<Name>CreateResource</Name>
+										<Type>Button</Type>
+										<Visible>No</Visible>
+										<FormControlExtension
+											i:nil="true" />
+										<MultiSelect>No</MultiSelect>
+										<Text>Create resource</Text>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormButtonControl">
+										<Name>TransferLocation</Name>
+										<Type>Button</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<MultiSelect>No</MultiSelect>
+										<Text>Transfer location</Text>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormMenuFunctionButtonControl">
+										<Name>FAssetStockHistory</Name>
+										<Type>MenuFunctionButton</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<DataSource>AssetList_ES</DataSource>
+										<MenuItemName>ESS_FAssetStockHistory</MenuItemName>
+										<MultiSelect>Yes</MultiSelect>
+										<Text>Physical stock</Text>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormMenuFunctionButtonControl">
+										<Name>FAssetTransferHistory</Name>
+										<Type>MenuFunctionButton</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<DataSource>AssetList_ES</DataSource>
+										<MenuItemName>ESS_FAssetTransferHistory</MenuItemName>
+										<MultiSelect>No</MultiSelect>
+									</AxFormControl>
+								</Controls>
+								<Caption>Functions</Caption>
+							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormButtonGroupControl">
+								<Name>ListGroup</Name>
+								<AutoDeclaration>Yes</AutoDeclaration>
+								<Type>ButtonGroup</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<Controls>
+									<AxFormControl xmlns=""
+										i:type="AxFormCommandButtonControl">
+										<Name>FormCommandButtonControl1</Name>
+										<HelpText>Refresh</HelpText>
+										<Type>CommandButton</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<Command>Refresh</Command>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormCommandButtonControl">
+										<Name>ExportToExcelButton</Name>
+										<Type>CommandButton</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<Command>ExportToMicrosoftExcel</Command>
+									</AxFormControl>
+								</Controls>
+								<Caption>List</Caption>
+							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormButtonGroupControl">
+								<Name>AttachementGroup</Name>
+								<Type>ButtonGroup</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<Controls>
+									<AxFormControl xmlns=""
+										i:type="AxFormCommandButtonControl">
+										<Name>AttachmentsButton</Name>
+										<Type>CommandButton</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<Command>DocumentHandling</Command>
+										<Text>Attachments</Text>
+									</AxFormControl>
+								</Controls>
+								<Caption>Attachments</Caption>
+							</AxFormControl>
+						</Controls>
+						<Caption>Fixed asset list</Caption>
+					</AxFormControl>
+				</Controls>
+			</AxFormControl>
+			<AxFormControl xmlns=""
+				i:type="AxFormGroupControl">
+				<Name>Formcontrolgrouptest</Name>
+				<HeightMode>SizeToAvailable</HeightMode>
+				<Type>Group</Type>
+				<Visible>No</Visible>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl>
+						<Name>QuickFilterControlListStyleGrid</Name>
+						<Tags>Grid</Tags>
+						<WidthMode>SizeToAvailable</WidthMode>
+						<FormControlExtension>
+							<Name>QuickFilterControl</Name>
+							<ExtensionComponents />
+							<ExtensionProperties>
+								<AxFormControlExtensionProperty>
+									<Name>targetControlName</Name>
+									<Type>String</Type>
+								</AxFormControlExtensionProperty>
+								<AxFormControlExtensionProperty>
+									<Name>placeholderText</Name>
+									<Type>String</Type>
+								</AxFormControlExtensionProperty>
+								<AxFormControlExtensionProperty>
+									<Name>defaultColumnName</Name>
+									<Type>String</Type>
+								</AxFormControlExtensionProperty>
+							</ExtensionProperties>
+						</FormControlExtension>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormGridControl">
+						<Name>FormGridControl1</Name>
+						<AllowEdit>No</AllowEdit>
+						<Type>Grid</Type>
+						<WidthMode>SizeToContent</WidthMode>
+						<FormControlExtension
+							i:nil="true" />
+						<Controls />
+						<MultiSelect>No</MultiSelect>
+						<ShowRowLabels>No</ShowRowLabels>
+						<Style>List</Style>
+					</AxFormControl>
+				</Controls>
+				<DataSource>AssetList_ES</DataSource>
+				<FrameType>None</FrameType>
+				<Style>SidePanel</Style>
+			</AxFormControl>
+			<AxFormControl xmlns=""
+				i:type="AxFormGroupControl">
+				<Name>Balances</Name>
+				<AllowEdit>No</AllowEdit>
+				<Pattern>FieldsFieldGroups</Pattern>
+				<PatternVersion>1.1</PatternVersion>
+				<Type>Group</Type>
+				<WidthMode>SizeToAvailable</WidthMode>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl xmlns=""
+						i:type="AxFormGroupControl">
+						<Name>TotalBalancesGroup</Name>
+						<AllowEdit>No</AllowEdit>
+						<Type>Group</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<Controls>
+							<AxFormControl xmlns=""
+								i:type="AxFormRealControl">
+								<Name>TotalAcqCost</Name>
+								<AllowEdit>No</AllowEdit>
+								<Type>Real</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<DataMethod>totalAcquisitionValue</DataMethod>
+								<DataSource>AssetList_ES</DataSource>
+								<Label>Acquisition value</Label>
+							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormRealControl">
+								<Name>ListTotal</Name>
+								<AllowEdit>No</AllowEdit>
+								<Type>Real</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<DataMethod>totalAssetValue</DataMethod>
+								<DataSource>AssetList_ES</DataSource>
+								<Label>Asset value</Label>
+							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormRealControl">
+								<Name>BalanceAmt</Name>
+								<AllowEdit>No</AllowEdit>
+								<Type>Real</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<DataMethod>remainingBalance</DataMethod>
+								<DataSource>AssetList_ES</DataSource>
+								<Label>Balance</Label>
+							</AxFormControl>
+						</Controls>
+						<Breakable>No</Breakable>
+						<Caption>Total</Caption>
+						<DataSource>AssetList_ES</DataSource>
+					</AxFormControl>
+					<AxFormControl xmlns=""
+						i:type="AxFormGroupControl">
+						<Name>TotalQtyBalances</Name>
+						<AllowEdit>No</AllowEdit>
+						<Type>Group</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<Controls>
+							<AxFormControl xmlns=""
+								i:type="AxFormRealControl">
+								<Name>TotalAssetQty</Name>
+								<AllowEdit>No</AllowEdit>
+								<Type>Real</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<DataMethod>totalAssetQty</DataMethod>
+								<DataSource>AssetList_ES</DataSource>
+								<Label>Total Asset Qty</Label>
+							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormRealControl">
+								<Name>ListTotalQty</Name>
+								<AllowEdit>No</AllowEdit>
+								<Type>Real</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<DataMethod>totalListQty</DataMethod>
+								<DataSource>AssetList_ES</DataSource>
+								<Label>Asset Qty</Label>
+							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormRealControl">
+								<Name>BalanceQty</Name>
+								<AllowEdit>No</AllowEdit>
+								<Type>Real</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<DataMethod>remainingQty</DataMethod>
+								<DataSource>AssetList_ES</DataSource>
+								<Label>Balance</Label>
+							</AxFormControl>
+						</Controls>
+						<Breakable>No</Breakable>
+						<Caption>Balances</Caption>
+						<DataSource>AssetList_ES</DataSource>
+					</AxFormControl>
+				</Controls>
+				<ColumnsMode>Fill</ColumnsMode>
+				<DataSource>AssetList_ES</DataSource>
+				<FrameType>None</FrameType>
+			</AxFormControl>
+			<AxFormControl xmlns=""
+				i:type="AxFormTabControl">
+				<Name>ESS_Tab</Name>
+				<Type>Tab</Type>
+				<FormControlExtension
+					i:nil="true" />
+				<Controls>
+					<AxFormControl xmlns=""
+						i:type="AxFormTabPageControl">
+						<Name>ESS_TabPageDetails</Name>
+						<AutoDeclaration>Yes</AutoDeclaration>
+						<Pattern>Custom</Pattern>
+						<Type>TabPage</Type>
+						<FormControlExtension
+							i:nil="true" />
+						<Controls>
+							<AxFormControl xmlns=""
+								i:type="AxFormGroupControl">
+								<Name>HeadderInfo</Name>
+								<Type>Group</Type>
+								<Visible>No</Visible>
+								<FormControlExtension
+									i:nil="true" />
+								<Controls>
+									<AxFormControl xmlns=""
+										i:type="AxFormStringControl">
+										<Name>HeaderTitle</Name>
+										<Skip>Yes</Skip>
+										<Type>String</Type>
+										<FormControlExtension
+											i:nil="true" />
+									</AxFormControl>
+								</Controls>
+								<Style>DetailTitleContainer</Style>
+							</AxFormControl>
+							<AxFormControl xmlns=""
+								i:type="AxFormTabControl">
+								<Name>HeaderDetailsTab</Name>
+								<Type>Tab</Type>
+								<FormControlExtension
+									i:nil="true" />
+								<Controls>
+									<AxFormControl xmlns=""
+										i:type="AxFormTabPageControl">
+										<Name>TabOverview</Name>
+										<Type>TabPage</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<Controls>
+											<AxFormControl xmlns=""
+												i:type="AxFormGridControl">
+												<Name>Grid_ESS</Name>
+												<Type>Grid</Type>
+												<FormControlExtension
+													i:nil="true" />
+												<Controls>
+													<AxFormControl xmlns=""
+														i:type="AxFormStringControl">
+														<Name>AssetList_ES_ListId</Name>
+														<Type>String</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>ListId</DataField>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+													<AxFormControl xmlns=""
+														i:type="AxFormStringControl">
+														<Name>AssetList_ES_AssetId</Name>
+														<Type>String</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>AssetId</DataField>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+													<AxFormControl xmlns=""
+														i:type="AxFormStringControl">
+														<Name>AssetList_ES_Name</Name>
+														<Type>String</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>Name</DataField>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+													<AxFormControl xmlns=""
+														i:type="AxFormDateControl">
+														<Name>AssetList_ES_AcquisitionDate</Name>
+														<Type>Date</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>AcquisitionDate</DataField>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+													<AxFormControl xmlns=""
+														i:type="AxFormComboBoxControl">
+														<Name>AssetList_ES_LocType</Name>
+														<Type>ComboBox</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>LocType</DataField>
+														<DataSource>AssetList_ES</DataSource>
+														<Items />
+													</AxFormControl>
+													<AxFormControl xmlns=""
+														i:type="AxFormStringControl">
+														<Name>AssetList_ES_ProjId</Name>
+														<Type>String</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>ProjId</DataField>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+													<AxFormControl xmlns=""
+														i:type="AxFormStringControl">
+														<Name>AssetList_ES_LocId</Name>
+														<Type>String</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>LocId</DataField>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+													<AxFormControl xmlns=""
+														i:type="AxFormRealControl">
+														<Name>AssetList_ES_UnitCost</Name>
+														<Type>Real</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>UnitCost</DataField>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+													<AxFormControl xmlns=""
+														i:type="AxFormRealControl">
+														<Name>AssetList_ES_Quantity</Name>
+														<Type>Real</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>Quantity</DataField>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+													<AxFormControl xmlns=""
+														i:type="AxFormRealControl">
+														<Name>Grid_M_TotalCost</Name>
+														<Type>Real</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataMethod>totalCost</DataMethod>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+													<AxFormControl xmlns=""
+														i:type="AxFormCheckBoxControl">
+														<Name>AssetList_ES_Stopped</Name>
+														<Type>CheckBox</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>Stopped</DataField>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+												</Controls>
+												<DataSource>AssetList_ES</DataSource>
+											</AxFormControl>
+										</Controls>
+										<Caption>OverView</Caption>
+										<DataSource>AssetList_ES</DataSource>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormTabPageControl">
+										<Name>TabGeneral</Name>
+										<Type>TabPage</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<Controls>
+											<AxFormControl xmlns=""
+												i:type="AxFormGroupControl">
+												<Name>Description</Name>
+												<Type>Group</Type>
+												<FormControlExtension
+													i:nil="true" />
+												<Controls>
+													<AxFormControl xmlns=""
+														i:type="AxFormStringControl">
+														<Name>Description_Name</Name>
+														<Type>String</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>Name</DataField>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+												</Controls>
+												<DataGroup>Description</DataGroup>
+												<DataSource>AssetList_ES</DataSource>
+											</AxFormControl>
+											<AxFormControl xmlns=""
+												i:type="AxFormGroupControl">
+												<Name>Acquisition</Name>
+												<Type>Group</Type>
+												<FormControlExtension
+													i:nil="true" />
+												<Controls>
+													<AxFormControl xmlns=""
+														i:type="AxFormDateControl">
+														<Name>Acquisition_AcquisitionDate</Name>
+														<Type>Date</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>AcquisitionDate</DataField>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+													<AxFormControl xmlns=""
+														i:type="AxFormRealControl">
+														<Name>Acquisition_UnitCost</Name>
+														<Type>Real</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>UnitCost</DataField>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+													<AxFormControl xmlns=""
+														i:type="AxFormRealControl">
+														<Name>Acquisition_Quantity</Name>
+														<Type>Real</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>Quantity</DataField>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+													<AxFormControl xmlns=""
+														i:type="AxFormStringControl">
+														<Name>Acquisition_UOM</Name>
+														<Type>String</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>UOM</DataField>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+													<AxFormControl xmlns=""
+														i:type="AxFormRealControl">
+														<Name>Acquisition_totalCost</Name>
+														<Type>Real</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataMethod>totalCost</DataMethod>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+												</Controls>
+												<DataGroup>Acquisition</DataGroup>
+												<DataSource>AssetList_ES</DataSource>
+											</AxFormControl>
+											<AxFormControl xmlns=""
+												i:type="AxFormGroupControl">
+												<Name>Reference</Name>
+												<Type>Group</Type>
+												<FormControlExtension
+													i:nil="true" />
+												<Controls>
+													<AxFormControl xmlns=""
+														i:type="AxFormStringControl">
+														<Name>Reference_Comments</Name>
+														<Type>String</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>Comments</DataField>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+												</Controls>
+												<DataGroup>Reference</DataGroup>
+												<DataSource>AssetList_ES</DataSource>
+											</AxFormControl>
+											<AxFormControl xmlns=""
+												i:type="AxFormGroupControl">
+												<Name>Inventory</Name>
+												<Type>Group</Type>
+												<FormControlExtension
+													i:nil="true" />
+												<Controls>
+													<AxFormControl xmlns=""
+														i:type="AxFormStringControl">
+														<Name>Inventory_BarCode</Name>
+														<Type>String</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>BarCode</DataField>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+												</Controls>
+												<DataGroup>Inventory</DataGroup>
+												<DataSource>AssetList_ES</DataSource>
+											</AxFormControl>
+											<AxFormControl xmlns=""
+												i:type="AxFormGroupControl">
+												<Name>Model</Name>
+												<Type>Group</Type>
+												<FormControlExtension
+													i:nil="true" />
+												<Controls>
+													<AxFormControl xmlns=""
+														i:type="AxFormStringControl">
+														<Name>Model_Make</Name>
+														<Type>String</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>Make</DataField>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+													<AxFormControl xmlns=""
+														i:type="AxFormStringControl">
+														<Name>Model_Model</Name>
+														<Type>String</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>Model</DataField>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+													<AxFormControl xmlns=""
+														i:type="AxFormStringControl">
+														<Name>Model_Serial</Name>
+														<Type>String</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>Serial</DataField>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+													<AxFormControl xmlns=""
+														i:type="AxFormStringControl">
+														<Name>Model_ModelYear</Name>
+														<Type>String</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>ModelYear</DataField>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+													<AxFormControl xmlns=""
+														i:type="AxFormStringControl">
+														<Name>Model_TechnicalInfo</Name>
+														<Type>String</Type>
+														<FormControlExtension
+															i:nil="true" />
+														<DataField>TechnicalInfo</DataField>
+														<DataSource>AssetList_ES</DataSource>
+													</AxFormControl>
+												</Controls>
+												<DataGroup>Model</DataGroup>
+												<DataSource>AssetList_ES</DataSource>
+											</AxFormControl>
+										</Controls>
+										<Columns>2</Columns>
+										<Caption>General</Caption>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormTabPageControl">
+										<Name>TabClosure</Name>
+										<Type>TabPage</Type>
+										<Visible>No</Visible>
+										<FormControlExtension
+											i:nil="true" />
+										<Controls />
+										<Caption>Closure</Caption>
+										<DataSource>AssetList_ES</DataSource>
+									</AxFormControl>
+									<AxFormControl xmlns=""
+										i:type="AxFormTabPageControl">
+										<Name>TabFinancialDimensions</Name>
+										<AutoDeclaration>Yes</AutoDeclaration>
+										<Type>TabPage</Type>
+										<FormControlExtension
+											i:nil="true" />
+										<Controls />
+										<Caption>Financial Dimensions</Caption>
+									</AxFormControl>
+								</Controls>
+							</AxFormControl>
+						</Controls>
+						<Style>DetailsFormDetails</Style>
+					</AxFormControl>
+				</Controls>
+				<Style>FastTabs</Style>
+			</AxFormControl>
+		</Controls>
+	</Design>
+	<Parts />
+</AxForm>
